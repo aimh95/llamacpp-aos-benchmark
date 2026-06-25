@@ -1,0 +1,19 @@
+# build artifacts
+build-android/
+cmake-build*/
+*.o
+*.a
+*.so
+
+# models (binary weights, placed manually)
+models/*.gguf
+!models/README.md
+
+# logs
+logs/*.log
+logs/*.json
+logs/*.txt
+!logs/.gitkeep
+
+# os / editor
+.DS_Store
