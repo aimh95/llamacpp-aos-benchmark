@@ -5,15 +5,36 @@ cmake-build*/
 *.a
 *.so
 
-# models (binary weights, placed manually)
-models/*.gguf
+# models (binary weights — kept locally, not tracked in git)
+**/*.gguf
+**/*.safetensors
+**/*.pth
+**/*.bin
+!models/*/README.md
 !models/README.md
+
+# python cache
+__pycache__/
+*.pyc
+*.pyo
 
 # logs
 logs/*.log
 logs/*.json
 logs/*.txt
 !logs/.gitkeep
+
+# device probe raw output (per-device dumps, regenerable)
+artifacts/device_probe/*/
+!artifacts/device_probe/.gitkeep
+
+# htp smoke raw output (per-run dumps, regenerable)
+artifacts/htp_smoke/*/
+!artifacts/htp_smoke/.gitkeep
+
+# snapdragon build/check/install raw output (per-run dumps, regenerable)
+artifacts/build_snapdragon/*/
+!artifacts/build_snapdragon/.gitkeep
 
 # os / editor
 .DS_Store

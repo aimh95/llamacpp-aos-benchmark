@@ -1,13 +1,11 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-: "${DEVICE_DIR:=/data/local/tmp/llamacpp-bench}"
-: "${THREADS:=4}"
-: "${PROMPT:=Hello, how are you?}"
+DEVICE_DIR="/data/local/tmp/llamacpp_cpu"
 
-adb shell "cd $DEVICE_DIR && LD_LIBRARY_PATH=$DEVICE_DIR ./llama-cli \
+adb shell "cd $DEVICE_DIR && ./llama-cli \
   -m model.gguf \
-  -t $THREADS \
+  -p 'Hello. Explain what llama.cpp is in one sentence.' \
   -n 64 \
-  -p \"$PROMPT\" \
-  --no-conversation"
+  -c 512 \
+  -t 4" | tee "logs/llama-cli_$(date +%Y%m%d_%H%M%S).log"

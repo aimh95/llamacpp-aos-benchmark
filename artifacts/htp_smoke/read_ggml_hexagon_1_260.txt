@@ -1,0 +1,260 @@
+#include <assert.h>
+#include <inttypes.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <time.h>
+
+#include <atomic>
+#include <chrono>
+#include <mutex>
+#include <thread>
+#include <cstddef>
+#include <stdexcept>
+#include <string>
+#include <sstream>
+#include <iomanip>
+#include <unordered_set>
+#include <unordered_map>
+#include <regex>
+#include <queue>
+#include <algorithm>
+
+#ifdef _WIN32
+#    include <sal.h>
+#else
+#    include <semaphore.h>
+#    include <unistd.h>
+#endif
+
+#pragma clang diagnostic ignored "-Wnested-anon-types"
+#pragma clang diagnostic ignored "-Wgnu-anonymous-struct"
+
+#include <AEEStdErr.h>
+#include <dspqueue.h>
+#include <rpcmem.h>
+
+#define GGML_COMMON_IMPL_CPP
+#include "ggml-backend-impl.h"
+#include "ggml-common.h"
+#include "ggml-hexagon.h"
+#include "ggml-impl.h"
+#include "ggml-quants.h"
+#include "htp-opnode.h"
+#include "htp-ops.h"
+#include "htp/matmul-ops.h"
+#include "htp_iface.h"
+#include "htp-drv.h"
+
+using intvec  = std::vector<int>;
+using uintvec = std::vector<unsigned int>;
+using u32vec  = std::vector<uint32_t>;
+
+static int    opt_arch    = 0; // autodetect
+static size_t opt_ndev    = 1;
+static size_t opt_nhvx    = 0; // use all
+static int    opt_nhmx    = 1; // when set, enable HMX; when 0, use HVX only
+static size_t opt_vmem    = HTP_OP_MAX_VMEM_DEFAULT;  // max available va space for buffer mappings
+static size_t opt_mbuf    = 1ul * 1024 * 1024 * 1024; // max buffer size
+static int    opt_etm     = 0;
+static int    opt_verbose = 0;
+static int    opt_profile = 0; // profiling mode (0-disabled, 1-basic, 2-pmu)
+static int    opt_hostbuf = 1; // hostbuf ON by default
+
+static int    opt_mm_select = 3; // 3 = HMX -> Tiled -> Flat -> CPU, 2 = Tiled -> Flat -> CPU, 1 = Flat -> CPU
+
+// Default PMU events, if profiling with PMU (mode=2) is enabled
+// See https://docs.qualcomm.com/doc/80-N2040-60/topic/pmu-events.html
+//     https://docs.qualcomm.com/doc/80-N2040-61/topic/hvx-pmu-events.html
+static u32vec opt_pmu_evt { 0x3, 0x111, 0x100, 0x105, 0x240, 0x256, 0x7D, 0x8C };
+
+// Enable all stages by default
+static int opt_opstage  = HTP_OPSTAGE_QUEUE | HTP_OPSTAGE_COMPUTE;
+static int opt_opbatch  = 1024; // max number of ops in a batch
+static int opt_opqueue  = 16;   // max number of pending batches
+static int opt_optrace  = 0;    // trace buffer size per thread (0 means default)
+static int opt_oppoll   = 0;    // polling for batch completions
+static int opt_opfusion = 1;    // enable/disable op fusion
+
+static std::regex* opt_opfilter = NULL; // regex of ops to not claim
+
+#define HEX_VERBOSE(...) \
+    if (opt_verbose) GGML_LOG_DEBUG(__VA_ARGS__)
+
+static const char * status_to_str(uint32_t status) {
+    switch (status) {
+        case HTP_STATUS_OK:
+            return "OK";
+        case HTP_STATUS_NO_SUPPORT:
+            return "NO-SUPPORT";
+        case HTP_STATUS_INVAL_PARAMS:
+            return "INVAL-PARAMS";
+        case HTP_STATUS_VTCM_TOO_SMALL:
+            return "VTCM-TOO-SMALL";
+        case HTP_STATUS_INTERNAL_ERR:
+            return "INTERNAL-ERROR";
+        default:
+            return "UNKNOWN";
+    }
+}
+
+// ** debug helpers
+
+static void ggml_hexagon_dump_op_exec(const std::string &sess_name, const htp_opnode & node, const uint32_t req_flags) {
+    if (!opt_verbose) return;
+
+    htp_opformat fmt(node);
+    GGML_LOG_DEBUG("ggml-hex: %s execute-op %s|%s|%s|%s|%s|%s|%s|flags 0x%x\n", sess_name.c_str(),
+                node.op_name().c_str(), fmt.names, fmt.dims, fmt.types, fmt.strides, fmt.buffs, fmt.kparams, req_flags);
+}
+
+static void ggml_hexagon_dump_op_supp(const std::string &sess_name, const struct ggml_tensor * op, bool supp) {
+    if (!opt_verbose) return;
+
+    htp_opformat fmt(htp_opformat(htp_opnode{const_cast<ggml_tensor*>(op), {}, HTP_OP_INVALID}));
+    GGML_LOG_DEBUG("ggml-hex: %s supports-op %s|%s|%s|%s|%s|%s|%s\n", sess_name.c_str(),
+                ggml_op_desc(op), fmt.names, fmt.dims, fmt.types, fmt.strides, fmt.buffs, supp ? "yes" : "no");
+}
+
+static const char * htp_event_name(uint16_t id) {
+    switch (id) {
+        case HTP_TRACE_EVT_DMA:            return "DMA";
+        case HTP_TRACE_EVT_HVX_COMP:       return "HVX_COMP";
+        case HTP_TRACE_EVT_HVX_A_QUANT:    return "HVX_A_QUANT";
+        case HTP_TRACE_EVT_HVX_A_PREP:     return "HVX_A_PREP";
+        case HTP_TRACE_EVT_HVX_W_DEQUANT:  return "HVX_W_DEQUANT";
+        case HTP_TRACE_EVT_HVX_W_PREP:     return "HVX_W_PREP";
+        case HTP_TRACE_EVT_HVX_O_PROC:     return "HVX_O_PROC";
+        case HTP_TRACE_EVT_HMX_COMP:       return "HMX_COMP";
+        default:                           return "UNKNOWN";
+    }
+}
+
+static void ggml_hexagon_dump_op_prof(const std::string &sess_name, const htp_opnode & node,
+                                      const htp_prof_desc & pd) {
+    if (!opt_profile) return;
+
+    uint32_t op_usec = pd.usecs;
+    uint32_t op_cycles = pd.cycles_stop - pd.cycles_start;
+    const uint32_t * pmu = pd.pmu;
+
+    char pmu_str[256] = "";
+    if (opt_profile == 2) {
+        static_assert(HTP_PROF_PMU_NCNT == 8, "current implementation assumes 8 PMU counters");
+        snprintf(pmu_str, sizeof(pmu_str), " pmu [%u,%u,%u,%u,%u,%u,%u,%u]",
+                pmu[0], pmu[1], pmu[2], pmu[3], pmu[4], pmu[5], pmu[6], pmu[7]);
+    }
+
+    htp_opformat fmt(node);
+    float mhz = op_usec > 0 ? (float) op_cycles / op_usec : 0.0f;
+    GGML_LOG_DEBUG("ggml-hex: %s profile-op %s|%s|%s|%s|%s|%s|usec %u cycles %u start %u mhz %.1f%s\n", sess_name.c_str(),
+            node.op_name().c_str(), fmt.names, fmt.dims, fmt.types, fmt.strides, fmt.kparams, op_usec, op_cycles, pd.cycles_start, mhz, pmu_str);
+}
+
+// **
+
+static inline bool ggml_hexagon_is_repack_type(enum ggml_type type) {
+    return type == GGML_TYPE_Q4_0 || type == GGML_TYPE_Q4_1 ||
+           type == GGML_TYPE_Q8_0 || type == GGML_TYPE_IQ4_NL ||
+           type == GGML_TYPE_MXFP4;
+}
+
+static inline bool ggml_hexagon_is_hmx_weight_type(enum ggml_type type) {
+    return type == GGML_TYPE_F16 || type == GGML_TYPE_F32 || ggml_hexagon_is_repack_type(type);
+}
+
+struct htp_mm_kernel_params;
+struct ggml_hexagon_session;
+static void ggml_hexagon_precompute_matmul_params(
+    const struct ggml_hexagon_session * sess,
+    const struct ggml_tensor * src0,
+    const struct ggml_tensor * src1,
+    const struct ggml_tensor * dst,
+    struct htp_mm_kernel_params * kparams
+);
+
+static void ggml_hexagon_precompute_fused_qkv_params(
+    const struct ggml_hexagon_session * sess,
+    const struct ggml_tensor * src0,
+    const struct ggml_tensor * src1,
+    struct htp_mm_kernel_params * kparams
+);
+
+static void ggml_hexagon_precompute_fused_ffn_params(
+    const struct ggml_hexagon_session * sess,
+    const struct ggml_tensor * src0,
+    const struct ggml_tensor * src1,
+    struct htp_mm_kernel_params * kparams
+);
+
+// ** backend sessions
+
+struct ggml_hexagon_opbatch;
+struct ggml_hexagon_opqueue;
+struct htp_opnode;
+
+struct ggml_hexagon_session {
+    std::string      name;
+    remote_handle64  handle;
+    dspqueue_t       queue;
+    uint32_t         session_id;
+    uint32_t         domain_id;
+    uint64_t         queue_id;
+    int              dev_id;
+    bool             valid_session;
+    bool             valid_handle;
+    bool             valid_queue;
+    bool             valid_iface;
+
+    std::atomic<int>      op_pending;
+    ggml_hexagon_opbatch* op_batch;
+    ggml_hexagon_opqueue* op_queue;
+
+    ggml_backend_buffer_type buffer_type        = {};
+    ggml_backend_buffer_type repack_buffer_type = {};
+
+    uint32_t n_threads = 0;
+    uint32_t n_hvx     = 0;
+    uint32_t n_hmx     = 0;
+    uint64_t vtcm_size = 0;
+    size_t   max_vmem  = 0;
+    size_t   max_bufsize = 0;
+
+    struct {
+        uint64_t uid = 0;
+        std::vector<htp_opnode> htp_nodes;
+    } cached_graph;
+
+    ggml_hexagon_session(int dev_id, ggml_backend_dev_t dev) noexcept(false);
+    ~ggml_hexagon_session() noexcept(true);
+
+    const char* c_name() const { return name.c_str(); }
+
+    void allocate(int dev_id) noexcept(false);
+    void release() noexcept(true);
+
+    void enqueue_op(const htp_opnode & node);
+    void flush(bool all = true);
+
+    void flush_pending(bool all = false);
+    void flush_batch();
+};
+
+// ** backend buffers
+
+struct ggml_backend_hexagon_buffer_type_context {
+    ggml_backend_hexagon_buffer_type_context(const std::string & name, ggml_hexagon_session * sess) {
+        this->sess = sess;
+        this->name = name;
+    }
+
+    ggml_hexagon_session * sess;
+    std::string            name;
+};
+
+struct ggml_hexagon_shared_buffer {
+    ggml_hexagon_session * sess;
+    uint8_t *              base;
+    size_t                 size;
+    int                    fd;
+    bool                   mapped;

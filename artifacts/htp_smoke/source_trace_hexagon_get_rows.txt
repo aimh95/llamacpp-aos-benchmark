@@ -1,0 +1,241 @@
+third_party/llama.cpp/ggml/src/ggml-hexagon/ggml-hexagon.cpp:156:static inline bool ggml_hexagon_is_repack_type(enum ggml_type type) {
+third_party/llama.cpp/ggml/src/ggml-hexagon/ggml-hexagon.cpp:163:    return type == GGML_TYPE_F16 || type == GGML_TYPE_F32 || ggml_hexagon_is_repack_type(type);
+third_party/llama.cpp/ggml/src/ggml-hexagon/ggml-hexagon.cpp:213:    ggml_backend_buffer_type buffer_type        = {};
+third_party/llama.cpp/ggml/src/ggml-hexagon/ggml-hexagon.cpp:214:    ggml_backend_buffer_type repack_buffer_type = {};
+third_party/llama.cpp/ggml/src/ggml-hexagon/ggml-hexagon.cpp:245:struct ggml_backend_hexagon_buffer_type_context {
+third_party/llama.cpp/ggml/src/ggml-hexagon/ggml-hexagon.cpp:246:    ggml_backend_hexagon_buffer_type_context(const std::string & name, ggml_hexagon_session * sess) {
+third_party/llama.cpp/ggml/src/ggml-hexagon/ggml-hexagon.cpp:346:    return static_cast<ggml_backend_hexagon_buffer_type_context *>(buffer->buft->context)->sess;
+third_party/llama.cpp/ggml/src/ggml-hexagon/ggml-hexagon.cpp:438:// repack q4_0 data into q4_0_tiled tensor
+third_party/llama.cpp/ggml/src/ggml-hexagon/ggml-hexagon.cpp:439:static void repack_q4_0_tiled(ggml_tensor * t, const void * data, size_t size) {
+third_party/llama.cpp/ggml/src/ggml-hexagon/ggml-hexagon.cpp:489:// repack q4_0_tiled tensor into q4_0 data
+third_party/llama.cpp/ggml/src/ggml-hexagon/ggml-hexagon.cpp:490:static void repack_tiled_q4_0(void * data, const ggml_tensor * t, size_t size) {
+third_party/llama.cpp/ggml/src/ggml-hexagon/ggml-hexagon.cpp:542:// repack q4_1 data into q4_1_tiled tensor
+third_party/llama.cpp/ggml/src/ggml-hexagon/ggml-hexagon.cpp:543:static void repack_q4_1_tiled(ggml_tensor * t, const void * data, size_t size) {
+third_party/llama.cpp/ggml/src/ggml-hexagon/ggml-hexagon.cpp:599:// repack q4_1_tiled tensor into q4_1 data
+third_party/llama.cpp/ggml/src/ggml-hexagon/ggml-hexagon.cpp:600:static void repack_tiled_q4_1(void * data, const ggml_tensor * t, size_t size) {
+third_party/llama.cpp/ggml/src/ggml-hexagon/ggml-hexagon.cpp:653:// repack q8_0 data into q8_0_tiled tensor
+third_party/llama.cpp/ggml/src/ggml-hexagon/ggml-hexagon.cpp:654:static void repack_q8_0_tiled(ggml_tensor * t, const void * data, size_t size) {
+third_party/llama.cpp/ggml/src/ggml-hexagon/ggml-hexagon.cpp:699:// repack q8_0_tiled tensor into q8_0 data
+third_party/llama.cpp/ggml/src/ggml-hexagon/ggml-hexagon.cpp:700:static void repack_tiled_q8_0(void * data, const ggml_tensor * t, size_t size) {
+third_party/llama.cpp/ggml/src/ggml-hexagon/ggml-hexagon.cpp:749:// repack mxfp4 data into mxfp4_tiled tensor
+third_party/llama.cpp/ggml/src/ggml-hexagon/ggml-hexagon.cpp:750:static void repack_mxfp4_tiled(ggml_tensor * t, const void * data, size_t size) {
+third_party/llama.cpp/ggml/src/ggml-hexagon/ggml-hexagon.cpp:800:// repack mxfp4_tiled tensor into mxfp4 data
+third_party/llama.cpp/ggml/src/ggml-hexagon/ggml-hexagon.cpp:801:static void repack_tiled_mxfp4(void * data, const ggml_tensor * t, size_t size) {
+third_party/llama.cpp/ggml/src/ggml-hexagon/ggml-hexagon.cpp:867:            repack_q4_0_tiled(tensor, data, size);
+third_party/llama.cpp/ggml/src/ggml-hexagon/ggml-hexagon.cpp:873:            repack_q4_1_tiled(tensor, data, size);
+third_party/llama.cpp/ggml/src/ggml-hexagon/ggml-hexagon.cpp:879:            repack_q8_0_tiled(tensor, data, size);
+third_party/llama.cpp/ggml/src/ggml-hexagon/ggml-hexagon.cpp:886:            repack_q4_0_tiled(tensor, data, size);
+third_party/llama.cpp/ggml/src/ggml-hexagon/ggml-hexagon.cpp:892:            repack_mxfp4_tiled(tensor, data, size);
+third_party/llama.cpp/ggml/src/ggml-hexagon/ggml-hexagon.cpp:915:            repack_tiled_q4_0(data, tensor, size);
+third_party/llama.cpp/ggml/src/ggml-hexagon/ggml-hexagon.cpp:921:            repack_tiled_q4_1(data, tensor, size);
+third_party/llama.cpp/ggml/src/ggml-hexagon/ggml-hexagon.cpp:927:            repack_tiled_q8_0(data, tensor, size);
+third_party/llama.cpp/ggml/src/ggml-hexagon/ggml-hexagon.cpp:933:            repack_tiled_q4_0(data, tensor, size);
+third_party/llama.cpp/ggml/src/ggml-hexagon/ggml-hexagon.cpp:939:            repack_tiled_mxfp4(data, tensor, size);
+third_party/llama.cpp/ggml/src/ggml-hexagon/ggml-hexagon.cpp:981:static const char * ggml_backend_hexagon_buffer_type_name(ggml_backend_buffer_type_t buffer_type) {
+third_party/llama.cpp/ggml/src/ggml-hexagon/ggml-hexagon.cpp:982:    return static_cast<ggml_backend_hexagon_buffer_type_context *>(buffer_type->context)->name.c_str();
+third_party/llama.cpp/ggml/src/ggml-hexagon/ggml-hexagon.cpp:985:static ggml_backend_buffer_t ggml_backend_hexagon_buffer_type_alloc_buffer(
+third_party/llama.cpp/ggml/src/ggml-hexagon/ggml-hexagon.cpp:986:            ggml_backend_buffer_type_t buffer_type, size_t size) {
+third_party/llama.cpp/ggml/src/ggml-hexagon/ggml-hexagon.cpp:987:    auto sess = static_cast<ggml_backend_hexagon_buffer_type_context *>(buffer_type->context)->sess;
+third_party/llama.cpp/ggml/src/ggml-hexagon/ggml-hexagon.cpp:991:        return ggml_backend_buffer_init(buffer_type, ggml_backend_hexagon_buffer_interface, sbuf, size);
+third_party/llama.cpp/ggml/src/ggml-hexagon/ggml-hexagon.cpp:998:static ggml_backend_buffer_t ggml_backend_hexagon_repack_buffer_type_alloc_buffer(
+third_party/llama.cpp/ggml/src/ggml-hexagon/ggml-hexagon.cpp:999:            ggml_backend_buffer_type_t buffer_type, size_t size) {
+third_party/llama.cpp/ggml/src/ggml-hexagon/ggml-hexagon.cpp:1000:    auto sess = static_cast<ggml_backend_hexagon_buffer_type_context *>(buffer_type->context)->sess;
+third_party/llama.cpp/ggml/src/ggml-hexagon/ggml-hexagon.cpp:1004:        return ggml_backend_buffer_init(buffer_type, ggml_backend_hexagon_buffer_interface, sbuf, size);
+third_party/llama.cpp/ggml/src/ggml-hexagon/ggml-hexagon.cpp:1006:        GGML_LOG_ERROR("ggml-hex: %s failed to allocate buffer context (repack): %s\n", sess->c_name(), exc.what());
+third_party/llama.cpp/ggml/src/ggml-hexagon/ggml-hexagon.cpp:1011:static size_t ggml_backend_hexagon_buffer_type_get_alignment(ggml_backend_buffer_type_t buffer_type) {
+third_party/llama.cpp/ggml/src/ggml-hexagon/ggml-hexagon.cpp:1013:    GGML_UNUSED(buffer_type);
+third_party/llama.cpp/ggml/src/ggml-hexagon/ggml-hexagon.cpp:1016:static size_t ggml_backend_hexagon_buffer_type_get_alloc_size(ggml_backend_buffer_type_t buft, const struct ggml_tensor * t) {
+third_party/llama.cpp/ggml/src/ggml-hexagon/ggml-hexagon.cpp:1027:static size_t ggml_backend_hexagon_buffer_type_get_max_size(ggml_backend_buffer_type_t buffer_type) {
+third_party/llama.cpp/ggml/src/ggml-hexagon/ggml-hexagon.cpp:1028:    auto * context = static_cast<ggml_backend_hexagon_buffer_type_context *>(buffer_type->context);
+third_party/llama.cpp/ggml/src/ggml-hexagon/ggml-hexagon.cpp:1032:static bool ggml_backend_hexagon_buffer_type_is_host(ggml_backend_buffer_type_t buft) {
+third_party/llama.cpp/ggml/src/ggml-hexagon/ggml-hexagon.cpp:1037:static bool ggml_backend_hexagon_repack_buffer_type_is_host(ggml_backend_buffer_type_t buft) {
+third_party/llama.cpp/ggml/src/ggml-hexagon/ggml-hexagon.cpp:1042:static ggml_backend_buffer_type_i ggml_backend_hexagon_buffer_type_interface = {
+third_party/llama.cpp/ggml/src/ggml-hexagon/ggml-hexagon.cpp:1043:    /* .get_name         = */ ggml_backend_hexagon_buffer_type_name,
+third_party/llama.cpp/ggml/src/ggml-hexagon/ggml-hexagon.cpp:1044:    /* .alloc_buffer     = */ ggml_backend_hexagon_buffer_type_alloc_buffer,
+third_party/llama.cpp/ggml/src/ggml-hexagon/ggml-hexagon.cpp:1045:    /* .get_alignment    = */ ggml_backend_hexagon_buffer_type_get_alignment,
+third_party/llama.cpp/ggml/src/ggml-hexagon/ggml-hexagon.cpp:1046:    /* .get_max_size     = */ ggml_backend_hexagon_buffer_type_get_max_size,
+third_party/llama.cpp/ggml/src/ggml-hexagon/ggml-hexagon.cpp:1047:    /* .get_alloc_size   = */ ggml_backend_hexagon_buffer_type_get_alloc_size,
+third_party/llama.cpp/ggml/src/ggml-hexagon/ggml-hexagon.cpp:1048:    /* .is_host          = */ ggml_backend_hexagon_buffer_type_is_host,
+third_party/llama.cpp/ggml/src/ggml-hexagon/ggml-hexagon.cpp:1051:static ggml_backend_buffer_type_i ggml_backend_hexagon_repack_buffer_type_interface = {
+third_party/llama.cpp/ggml/src/ggml-hexagon/ggml-hexagon.cpp:1052:    /* .get_name         = */ ggml_backend_hexagon_buffer_type_name,
+third_party/llama.cpp/ggml/src/ggml-hexagon/ggml-hexagon.cpp:1053:    /* .alloc_buffer     = */ ggml_backend_hexagon_repack_buffer_type_alloc_buffer,
+third_party/llama.cpp/ggml/src/ggml-hexagon/ggml-hexagon.cpp:1054:    /* .get_alignment    = */ ggml_backend_hexagon_buffer_type_get_alignment,
+third_party/llama.cpp/ggml/src/ggml-hexagon/ggml-hexagon.cpp:1055:    /* .get_max_size     = */ ggml_backend_hexagon_buffer_type_get_max_size,
+third_party/llama.cpp/ggml/src/ggml-hexagon/ggml-hexagon.cpp:1056:    /* .get_alloc_size   = */ ggml_backend_hexagon_buffer_type_get_alloc_size,
+third_party/llama.cpp/ggml/src/ggml-hexagon/ggml-hexagon.cpp:1057:    /* .is_host          = */ ggml_backend_hexagon_repack_buffer_type_is_host,
+third_party/llama.cpp/ggml/src/ggml-hexagon/ggml-hexagon.cpp:1061:    return b->buft->iface.get_alignment == ggml_backend_hexagon_buffer_type_get_alignment;
+third_party/llama.cpp/ggml/src/ggml-hexagon/ggml-hexagon.cpp:1064:static inline bool ggml_backend_buffer_is_hexagon_repack(const struct ggml_backend_buffer * b) {
+third_party/llama.cpp/ggml/src/ggml-hexagon/ggml-hexagon.cpp:1068:    return b->buft->iface.alloc_buffer == ggml_backend_hexagon_repack_buffer_type_alloc_buffer;
+third_party/llama.cpp/ggml/src/ggml-hexagon/ggml-hexagon.cpp:1159:        const bool is_repack = ggml_backend_buffer_is_hexagon_repack(t->buffer) && ggml_hexagon_is_repack_type(t->type);
+third_party/llama.cpp/ggml/src/ggml-hexagon/ggml-hexagon.cpp:1160:        if (is_repack) {
+third_party/llama.cpp/ggml/src/ggml-hexagon/ggml-hexagon.cpp:1164:        int64_t nb1 = is_repack ? ggml_row_size(t->type, ne0) : t->nb[1];
+third_party/llama.cpp/ggml/src/ggml-hexagon/ggml-hexagon.cpp:1165:        int64_t nb2 = is_repack ? nb1 * ne1 : t->nb[2];
+third_party/llama.cpp/ggml/src/ggml-hexagon/ggml-hexagon.cpp:1166:        int64_t nb3 = is_repack ? nb2 * t->ne[2] : t->nb[3];
+third_party/llama.cpp/ggml/src/ggml-hexagon/ggml-hexagon.cpp:1202:        const bool is_repack = ggml_backend_buffer_is_hexagon_repack(t->buffer) && ggml_hexagon_is_repack_type(t->type);
+third_party/llama.cpp/ggml/src/ggml-hexagon/ggml-hexagon.cpp:1203:        if (is_repack) {
+third_party/llama.cpp/ggml/src/ggml-hexagon/ggml-hexagon.cpp:1853:    buffer_type.device        = dev;
+third_party/llama.cpp/ggml/src/ggml-hexagon/ggml-hexagon.cpp:1854:    repack_buffer_type.device = dev;
+third_party/llama.cpp/ggml/src/ggml-hexagon/ggml-hexagon.cpp:1862:        buffer_type.iface   = ggml_backend_hexagon_buffer_type_interface;
+third_party/llama.cpp/ggml/src/ggml-hexagon/ggml-hexagon.cpp:1863:        buffer_type.context = new ggml_backend_hexagon_buffer_type_context(this->name, this);
+third_party/llama.cpp/ggml/src/ggml-hexagon/ggml-hexagon.cpp:1865:        repack_buffer_type.iface   = ggml_backend_hexagon_repack_buffer_type_interface;
+third_party/llama.cpp/ggml/src/ggml-hexagon/ggml-hexagon.cpp:1866:        repack_buffer_type.context = new ggml_backend_hexagon_buffer_type_context(this->name + "-REPACK", this);
+third_party/llama.cpp/ggml/src/ggml-hexagon/ggml-hexagon.cpp:1876:    delete static_cast<ggml_backend_hexagon_buffer_type_context *>(buffer_type.context);
+third_party/llama.cpp/ggml/src/ggml-hexagon/ggml-hexagon.cpp:1877:    delete static_cast<ggml_backend_hexagon_buffer_type_context *>(repack_buffer_type.context);
+third_party/llama.cpp/ggml/src/ggml-hexagon/ggml-hexagon.cpp:1990:    // HMX supports F16, F32, and repack quantized types.
+third_party/llama.cpp/ggml/src/ggml-hexagon/ggml-hexagon.cpp:2393:    const bool is_repack = ggml_hexagon_is_repack_type((ggml_type) wtype);
+third_party/llama.cpp/ggml/src/ggml-hexagon/ggml-hexagon.cpp:2394:    const int ne00_padded = is_repack ? hex_round_up(ne00, 32) : ne00;
+third_party/llama.cpp/ggml/src/ggml-hexagon/ggml-hexagon.cpp:2395:    const int ne01_padded = is_repack ? hex_round_up(ne01, 32) : ne01;
+third_party/llama.cpp/ggml/src/ggml-hexagon/ggml-hexagon.cpp:2431:    const bool is_repack = ggml_hexagon_is_repack_type((ggml_type) wtype);
+third_party/llama.cpp/ggml/src/ggml-hexagon/ggml-hexagon.cpp:2444:    if (is_repack) {
+third_party/llama.cpp/ggml/src/ggml-hexagon/ggml-hexagon.cpp:2455:            size_t repacked_vtcm_size = hex_round_up(d * tile_row_size, 128);
+third_party/llama.cpp/ggml/src/ggml-hexagon/ggml-hexagon.cpp:2456:            if (repacked_vtcm_size < src1_row_size_padded) {
+third_party/llama.cpp/ggml/src/ggml-hexagon/ggml-hexagon.cpp:2457:                repacked_vtcm_size = src1_row_size_padded;
+third_party/llama.cpp/ggml/src/ggml-hexagon/ggml-hexagon.cpp:2459:            size_t src0_sz = repacked_vtcm_size * sess->n_threads;
+third_party/llama.cpp/ggml/src/ggml-hexagon/ggml-hexagon.cpp:2466:                src0_sz_per_thread = repacked_vtcm_size;
+third_party/llama.cpp/ggml/src/ggml-hexagon/ggml-hexagon.cpp:2473:            size_t repacked_vtcm_size = hex_round_up(2 * tile_row_size, 128);
+third_party/llama.cpp/ggml/src/ggml-hexagon/ggml-hexagon.cpp:2474:            if (repacked_vtcm_size < src1_row_size_padded) {
+third_party/llama.cpp/ggml/src/ggml-hexagon/ggml-hexagon.cpp:2475:                repacked_vtcm_size = src1_row_size_padded;
+third_party/llama.cpp/ggml/src/ggml-hexagon/ggml-hexagon.cpp:2477:            src0_sz_per_thread = repacked_vtcm_size;
+third_party/llama.cpp/ggml/src/ggml-hexagon/ggml-hexagon.cpp:2527:    const bool is_repack = ggml_hexagon_is_repack_type((ggml_type) wtype);
+third_party/llama.cpp/ggml/src/ggml-hexagon/ggml-hexagon.cpp:2539:    if (is_repack) {
+third_party/llama.cpp/ggml/src/ggml-hexagon/ggml-hexagon.cpp:2550:            size_t repacked_vtcm_size = hex_round_up(d * tile_row_size, 128);
+third_party/llama.cpp/ggml/src/ggml-hexagon/ggml-hexagon.cpp:2551:            if (repacked_vtcm_size < src1_row_size_padded) {
+third_party/llama.cpp/ggml/src/ggml-hexagon/ggml-hexagon.cpp:2552:                repacked_vtcm_size = src1_row_size_padded;
+third_party/llama.cpp/ggml/src/ggml-hexagon/ggml-hexagon.cpp:2554:            size_t src0_sz = repacked_vtcm_size * sess->n_threads;
+third_party/llama.cpp/ggml/src/ggml-hexagon/ggml-hexagon.cpp:2560:                src0_sz_per_thread = repacked_vtcm_size;
+third_party/llama.cpp/ggml/src/ggml-hexagon/ggml-hexagon.cpp:2566:            size_t repacked_vtcm_size = hex_round_up(2 * tile_row_size, 128);
+third_party/llama.cpp/ggml/src/ggml-hexagon/ggml-hexagon.cpp:2567:            if (repacked_vtcm_size < src1_row_size_padded) {
+third_party/llama.cpp/ggml/src/ggml-hexagon/ggml-hexagon.cpp:2568:                repacked_vtcm_size = src1_row_size_padded;
+third_party/llama.cpp/ggml/src/ggml-hexagon/ggml-hexagon.cpp:2570:            src0_sz_per_thread = repacked_vtcm_size;
+third_party/llama.cpp/ggml/src/ggml-hexagon/ggml-hexagon.cpp:2637:            // src0 (weights) must be repacked
+third_party/llama.cpp/ggml/src/ggml-hexagon/ggml-hexagon.cpp:2638:            if (src0->buffer && !ggml_backend_buffer_is_hexagon_repack(src0->buffer)) {
+third_party/llama.cpp/ggml/src/ggml-hexagon/ggml-hexagon.cpp:2698:            // src0 (weights) must be repacked
+third_party/llama.cpp/ggml/src/ggml-hexagon/ggml-hexagon.cpp:2699:            if (src0->buffer && !ggml_backend_buffer_is_hexagon_repack(src0->buffer)) {
+third_party/llama.cpp/ggml/src/ggml-hexagon/ggml-hexagon.cpp:2937:static bool ggml_hexagon_supported_get_rows(const struct ggml_hexagon_session * sess, const struct ggml_tensor * op) {
+third_party/llama.cpp/ggml/src/ggml-hexagon/ggml-hexagon.cpp:3188:        case GGML_OP_GET_ROWS:        return HTP_OP_GET_ROWS;
+third_party/llama.cpp/ggml/src/ggml-hexagon/ggml-hexagon.cpp:3253:    const bool is_repack    = ggml_hexagon_is_repack_type((ggml_type) wtype);
+third_party/llama.cpp/ggml/src/ggml-hexagon/ggml-hexagon.cpp:3257:    const int ne01_padded = is_repack ? hex_round_up(src0->ne[1], 32) : src0->ne[1];
+third_party/llama.cpp/ggml/src/ggml-hexagon/ggml-hexagon.cpp:3636:static ggml_backend_buffer_type_t ggml_backend_hexagon_device_get_buffer_type(ggml_backend_dev_t dev) {
+third_party/llama.cpp/ggml/src/ggml-hexagon/ggml-hexagon.cpp:3638:    return &sess->buffer_type;
+third_party/llama.cpp/ggml/src/ggml-hexagon/ggml-hexagon.cpp:3641:static ggml_backend_buffer_type_t ggml_backend_hexagon_device_get_repack_buffer_type(ggml_backend_dev_t dev) {
+third_party/llama.cpp/ggml/src/ggml-hexagon/ggml-hexagon.cpp:3643:    return &sess->repack_buffer_type;
+third_party/llama.cpp/ggml/src/ggml-hexagon/ggml-hexagon.cpp:3753:static bool ggml_backend_hexagon_device_supports_op(ggml_backend_dev_t dev, const struct ggml_tensor * op) {
+third_party/llama.cpp/ggml/src/ggml-hexagon/ggml-hexagon.cpp:3859:        case GGML_OP_GET_ROWS:
+third_party/llama.cpp/ggml/src/ggml-hexagon/ggml-hexagon.cpp:3860:            supp = ggml_hexagon_supported_get_rows(sess, op);
+third_party/llama.cpp/ggml/src/ggml-hexagon/ggml-hexagon.cpp:3923:static bool ggml_backend_hexagon_device_supports_buft(ggml_backend_dev_t dev, ggml_backend_buffer_type_t buft) {
+third_party/llama.cpp/ggml/src/ggml-hexagon/ggml-hexagon.cpp:3924:    if (buft->iface.get_alignment != ggml_backend_hexagon_buffer_type_get_alignment) {
+third_party/llama.cpp/ggml/src/ggml-hexagon/ggml-hexagon.cpp:3929:    auto s1 = static_cast<ggml_backend_hexagon_buffer_type_context *>(buft->context)->sess;
+third_party/llama.cpp/ggml/src/ggml-hexagon/ggml-hexagon.cpp:3939:static ggml_backend_buffer_type_t * ggml_backend_hexagon_device_get_extra_buffers_type(ggml_backend_dev_t dev) {
+third_party/llama.cpp/ggml/src/ggml-hexagon/ggml-hexagon.cpp:3943:    static ggml_backend_buffer_type_t bufts[2];
+third_party/llama.cpp/ggml/src/ggml-hexagon/ggml-hexagon.cpp:3944:    bufts[0] = ggml_backend_hexagon_device_get_repack_buffer_type(dev);
+third_party/llama.cpp/ggml/src/ggml-hexagon/ggml-hexagon.cpp:3956:    /* .get_buffer_type      = */ ggml_backend_hexagon_device_get_buffer_type,
+third_party/llama.cpp/ggml/src/ggml-hexagon/ggml-hexagon.cpp:3957:    /* .get_host_buffer_type = */ NULL,  // ggml_backend_hexagon_device_get_host_buffer_type,
+third_party/llama.cpp/ggml/src/ggml-hexagon/ggml-hexagon.cpp:3959:    /* .supports_op          = */ ggml_backend_hexagon_device_supports_op,
+third_party/llama.cpp/ggml/src/ggml-hexagon/ggml-hexagon.cpp:3960:    /* .supports_buft        = */ ggml_backend_hexagon_device_supports_buft,
+third_party/llama.cpp/ggml/src/ggml-hexagon/htp/get-rows-ops.c:18:struct get_rows_context {
+third_party/llama.cpp/ggml/src/ggml-hexagon/htp/get-rows-ops.c:24:    struct fastdiv_values get_rows_div_ne10;
+third_party/llama.cpp/ggml/src/ggml-hexagon/htp/get-rows-ops.c:25:    struct fastdiv_values get_rows_div_ne10_ne11;
+third_party/llama.cpp/ggml/src/ggml-hexagon/htp/get-rows-ops.c:26:    struct fastdiv_values get_rows_div_chunks_per_row;
+third_party/llama.cpp/ggml/src/ggml-hexagon/htp/get-rows-ops.c:29:#define get_rows_preamble \
+third_party/llama.cpp/ggml/src/ggml-hexagon/htp/get-rows-ops.c:59:static void get_rows_thread_f32_f32_dma(unsigned int nth, unsigned int ith, void *data) {
+third_party/llama.cpp/ggml/src/ggml-hexagon/htp/get-rows-ops.c:60:    struct get_rows_context * grctx = (struct get_rows_context *)data;
+third_party/llama.cpp/ggml/src/ggml-hexagon/htp/get-rows-ops.c:62:    get_rows_preamble;
+third_party/llama.cpp/ggml/src/ggml-hexagon/htp/get-rows-ops.c:77:        const uint32_t i12 = fastdiv(i, &grctx->get_rows_div_ne10_ne11);
+third_party/llama.cpp/ggml/src/ggml-hexagon/htp/get-rows-ops.c:79:        const uint32_t i11 = fastdiv(rem, &grctx->get_rows_div_ne10);
+third_party/llama.cpp/ggml/src/ggml-hexagon/htp/get-rows-ops.c:103:static void get_rows_thread_f32_f32_hvx(unsigned int nth, unsigned int ith, void *data) {
+third_party/llama.cpp/ggml/src/ggml-hexagon/htp/get-rows-ops.c:104:    struct get_rows_context * grctx = (struct get_rows_context *)data;
+third_party/llama.cpp/ggml/src/ggml-hexagon/htp/get-rows-ops.c:106:    get_rows_preamble;
+third_party/llama.cpp/ggml/src/ggml-hexagon/htp/get-rows-ops.c:122:        const uint32_t row_idx   = fastdiv(i, &grctx->get_rows_div_chunks_per_row);
+third_party/llama.cpp/ggml/src/ggml-hexagon/htp/get-rows-ops.c:125:        const uint32_t i12 = fastdiv(row_idx, &grctx->get_rows_div_ne10_ne11);
+third_party/llama.cpp/ggml/src/ggml-hexagon/htp/get-rows-ops.c:127:        const uint32_t i11 = fastdiv(rem, &grctx->get_rows_div_ne10);
+third_party/llama.cpp/ggml/src/ggml-hexagon/htp/get-rows-ops.c:151:int op_get_rows(struct htp_ops_context * octx) {
+third_party/llama.cpp/ggml/src/ggml-hexagon/htp/get-rows-ops.c:152:    get_rows_preamble;
+third_party/llama.cpp/ggml/src/ggml-hexagon/htp/get-rows-ops.c:176:    struct get_rows_context grctx;
+third_party/llama.cpp/ggml/src/ggml-hexagon/htp/get-rows-ops.c:178:    grctx.get_rows_div_ne10      = init_fastdiv_values(octx->src[1]->ne[0]);
+third_party/llama.cpp/ggml/src/ggml-hexagon/htp/get-rows-ops.c:179:    grctx.get_rows_div_ne10_ne11 = init_fastdiv_values(octx->src[1]->ne[0] * octx->src[1]->ne[1]);
+third_party/llama.cpp/ggml/src/ggml-hexagon/htp/get-rows-ops.c:185:        grctx.get_rows_div_chunks_per_row = init_fastdiv_values(1);
+third_party/llama.cpp/ggml/src/ggml-hexagon/htp/get-rows-ops.c:190:        worker_pool_run_func(octx->ctx->worker_pool, get_rows_thread_f32_f32_dma, &grctx, n_threads);
+third_party/llama.cpp/ggml/src/ggml-hexagon/htp/get-rows-ops.c:210:        grctx.get_rows_div_chunks_per_row = init_fastdiv_values(chunks_per_row);
+third_party/llama.cpp/ggml/src/ggml-hexagon/htp/get-rows-ops.c:215:        worker_pool_run_func(octx->ctx->worker_pool, get_rows_thread_f32_f32_hvx, &grctx, n_threads);
+third_party/llama.cpp/ggml/src/ggml-hexagon/htp/htp-ops.h:30:    // types used internally for repack, dyn.quant, etc
+third_party/llama.cpp/ggml/src/ggml-hexagon/htp/htp-ops.h:80:    HTP_OP_GET_ROWS,
+third_party/llama.cpp/ggml/src/ggml-hexagon/htp/matmul-ops.h:360:    const bool is_repack = (wtype == HTP_TYPE_Q4_0 || wtype == HTP_TYPE_Q4_1 ||
+third_party/llama.cpp/ggml/src/ggml-hexagon/htp/matmul-ops.h:408:            if (is_repack) {
+third_party/llama.cpp/ggml/src/ggml-hexagon/htp/matmul-ops.h:412:                size_t repacked_vtcm_size = htp_mm_round_up(n_prefetch * tile_row_size, 256);
+third_party/llama.cpp/ggml/src/ggml-hexagon/htp/matmul-ops.h:413:                if (repacked_vtcm_size < src1_row_size_padded) {
+third_party/llama.cpp/ggml/src/ggml-hexagon/htp/matmul-ops.h:414:                    repacked_vtcm_size = src1_row_size_padded;
+third_party/llama.cpp/ggml/src/ggml-hexagon/htp/matmul-ops.h:416:                vtcm_src0_size = repacked_vtcm_size * n_threads;
+third_party/llama.cpp/ggml/src/ggml-hexagon/htp/matmul-ops.h:435:            if (is_repack) {
+third_party/llama.cpp/ggml/src/ggml-hexagon/htp/matmul-ops.h:439:                size_t repacked_vtcm_size = htp_mm_round_up(n_prefetch * tile_row_size, 256);
+third_party/llama.cpp/ggml/src/ggml-hexagon/htp/matmul-ops.h:440:                if (repacked_vtcm_size < src1_row_size_padded) {
+third_party/llama.cpp/ggml/src/ggml-hexagon/htp/matmul-ops.h:441:                    repacked_vtcm_size = src1_row_size_padded;
+third_party/llama.cpp/ggml/src/ggml-hexagon/htp/matmul-ops.h:443:                vtcm_src0_size = repacked_vtcm_size * n_threads;
+third_party/llama.cpp/ggml/src/ggml-hexagon/htp/matmul-ops.h:468:    const bool is_repack = (wtype == HTP_TYPE_Q4_0 || wtype == HTP_TYPE_Q4_1 ||
+third_party/llama.cpp/ggml/src/ggml-hexagon/htp/matmul-ops.h:485:    if (is_repack) {
+third_party/llama.cpp/ggml/src/ggml-hexagon/htp/matmul-ops.h:489:        size_t repacked_vtcm_size = htp_mm_round_up(n_prefetch * tile_row_size, 256);
+third_party/llama.cpp/ggml/src/ggml-hexagon/htp/matmul-ops.h:490:        if (repacked_vtcm_size < src1_row_size_padded) {
+third_party/llama.cpp/ggml/src/ggml-hexagon/htp/matmul-ops.h:491:            repacked_vtcm_size = src1_row_size_padded;
+third_party/llama.cpp/ggml/src/ggml-hexagon/htp/matmul-ops.h:493:        src0_sz_per_thread = repacked_vtcm_size;
+third_party/llama.cpp/ggml/src/ggml-hexagon/htp/htp-ctx.h:112:int op_get_rows(struct htp_ops_context * octx);
+third_party/llama.cpp/ggml/src/ggml-hexagon/htp/main.c:629:        case HTP_OP_GET_ROWS:
+third_party/llama.cpp/ggml/src/ggml-hexagon/htp/main.c:630:            return op_get_rows(octx);
+third_party/llama.cpp/ggml/src/ggml-hexagon/htp/matmul-ops.c:640:// Specialized repacked matmul macros
+third_party/llama.cpp/ggml/src/ggml-hexagon/htp/matmul-ops.c:642:static void hvx_mm_2d_repacked_##SUFFIX(unsigned int nth, unsigned int ith, void * data) {                                        \
+third_party/llama.cpp/ggml/src/ggml-hexagon/htp/matmul-ops.c:726:static void hvx_mv_2d_repacked_##SUFFIX(unsigned int nth, unsigned int ith, void * data) {                                        \
+third_party/llama.cpp/ggml/src/ggml-hexagon/htp/matmul-ops.c:800:static void hvx_mm_qkv_2d_repacked_##SUFFIX(unsigned int nth, unsigned int ith, void * data) {                                    \
+third_party/llama.cpp/ggml/src/ggml-hexagon/htp/matmul-ops.c:974:static void hvx_mm_ffn_2d_repacked_##SUFFIX(unsigned int nth, unsigned int ith, void * data) {                                    \
+third_party/llama.cpp/ggml/src/ggml-hexagon/htp/matmul-ops.c:1609:    bool is_repacked = (src0->type == HTP_TYPE_Q4_0 || src0->type == HTP_TYPE_Q4_1 ||
+third_party/llama.cpp/ggml/src/ggml-hexagon/htp/matmul-ops.c:1615:    if (is_repacked) {
+third_party/llama.cpp/ggml/src/ggml-hexagon/htp/matmul-ops.c:1632:        if (is_repacked) {
+third_party/llama.cpp/ggml/src/ggml-hexagon/htp/matmul-ops.c:1634:                case HTP_TYPE_Q4_0:   matmul_job_func = hvx_mm_2d_repacked_q4_0;   break;
+third_party/llama.cpp/ggml/src/ggml-hexagon/htp/matmul-ops.c:1635:                case HTP_TYPE_Q4_1:   matmul_job_func = hvx_mm_2d_repacked_q4_1;   break;
+third_party/llama.cpp/ggml/src/ggml-hexagon/htp/matmul-ops.c:1636:                case HTP_TYPE_Q8_0:   matmul_job_func = hvx_mm_2d_repacked_q8_0;   break;
+third_party/llama.cpp/ggml/src/ggml-hexagon/htp/matmul-ops.c:1637:                case HTP_TYPE_IQ4_NL: matmul_job_func = hvx_mm_2d_repacked_iq4nl;  break;
+third_party/llama.cpp/ggml/src/ggml-hexagon/htp/matmul-ops.c:1638:                case HTP_TYPE_MXFP4:  matmul_job_func = hvx_mm_2d_repacked_mxfp4;  break;
+third_party/llama.cpp/ggml/src/ggml-hexagon/htp/matmul-ops.c:1645:        if (is_repacked) {
+third_party/llama.cpp/ggml/src/ggml-hexagon/htp/matmul-ops.c:1647:                case HTP_TYPE_Q4_0:   matmul_job_func = hvx_mv_2d_repacked_q4_0;   break;
+third_party/llama.cpp/ggml/src/ggml-hexagon/htp/matmul-ops.c:1648:                case HTP_TYPE_Q4_1:   matmul_job_func = hvx_mv_2d_repacked_q4_1;   break;
+third_party/llama.cpp/ggml/src/ggml-hexagon/htp/matmul-ops.c:1649:                case HTP_TYPE_Q8_0:   matmul_job_func = hvx_mv_2d_repacked_q8_0;   break;
+third_party/llama.cpp/ggml/src/ggml-hexagon/htp/matmul-ops.c:1650:                case HTP_TYPE_IQ4_NL: matmul_job_func = hvx_mv_2d_repacked_iq4nl;  break;
+third_party/llama.cpp/ggml/src/ggml-hexagon/htp/matmul-ops.c:1651:                case HTP_TYPE_MXFP4:  matmul_job_func = hvx_mv_2d_repacked_mxfp4;  break;
+third_party/llama.cpp/ggml/src/ggml-hexagon/htp/matmul-ops.c:1726:                    case HTP_TYPE_Q4_0:   matmul_job_func = hvx_mm_2d_repacked_q4_0_flat;   break;
+third_party/llama.cpp/ggml/src/ggml-hexagon/htp/matmul-ops.c:1727:                    case HTP_TYPE_Q4_1:   matmul_job_func = hvx_mm_2d_repacked_q4_1_flat;   break;
+third_party/llama.cpp/ggml/src/ggml-hexagon/htp/matmul-ops.c:1728:                    case HTP_TYPE_Q8_0:   matmul_job_func = hvx_mm_2d_repacked_q8_0_flat;   break;
+third_party/llama.cpp/ggml/src/ggml-hexagon/htp/matmul-ops.c:1729:                    case HTP_TYPE_IQ4_NL: matmul_job_func = hvx_mm_2d_repacked_iq4nl_flat;  break;
+third_party/llama.cpp/ggml/src/ggml-hexagon/htp/matmul-ops.c:1730:                    case HTP_TYPE_MXFP4:  matmul_job_func = hvx_mm_2d_repacked_mxfp4_flat;  break;
+third_party/llama.cpp/ggml/src/ggml-hexagon/htp/matmul-ops.c:1735:                    case HTP_TYPE_Q4_0:   matmul_job_func = hvx_mv_2d_repacked_q4_0_flat;   break;
+third_party/llama.cpp/ggml/src/ggml-hexagon/htp/matmul-ops.c:1736:                    case HTP_TYPE_Q4_1:   matmul_job_func = hvx_mv_2d_repacked_q4_1_flat;   break;
+third_party/llama.cpp/ggml/src/ggml-hexagon/htp/matmul-ops.c:1737:                    case HTP_TYPE_Q8_0:   matmul_job_func = hvx_mv_2d_repacked_q8_0_flat;   break;
+third_party/llama.cpp/ggml/src/ggml-hexagon/htp/matmul-ops.c:1738:                    case HTP_TYPE_IQ4_NL: matmul_job_func = hvx_mv_2d_repacked_iq4nl_flat;  break;
+third_party/llama.cpp/ggml/src/ggml-hexagon/htp/matmul-ops.c:1739:                    case HTP_TYPE_MXFP4:  matmul_job_func = hvx_mv_2d_repacked_mxfp4_flat;  break;
+third_party/llama.cpp/ggml/src/ggml-hexagon/htp/matmul-ops.c:3344:    bool is_repacked = (src0->type == HTP_TYPE_Q4_0 || src0->type == HTP_TYPE_Q4_1 ||
+third_party/llama.cpp/ggml/src/ggml-hexagon/htp/matmul-ops.c:3359:    if (is_repacked) {
+third_party/llama.cpp/ggml/src/ggml-hexagon/htp/matmul-ops.c:3433:    mmctx->vtcm_src0_stride = is_repacked ? 0 : src0_row_size_padded;
+third_party/llama.cpp/ggml/src/ggml-hexagon/htp/matmul-ops.c:3434:    mmctx->vtcm_src2_stride = is_repacked ? 0 : src0_row_size_padded;
+third_party/llama.cpp/ggml/src/ggml-hexagon/htp/matmul-ops.c:3435:    mmctx->vtcm_src3_stride = is_repacked ? 0 : src0_row_size_padded;
+third_party/llama.cpp/ggml/src/ggml-hexagon/htp/matmul-ops.c:3453:    if (is_repacked) {
+third_party/llama.cpp/ggml/src/ggml-hexagon/htp/matmul-ops.c:3456:                case HTP_TYPE_Q4_0:   matmul_job_func = hvx_mm_qkv_2d_repacked_q4_0_flat;   break;
+third_party/llama.cpp/ggml/src/ggml-hexagon/htp/matmul-ops.c:3457:                case HTP_TYPE_Q4_1:   matmul_job_func = hvx_mm_qkv_2d_repacked_q4_1_flat;   break;
+third_party/llama.cpp/ggml/src/ggml-hexagon/htp/matmul-ops.c:3458:                case HTP_TYPE_Q8_0:   matmul_job_func = hvx_mm_qkv_2d_repacked_q8_0_flat;   break;
+third_party/llama.cpp/ggml/src/ggml-hexagon/htp/matmul-ops.c:3459:                case HTP_TYPE_IQ4_NL: matmul_job_func = hvx_mm_qkv_2d_repacked_iq4nl_flat;  break;
+third_party/llama.cpp/ggml/src/ggml-hexagon/htp/matmul-ops.c:3460:                case HTP_TYPE_MXFP4:  matmul_job_func = hvx_mm_qkv_2d_repacked_mxfp4_flat;  break;
+third_party/llama.cpp/ggml/src/ggml-hexagon/htp/matmul-ops.c:3465:                case HTP_TYPE_Q4_0:   matmul_job_func = hvx_mm_qkv_2d_repacked_q4_0;   break;
+third_party/llama.cpp/ggml/src/ggml-hexagon/htp/matmul-ops.c:3466:                case HTP_TYPE_Q4_1:   matmul_job_func = hvx_mm_qkv_2d_repacked_q4_1;   break;
+third_party/llama.cpp/ggml/src/ggml-hexagon/htp/matmul-ops.c:3467:                case HTP_TYPE_Q8_0:   matmul_job_func = hvx_mm_qkv_2d_repacked_q8_0;   break;
+third_party/llama.cpp/ggml/src/ggml-hexagon/htp/matmul-ops.c:3468:                case HTP_TYPE_IQ4_NL: matmul_job_func = hvx_mm_qkv_2d_repacked_iq4nl;  break;
+third_party/llama.cpp/ggml/src/ggml-hexagon/htp/matmul-ops.c:3469:                case HTP_TYPE_MXFP4:  matmul_job_func = hvx_mm_qkv_2d_repacked_mxfp4;  break;
+third_party/llama.cpp/ggml/src/ggml-hexagon/htp/matmul-ops.c:3488:    bool is_repacked = (src0->type == HTP_TYPE_Q4_0 || src0->type == HTP_TYPE_Q4_1 ||
+third_party/llama.cpp/ggml/src/ggml-hexagon/htp/matmul-ops.c:3503:    if (is_repacked) {
+third_party/llama.cpp/ggml/src/ggml-hexagon/htp/matmul-ops.c:3572:    mmctx->vtcm_src0_stride = is_repacked ? 0 : src0_row_size_padded;
+third_party/llama.cpp/ggml/src/ggml-hexagon/htp/matmul-ops.c:3573:    mmctx->vtcm_src2_stride = is_repacked ? 0 : src0_row_size_padded;
+third_party/llama.cpp/ggml/src/ggml-hexagon/htp/matmul-ops.c:3590:    if (is_repacked) {
+third_party/llama.cpp/ggml/src/ggml-hexagon/htp/matmul-ops.c:3593:                case HTP_TYPE_Q4_0:   matmul_job_func = hvx_mm_ffn_2d_repacked_q4_0_flat;   break;
+third_party/llama.cpp/ggml/src/ggml-hexagon/htp/matmul-ops.c:3594:                case HTP_TYPE_Q4_1:   matmul_job_func = hvx_mm_ffn_2d_repacked_q4_1_flat;   break;
+third_party/llama.cpp/ggml/src/ggml-hexagon/htp/matmul-ops.c:3595:                case HTP_TYPE_Q8_0:   matmul_job_func = hvx_mm_ffn_2d_repacked_q8_0_flat;   break;
+third_party/llama.cpp/ggml/src/ggml-hexagon/htp/matmul-ops.c:3596:                case HTP_TYPE_IQ4_NL: matmul_job_func = hvx_mm_ffn_2d_repacked_iq4nl_flat;  break;
+third_party/llama.cpp/ggml/src/ggml-hexagon/htp/matmul-ops.c:3597:                case HTP_TYPE_MXFP4:  matmul_job_func = hvx_mm_ffn_2d_repacked_mxfp4_flat;  break;
+third_party/llama.cpp/ggml/src/ggml-hexagon/htp/matmul-ops.c:3602:                case HTP_TYPE_Q4_0:   matmul_job_func = hvx_mm_ffn_2d_repacked_q4_0;   break;
+third_party/llama.cpp/ggml/src/ggml-hexagon/htp/matmul-ops.c:3603:                case HTP_TYPE_Q4_1:   matmul_job_func = hvx_mm_ffn_2d_repacked_q4_1;   break;
+third_party/llama.cpp/ggml/src/ggml-hexagon/htp/matmul-ops.c:3604:                case HTP_TYPE_Q8_0:   matmul_job_func = hvx_mm_ffn_2d_repacked_q8_0;   break;
+third_party/llama.cpp/ggml/src/ggml-hexagon/htp/matmul-ops.c:3605:                case HTP_TYPE_IQ4_NL: matmul_job_func = hvx_mm_ffn_2d_repacked_iq4nl;  break;
+third_party/llama.cpp/ggml/src/ggml-hexagon/htp/matmul-ops.c:3606:                case HTP_TYPE_MXFP4:  matmul_job_func = hvx_mm_ffn_2d_repacked_mxfp4;  break;

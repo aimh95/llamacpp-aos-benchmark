@@ -1,0 +1,1624 @@
+--no-conversation is not supported by llama-cli
+please use llama-completion instead
+
+Loading model... |0.00.088.983 I srv    load_model: loading model '/data/local/tmp/gguf/llama-3.2-1b-instruct-q4_k_m.gguf'
+0.00.089.547 I common_init_result: fitting params to device memory ...
+0.00.089.616 I common_init_result: (for bugs during this step try to reproduce them with -fit off, or provide --verbose logs if the bug only occurs with -fit on)
+0.00.089.635 I common_params_fit_impl: getting device memory data for initial parameters:
+0.00.140.113 I llama_model_loader: loaded meta data with 30 key-value pairs and 147 tensors from /data/local/tmp/gguf/llama-3.2-1b-instruct-q4_k_m.gguf (version GGUF V3 (latest))
+0.00.140.139 I llama_model_loader: Dumping metadata keys/values. Note: KV overrides do not apply in this output.
+0.00.140.142 I llama_model_loader: - kv   0:                       general.architecture str              = llama
+0.00.140.143 I llama_model_loader: - kv   1:                               general.type str              = model
+0.00.140.143 I llama_model_loader: - kv   2:                               general.name str              = Llama 3.2 1B Instruct
+0.00.140.144 I llama_model_loader: - kv   3:                           general.finetune str              = Instruct
+0.00.140.145 I llama_model_loader: - kv   4:                           general.basename str              = Llama-3.2
+0.00.140.145 I llama_model_loader: - kv   5:                         general.size_label str              = 1B
+0.00.140.155 I llama_model_loader: - kv   6:                               general.tags arr[str,6]       = ["facebook", "meta", "pytorch", "llam...
+0.00.140.157 I llama_model_loader: - kv   7:                          general.languages arr[str,8]       = ["en", "de", "fr", "it", "pt", "hi", ...
+0.00.140.159 I llama_model_loader: - kv   8:                          llama.block_count u32              = 16
+0.00.140.159 I llama_model_loader: - kv   9:                       llama.context_length u32              = 131072
+0.00.140.160 I llama_model_loader: - kv  10:                     llama.embedding_length u32              = 2048
+0.00.140.161 I llama_model_loader: - kv  11:                  llama.feed_forward_length u32              = 8192
+0.00.140.161 I llama_model_loader: - kv  12:                 llama.attention.head_count u32              = 32
+0.00.140.162 I llama_model_loader: - kv  13:              llama.attention.head_count_kv u32              = 8
+0.00.140.166 I llama_model_loader: - kv  14:                       llama.rope.freq_base f32              = 500000.000000
+0.00.140.167 I llama_model_loader: - kv  15:     llama.attention.layer_norm_rms_epsilon f32              = 0.000010
+0.00.140.167 I llama_model_loader: - kv  16:                 llama.attention.key_length u32              = 64
+0.00.140.168 I llama_model_loader: - kv  17:               llama.attention.value_length u32              = 64
+0.00.140.169 I llama_model_loader: - kv  18:                          general.file_type u32              = 15
+0.00.140.169 I llama_model_loader: - kv  19:                           llama.vocab_size u32              = 128256
+0.00.140.170 I llama_model_loader: - kv  20:                 llama.rope.dimension_count u32              = 64
+0.00.140.170 I llama_model_loader: - kv  21:                       tokenizer.ggml.model str              = gpt2
+0.00.140.171 I llama_model_loader: - kv  22:                         tokenizer.ggml.pre str              = llama-bpe
+0.00.151.984 I llama_model_loader: - kv  23:                      tokenizer.ggml.tokens arr[str,128256]  = ["!", "\"", "#", "$", "%", "&", "'", ...
+0.00.155.000 I llama_model_loader: - kv  24:                  tokenizer.ggml.token_type arr[i32,128256]  = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, ...
+0.00.179.002 I llama_model_loader: - kv  25:                      tokenizer.ggml.merges arr[str,280147]  = ["Ġ Ġ", "Ġ ĠĠĠ", "ĠĠ ĠĠ", "...
+0.00.179.010 I llama_model_loader: - kv  26:                tokenizer.ggml.bos_token_id u32              = 128000
+0.00.179.011 I llama_model_loader: - kv  27:                tokenizer.ggml.eos_token_id u32              = 128009
+0.00.179.013 I llama_model_loader: - kv  28:                    tokenizer.chat_template str              = {% set loop_messages = messages %}{% ...
+0.00.179.014 I llama_model_loader: - kv  29:               general.quantization_version u32              = 2
+0.00.179.015 I llama_model_loader: - type  f32:   34 tensors
+0.00.179.015 I llama_model_loader: - type q4_K:   96 tensors
+0.00.179.016 I llama_model_loader: - type q6_K:   17 tensors
+0.00.179.025 I print_info: file format = GGUF V3 (latest)
+0.00.179.026 I print_info: file type   = Q4_K - Medium
+0.00.179.029 I print_info: file size   = 762.81 MiB (5.18 BPW) 
+0.00.179.035 I llama_prepare_model_devices: using device HTP0 (Hexagon) (unknown id) - 0 MiB free
+-0.00.261.608 D init_tokenizer: initializing tokenizer for type 2
+0.00.268.080 I load: 0 unused tokens
+0.00.268.092 D load: control token: 128254 '<|reserved_special_token_246|>' is not marked as EOG
+0.00.268.093 D load: control token: 128252 '<|reserved_special_token_244|>' is not marked as EOG
+0.00.268.093 D load: control token: 128251 '<|reserved_special_token_243|>' is not marked as EOG
+0.00.268.093 D load: control token: 128250 '<|reserved_special_token_242|>' is not marked as EOG
+0.00.268.094 D load: control token: 128248 '<|reserved_special_token_240|>' is not marked as EOG
+0.00.268.095 D load: control token: 128247 '<|reserved_special_token_239|>' is not marked as EOG
+0.00.268.095 D load: control token: 128245 '<|reserved_special_token_237|>' is not marked as EOG
+0.00.268.096 D load: control token: 128244 '<|reserved_special_token_236|>' is not marked as EOG
+0.00.268.096 D load: control token: 128243 '<|reserved_special_token_235|>' is not marked as EOG
+0.00.268.097 D load: control token: 128240 '<|reserved_special_token_232|>' is not marked as EOG
+0.00.268.097 D load: control token: 128238 '<|reserved_special_token_230|>' is not marked as EOG
+0.00.268.098 D load: control token: 128235 '<|reserved_special_token_227|>' is not marked as EOG
+0.00.268.098 D load: control token: 128234 '<|reserved_special_token_226|>' is not marked as EOG
+0.00.268.099 D load: control token: 128229 '<|reserved_special_token_221|>' is not marked as EOG
+0.00.268.099 D load: control token: 128227 '<|reserved_special_token_219|>' is not marked as EOG
+0.00.268.100 D load: control token: 128226 '<|reserved_special_token_218|>' is not marked as EOG
+0.00.268.100 D load: control token: 128224 '<|reserved_special_token_216|>' is not marked as EOG
+0.00.268.101 D load: control token: 128223 '<|reserved_special_token_215|>' is not marked as EOG
+0.00.268.101 D load: control token: 128221 '<|reserved_special_token_213|>' is not marked as EOG
+0.00.268.101 D load: control token: 128219 '<|reserved_special_token_211|>' is not marked as EOG
+0.00.268.102 D load: control token: 128218 '<|reserved_special_token_210|>' is not marked as EOG
+0.00.268.102 D load: control token: 128217 '<|reserved_special_token_209|>' is not marked as EOG
+0.00.268.103 D load: control token: 128216 '<|reserved_special_token_208|>' is not marked as EOG
+0.00.268.103 D load: control token: 128215 '<|reserved_special_token_207|>' is not marked as EOG
+0.00.268.104 D load: control token: 128213 '<|reserved_special_token_205|>' is not marked as EOG
+0.00.268.104 D load: control token: 128211 '<|reserved_special_token_203|>' is not marked as EOG
+0.00.268.105 D load: control token: 128210 '<|reserved_special_token_202|>' is not marked as EOG
+0.00.268.105 D load: control token: 128209 '<|reserved_special_token_201|>' is not marked as EOG
+0.00.268.106 D load: control token: 128208 '<|reserved_special_token_200|>' is not marked as EOG
+0.00.268.106 D load: control token: 128207 '<|reserved_special_token_199|>' is not marked as EOG
+0.00.268.107 D load: control token: 128204 '<|reserved_special_token_196|>' is not marked as EOG
+0.00.268.107 D load: control token: 128202 '<|reserved_special_token_194|>' is not marked as EOG
+0.00.268.108 D load: control token: 128197 '<|reserved_special_token_189|>' is not marked as EOG
+0.00.268.108 D load: control token: 128195 '<|reserved_special_token_187|>' is not marked as EOG
+0.00.268.109 D load: control token: 128194 '<|reserved_special_token_186|>' is not marked as EOG
+0.00.268.109 D load: control token: 128191 '<|reserved_special_token_183|>' is not marked as EOG
+0.00.268.110 D load: control token: 128190 '<|reserved_special_token_182|>' is not marked as EOG
+0.00.268.110 D load: control token: 128188 '<|reserved_special_token_180|>' is not marked as EOG
+0.00.268.110 D load: control token: 128187 '<|reserved_special_token_179|>' is not marked as EOG
+0.00.268.111 D load: control token: 128185 '<|reserved_special_token_177|>' is not marked as EOG
+0.00.268.111 D load: control token: 128184 '<|reserved_special_token_176|>' is not marked as EOG
+0.00.268.112 D load: control token: 128183 '<|reserved_special_token_175|>' is not marked as EOG
+0.00.268.112 D load: control token: 128178 '<|reserved_special_token_170|>' is not marked as EOG
+0.00.268.113 D load: control token: 128177 '<|reserved_special_token_169|>' is not marked as EOG
+0.00.268.113 D load: control token: 128176 '<|reserved_special_token_168|>' is not marked as EOG
+0.00.268.114 D load: control token: 128175 '<|reserved_special_token_167|>' is not marked as EOG
+0.00.268.117 D load: control token: 128174 '<|reserved_special_token_166|>' is not marked as EOG
+0.00.268.118 D load: control token: 128173 '<|reserved_special_token_165|>' is not marked as EOG
+0.00.268.118 D load: control token: 128172 '<|reserved_special_token_164|>' is not marked as EOG
+0.00.268.119 D load: control token: 128169 '<|reserved_special_token_161|>' is not marked as EOG
+0.00.268.119 D load: control token: 128167 '<|reserved_special_token_159|>' is not marked as EOG
+0.00.268.119 D load: control token: 128166 '<|reserved_special_token_158|>' is not marked as EOG
+0.00.268.120 D load: control token: 128160 '<|reserved_special_token_152|>' is not marked as EOG
+0.00.268.120 D load: control token: 128159 '<|reserved_special_token_151|>' is not marked as EOG
+0.00.268.120 D load: control token: 128157 '<|reserved_special_token_149|>' is not marked as EOG
+0.00.268.120 D load: control token: 128156 '<|reserved_special_token_148|>' is not marked as EOG
+0.00.268.121 D load: control token: 128154 '<|reserved_special_token_146|>' is not marked as EOG
+0.00.268.121 D load: control token: 128152 '<|reserved_special_token_144|>' is not marked as EOG
+0.00.268.121 D load: control token: 128151 '<|reserved_special_token_143|>' is not marked as EOG
+0.00.268.122 D load: control token: 128150 '<|reserved_special_token_142|>' is not marked as EOG
+0.00.268.122 D load: control token: 128147 '<|reserved_special_token_139|>' is not marked as EOG
+0.00.268.123 D load: control token: 128144 '<|reserved_special_token_136|>' is not marked as EOG
+0.00.268.123 D load: control token: 128142 '<|reserved_special_token_134|>' is not marked as EOG
+0.00.268.123 D load: control token: 128141 '<|reserved_special_token_133|>' is not marked as EOG
+0.00.268.124 D load: control token: 128140 '<|reserved_special_token_132|>' is not marked as EOG
+0.00.268.124 D load: control token: 128133 '<|reserved_special_token_125|>' is not marked as EOG
+0.00.268.124 D load: control token: 128130 '<|reserved_special_token_122|>' is not marked as EOG
+0.00.268.124 D load: control token: 128128 '<|reserved_special_token_120|>' is not marked as EOG
+0.00.268.125 D load: control token: 128127 '<|reserved_special_token_119|>' is not marked as EOG
+0.00.268.125 D load: control token: 128126 '<|reserved_special_token_118|>' is not marked as EOG
+0.00.268.126 D load: control token: 128125 '<|reserved_special_token_117|>' is not marked as EOG
+0.00.268.126 D load: control token: 128124 '<|reserved_special_token_116|>' is not marked as EOG
+0.00.268.126 D load: control token: 128123 '<|reserved_special_token_115|>' is not marked as EOG
+0.00.268.126 D load: control token: 128122 '<|reserved_special_token_114|>' is not marked as EOG
+0.00.268.127 D load: control token: 128121 '<|reserved_special_token_113|>' is not marked as EOG
+0.00.268.127 D load: control token: 128120 '<|reserved_special_token_112|>' is not marked as EOG
+0.00.268.127 D load: control token: 128119 '<|reserved_special_token_111|>' is not marked as EOG
+0.00.268.127 D load: control token: 128116 '<|reserved_special_token_108|>' is not marked as EOG
+0.00.268.128 D load: control token: 128115 '<|reserved_special_token_107|>' is not marked as EOG
+0.00.268.128 D load: control token: 128114 '<|reserved_special_token_106|>' is not marked as EOG
+0.00.268.128 D load: control token: 128113 '<|reserved_special_token_105|>' is not marked as EOG
+0.00.268.129 D load: control token: 128111 '<|reserved_special_token_103|>' is not marked as EOG
+0.00.268.129 D load: control token: 128110 '<|reserved_special_token_102|>' is not marked as EOG
+0.00.268.129 D load: control token: 128107 '<|reserved_special_token_99|>' is not marked as EOG
+0.00.268.129 D load: control token: 128106 '<|reserved_special_token_98|>' is not marked as EOG
+0.00.268.130 D load: control token: 128105 '<|reserved_special_token_97|>' is not marked as EOG
+0.00.268.130 D load: control token: 128104 '<|reserved_special_token_96|>' is not marked as EOG
+0.00.268.130 D load: control token: 128103 '<|reserved_special_token_95|>' is not marked as EOG
+0.00.268.130 D load: control token: 128100 '<|reserved_special_token_92|>' is not marked as EOG
+0.00.268.131 D load: control token: 128097 '<|reserved_special_token_89|>' is not marked as EOG
+0.00.268.131 D load: control token: 128096 '<|reserved_special_token_88|>' is not marked as EOG
+0.00.268.131 D load: control token: 128094 '<|reserved_special_token_86|>' is not marked as EOG
+0.00.268.132 D load: control token: 128093 '<|reserved_special_token_85|>' is not marked as EOG
+0.00.268.132 D load: control token: 128090 '<|reserved_special_token_82|>' is not marked as EOG
+0.00.268.132 D load: control token: 128089 '<|reserved_special_token_81|>' is not marked as EOG
+0.00.268.132 D load: control token: 128087 '<|reserved_special_token_79|>' is not marked as EOG
+0.00.268.133 D load: control token: 128085 '<|reserved_special_token_77|>' is not marked as EOG
+0.00.268.133 D load: control token: 128080 '<|reserved_special_token_72|>' is not marked as EOG
+0.00.268.133 D load: control token: 128077 '<|reserved_special_token_69|>' is not marked as EOG
+0.00.268.133 D load: control token: 128076 '<|reserved_special_token_68|>' is not marked as EOG
+0.00.268.134 D load: control token: 128073 '<|reserved_special_token_65|>' is not marked as EOG
+0.00.268.134 D load: control token: 128070 '<|reserved_special_token_62|>' is not marked as EOG
+0.00.268.134 D load: control token: 128069 '<|reserved_special_token_61|>' is not marked as EOG
+0.00.268.135 D load: control token: 128067 '<|reserved_special_token_59|>' is not marked as EOG
+0.00.268.135 D load: control token: 128064 '<|reserved_special_token_56|>' is not marked as EOG
+0.00.268.135 D load: control token: 128062 '<|reserved_special_token_54|>' is not marked as EOG
+0.00.268.135 D load: control token: 128061 '<|reserved_special_token_53|>' is not marked as EOG
+0.00.268.136 D load: control token: 128060 '<|reserved_special_token_52|>' is not marked as EOG
+0.00.268.136 D load: control token: 128054 '<|reserved_special_token_46|>' is not marked as EOG
+0.00.268.136 D load: control token: 128045 '<|reserved_special_token_37|>' is not marked as EOG
+0.00.268.137 D load: control token: 128044 '<|reserved_special_token_36|>' is not marked as EOG
+0.00.268.137 D load: control token: 128043 '<|reserved_special_token_35|>' is not marked as EOG
+0.00.268.137 D load: control token: 128042 '<|reserved_special_token_34|>' is not marked as EOG
+0.00.268.137 D load: control token: 128038 '<|reserved_special_token_30|>' is not marked as EOG
+0.00.268.138 D load: control token: 128037 '<|reserved_special_token_29|>' is not marked as EOG
+0.00.268.138 D load: control token: 128035 '<|reserved_special_token_27|>' is not marked as EOG
+0.00.268.138 D load: control token: 128034 '<|reserved_special_token_26|>' is not marked as EOG
+0.00.268.138 D load: control token: 128033 '<|reserved_special_token_25|>' is not marked as EOG
+0.00.268.139 D load: control token: 128032 '<|reserved_special_token_24|>' is not marked as EOG
+0.00.268.139 D load: control token: 128030 '<|reserved_special_token_22|>' is not marked as EOG
+0.00.268.139 D load: control token: 128029 '<|reserved_special_token_21|>' is not marked as EOG
+0.00.268.140 D load: control token: 128028 '<|reserved_special_token_20|>' is not marked as EOG
+0.00.268.140 D load: control token: 128026 '<|reserved_special_token_18|>' is not marked as EOG
+0.00.268.140 D load: control token: 128025 '<|reserved_special_token_17|>' is not marked as EOG
+0.00.268.140 D load: control token: 128024 '<|reserved_special_token_16|>' is not marked as EOG
+0.00.268.141 D load: control token: 128022 '<|reserved_special_token_14|>' is not marked as EOG
+0.00.268.141 D load: control token: 128020 '<|reserved_special_token_12|>' is not marked as EOG
+0.00.268.141 D load: control token: 128017 '<|reserved_special_token_9|>' is not marked as EOG
+0.00.268.141 D load: control token: 128016 '<|reserved_special_token_8|>' is not marked as EOG
+0.00.268.142 D load: control token: 128015 '<|reserved_special_token_7|>' is not marked as EOG
+0.00.268.142 D load: control token: 128014 '<|reserved_special_token_6|>' is not marked as EOG
+0.00.268.142 D load: control token: 128013 '<|reserved_special_token_5|>' is not marked as EOG
+0.00.268.143 D load: control token: 128011 '<|reserved_special_token_3|>' is not marked as EOG
+0.00.268.143 D load: control token: 128010 '<|python_tag|>' is not marked as EOG
+0.00.268.143 D load: control token: 128006 '<|start_header_id|>' is not marked as EOG
+0.00.268.144 D load: control token: 128003 '<|reserved_special_token_1|>' is not marked as EOG
+0.00.268.144 D load: control token: 128002 '<|reserved_special_token_0|>' is not marked as EOG
+0.00.268.144 D load: control token: 128000 '<|begin_of_text|>' is not marked as EOG
+0.00.268.148 D load: control token: 128041 '<|reserved_special_token_33|>' is not marked as EOG
+0.00.268.179 D load: control token: 128063 '<|reserved_special_token_55|>' is not marked as EOG
+0.00.268.182 D load: control token: 128046 '<|reserved_special_token_38|>' is not marked as EOG
+0.00.268.189 D load: control token: 128007 '<|end_header_id|>' is not marked as EOG
+0.00.268.210 D load: control token: 128065 '<|reserved_special_token_57|>' is not marked as EOG
+0.00.268.210 D load: control token: 128171 '<|reserved_special_token_163|>' is not marked as EOG
+0.00.268.228 D load: control token: 128162 '<|reserved_special_token_154|>' is not marked as EOG
+0.00.268.236 D load: control token: 128165 '<|reserved_special_token_157|>' is not marked as EOG
+0.00.268.271 D load: control token: 128057 '<|reserved_special_token_49|>' is not marked as EOG
+0.00.268.280 D load: control token: 128050 '<|reserved_special_token_42|>' is not marked as EOG
+0.00.268.297 D load: control token: 128056 '<|reserved_special_token_48|>' is not marked as EOG
+0.00.268.299 D load: control token: 128230 '<|reserved_special_token_222|>' is not marked as EOG
+0.00.268.301 D load: control token: 128098 '<|reserved_special_token_90|>' is not marked as EOG
+0.00.268.305 D load: control token: 128153 '<|reserved_special_token_145|>' is not marked as EOG
+0.00.268.307 D load: control token: 128084 '<|reserved_special_token_76|>' is not marked as EOG
+0.00.268.313 D load: control token: 128082 '<|reserved_special_token_74|>' is not marked as EOG
+0.00.268.326 D load: control token: 128102 '<|reserved_special_token_94|>' is not marked as EOG
+0.00.268.357 D load: control token: 128253 '<|reserved_special_token_245|>' is not marked as EOG
+0.00.268.369 D load: control token: 128179 '<|reserved_special_token_171|>' is not marked as EOG
+0.00.268.373 D load: control token: 128071 '<|reserved_special_token_63|>' is not marked as EOG
+0.00.268.383 D load: control token: 128135 '<|reserved_special_token_127|>' is not marked as EOG
+0.00.268.422 D load: control token: 128161 '<|reserved_special_token_153|>' is not marked as EOG
+0.00.268.468 D load: control token: 128164 '<|reserved_special_token_156|>' is not marked as EOG
+0.00.268.495 D load: control token: 128134 '<|reserved_special_token_126|>' is not marked as EOG
+0.00.268.508 D load: control token: 128249 '<|reserved_special_token_241|>' is not marked as EOG
+0.00.268.624 D load: control token: 128004 '<|finetune_right_pad_id|>' is not marked as EOG
+0.00.268.687 D load: control token: 128036 '<|reserved_special_token_28|>' is not marked as EOG
+0.00.268.727 D load: control token: 128148 '<|reserved_special_token_140|>' is not marked as EOG
+0.00.268.756 D load: control token: 128181 '<|reserved_special_token_173|>' is not marked as EOG
+0.00.268.764 D load: control token: 128222 '<|reserved_special_token_214|>' is not marked as EOG
+0.00.268.775 D load: control token: 128075 '<|reserved_special_token_67|>' is not marked as EOG
+0.00.268.838 D load: control token: 128241 '<|reserved_special_token_233|>' is not marked as EOG
+0.00.268.847 D load: control token: 128051 '<|reserved_special_token_43|>' is not marked as EOG
+0.00.268.871 D load: control token: 128068 '<|reserved_special_token_60|>' is not marked as EOG
+0.00.268.926 D load: control token: 128149 '<|reserved_special_token_141|>' is not marked as EOG
+0.00.268.954 D load: control token: 128201 '<|reserved_special_token_193|>' is not marked as EOG
+0.00.268.971 D load: control token: 128058 '<|reserved_special_token_50|>' is not marked as EOG
+0.00.268.996 D load: control token: 128146 '<|reserved_special_token_138|>' is not marked as EOG
+0.00.268.999 D load: control token: 128143 '<|reserved_special_token_135|>' is not marked as EOG
+0.00.269.003 D load: control token: 128023 '<|reserved_special_token_15|>' is not marked as EOG
+0.00.269.009 D load: control token: 128039 '<|reserved_special_token_31|>' is not marked as EOG
+0.00.269.067 D load: control token: 128132 '<|reserved_special_token_124|>' is not marked as EOG
+0.00.269.071 D load: control token: 128101 '<|reserved_special_token_93|>' is not marked as EOG
+0.00.269.105 D load: control token: 128212 '<|reserved_special_token_204|>' is not marked as EOG
+0.00.269.129 D load: control token: 128189 '<|reserved_special_token_181|>' is not marked as EOG
+0.00.269.153 D load: control token: 128225 '<|reserved_special_token_217|>' is not marked as EOG
+0.00.269.227 D load: control token: 128129 '<|reserved_special_token_121|>' is not marked as EOG
+0.00.269.271 D load: control token: 128005 '<|reserved_special_token_2|>' is not marked as EOG
+0.00.269.277 D load: control token: 128078 '<|reserved_special_token_70|>' is not marked as EOG
+0.00.269.278 D load: control token: 128163 '<|reserved_special_token_155|>' is not marked as EOG
+0.00.269.303 D load: control token: 128072 '<|reserved_special_token_64|>' is not marked as EOG
+0.00.269.304 D load: control token: 128112 '<|reserved_special_token_104|>' is not marked as EOG
+0.00.269.324 D load: control token: 128186 '<|reserved_special_token_178|>' is not marked as EOG
+0.00.269.346 D load: control token: 128095 '<|reserved_special_token_87|>' is not marked as EOG
+0.00.269.482 D load: control token: 128109 '<|reserved_special_token_101|>' is not marked as EOG
+0.00.269.628 D load: control token: 128099 '<|reserved_special_token_91|>' is not marked as EOG
+0.00.269.630 D load: control token: 128138 '<|reserved_special_token_130|>' is not marked as EOG
+0.00.269.638 D load: control token: 128193 '<|reserved_special_token_185|>' is not marked as EOG
+0.00.269.690 D load: control token: 128199 '<|reserved_special_token_191|>' is not marked as EOG
+0.00.269.734 D load: control token: 128048 '<|reserved_special_token_40|>' is not marked as EOG
+0.00.269.772 D load: control token: 128088 '<|reserved_special_token_80|>' is not marked as EOG
+0.00.269.889 D load: control token: 128192 '<|reserved_special_token_184|>' is not marked as EOG
+0.00.269.903 D load: control token: 128136 '<|reserved_special_token_128|>' is not marked as EOG
+0.00.269.924 D load: control token: 128092 '<|reserved_special_token_84|>' is not marked as EOG
+0.00.269.952 D load: control token: 128158 '<|reserved_special_token_150|>' is not marked as EOG
+0.00.269.970 D load: control token: 128049 '<|reserved_special_token_41|>' is not marked as EOG
+0.00.270.034 D load: control token: 128031 '<|reserved_special_token_23|>' is not marked as EOG
+0.00.270.113 D load: control token: 128255 '<|reserved_special_token_247|>' is not marked as EOG
+0.00.270.161 D load: control token: 128182 '<|reserved_special_token_174|>' is not marked as EOG
+0.00.270.213 D load: control token: 128066 '<|reserved_special_token_58|>' is not marked as EOG
+0.00.270.217 D load: control token: 128180 '<|reserved_special_token_172|>' is not marked as EOG
+0.00.270.227 D load: control token: 128233 '<|reserved_special_token_225|>' is not marked as EOG
+0.00.270.260 D load: control token: 128079 '<|reserved_special_token_71|>' is not marked as EOG
+0.00.270.310 D load: control token: 128081 '<|reserved_special_token_73|>' is not marked as EOG
+0.00.270.320 D load: control token: 128231 '<|reserved_special_token_223|>' is not marked as EOG
+0.00.270.367 D load: control token: 128196 '<|reserved_special_token_188|>' is not marked as EOG
+0.00.270.372 D load: control token: 128047 '<|reserved_special_token_39|>' is not marked as EOG
+0.00.270.408 D load: control token: 128083 '<|reserved_special_token_75|>' is not marked as EOG
+0.00.270.438 D load: control token: 128139 '<|reserved_special_token_131|>' is not marked as EOG
+0.00.270.475 D load: control token: 128131 '<|reserved_special_token_123|>' is not marked as EOG
+0.00.270.480 D load: control token: 128118 '<|reserved_special_token_110|>' is not marked as EOG
+0.00.270.543 D load: control token: 128053 '<|reserved_special_token_45|>' is not marked as EOG
+0.00.270.585 D load: control token: 128220 '<|reserved_special_token_212|>' is not marked as EOG
+0.00.270.662 D load: control token: 128108 '<|reserved_special_token_100|>' is not marked as EOG
+0.00.270.756 D load: control token: 128091 '<|reserved_special_token_83|>' is not marked as EOG
+0.00.270.874 D load: control token: 128203 '<|reserved_special_token_195|>' is not marked as EOG
+0.00.271.014 D load: control token: 128059 '<|reserved_special_token_51|>' is not marked as EOG
+0.00.271.014 D load: control token: 128019 '<|reserved_special_token_11|>' is not marked as EOG
+0.00.271.037 D load: control token: 128170 '<|reserved_special_token_162|>' is not marked as EOG
+0.00.271.038 D load: control token: 128205 '<|reserved_special_token_197|>' is not marked as EOG
+0.00.271.071 D load: control token: 128040 '<|reserved_special_token_32|>' is not marked as EOG
+0.00.271.084 D load: control token: 128200 '<|reserved_special_token_192|>' is not marked as EOG
+0.00.271.096 D load: control token: 128236 '<|reserved_special_token_228|>' is not marked as EOG
+0.00.271.137 D load: control token: 128145 '<|reserved_special_token_137|>' is not marked as EOG
+0.00.271.209 D load: control token: 128168 '<|reserved_special_token_160|>' is not marked as EOG
+0.00.271.232 D load: control token: 128214 '<|reserved_special_token_206|>' is not marked as EOG
+0.00.271.239 D load: control token: 128137 '<|reserved_special_token_129|>' is not marked as EOG
+0.00.271.263 D load: control token: 128232 '<|reserved_special_token_224|>' is not marked as EOG
+0.00.271.264 D load: control token: 128239 '<|reserved_special_token_231|>' is not marked as EOG
+0.00.271.280 D load: control token: 128055 '<|reserved_special_token_47|>' is not marked as EOG
+0.00.271.282 D load: control token: 128228 '<|reserved_special_token_220|>' is not marked as EOG
+0.00.271.312 D load: control token: 128206 '<|reserved_special_token_198|>' is not marked as EOG
+0.00.271.319 D load: control token: 128018 '<|reserved_special_token_10|>' is not marked as EOG
+0.00.271.326 D load: control token: 128012 '<|reserved_special_token_4|>' is not marked as EOG
+0.00.271.347 D load: control token: 128198 '<|reserved_special_token_190|>' is not marked as EOG
+0.00.271.386 D load: control token: 128021 '<|reserved_special_token_13|>' is not marked as EOG
+0.00.271.434 D load: control token: 128086 '<|reserved_special_token_78|>' is not marked as EOG
+0.00.271.446 D load: control token: 128074 '<|reserved_special_token_66|>' is not marked as EOG
+0.00.271.455 D load: control token: 128027 '<|reserved_special_token_19|>' is not marked as EOG
+0.00.271.463 D load: control token: 128242 '<|reserved_special_token_234|>' is not marked as EOG
+0.00.271.485 D load: control token: 128155 '<|reserved_special_token_147|>' is not marked as EOG
+0.00.271.533 D load: control token: 128052 '<|reserved_special_token_44|>' is not marked as EOG
+0.00.271.560 D load: control token: 128246 '<|reserved_special_token_238|>' is not marked as EOG
+0.00.271.591 D load: control token: 128117 '<|reserved_special_token_109|>' is not marked as EOG
+0.00.271.600 D load: control token: 128237 '<|reserved_special_token_229|>' is not marked as EOG
+0.00.273.179 I load: printing all EOG tokens:
+0.00.273.180 I load:   - 128001 ('<|end_of_text|>')
+0.00.273.180 I load:   - 128008 ('<|eom_id|>')
+0.00.273.181 I load:   - 128009 ('<|eot_id|>')
+0.00.273.261 I load: special tokens cache size = 256
+\0.00.301.741 I load: token to piece cache size = 0.7999 MB
+0.00.301.761 I print_info: arch                  = llama
+0.00.301.761 I print_info: vocab_only            = 0
+0.00.301.762 I print_info: no_alloc              = 1
+0.00.301.762 I print_info: n_ctx_train           = 131072
+0.00.301.763 I print_info: n_embd_inp            = 2048
+0.00.301.763 I print_info: n_embd                = 2048
+0.00.301.764 I print_info: n_embd_out            = 2048
+0.00.301.764 I print_info: n_layer               = 16
+0.00.301.765 I print_info: n_layer_all           = 16
+0.00.301.780 I print_info: n_head                = 32
+0.00.301.781 I print_info: n_head_kv             = 8
+0.00.301.782 I print_info: n_rot                 = 64
+0.00.301.782 I print_info: n_swa                 = 0
+0.00.301.783 I print_info: is_swa_any            = 0
+0.00.301.783 I print_info: n_embd_head_k         = 64
+0.00.301.784 I print_info: n_embd_head_v         = 64
+0.00.301.785 I print_info: n_gqa                 = 4
+0.00.301.787 I print_info: n_embd_k_gqa          = 512
+0.00.301.789 I print_info: n_embd_v_gqa          = 512
+0.00.301.790 I print_info: f_norm_eps            = 0.0e+00
+0.00.301.790 I print_info: f_norm_rms_eps        = 1.0e-05
+0.00.301.791 I print_info: f_clamp_kqv           = 0.0e+00
+0.00.301.791 I print_info: f_max_alibi_bias      = 0.0e+00
+0.00.301.792 I print_info: f_logit_scale         = 0.0e+00
+0.00.301.792 I print_info: f_attn_scale          = 0.0e+00
+0.00.301.792 I print_info: f_attn_value_scale    = 0.0000
+0.00.301.793 I print_info: n_ff                  = 8192
+0.00.301.794 I print_info: n_expert              = 0
+0.00.301.794 I print_info: n_expert_used         = 0
+0.00.301.794 I print_info: n_expert_groups       = 0
+0.00.301.795 I print_info: n_group_used          = 0
+0.00.301.795 I print_info: causal attn           = 1
+0.00.301.795 I print_info: pooling type          = -1
+0.00.301.795 I print_info: rope type             = 0
+0.00.301.796 I print_info: rope scaling          = linear
+0.00.301.796 I print_info: freq_base_train       = 500000.0
+0.00.301.797 I print_info: freq_scale_train      = 1
+0.00.301.797 I print_info: n_ctx_orig_yarn       = 131072
+0.00.301.797 I print_info: rope_yarn_log_mul     = 0.0000
+0.00.301.798 I print_info: rope_finetuned        = unknown
+0.00.301.798 I print_info: model type            = 1B
+0.00.301.798 I print_info: model params          = 1.24 B
+0.00.301.799 I print_info: general.name          = Llama 3.2 1B Instruct
+0.00.301.800 I print_info: vocab type            = BPE
+0.00.301.800 I print_info: n_vocab               = 128256
+0.00.301.800 I print_info: n_merges              = 280147
+0.00.301.801 I print_info: BOS token             = 128000 '<|begin_of_text|>'
+0.00.301.801 I print_info: EOS token             = 128009 '<|eot_id|>'
+0.00.301.801 I print_info: EOT token             = 128001 '<|end_of_text|>'
+0.00.301.802 I print_info: EOM token             = 128008 '<|eom_id|>'
+0.00.301.802 I print_info: LF token              = 198 'Ċ'
+0.00.301.803 I print_info: EOG token             = 128001 '<|end_of_text|>'
+0.00.301.803 I print_info: EOG token             = 128008 '<|eom_id|>'
+0.00.301.803 I print_info: EOG token             = 128009 '<|eot_id|>'
+0.00.301.803 I print_info: max token length      = 256
+0.00.301.804 I load_tensors: loading model tensors, this can take a while... (mmap = false, direct_io = false)
+0.00.301.846 D load_tensors: layer   0 assigned to device HTP0, is_swa = 0
+0.00.301.846 D load_tensors: layer   1 assigned to device HTP0, is_swa = 0
+0.00.301.846 D load_tensors: layer   2 assigned to device HTP0, is_swa = 0
+0.00.301.847 D load_tensors: layer   3 assigned to device HTP0, is_swa = 0
+0.00.301.847 D load_tensors: layer   4 assigned to device HTP0, is_swa = 0
+0.00.301.847 D load_tensors: layer   5 assigned to device HTP0, is_swa = 0
+0.00.301.848 D load_tensors: layer   6 assigned to device HTP0, is_swa = 0
+0.00.301.848 D load_tensors: layer   7 assigned to device HTP0, is_swa = 0
+0.00.301.848 D load_tensors: layer   8 assigned to device HTP0, is_swa = 0
+0.00.301.848 D load_tensors: layer   9 assigned to device HTP0, is_swa = 0
+0.00.301.849 D load_tensors: layer  10 assigned to device HTP0, is_swa = 0
+0.00.301.849 D load_tensors: layer  11 assigned to device HTP0, is_swa = 0
+0.00.301.849 D load_tensors: layer  12 assigned to device HTP0, is_swa = 0
+0.00.301.849 D load_tensors: layer  13 assigned to device HTP0, is_swa = 0
+0.00.301.850 D load_tensors: layer  14 assigned to device HTP0, is_swa = 0
+0.00.301.850 D load_tensors: layer  15 assigned to device HTP0, is_swa = 0
+0.00.301.850 D load_tensors: layer  16 assigned to device HTP0, is_swa = 0
+0.00.301.869 D create_tensor: loading tensor token_embd.weight
+0.00.301.912 D create_tensor: loading tensor output_norm.weight
+0.00.301.941 D create_tensor: loading tensor token_embd.weight
+0.00.301.946 D create_tensor: loading tensor blk.0.attn_norm.weight
+0.00.301.952 D create_tensor: loading tensor blk.0.attn_q.weight
+0.00.301.955 D create_tensor: loading tensor blk.0.attn_k.weight
+0.00.301.958 D create_tensor: loading tensor blk.0.attn_v.weight
+0.00.301.965 D create_tensor: loading tensor blk.0.attn_output.weight
+0.00.301.969 D create_tensor: loading tensor blk.0.ffn_norm.weight
+0.00.301.973 D create_tensor: loading tensor rope_freqs.weight
+0.00.301.976 D create_tensor: loading tensor blk.0.ffn_gate.weight
+0.00.301.980 D create_tensor: loading tensor blk.0.ffn_down.weight
+0.00.301.984 D create_tensor: loading tensor blk.0.ffn_up.weight
+0.00.301.989 D create_tensor: loading tensor blk.1.attn_norm.weight
+0.00.301.994 D create_tensor: loading tensor blk.1.attn_q.weight
+0.00.301.997 D create_tensor: loading tensor blk.1.attn_k.weight
+0.00.302.000 D create_tensor: loading tensor blk.1.attn_v.weight
+0.00.302.006 D create_tensor: loading tensor blk.1.attn_output.weight
+0.00.302.010 D create_tensor: loading tensor blk.1.ffn_norm.weight
+0.00.302.014 D create_tensor: loading tensor blk.1.ffn_gate.weight
+0.00.302.017 D create_tensor: loading tensor blk.1.ffn_down.weight
+0.00.302.021 D create_tensor: loading tensor blk.1.ffn_up.weight
+0.00.302.027 D create_tensor: loading tensor blk.2.attn_norm.weight
+0.00.302.031 D create_tensor: loading tensor blk.2.attn_q.weight
+0.00.302.034 D create_tensor: loading tensor blk.2.attn_k.weight
+0.00.302.038 D create_tensor: loading tensor blk.2.attn_v.weight
+0.00.302.044 D create_tensor: loading tensor blk.2.attn_output.weight
+0.00.302.048 D create_tensor: loading tensor blk.2.ffn_norm.weight
+0.00.302.053 D create_tensor: loading tensor blk.2.ffn_gate.weight
+0.00.302.056 D create_tensor: loading tensor blk.2.ffn_down.weight
+0.00.302.059 D create_tensor: loading tensor blk.2.ffn_up.weight
+0.00.302.064 D create_tensor: loading tensor blk.3.attn_norm.weight
+0.00.302.069 D create_tensor: loading tensor blk.3.attn_q.weight
+0.00.302.072 D create_tensor: loading tensor blk.3.attn_k.weight
+0.00.302.076 D create_tensor: loading tensor blk.3.attn_v.weight
+0.00.302.082 D create_tensor: loading tensor blk.3.attn_output.weight
+0.00.302.086 D create_tensor: loading tensor blk.3.ffn_norm.weight
+0.00.302.090 D create_tensor: loading tensor blk.3.ffn_gate.weight
+0.00.302.093 D create_tensor: loading tensor blk.3.ffn_down.weight
+0.00.302.097 D create_tensor: loading tensor blk.3.ffn_up.weight
+0.00.302.102 D create_tensor: loading tensor blk.4.attn_norm.weight
+0.00.302.107 D create_tensor: loading tensor blk.4.attn_q.weight
+0.00.302.110 D create_tensor: loading tensor blk.4.attn_k.weight
+0.00.302.114 D create_tensor: loading tensor blk.4.attn_v.weight
+0.00.302.120 D create_tensor: loading tensor blk.4.attn_output.weight
+0.00.302.124 D create_tensor: loading tensor blk.4.ffn_norm.weight
+0.00.302.128 D create_tensor: loading tensor blk.4.ffn_gate.weight
+0.00.302.131 D create_tensor: loading tensor blk.4.ffn_down.weight
+0.00.302.135 D create_tensor: loading tensor blk.4.ffn_up.weight
+0.00.302.140 D create_tensor: loading tensor blk.5.attn_norm.weight
+0.00.302.145 D create_tensor: loading tensor blk.5.attn_q.weight
+0.00.302.148 D create_tensor: loading tensor blk.5.attn_k.weight
+0.00.302.151 D create_tensor: loading tensor blk.5.attn_v.weight
+0.00.302.157 D create_tensor: loading tensor blk.5.attn_output.weight
+0.00.302.161 D create_tensor: loading tensor blk.5.ffn_norm.weight
+0.00.302.166 D create_tensor: loading tensor blk.5.ffn_gate.weight
+0.00.302.169 D create_tensor: loading tensor blk.5.ffn_down.weight
+0.00.302.172 D create_tensor: loading tensor blk.5.ffn_up.weight
+0.00.302.178 D create_tensor: loading tensor blk.6.attn_norm.weight
+0.00.302.183 D create_tensor: loading tensor blk.6.attn_q.weight
+0.00.302.187 D create_tensor: loading tensor blk.6.attn_k.weight
+0.00.302.190 D create_tensor: loading tensor blk.6.attn_v.weight
+0.00.302.197 D create_tensor: loading tensor blk.6.attn_output.weight
+0.00.302.201 D create_tensor: loading tensor blk.6.ffn_norm.weight
+0.00.302.206 D create_tensor: loading tensor blk.6.ffn_gate.weight
+0.00.302.209 D create_tensor: loading tensor blk.6.ffn_down.weight
+0.00.302.213 D create_tensor: loading tensor blk.6.ffn_up.weight
+0.00.302.219 D create_tensor: loading tensor blk.7.attn_norm.weight
+0.00.302.223 D create_tensor: loading tensor blk.7.attn_q.weight
+0.00.302.227 D create_tensor: loading tensor blk.7.attn_k.weight
+0.00.302.230 D create_tensor: loading tensor blk.7.attn_v.weight
+0.00.302.237 D create_tensor: loading tensor blk.7.attn_output.weight
+0.00.302.241 D create_tensor: loading tensor blk.7.ffn_norm.weight
+0.00.302.246 D create_tensor: loading tensor blk.7.ffn_gate.weight
+0.00.302.249 D create_tensor: loading tensor blk.7.ffn_down.weight
+0.00.302.252 D create_tensor: loading tensor blk.7.ffn_up.weight
+0.00.302.258 D create_tensor: loading tensor blk.8.attn_norm.weight
+0.00.302.263 D create_tensor: loading tensor blk.8.attn_q.weight
+0.00.302.267 D create_tensor: loading tensor blk.8.attn_k.weight
+0.00.302.271 D create_tensor: loading tensor blk.8.attn_v.weight
+0.00.302.278 D create_tensor: loading tensor blk.8.attn_output.weight
+0.00.302.282 D create_tensor: loading tensor blk.8.ffn_norm.weight
+0.00.302.287 D create_tensor: loading tensor blk.8.ffn_gate.weight
+0.00.302.290 D create_tensor: loading tensor blk.8.ffn_down.weight
+0.00.302.294 D create_tensor: loading tensor blk.8.ffn_up.weight
+0.00.302.300 D create_tensor: loading tensor blk.9.attn_norm.weight
+0.00.302.305 D create_tensor: loading tensor blk.9.attn_q.weight
+0.00.302.309 D create_tensor: loading tensor blk.9.attn_k.weight
+0.00.302.312 D create_tensor: loading tensor blk.9.attn_v.weight
+0.00.302.319 D create_tensor: loading tensor blk.9.attn_output.weight
+0.00.302.324 D create_tensor: loading tensor blk.9.ffn_norm.weight
+0.00.302.328 D create_tensor: loading tensor blk.9.ffn_gate.weight
+0.00.302.332 D create_tensor: loading tensor blk.9.ffn_down.weight
+0.00.302.335 D create_tensor: loading tensor blk.9.ffn_up.weight
+0.00.302.342 D create_tensor: loading tensor blk.10.attn_norm.weight
+0.00.302.348 D create_tensor: loading tensor blk.10.attn_q.weight
+0.00.302.351 D create_tensor: loading tensor blk.10.attn_k.weight
+0.00.302.355 D create_tensor: loading tensor blk.10.attn_v.weight
+0.00.302.362 D create_tensor: loading tensor blk.10.attn_output.weight
+0.00.302.366 D create_tensor: loading tensor blk.10.ffn_norm.weight
+0.00.302.371 D create_tensor: loading tensor blk.10.ffn_gate.weight
+0.00.302.374 D create_tensor: loading tensor blk.10.ffn_down.weight
+0.00.302.378 D create_tensor: loading tensor blk.10.ffn_up.weight
+0.00.302.384 D create_tensor: loading tensor blk.11.attn_norm.weight
+0.00.302.389 D create_tensor: loading tensor blk.11.attn_q.weight
+0.00.302.392 D create_tensor: loading tensor blk.11.attn_k.weight
+0.00.302.395 D create_tensor: loading tensor blk.11.attn_v.weight
+0.00.302.401 D create_tensor: loading tensor blk.11.attn_output.weight
+0.00.302.405 D create_tensor: loading tensor blk.11.ffn_norm.weight
+0.00.302.410 D create_tensor: loading tensor blk.11.ffn_gate.weight
+0.00.302.413 D create_tensor: loading tensor blk.11.ffn_down.weight
+0.00.302.416 D create_tensor: loading tensor blk.11.ffn_up.weight
+0.00.302.421 D create_tensor: loading tensor blk.12.attn_norm.weight
+0.00.302.426 D create_tensor: loading tensor blk.12.attn_q.weight
+0.00.302.429 D create_tensor: loading tensor blk.12.attn_k.weight
+0.00.302.432 D create_tensor: loading tensor blk.12.attn_v.weight
+0.00.302.438 D create_tensor: loading tensor blk.12.attn_output.weight
+0.00.302.442 D create_tensor: loading tensor blk.12.ffn_norm.weight
+0.00.302.446 D create_tensor: loading tensor blk.12.ffn_gate.weight
+0.00.302.449 D create_tensor: loading tensor blk.12.ffn_down.weight
+0.00.302.452 D create_tensor: loading tensor blk.12.ffn_up.weight
+0.00.302.458 D create_tensor: loading tensor blk.13.attn_norm.weight
+0.00.302.462 D create_tensor: loading tensor blk.13.attn_q.weight
+0.00.302.465 D create_tensor: loading tensor blk.13.attn_k.weight
+0.00.302.469 D create_tensor: loading tensor blk.13.attn_v.weight
+0.00.302.475 D create_tensor: loading tensor blk.13.attn_output.weight
+0.00.302.478 D create_tensor: loading tensor blk.13.ffn_norm.weight
+0.00.302.483 D create_tensor: loading tensor blk.13.ffn_gate.weight
+0.00.302.486 D create_tensor: loading tensor blk.13.ffn_down.weight
+0.00.302.489 D create_tensor: loading tensor blk.13.ffn_up.weight
+0.00.302.495 D create_tensor: loading tensor blk.14.attn_norm.weight
+0.00.302.500 D create_tensor: loading tensor blk.14.attn_q.weight
+0.00.302.503 D create_tensor: loading tensor blk.14.attn_k.weight
+0.00.302.506 D create_tensor: loading tensor blk.14.attn_v.weight
+0.00.302.512 D create_tensor: loading tensor blk.14.attn_output.weight
+0.00.302.517 D create_tensor: loading tensor blk.14.ffn_norm.weight
+0.00.302.521 D create_tensor: loading tensor blk.14.ffn_gate.weight
+0.00.302.524 D create_tensor: loading tensor blk.14.ffn_down.weight
+0.00.302.528 D create_tensor: loading tensor blk.14.ffn_up.weight
+0.00.302.533 D create_tensor: loading tensor blk.15.attn_norm.weight
+0.00.302.538 D create_tensor: loading tensor blk.15.attn_q.weight
+0.00.302.541 D create_tensor: loading tensor blk.15.attn_k.weight
+0.00.302.545 D create_tensor: loading tensor blk.15.attn_v.weight
+0.00.302.551 D create_tensor: loading tensor blk.15.attn_output.weight
+0.00.302.555 D create_tensor: loading tensor blk.15.ffn_norm.weight
+0.00.302.560 D create_tensor: loading tensor blk.15.ffn_gate.weight
+0.00.302.563 D create_tensor: loading tensor blk.15.ffn_down.weight
+0.00.302.567 D create_tensor: loading tensor blk.15.ffn_up.weight
+0.00.302.785 D done_getting_tensors: tensor 'token_embd.weight' (q6_K) (and 113 others) cannot be used with preferred buffer type CPU_REPACK, using CPU instead
+0.00.302.804 I load_tensors: offloading output layer to GPU
+0.00.302.804 I load_tensors: offloading 15 repeating layers to GPU
+0.00.302.804 I load_tensors: offloaded 17/17 layers to GPU
+0.00.302.805 I load_tensors:          CPU model buffer size =     0.00 MiB
+0.00.302.806 I load_tensors:   CPU_REPACK model buffer size =     0.00 MiB
+0.00.302.806 I load_tensors:         HTP0 model buffer size =     0.00 MiB
+0.00.303.783 I llama_context: constructing llama_context
+0.00.303.784 I llama_context: n_seq_max     = 1
+0.00.303.784 I llama_context: n_ctx         = 512
+0.00.303.784 I llama_context: n_ctx_seq     = 512
+0.00.303.785 I llama_context: n_batch       = 512
+0.00.303.785 I llama_context: n_ubatch      = 512
+0.00.303.785 I llama_context: causal_attn   = 1
+0.00.303.786 I llama_context: flash_attn    = auto
+0.00.303.786 I llama_context: kv_unified    = false
+0.00.303.787 I llama_context: freq_base     = 500000.0
+0.00.303.787 I llama_context: freq_scale    = 1
+0.00.303.788 I llama_context: n_rs_seq      = 0
+0.00.303.788 I llama_context: n_outputs_max = 1
+0.00.303.789 W llama_context: n_ctx_seq (512) < n_ctx_train (131072) -- the full capacity of the model will not be utilized
+0.00.303.791 D set_abort_callback: call
+0.00.303.890 I llama_context:        CPU  output buffer size =     0.49 MiB
+0.00.303.899 D llama_kv_cache: layer   0: dev = HTP0
+0.00.303.902 D llama_kv_cache: layer   1: dev = HTP0
+0.00.303.903 D llama_kv_cache: layer   2: dev = HTP0
+0.00.303.904 D llama_kv_cache: layer   3: dev = HTP0
+0.00.303.905 D llama_kv_cache: layer   4: dev = HTP0
+0.00.303.906 D llama_kv_cache: layer   5: dev = HTP0
+0.00.303.907 D llama_kv_cache: layer   6: dev = HTP0
+0.00.303.907 D llama_kv_cache: layer   7: dev = HTP0
+0.00.303.908 D llama_kv_cache: layer   8: dev = HTP0
+0.00.303.909 D llama_kv_cache: layer   9: dev = HTP0
+0.00.303.910 D llama_kv_cache: layer  10: dev = HTP0
+0.00.303.911 D llama_kv_cache: layer  11: dev = HTP0
+0.00.303.912 D llama_kv_cache: layer  12: dev = HTP0
+0.00.303.912 D llama_kv_cache: layer  13: dev = HTP0
+0.00.303.913 D llama_kv_cache: layer  14: dev = HTP0
+0.00.303.914 D llama_kv_cache: layer  15: dev = HTP0
+0.00.303.915 I llama_kv_cache:       HTP0 KV buffer size =     0.00 MiB
+0.00.303.917 I llama_kv_cache: size =   16.00 MiB (   512 cells,  16 layers,  1/1 seqs), K (f16):    8.00 MiB, V (f16):    8.00 MiB
+0.00.303.917 I llama_kv_cache: attn_rot_k = 0, n_embd_head_k_all = 64
+0.00.303.918 I llama_kv_cache: attn_rot_v = 0, n_embd_head_k_all = 64
+0.00.303.918 D llama_context: enumerating backends
+0.00.303.919 D llama_context: backend_ptrs.size() = 2
+0.00.303.919 I sched_reserve: reserving ...
+0.00.303.920 D sched_reserve: max_nodes = 1184
+0.00.304.240 D sched_reserve: reserving full memory module
+0.00.304.244 D sched_reserve: worst-case: n_tokens = 512, n_seqs = 1, n_outputs = 1
+0.00.304.245 D graph_reserve: reserving a graph for ubatch with n_tokens =    1, n_seqs =  1, n_outputs =    1
+0.00.304.492 I sched_reserve: Flash Attention was auto, set to enabled
+0.00.304.492 I sched_reserve: resolving fused Gated Delta Net support:
+0.00.304.493 D graph_reserve: reserving a graph for ubatch with n_tokens =    1, n_seqs =  1, n_outputs =    1
+0.00.304.642 I sched_reserve: fused Gated Delta Net (autoregressive) enabled
+0.00.304.642 D graph_reserve: reserving a graph for ubatch with n_tokens =   16, n_seqs =  1, n_outputs =   16
+0.00.304.785 I sched_reserve: fused Gated Delta Net (chunked) enabled
+0.00.304.785 D graph_reserve: reserving a graph for ubatch with n_tokens =  512, n_seqs =  1, n_outputs =    1
+0.00.305.060 D graph_reserve: reserving a graph for ubatch with n_tokens =    1, n_seqs =  1, n_outputs =    1
+0.00.305.204 D graph_reserve: reserving a graph for ubatch with n_tokens =  512, n_seqs =  1, n_outputs =    1
+0.00.305.346 I sched_reserve:       HTP0 compute buffer size =    14.51 MiB
+0.00.305.347 I sched_reserve:        CPU compute buffer size =    52.51 MiB
+0.00.305.347 I sched_reserve: graph nodes  = 502
+0.00.305.348 I sched_reserve: graph splits = 99
+0.00.305.348 I sched_reserve: reserve took 1.43 ms, sched copies = 1
+0.00.305.480 W common_get_device_memory_data_impl: device HTP0 did not report memory; --fit will not use it
+0.00.305.488 I common_memory_breakdown_print: | memory breakdown [MiB] | total   free    self   model   context   compute    unaccounted |
+0.00.305.489 I common_memory_breakdown_print: |   - HTP0 (Hexagon)     |     0 =    0 + (   0 =     0 +       0 +       0) +           0 |
+0.00.305.489 I common_memory_breakdown_print: |   - Host               |                  288 =   205 +      16 +      67                |
+0.00.305.489 I common_memory_breakdown_print: |   - CPU_REPACK         |                  762 =   762 +       0 +       0                |
+0.00.345.849 I common_params_fit_impl: projected to use 0 MiB of device memory vs. 0 MiB of free device memory
+0.00.345.865 I common_params_fit_impl: cannot meet free memory target of 1024 MiB, need to reduce device memory by 1024 MiB
+0.00.345.866 I common_params_fit_impl: context size set by user to 512 -> no change
+0.00.345.923 W common_fit_params: failed to fit params to free device memory: n_gpu_layers already set by user to 99, abort
+0.00.345.927 I common_fit_params: fitting params to free memory took 0.26 seconds
+0.00.380.245 I llama_model_loader: loaded meta data with 30 key-value pairs and 147 tensors from /data/local/tmp/gguf/llama-3.2-1b-instruct-q4_k_m.gguf (version GGUF V3 (latest))
+0.00.380.276 I llama_model_loader: Dumping metadata keys/values. Note: KV overrides do not apply in this output.
+0.00.380.279 I llama_model_loader: - kv   0:                       general.architecture str              = llama
+0.00.380.280 I llama_model_loader: - kv   1:                               general.type str              = model
+0.00.380.281 I llama_model_loader: - kv   2:                               general.name str              = Llama 3.2 1B Instruct
+0.00.380.282 I llama_model_loader: - kv   3:                           general.finetune str              = Instruct
+0.00.380.282 I llama_model_loader: - kv   4:                           general.basename str              = Llama-3.2
+0.00.380.283 I llama_model_loader: - kv   5:                         general.size_label str              = 1B
+0.00.380.293 I llama_model_loader: - kv   6:                               general.tags arr[str,6]       = ["facebook", "meta", "pytorch", "llam...
+0.00.380.295 I llama_model_loader: - kv   7:                          general.languages arr[str,8]       = ["en", "de", "fr", "it", "pt", "hi", ...
+0.00.380.296 I llama_model_loader: - kv   8:                          llama.block_count u32              = 16
+0.00.380.297 I llama_model_loader: - kv   9:                       llama.context_length u32              = 131072
+0.00.380.298 I llama_model_loader: - kv  10:                     llama.embedding_length u32              = 2048
+0.00.380.299 I llama_model_loader: - kv  11:                  llama.feed_forward_length u32              = 8192
+0.00.380.300 I llama_model_loader: - kv  12:                 llama.attention.head_count u32              = 32
+0.00.380.300 I llama_model_loader: - kv  13:              llama.attention.head_count_kv u32              = 8
+0.00.380.304 I llama_model_loader: - kv  14:                       llama.rope.freq_base f32              = 500000.000000
+0.00.380.305 I llama_model_loader: - kv  15:     llama.attention.layer_norm_rms_epsilon f32              = 0.000010
+0.00.380.305 I llama_model_loader: - kv  16:                 llama.attention.key_length u32              = 64
+0.00.380.306 I llama_model_loader: - kv  17:               llama.attention.value_length u32              = 64
+0.00.380.307 I llama_model_loader: - kv  18:                          general.file_type u32              = 15
+0.00.380.307 I llama_model_loader: - kv  19:                           llama.vocab_size u32              = 128256
+0.00.380.308 I llama_model_loader: - kv  20:                 llama.rope.dimension_count u32              = 64
+0.00.380.356 I llama_model_loader: - kv  21:                       tokenizer.ggml.model str              = gpt2
+0.00.380.357 I llama_model_loader: - kv  22:                         tokenizer.ggml.pre str              = llama-bpe
+|0.00.392.178 I llama_model_loader: - kv  23:                      tokenizer.ggml.tokens arr[str,128256]  = ["!", "\"", "#", "$", "%", "&", "'", ...
+0.00.395.187 I llama_model_loader: - kv  24:                  tokenizer.ggml.token_type arr[i32,128256]  = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, ...
+0.00.420.217 I llama_model_loader: - kv  25:                      tokenizer.ggml.merges arr[str,280147]  = ["Ġ Ġ", "Ġ ĠĠĠ", "ĠĠ ĠĠ", "...
+0.00.420.227 I llama_model_loader: - kv  26:                tokenizer.ggml.bos_token_id u32              = 128000
+0.00.420.228 I llama_model_loader: - kv  27:                tokenizer.ggml.eos_token_id u32              = 128009
+0.00.420.230 I llama_model_loader: - kv  28:                    tokenizer.chat_template str              = {% set loop_messages = messages %}{% ...
+0.00.420.230 I llama_model_loader: - kv  29:               general.quantization_version u32              = 2
+0.00.420.231 I llama_model_loader: - type  f32:   34 tensors
+0.00.420.232 I llama_model_loader: - type q4_K:   96 tensors
+0.00.420.233 I llama_model_loader: - type q6_K:   17 tensors
+0.00.420.235 I print_info: file format = GGUF V3 (latest)
+0.00.420.235 I print_info: file type   = Q4_K - Medium
+0.00.420.238 I print_info: file size   = 762.81 MiB (5.18 BPW) 
+0.00.420.243 I llama_prepare_model_devices: using device HTP0 (Hexagon) (unknown id) - 0 MiB free
+/0.00.507.837 D init_tokenizer: initializing tokenizer for type 2
+0.00.514.542 I load: 0 unused tokens
+0.00.514.552 D load: control token: 128254 '<|reserved_special_token_246|>' is not marked as EOG
+0.00.514.553 D load: control token: 128252 '<|reserved_special_token_244|>' is not marked as EOG
+0.00.514.553 D load: control token: 128251 '<|reserved_special_token_243|>' is not marked as EOG
+0.00.514.554 D load: control token: 128250 '<|reserved_special_token_242|>' is not marked as EOG
+0.00.514.554 D load: control token: 128248 '<|reserved_special_token_240|>' is not marked as EOG
+0.00.514.555 D load: control token: 128247 '<|reserved_special_token_239|>' is not marked as EOG
+0.00.514.556 D load: control token: 128245 '<|reserved_special_token_237|>' is not marked as EOG
+0.00.514.556 D load: control token: 128244 '<|reserved_special_token_236|>' is not marked as EOG
+0.00.514.556 D load: control token: 128243 '<|reserved_special_token_235|>' is not marked as EOG
+0.00.514.557 D load: control token: 128240 '<|reserved_special_token_232|>' is not marked as EOG
+0.00.514.558 D load: control token: 128238 '<|reserved_special_token_230|>' is not marked as EOG
+0.00.514.558 D load: control token: 128235 '<|reserved_special_token_227|>' is not marked as EOG
+0.00.514.558 D load: control token: 128234 '<|reserved_special_token_226|>' is not marked as EOG
+0.00.514.559 D load: control token: 128229 '<|reserved_special_token_221|>' is not marked as EOG
+0.00.514.560 D load: control token: 128227 '<|reserved_special_token_219|>' is not marked as EOG
+0.00.514.560 D load: control token: 128226 '<|reserved_special_token_218|>' is not marked as EOG
+0.00.514.560 D load: control token: 128224 '<|reserved_special_token_216|>' is not marked as EOG
+0.00.514.561 D load: control token: 128223 '<|reserved_special_token_215|>' is not marked as EOG
+0.00.514.562 D load: control token: 128221 '<|reserved_special_token_213|>' is not marked as EOG
+0.00.514.562 D load: control token: 128219 '<|reserved_special_token_211|>' is not marked as EOG
+0.00.514.562 D load: control token: 128218 '<|reserved_special_token_210|>' is not marked as EOG
+0.00.514.563 D load: control token: 128217 '<|reserved_special_token_209|>' is not marked as EOG
+0.00.514.563 D load: control token: 128216 '<|reserved_special_token_208|>' is not marked as EOG
+0.00.514.564 D load: control token: 128215 '<|reserved_special_token_207|>' is not marked as EOG
+0.00.514.564 D load: control token: 128213 '<|reserved_special_token_205|>' is not marked as EOG
+0.00.514.565 D load: control token: 128211 '<|reserved_special_token_203|>' is not marked as EOG
+0.00.514.565 D load: control token: 128210 '<|reserved_special_token_202|>' is not marked as EOG
+0.00.514.566 D load: control token: 128209 '<|reserved_special_token_201|>' is not marked as EOG
+0.00.514.566 D load: control token: 128208 '<|reserved_special_token_200|>' is not marked as EOG
+0.00.514.567 D load: control token: 128207 '<|reserved_special_token_199|>' is not marked as EOG
+0.00.514.567 D load: control token: 128204 '<|reserved_special_token_196|>' is not marked as EOG
+0.00.514.567 D load: control token: 128202 '<|reserved_special_token_194|>' is not marked as EOG
+0.00.514.568 D load: control token: 128197 '<|reserved_special_token_189|>' is not marked as EOG
+0.00.514.568 D load: control token: 128195 '<|reserved_special_token_187|>' is not marked as EOG
+0.00.514.569 D load: control token: 128194 '<|reserved_special_token_186|>' is not marked as EOG
+0.00.514.569 D load: control token: 128191 '<|reserved_special_token_183|>' is not marked as EOG
+0.00.514.570 D load: control token: 128190 '<|reserved_special_token_182|>' is not marked as EOG
+0.00.514.570 D load: control token: 128188 '<|reserved_special_token_180|>' is not marked as EOG
+0.00.514.570 D load: control token: 128187 '<|reserved_special_token_179|>' is not marked as EOG
+0.00.514.571 D load: control token: 128185 '<|reserved_special_token_177|>' is not marked as EOG
+0.00.514.571 D load: control token: 128184 '<|reserved_special_token_176|>' is not marked as EOG
+0.00.514.572 D load: control token: 128183 '<|reserved_special_token_175|>' is not marked as EOG
+0.00.514.572 D load: control token: 128178 '<|reserved_special_token_170|>' is not marked as EOG
+0.00.514.573 D load: control token: 128177 '<|reserved_special_token_169|>' is not marked as EOG
+0.00.514.573 D load: control token: 128176 '<|reserved_special_token_168|>' is not marked as EOG
+0.00.514.574 D load: control token: 128175 '<|reserved_special_token_167|>' is not marked as EOG
+0.00.514.574 D load: control token: 128174 '<|reserved_special_token_166|>' is not marked as EOG
+0.00.514.574 D load: control token: 128173 '<|reserved_special_token_165|>' is not marked as EOG
+0.00.514.575 D load: control token: 128172 '<|reserved_special_token_164|>' is not marked as EOG
+0.00.514.575 D load: control token: 128169 '<|reserved_special_token_161|>' is not marked as EOG
+0.00.514.576 D load: control token: 128167 '<|reserved_special_token_159|>' is not marked as EOG
+0.00.514.576 D load: control token: 128166 '<|reserved_special_token_158|>' is not marked as EOG
+0.00.514.577 D load: control token: 128160 '<|reserved_special_token_152|>' is not marked as EOG
+0.00.514.577 D load: control token: 128159 '<|reserved_special_token_151|>' is not marked as EOG
+0.00.514.578 D load: control token: 128157 '<|reserved_special_token_149|>' is not marked as EOG
+0.00.514.578 D load: control token: 128156 '<|reserved_special_token_148|>' is not marked as EOG
+0.00.514.578 D load: control token: 128154 '<|reserved_special_token_146|>' is not marked as EOG
+0.00.514.579 D load: control token: 128152 '<|reserved_special_token_144|>' is not marked as EOG
+0.00.514.579 D load: control token: 128151 '<|reserved_special_token_143|>' is not marked as EOG
+0.00.514.580 D load: control token: 128150 '<|reserved_special_token_142|>' is not marked as EOG
+0.00.514.580 D load: control token: 128147 '<|reserved_special_token_139|>' is not marked as EOG
+0.00.514.581 D load: control token: 128144 '<|reserved_special_token_136|>' is not marked as EOG
+0.00.514.581 D load: control token: 128142 '<|reserved_special_token_134|>' is not marked as EOG
+0.00.514.581 D load: control token: 128141 '<|reserved_special_token_133|>' is not marked as EOG
+0.00.514.582 D load: control token: 128140 '<|reserved_special_token_132|>' is not marked as EOG
+0.00.514.582 D load: control token: 128133 '<|reserved_special_token_125|>' is not marked as EOG
+0.00.514.583 D load: control token: 128130 '<|reserved_special_token_122|>' is not marked as EOG
+0.00.514.583 D load: control token: 128128 '<|reserved_special_token_120|>' is not marked as EOG
+0.00.514.584 D load: control token: 128127 '<|reserved_special_token_119|>' is not marked as EOG
+0.00.514.584 D load: control token: 128126 '<|reserved_special_token_118|>' is not marked as EOG
+0.00.514.585 D load: control token: 128125 '<|reserved_special_token_117|>' is not marked as EOG
+0.00.514.585 D load: control token: 128124 '<|reserved_special_token_116|>' is not marked as EOG
+0.00.514.586 D load: control token: 128123 '<|reserved_special_token_115|>' is not marked as EOG
+0.00.514.586 D load: control token: 128122 '<|reserved_special_token_114|>' is not marked as EOG
+0.00.514.586 D load: control token: 128121 '<|reserved_special_token_113|>' is not marked as EOG
+0.00.514.587 D load: control token: 128120 '<|reserved_special_token_112|>' is not marked as EOG
+0.00.514.587 D load: control token: 128119 '<|reserved_special_token_111|>' is not marked as EOG
+0.00.514.588 D load: control token: 128116 '<|reserved_special_token_108|>' is not marked as EOG
+0.00.514.588 D load: control token: 128115 '<|reserved_special_token_107|>' is not marked as EOG
+0.00.514.589 D load: control token: 128114 '<|reserved_special_token_106|>' is not marked as EOG
+0.00.514.589 D load: control token: 128113 '<|reserved_special_token_105|>' is not marked as EOG
+0.00.514.590 D load: control token: 128111 '<|reserved_special_token_103|>' is not marked as EOG
+0.00.514.590 D load: control token: 128110 '<|reserved_special_token_102|>' is not marked as EOG
+0.00.514.590 D load: control token: 128107 '<|reserved_special_token_99|>' is not marked as EOG
+0.00.514.591 D load: control token: 128106 '<|reserved_special_token_98|>' is not marked as EOG
+0.00.514.591 D load: control token: 128105 '<|reserved_special_token_97|>' is not marked as EOG
+0.00.514.592 D load: control token: 128104 '<|reserved_special_token_96|>' is not marked as EOG
+0.00.514.592 D load: control token: 128103 '<|reserved_special_token_95|>' is not marked as EOG
+0.00.514.593 D load: control token: 128100 '<|reserved_special_token_92|>' is not marked as EOG
+0.00.514.593 D load: control token: 128097 '<|reserved_special_token_89|>' is not marked as EOG
+0.00.514.593 D load: control token: 128096 '<|reserved_special_token_88|>' is not marked as EOG
+0.00.514.594 D load: control token: 128094 '<|reserved_special_token_86|>' is not marked as EOG
+0.00.514.594 D load: control token: 128093 '<|reserved_special_token_85|>' is not marked as EOG
+0.00.514.595 D load: control token: 128090 '<|reserved_special_token_82|>' is not marked as EOG
+0.00.514.595 D load: control token: 128089 '<|reserved_special_token_81|>' is not marked as EOG
+0.00.514.596 D load: control token: 128087 '<|reserved_special_token_79|>' is not marked as EOG
+0.00.514.596 D load: control token: 128085 '<|reserved_special_token_77|>' is not marked as EOG
+0.00.514.597 D load: control token: 128080 '<|reserved_special_token_72|>' is not marked as EOG
+0.00.514.597 D load: control token: 128077 '<|reserved_special_token_69|>' is not marked as EOG
+0.00.514.598 D load: control token: 128076 '<|reserved_special_token_68|>' is not marked as EOG
+0.00.514.598 D load: control token: 128073 '<|reserved_special_token_65|>' is not marked as EOG
+0.00.514.598 D load: control token: 128070 '<|reserved_special_token_62|>' is not marked as EOG
+0.00.514.599 D load: control token: 128069 '<|reserved_special_token_61|>' is not marked as EOG
+0.00.514.599 D load: control token: 128067 '<|reserved_special_token_59|>' is not marked as EOG
+0.00.514.600 D load: control token: 128064 '<|reserved_special_token_56|>' is not marked as EOG
+0.00.514.600 D load: control token: 128062 '<|reserved_special_token_54|>' is not marked as EOG
+0.00.514.601 D load: control token: 128061 '<|reserved_special_token_53|>' is not marked as EOG
+0.00.514.601 D load: control token: 128060 '<|reserved_special_token_52|>' is not marked as EOG
+0.00.514.601 D load: control token: 128054 '<|reserved_special_token_46|>' is not marked as EOG
+0.00.514.602 D load: control token: 128045 '<|reserved_special_token_37|>' is not marked as EOG
+0.00.514.603 D load: control token: 128044 '<|reserved_special_token_36|>' is not marked as EOG
+0.00.514.603 D load: control token: 128043 '<|reserved_special_token_35|>' is not marked as EOG
+0.00.514.603 D load: control token: 128042 '<|reserved_special_token_34|>' is not marked as EOG
+0.00.514.604 D load: control token: 128038 '<|reserved_special_token_30|>' is not marked as EOG
+0.00.514.604 D load: control token: 128037 '<|reserved_special_token_29|>' is not marked as EOG
+0.00.514.605 D load: control token: 128035 '<|reserved_special_token_27|>' is not marked as EOG
+0.00.514.605 D load: control token: 128034 '<|reserved_special_token_26|>' is not marked as EOG
+0.00.514.606 D load: control token: 128033 '<|reserved_special_token_25|>' is not marked as EOG
+0.00.514.606 D load: control token: 128032 '<|reserved_special_token_24|>' is not marked as EOG
+0.00.514.607 D load: control token: 128030 '<|reserved_special_token_22|>' is not marked as EOG
+0.00.514.607 D load: control token: 128029 '<|reserved_special_token_21|>' is not marked as EOG
+0.00.514.608 D load: control token: 128028 '<|reserved_special_token_20|>' is not marked as EOG
+0.00.514.608 D load: control token: 128026 '<|reserved_special_token_18|>' is not marked as EOG
+0.00.514.609 D load: control token: 128025 '<|reserved_special_token_17|>' is not marked as EOG
+0.00.514.609 D load: control token: 128024 '<|reserved_special_token_16|>' is not marked as EOG
+0.00.514.609 D load: control token: 128022 '<|reserved_special_token_14|>' is not marked as EOG
+0.00.514.610 D load: control token: 128020 '<|reserved_special_token_12|>' is not marked as EOG
+0.00.514.610 D load: control token: 128017 '<|reserved_special_token_9|>' is not marked as EOG
+0.00.514.610 D load: control token: 128016 '<|reserved_special_token_8|>' is not marked as EOG
+0.00.514.611 D load: control token: 128015 '<|reserved_special_token_7|>' is not marked as EOG
+0.00.514.611 D load: control token: 128014 '<|reserved_special_token_6|>' is not marked as EOG
+0.00.514.611 D load: control token: 128013 '<|reserved_special_token_5|>' is not marked as EOG
+0.00.514.612 D load: control token: 128011 '<|reserved_special_token_3|>' is not marked as EOG
+0.00.514.612 D load: control token: 128010 '<|python_tag|>' is not marked as EOG
+0.00.514.612 D load: control token: 128006 '<|start_header_id|>' is not marked as EOG
+0.00.514.613 D load: control token: 128003 '<|reserved_special_token_1|>' is not marked as EOG
+0.00.514.613 D load: control token: 128002 '<|reserved_special_token_0|>' is not marked as EOG
+0.00.514.613 D load: control token: 128000 '<|begin_of_text|>' is not marked as EOG
+0.00.514.618 D load: control token: 128041 '<|reserved_special_token_33|>' is not marked as EOG
+0.00.514.666 D load: control token: 128063 '<|reserved_special_token_55|>' is not marked as EOG
+0.00.514.669 D load: control token: 128046 '<|reserved_special_token_38|>' is not marked as EOG
+0.00.514.679 D load: control token: 128007 '<|end_header_id|>' is not marked as EOG
+0.00.514.703 D load: control token: 128065 '<|reserved_special_token_57|>' is not marked as EOG
+0.00.514.704 D load: control token: 128171 '<|reserved_special_token_163|>' is not marked as EOG
+0.00.514.724 D load: control token: 128162 '<|reserved_special_token_154|>' is not marked as EOG
+0.00.514.734 D load: control token: 128165 '<|reserved_special_token_157|>' is not marked as EOG
+0.00.514.778 D load: control token: 128057 '<|reserved_special_token_49|>' is not marked as EOG
+0.00.514.788 D load: control token: 128050 '<|reserved_special_token_42|>' is not marked as EOG
+0.00.514.807 D load: control token: 128056 '<|reserved_special_token_48|>' is not marked as EOG
+0.00.514.811 D load: control token: 128230 '<|reserved_special_token_222|>' is not marked as EOG
+0.00.514.813 D load: control token: 128098 '<|reserved_special_token_90|>' is not marked as EOG
+0.00.514.819 D load: control token: 128153 '<|reserved_special_token_145|>' is not marked as EOG
+0.00.514.820 D load: control token: 128084 '<|reserved_special_token_76|>' is not marked as EOG
+0.00.514.828 D load: control token: 128082 '<|reserved_special_token_74|>' is not marked as EOG
+0.00.514.843 D load: control token: 128102 '<|reserved_special_token_94|>' is not marked as EOG
+0.00.514.886 D load: control token: 128253 '<|reserved_special_token_245|>' is not marked as EOG
+0.00.514.899 D load: control token: 128179 '<|reserved_special_token_171|>' is not marked as EOG
+0.00.514.903 D load: control token: 128071 '<|reserved_special_token_63|>' is not marked as EOG
+0.00.514.915 D load: control token: 128135 '<|reserved_special_token_127|>' is not marked as EOG
+0.00.514.974 D load: control token: 128161 '<|reserved_special_token_153|>' is not marked as EOG
+0.00.515.025 D load: control token: 128164 '<|reserved_special_token_156|>' is not marked as EOG
+0.00.515.053 D load: control token: 128134 '<|reserved_special_token_126|>' is not marked as EOG
+0.00.515.066 D load: control token: 128249 '<|reserved_special_token_241|>' is not marked as EOG
+0.00.515.199 D load: control token: 128004 '<|finetune_right_pad_id|>' is not marked as EOG
+0.00.515.275 D load: control token: 128036 '<|reserved_special_token_28|>' is not marked as EOG
+0.00.515.320 D load: control token: 128148 '<|reserved_special_token_140|>' is not marked as EOG
+0.00.515.354 D load: control token: 128181 '<|reserved_special_token_173|>' is not marked as EOG
+0.00.515.362 D load: control token: 128222 '<|reserved_special_token_214|>' is not marked as EOG
+0.00.515.375 D load: control token: 128075 '<|reserved_special_token_67|>' is not marked as EOG
+0.00.515.449 D load: control token: 128241 '<|reserved_special_token_233|>' is not marked as EOG
+0.00.515.460 D load: control token: 128051 '<|reserved_special_token_43|>' is not marked as EOG
+0.00.515.487 D load: control token: 128068 '<|reserved_special_token_60|>' is not marked as EOG
+0.00.515.544 D load: control token: 128149 '<|reserved_special_token_141|>' is not marked as EOG
+0.00.515.579 D load: control token: 128201 '<|reserved_special_token_193|>' is not marked as EOG
+0.00.515.600 D load: control token: 128058 '<|reserved_special_token_50|>' is not marked as EOG
+0.00.515.627 D load: control token: 128146 '<|reserved_special_token_138|>' is not marked as EOG
+0.00.515.631 D load: control token: 128143 '<|reserved_special_token_135|>' is not marked as EOG
+0.00.515.635 D load: control token: 128023 '<|reserved_special_token_15|>' is not marked as EOG
+0.00.515.641 D load: control token: 128039 '<|reserved_special_token_31|>' is not marked as EOG
+0.00.515.713 D load: control token: 128132 '<|reserved_special_token_124|>' is not marked as EOG
+0.00.515.716 D load: control token: 128101 '<|reserved_special_token_93|>' is not marked as EOG
+0.00.515.761 D load: control token: 128212 '<|reserved_special_token_204|>' is not marked as EOG
+0.00.515.790 D load: control token: 128189 '<|reserved_special_token_181|>' is not marked as EOG
+0.00.515.818 D load: control token: 128225 '<|reserved_special_token_217|>' is not marked as EOG
+0.00.515.905 D load: control token: 128129 '<|reserved_special_token_121|>' is not marked as EOG
+0.00.515.957 D load: control token: 128005 '<|reserved_special_token_2|>' is not marked as EOG
+0.00.515.964 D load: control token: 128078 '<|reserved_special_token_70|>' is not marked as EOG
+0.00.515.965 D load: control token: 128163 '<|reserved_special_token_155|>' is not marked as EOG
+0.00.515.991 D load: control token: 128072 '<|reserved_special_token_64|>' is not marked as EOG
+0.00.515.993 D load: control token: 128112 '<|reserved_special_token_104|>' is not marked as EOG
+0.00.516.016 D load: control token: 128186 '<|reserved_special_token_178|>' is not marked as EOG
+0.00.516.038 D load: control token: 128095 '<|reserved_special_token_87|>' is not marked as EOG
+0.00.516.198 D load: control token: 128109 '<|reserved_special_token_101|>' is not marked as EOG
+0.00.516.336 D load: control token: 128099 '<|reserved_special_token_91|>' is not marked as EOG
+0.00.516.339 D load: control token: 128138 '<|reserved_special_token_130|>' is not marked as EOG
+0.00.516.346 D load: control token: 128193 '<|reserved_special_token_185|>' is not marked as EOG
+0.00.516.364 D load: control token: 128199 '<|reserved_special_token_191|>' is not marked as EOG
+0.00.516.413 D load: control token: 128048 '<|reserved_special_token_40|>' is not marked as EOG
+0.00.516.450 D load: control token: 128088 '<|reserved_special_token_80|>' is not marked as EOG
+0.00.516.575 D load: control token: 128192 '<|reserved_special_token_184|>' is not marked as EOG
+0.00.516.588 D load: control token: 128136 '<|reserved_special_token_128|>' is not marked as EOG
+0.00.516.608 D load: control token: 128092 '<|reserved_special_token_84|>' is not marked as EOG
+0.00.516.637 D load: control token: 128158 '<|reserved_special_token_150|>' is not marked as EOG
+0.00.516.655 D load: control token: 128049 '<|reserved_special_token_41|>' is not marked as EOG
+0.00.516.726 D load: control token: 128031 '<|reserved_special_token_23|>' is not marked as EOG
+0.00.516.816 D load: control token: 128255 '<|reserved_special_token_247|>' is not marked as EOG
+0.00.516.872 D load: control token: 128182 '<|reserved_special_token_174|>' is not marked as EOG
+0.00.516.929 D load: control token: 128066 '<|reserved_special_token_58|>' is not marked as EOG
+0.00.516.933 D load: control token: 128180 '<|reserved_special_token_172|>' is not marked as EOG
+0.00.516.943 D load: control token: 128233 '<|reserved_special_token_225|>' is not marked as EOG
+0.00.516.978 D load: control token: 128079 '<|reserved_special_token_71|>' is not marked as EOG
+0.00.517.032 D load: control token: 128081 '<|reserved_special_token_73|>' is not marked as EOG
+0.00.517.042 D load: control token: 128231 '<|reserved_special_token_223|>' is not marked as EOG
+0.00.517.093 D load: control token: 128196 '<|reserved_special_token_188|>' is not marked as EOG
+0.00.517.098 D load: control token: 128047 '<|reserved_special_token_39|>' is not marked as EOG
+0.00.517.134 D load: control token: 128083 '<|reserved_special_token_75|>' is not marked as EOG
+0.00.517.168 D load: control token: 128139 '<|reserved_special_token_131|>' is not marked as EOG
+0.00.517.209 D load: control token: 128131 '<|reserved_special_token_123|>' is not marked as EOG
+0.00.517.214 D load: control token: 128118 '<|reserved_special_token_110|>' is not marked as EOG
+0.00.517.279 D load: control token: 128053 '<|reserved_special_token_45|>' is not marked as EOG
+0.00.517.322 D load: control token: 128220 '<|reserved_special_token_212|>' is not marked as EOG
+0.00.517.398 D load: control token: 128108 '<|reserved_special_token_100|>' is not marked as EOG
+0.00.517.497 D load: control token: 128091 '<|reserved_special_token_83|>' is not marked as EOG
+0.00.517.649 D load: control token: 128203 '<|reserved_special_token_195|>' is not marked as EOG
+0.00.517.814 D load: control token: 128059 '<|reserved_special_token_51|>' is not marked as EOG
+0.00.517.815 D load: control token: 128019 '<|reserved_special_token_11|>' is not marked as EOG
+0.00.517.840 D load: control token: 128170 '<|reserved_special_token_162|>' is not marked as EOG
+0.00.517.841 D load: control token: 128205 '<|reserved_special_token_197|>' is not marked as EOG
+0.00.517.877 D load: control token: 128040 '<|reserved_special_token_32|>' is not marked as EOG
+0.00.517.890 D load: control token: 128200 '<|reserved_special_token_192|>' is not marked as EOG
+0.00.517.905 D load: control token: 128236 '<|reserved_special_token_228|>' is not marked as EOG
+0.00.517.948 D load: control token: 128145 '<|reserved_special_token_137|>' is not marked as EOG
+0.00.518.028 D load: control token: 128168 '<|reserved_special_token_160|>' is not marked as EOG
+0.00.518.053 D load: control token: 128214 '<|reserved_special_token_206|>' is not marked as EOG
+0.00.518.059 D load: control token: 128137 '<|reserved_special_token_129|>' is not marked as EOG
+0.00.518.088 D load: control token: 128232 '<|reserved_special_token_224|>' is not marked as EOG
+0.00.518.089 D load: control token: 128239 '<|reserved_special_token_231|>' is not marked as EOG
+0.00.518.105 D load: control token: 128055 '<|reserved_special_token_47|>' is not marked as EOG
+0.00.518.108 D load: control token: 128228 '<|reserved_special_token_220|>' is not marked as EOG
+0.00.518.141 D load: control token: 128206 '<|reserved_special_token_198|>' is not marked as EOG
+0.00.518.149 D load: control token: 128018 '<|reserved_special_token_10|>' is not marked as EOG
+0.00.518.155 D load: control token: 128012 '<|reserved_special_token_4|>' is not marked as EOG
+0.00.518.180 D load: control token: 128198 '<|reserved_special_token_190|>' is not marked as EOG
+0.00.518.224 D load: control token: 128021 '<|reserved_special_token_13|>' is not marked as EOG
+0.00.518.279 D load: control token: 128086 '<|reserved_special_token_78|>' is not marked as EOG
+0.00.518.293 D load: control token: 128074 '<|reserved_special_token_66|>' is not marked as EOG
+0.00.518.304 D load: control token: 128027 '<|reserved_special_token_19|>' is not marked as EOG
+0.00.518.313 D load: control token: 128242 '<|reserved_special_token_234|>' is not marked as EOG
+0.00.518.339 D load: control token: 128155 '<|reserved_special_token_147|>' is not marked as EOG
+0.00.518.394 D load: control token: 128052 '<|reserved_special_token_44|>' is not marked as EOG
+0.00.518.425 D load: control token: 128246 '<|reserved_special_token_238|>' is not marked as EOG
+0.00.518.459 D load: control token: 128117 '<|reserved_special_token_109|>' is not marked as EOG
+0.00.518.469 D load: control token: 128237 '<|reserved_special_token_229|>' is not marked as EOG
+0.00.520.546 I load: printing all EOG tokens:
+0.00.520.547 I load:   - 128001 ('<|end_of_text|>')
+0.00.520.547 I load:   - 128008 ('<|eom_id|>')
+0.00.520.547 I load:   - 128009 ('<|eot_id|>')
+0.00.520.646 I load: special tokens cache size = 256
+0.00.549.096 I load: token to piece cache size = 0.7999 MB
+0.00.549.114 I print_info: arch                  = llama
+0.00.549.114 I print_info: vocab_only            = 0
+0.00.549.115 I print_info: no_alloc              = 0
+0.00.549.115 I print_info: n_ctx_train           = 131072
+0.00.549.116 I print_info: n_embd_inp            = 2048
+0.00.549.116 I print_info: n_embd                = 2048
+0.00.549.117 I print_info: n_embd_out            = 2048
+0.00.549.118 I print_info: n_layer               = 16
+0.00.549.118 I print_info: n_layer_all           = 16
+0.00.549.127 I print_info: n_head                = 32
+0.00.549.129 I print_info: n_head_kv             = 8
+0.00.549.129 I print_info: n_rot                 = 64
+0.00.549.130 I print_info: n_swa                 = 0
+0.00.549.130 I print_info: is_swa_any            = 0
+0.00.549.131 I print_info: n_embd_head_k         = 64
+0.00.549.131 I print_info: n_embd_head_v         = 64
+0.00.549.132 I print_info: n_gqa                 = 4
+0.00.549.133 I print_info: n_embd_k_gqa          = 512
+0.00.549.135 I print_info: n_embd_v_gqa          = 512
+0.00.549.136 I print_info: f_norm_eps            = 0.0e+00
+0.00.549.137 I print_info: f_norm_rms_eps        = 1.0e-05
+0.00.549.137 I print_info: f_clamp_kqv           = 0.0e+00
+0.00.549.138 I print_info: f_max_alibi_bias      = 0.0e+00
+0.00.549.138 I print_info: f_logit_scale         = 0.0e+00
+0.00.549.138 I print_info: f_attn_scale          = 0.0e+00
+0.00.549.139 I print_info: f_attn_value_scale    = 0.0000
+0.00.549.140 I print_info: n_ff                  = 8192
+0.00.549.141 I print_info: n_expert              = 0
+0.00.549.141 I print_info: n_expert_used         = 0
+0.00.549.142 I print_info: n_expert_groups       = 0
+0.00.549.142 I print_info: n_group_used          = 0
+0.00.549.143 I print_info: causal attn           = 1
+0.00.549.143 I print_info: pooling type          = -1
+0.00.549.144 I print_info: rope type             = 0
+0.00.549.144 I print_info: rope scaling          = linear
+0.00.549.145 I print_info: freq_base_train       = 500000.0
+0.00.549.146 I print_info: freq_scale_train      = 1
+0.00.549.146 I print_info: n_ctx_orig_yarn       = 131072
+0.00.549.147 I print_info: rope_yarn_log_mul     = 0.0000
+0.00.549.147 I print_info: rope_finetuned        = unknown
+0.00.549.148 I print_info: model type            = 1B
+0.00.549.148 I print_info: model params          = 1.24 B
+0.00.549.149 I print_info: general.name          = Llama 3.2 1B Instruct
+0.00.549.150 I print_info: vocab type            = BPE
+0.00.549.150 I print_info: n_vocab               = 128256
+0.00.549.151 I print_info: n_merges              = 280147
+0.00.549.151 I print_info: BOS token             = 128000 '<|begin_of_text|>'
+0.00.549.152 I print_info: EOS token             = 128009 '<|eot_id|>'
+0.00.549.152 I print_info: EOT token             = 128001 '<|end_of_text|>'
+0.00.549.153 I print_info: EOM token             = 128008 '<|eom_id|>'
+0.00.549.153 I print_info: LF token              = 198 'Ċ'
+0.00.549.154 I print_info: EOG token             = 128001 '<|end_of_text|>'
+0.00.549.155 I print_info: EOG token             = 128008 '<|eom_id|>'
+0.00.549.155 I print_info: EOG token             = 128009 '<|eot_id|>'
+0.00.549.155 I print_info: max token length      = 256
+0.00.549.156 I load_tensors: loading model tensors, this can take a while... (mmap = true, direct_io = false)
+0.00.549.185 D load_tensors: layer   0 assigned to device HTP0, is_swa = 0
+0.00.549.186 D load_tensors: layer   1 assigned to device HTP0, is_swa = 0
+0.00.549.186 D load_tensors: layer   2 assigned to device HTP0, is_swa = 0
+0.00.549.186 D load_tensors: layer   3 assigned to device HTP0, is_swa = 0
+0.00.549.187 D load_tensors: layer   4 assigned to device HTP0, is_swa = 0
+0.00.549.187 D load_tensors: layer   5 assigned to device HTP0, is_swa = 0
+0.00.549.187 D load_tensors: layer   6 assigned to device HTP0, is_swa = 0
+0.00.549.188 D load_tensors: layer   7 assigned to device HTP0, is_swa = 0
+0.00.549.188 D load_tensors: layer   8 assigned to device HTP0, is_swa = 0
+0.00.549.188 D load_tensors: layer   9 assigned to device HTP0, is_swa = 0
+0.00.549.188 D load_tensors: layer  10 assigned to device HTP0, is_swa = 0
+0.00.549.189 D load_tensors: layer  11 assigned to device HTP0, is_swa = 0
+0.00.549.189 D load_tensors: layer  12 assigned to device HTP0, is_swa = 0
+0.00.549.189 D load_tensors: layer  13 assigned to device HTP0, is_swa = 0
+0.00.549.189 D load_tensors: layer  14 assigned to device HTP0, is_swa = 0
+0.00.549.190 D load_tensors: layer  15 assigned to device HTP0, is_swa = 0
+0.00.549.190 D load_tensors: layer  16 assigned to device HTP0, is_swa = 0
+0.00.549.206 D create_tensor: loading tensor token_embd.weight
+0.00.549.214 D create_tensor: loading tensor output_norm.weight
+0.00.549.222 D create_tensor: loading tensor token_embd.weight
+0.00.549.226 D create_tensor: loading tensor blk.0.attn_norm.weight
+0.00.549.232 D create_tensor: loading tensor blk.0.attn_q.weight
+0.00.549.236 D create_tensor: loading tensor blk.0.attn_k.weight
+0.00.549.239 D create_tensor: loading tensor blk.0.attn_v.weight
+0.00.549.246 D create_tensor: loading tensor blk.0.attn_output.weight
+0.00.549.251 D create_tensor: loading tensor blk.0.ffn_norm.weight
+0.00.549.255 D create_tensor: loading tensor rope_freqs.weight
+0.00.549.259 D create_tensor: loading tensor blk.0.ffn_gate.weight
+0.00.549.263 D create_tensor: loading tensor blk.0.ffn_down.weight
+0.00.549.266 D create_tensor: loading tensor blk.0.ffn_up.weight
+0.00.549.273 D create_tensor: loading tensor blk.1.attn_norm.weight
+0.00.549.278 D create_tensor: loading tensor blk.1.attn_q.weight
+0.00.549.281 D create_tensor: loading tensor blk.1.attn_k.weight
+0.00.549.285 D create_tensor: loading tensor blk.1.attn_v.weight
+0.00.549.291 D create_tensor: loading tensor blk.1.attn_output.weight
+0.00.549.295 D create_tensor: loading tensor blk.1.ffn_norm.weight
+0.00.549.300 D create_tensor: loading tensor blk.1.ffn_gate.weight
+0.00.549.303 D create_tensor: loading tensor blk.1.ffn_down.weight
+0.00.549.306 D create_tensor: loading tensor blk.1.ffn_up.weight
+0.00.549.313 D create_tensor: loading tensor blk.2.attn_norm.weight
+0.00.549.318 D create_tensor: loading tensor blk.2.attn_q.weight
+0.00.549.321 D create_tensor: loading tensor blk.2.attn_k.weight
+0.00.549.325 D create_tensor: loading tensor blk.2.attn_v.weight
+0.00.549.331 D create_tensor: loading tensor blk.2.attn_output.weight
+0.00.549.336 D create_tensor: loading tensor blk.2.ffn_norm.weight
+0.00.549.340 D create_tensor: loading tensor blk.2.ffn_gate.weight
+0.00.549.344 D create_tensor: loading tensor blk.2.ffn_down.weight
+0.00.549.347 D create_tensor: loading tensor blk.2.ffn_up.weight
+0.00.549.353 D create_tensor: loading tensor blk.3.attn_norm.weight
+0.00.549.358 D create_tensor: loading tensor blk.3.attn_q.weight
+0.00.549.362 D create_tensor: loading tensor blk.3.attn_k.weight
+0.00.549.365 D create_tensor: loading tensor blk.3.attn_v.weight
+0.00.549.371 D create_tensor: loading tensor blk.3.attn_output.weight
+0.00.549.376 D create_tensor: loading tensor blk.3.ffn_norm.weight
+0.00.549.380 D create_tensor: loading tensor blk.3.ffn_gate.weight
+0.00.549.384 D create_tensor: loading tensor blk.3.ffn_down.weight
+0.00.549.387 D create_tensor: loading tensor blk.3.ffn_up.weight
+0.00.549.393 D create_tensor: loading tensor blk.4.attn_norm.weight
+0.00.549.398 D create_tensor: loading tensor blk.4.attn_q.weight
+0.00.549.401 D create_tensor: loading tensor blk.4.attn_k.weight
+0.00.549.405 D create_tensor: loading tensor blk.4.attn_v.weight
+0.00.549.411 D create_tensor: loading tensor blk.4.attn_output.weight
+0.00.549.415 D create_tensor: loading tensor blk.4.ffn_norm.weight
+0.00.549.419 D create_tensor: loading tensor blk.4.ffn_gate.weight
+0.00.549.423 D create_tensor: loading tensor blk.4.ffn_down.weight
+0.00.549.426 D create_tensor: loading tensor blk.4.ffn_up.weight
+0.00.549.432 D create_tensor: loading tensor blk.5.attn_norm.weight
+0.00.549.437 D create_tensor: loading tensor blk.5.attn_q.weight
+0.00.549.441 D create_tensor: loading tensor blk.5.attn_k.weight
+0.00.549.444 D create_tensor: loading tensor blk.5.attn_v.weight
+0.00.549.450 D create_tensor: loading tensor blk.5.attn_output.weight
+0.00.549.455 D create_tensor: loading tensor blk.5.ffn_norm.weight
+0.00.549.459 D create_tensor: loading tensor blk.5.ffn_gate.weight
+0.00.549.462 D create_tensor: loading tensor blk.5.ffn_down.weight
+0.00.549.465 D create_tensor: loading tensor blk.5.ffn_up.weight
+0.00.549.473 D create_tensor: loading tensor blk.6.attn_norm.weight
+0.00.549.478 D create_tensor: loading tensor blk.6.attn_q.weight
+0.00.549.481 D create_tensor: loading tensor blk.6.attn_k.weight
+0.00.549.485 D create_tensor: loading tensor blk.6.attn_v.weight
+0.00.549.492 D create_tensor: loading tensor blk.6.attn_output.weight
+0.00.549.496 D create_tensor: loading tensor blk.6.ffn_norm.weight
+0.00.549.501 D create_tensor: loading tensor blk.6.ffn_gate.weight
+0.00.549.505 D create_tensor: loading tensor blk.6.ffn_down.weight
+0.00.549.508 D create_tensor: loading tensor blk.6.ffn_up.weight
+0.00.549.514 D create_tensor: loading tensor blk.7.attn_norm.weight
+0.00.549.520 D create_tensor: loading tensor blk.7.attn_q.weight
+0.00.549.523 D create_tensor: loading tensor blk.7.attn_k.weight
+0.00.549.526 D create_tensor: loading tensor blk.7.attn_v.weight
+0.00.549.533 D create_tensor: loading tensor blk.7.attn_output.weight
+0.00.549.537 D create_tensor: loading tensor blk.7.ffn_norm.weight
+0.00.549.542 D create_tensor: loading tensor blk.7.ffn_gate.weight
+0.00.549.545 D create_tensor: loading tensor blk.7.ffn_down.weight
+0.00.549.561 D create_tensor: loading tensor blk.7.ffn_up.weight
+0.00.549.568 D create_tensor: loading tensor blk.8.attn_norm.weight
+0.00.549.573 D create_tensor: loading tensor blk.8.attn_q.weight
+0.00.549.577 D create_tensor: loading tensor blk.8.attn_k.weight
+0.00.549.580 D create_tensor: loading tensor blk.8.attn_v.weight
+0.00.549.587 D create_tensor: loading tensor blk.8.attn_output.weight
+0.00.549.591 D create_tensor: loading tensor blk.8.ffn_norm.weight
+0.00.549.596 D create_tensor: loading tensor blk.8.ffn_gate.weight
+0.00.549.599 D create_tensor: loading tensor blk.8.ffn_down.weight
+0.00.549.603 D create_tensor: loading tensor blk.8.ffn_up.weight
+0.00.549.609 D create_tensor: loading tensor blk.9.attn_norm.weight
+0.00.549.615 D create_tensor: loading tensor blk.9.attn_q.weight
+0.00.549.618 D create_tensor: loading tensor blk.9.attn_k.weight
+0.00.549.622 D create_tensor: loading tensor blk.9.attn_v.weight
+0.00.549.628 D create_tensor: loading tensor blk.9.attn_output.weight
+0.00.549.633 D create_tensor: loading tensor blk.9.ffn_norm.weight
+0.00.549.638 D create_tensor: loading tensor blk.9.ffn_gate.weight
+0.00.549.641 D create_tensor: loading tensor blk.9.ffn_down.weight
+0.00.549.645 D create_tensor: loading tensor blk.9.ffn_up.weight
+0.00.549.657 D create_tensor: loading tensor blk.10.attn_norm.weight
+0.00.549.663 D create_tensor: loading tensor blk.10.attn_q.weight
+0.00.549.666 D create_tensor: loading tensor blk.10.attn_k.weight
+0.00.549.669 D create_tensor: loading tensor blk.10.attn_v.weight
+0.00.549.676 D create_tensor: loading tensor blk.10.attn_output.weight
+0.00.549.681 D create_tensor: loading tensor blk.10.ffn_norm.weight
+0.00.549.686 D create_tensor: loading tensor blk.10.ffn_gate.weight
+0.00.549.689 D create_tensor: loading tensor blk.10.ffn_down.weight
+0.00.549.693 D create_tensor: loading tensor blk.10.ffn_up.weight
+0.00.549.699 D create_tensor: loading tensor blk.11.attn_norm.weight
+0.00.549.704 D create_tensor: loading tensor blk.11.attn_q.weight
+0.00.549.708 D create_tensor: loading tensor blk.11.attn_k.weight
+0.00.549.711 D create_tensor: loading tensor blk.11.attn_v.weight
+0.00.549.717 D create_tensor: loading tensor blk.11.attn_output.weight
+0.00.549.721 D create_tensor: loading tensor blk.11.ffn_norm.weight
+0.00.549.725 D create_tensor: loading tensor blk.11.ffn_gate.weight
+0.00.549.728 D create_tensor: loading tensor blk.11.ffn_down.weight
+0.00.549.731 D create_tensor: loading tensor blk.11.ffn_up.weight
+0.00.549.736 D create_tensor: loading tensor blk.12.attn_norm.weight
+0.00.549.741 D create_tensor: loading tensor blk.12.attn_q.weight
+0.00.549.744 D create_tensor: loading tensor blk.12.attn_k.weight
+0.00.549.747 D create_tensor: loading tensor blk.12.attn_v.weight
+0.00.549.753 D create_tensor: loading tensor blk.12.attn_output.weight
+0.00.549.757 D create_tensor: loading tensor blk.12.ffn_norm.weight
+0.00.549.761 D create_tensor: loading tensor blk.12.ffn_gate.weight
+0.00.549.764 D create_tensor: loading tensor blk.12.ffn_down.weight
+0.00.549.767 D create_tensor: loading tensor blk.12.ffn_up.weight
+0.00.549.773 D create_tensor: loading tensor blk.13.attn_norm.weight
+0.00.549.778 D create_tensor: loading tensor blk.13.attn_q.weight
+0.00.549.781 D create_tensor: loading tensor blk.13.attn_k.weight
+0.00.549.784 D create_tensor: loading tensor blk.13.attn_v.weight
+0.00.549.790 D create_tensor: loading tensor blk.13.attn_output.weight
+0.00.549.793 D create_tensor: loading tensor blk.13.ffn_norm.weight
+0.00.549.798 D create_tensor: loading tensor blk.13.ffn_gate.weight
+0.00.549.801 D create_tensor: loading tensor blk.13.ffn_down.weight
+0.00.549.804 D create_tensor: loading tensor blk.13.ffn_up.weight
+0.00.549.810 D create_tensor: loading tensor blk.14.attn_norm.weight
+0.00.549.814 D create_tensor: loading tensor blk.14.attn_q.weight
+0.00.549.818 D create_tensor: loading tensor blk.14.attn_k.weight
+0.00.549.821 D create_tensor: loading tensor blk.14.attn_v.weight
+0.00.549.827 D create_tensor: loading tensor blk.14.attn_output.weight
+0.00.549.831 D create_tensor: loading tensor blk.14.ffn_norm.weight
+0.00.549.835 D create_tensor: loading tensor blk.14.ffn_gate.weight
+0.00.549.839 D create_tensor: loading tensor blk.14.ffn_down.weight
+0.00.549.842 D create_tensor: loading tensor blk.14.ffn_up.weight
+0.00.549.848 D create_tensor: loading tensor blk.15.attn_norm.weight
+0.00.549.853 D create_tensor: loading tensor blk.15.attn_q.weight
+0.00.549.856 D create_tensor: loading tensor blk.15.attn_k.weight
+0.00.549.859 D create_tensor: loading tensor blk.15.attn_v.weight
+0.00.549.866 D create_tensor: loading tensor blk.15.attn_output.weight
+0.00.549.870 D create_tensor: loading tensor blk.15.ffn_norm.weight
+0.00.549.874 D create_tensor: loading tensor blk.15.ffn_gate.weight
+0.00.549.878 D create_tensor: loading tensor blk.15.ffn_down.weight
+0.00.549.881 D create_tensor: loading tensor blk.15.ffn_up.weight
+0.00.550.096 D done_getting_tensors: tensor 'token_embd.weight' (q6_K) (and 113 others) cannot be used with preferred buffer type CPU_REPACK, using CPU instead
+0.00.590.117 I load_tensors: offloading output layer to GPU
+0.00.590.125 I load_tensors: offloading 15 repeating layers to GPU
+0.00.590.126 I load_tensors: offloaded 17/17 layers to GPU
+0.00.590.129 I load_tensors:   CPU_Mapped model buffer size =   205.49 MiB
+0.00.590.130 I load_tensors:   CPU_REPACK model buffer size =   762.55 MiB
+0.00.590.131 I load_tensors:         HTP0 model buffer size =     0.26 MiB
+0.00.590.147 D repack: repack tensor token_embd.weight with q6_K_8x8
+-\0.00.701.898 D repack: repack tensor blk.0.attn_q.weight with q4_K_8x8
+0.00.703.003 D repack: repack tensor blk.0.attn_k.weight with q4_K_8x8
+0.00.703.271 D repack: repack tensor blk.0.attn_v.weight with q6_K_8x8
+0.00.705.062 D repack: repack tensor blk.0.attn_output.weight with q4_K_8x8
+0.00.706.635 D repack: repack tensor blk.0.ffn_gate.weight with q4_K_8x8
+0.00.711.019 D repack: repack tensor blk.0.ffn_down.weight with q6_K_8x8
+0.00.717.939 D repack: repack tensor blk.0.ffn_up.weight with q4_K_8x8
+0.00.722.307 D repack: repack tensor blk.1.attn_q.weight with q4_K_8x8
+0.00.723.389 D repack: repack tensor blk.1.attn_k.weight with q4_K_8x8
+0.00.723.667 D repack: repack tensor blk.1.attn_v.weight with q6_K_8x8
+0.00.724.095 D repack: repack tensor blk.1.attn_output.weight with q4_K_8x8
+0.00.725.186 D repack: repack tensor blk.1.ffn_gate.weight with q4_K_8x8
+0.00.729.624 D repack: repack tensor blk.1.ffn_down.weight with q6_K_8x8
+0.00.736.451 D repack: repack tensor blk.1.ffn_up.weight with q4_K_8x8
+0.00.740.784 D repack: repack tensor blk.2.attn_q.weight with q4_K_8x8
+0.00.741.962 D repack: repack tensor blk.2.attn_k.weight with q4_K_8x8
+0.00.742.234 D repack: repack tensor blk.2.attn_v.weight with q4_K_8x8
+0.00.742.544 D repack: repack tensor blk.2.attn_output.weight with q4_K_8x8
+0.00.743.620 D repack: repack tensor blk.2.ffn_gate.weight with q4_K_8x8
+0.00.747.990 D repack: repack tensor blk.2.ffn_down.weight with q4_K_8x8
+0.00.752.377 D repack: repack tensor blk.2.ffn_up.weight with q4_K_8x8
+0.00.756.815 D repack: repack tensor blk.3.attn_q.weight with q4_K_8x8
+0.00.757.959 D repack: repack tensor blk.3.attn_k.weight with q4_K_8x8
+0.00.758.282 D repack: repack tensor blk.3.attn_v.weight with q4_K_8x8
+0.00.758.559 D repack: repack tensor blk.3.attn_output.weight with q4_K_8x8
+0.00.759.638 D repack: repack tensor blk.3.ffn_gate.weight with q4_K_8x8
+0.00.764.064 D repack: repack tensor blk.3.ffn_down.weight with q4_K_8x8
+0.00.768.391 D repack: repack tensor blk.3.ffn_up.weight with q4_K_8x8
+0.00.772.812 D repack: repack tensor blk.4.attn_q.weight with q4_K_8x8
+0.00.773.992 D repack: repack tensor blk.4.attn_k.weight with q4_K_8x8
+0.00.774.277 D repack: repack tensor blk.4.attn_v.weight with q6_K_8x8
+0.00.774.689 D repack: repack tensor blk.4.attn_output.weight with q4_K_8x8
+0.00.775.844 D repack: repack tensor blk.4.ffn_gate.weight with q4_K_8x8
+0.00.780.350 D repack: repack tensor blk.4.ffn_down.weight with q6_K_8x8
+0.00.787.264 D repack: repack tensor blk.4.ffn_up.weight with q4_K_8x8
+0.00.791.696 D repack: repack tensor blk.5.attn_q.weight with q4_K_8x8
+|0.00.792.821 D repack: repack tensor blk.5.attn_k.weight with q4_K_8x8
+0.00.793.128 D repack: repack tensor blk.5.attn_v.weight with q4_K_8x8
+0.00.793.413 D repack: repack tensor blk.5.attn_output.weight with q4_K_8x8
+0.00.794.510 D repack: repack tensor blk.5.ffn_gate.weight with q4_K_8x8
+0.00.798.931 D repack: repack tensor blk.5.ffn_down.weight with q4_K_8x8
+0.00.803.251 D repack: repack tensor blk.5.ffn_up.weight with q4_K_8x8
+0.00.807.652 D repack: repack tensor blk.6.attn_q.weight with q4_K_8x8
+0.00.808.813 D repack: repack tensor blk.6.attn_k.weight with q4_K_8x8
+0.00.809.081 D repack: repack tensor blk.6.attn_v.weight with q4_K_8x8
+0.00.809.352 D repack: repack tensor blk.6.attn_output.weight with q4_K_8x8
+0.00.810.495 D repack: repack tensor blk.6.ffn_gate.weight with q4_K_8x8
+0.00.814.945 D repack: repack tensor blk.6.ffn_down.weight with q4_K_8x8
+0.00.819.200 D repack: repack tensor blk.6.ffn_up.weight with q4_K_8x8
+0.00.823.675 D repack: repack tensor blk.7.attn_q.weight with q4_K_8x8
+0.00.824.780 D repack: repack tensor blk.7.attn_k.weight with q4_K_8x8
+0.00.825.055 D repack: repack tensor blk.7.attn_v.weight with q6_K_8x8
+0.00.825.506 D repack: repack tensor blk.7.attn_output.weight with q4_K_8x8
+0.00.826.618 D repack: repack tensor blk.7.ffn_gate.weight with q4_K_8x8
+0.00.830.992 D repack: repack tensor blk.7.ffn_down.weight with q6_K_8x8
+0.00.838.052 D repack: repack tensor blk.7.ffn_up.weight with q4_K_8x8
+0.00.842.398 D repack: repack tensor blk.8.attn_q.weight with q4_K_8x8
+0.00.843.525 D repack: repack tensor blk.8.attn_k.weight with q4_K_8x8
+0.00.843.859 D repack: repack tensor blk.8.attn_v.weight with q6_K_8x8
+0.00.844.289 D repack: repack tensor blk.8.attn_output.weight with q4_K_8x8
+0.00.845.409 D repack: repack tensor blk.8.ffn_gate.weight with q4_K_8x8
+0.00.849.944 D repack: repack tensor blk.8.ffn_down.weight with q6_K_8x8
+0.00.856.684 D repack: repack tensor blk.8.ffn_up.weight with q4_K_8x8
+0.00.861.240 D repack: repack tensor blk.9.attn_q.weight with q4_K_8x8
+0.00.862.422 D repack: repack tensor blk.9.attn_k.weight with q4_K_8x8
+0.00.862.704 D repack: repack tensor blk.9.attn_v.weight with q6_K_8x8
+0.00.863.169 D repack: repack tensor blk.9.attn_output.weight with q4_K_8x8
+0.00.864.262 D repack: repack tensor blk.9.ffn_gate.weight with q4_K_8x8
+0.00.868.651 D repack: repack tensor blk.9.ffn_down.weight with q6_K_8x8
+0.00.875.567 D repack: repack tensor blk.9.ffn_up.weight with q4_K_8x8
+0.00.879.969 D repack: repack tensor blk.10.attn_q.weight with q4_K_8x8
+0.00.881.106 D repack: repack tensor blk.10.attn_k.weight with q4_K_8x8
+0.00.881.444 D repack: repack tensor blk.10.attn_v.weight with q4_K_8x8
+0.00.881.723 D repack: repack tensor blk.10.attn_output.weight with q4_K_8x8
+0.00.882.807 D repack: repack tensor blk.10.ffn_gate.weight with q4_K_8x8
+0.00.887.256 D repack: repack tensor blk.10.ffn_down.weight with q4_K_8x8
+/0.00.892.975 D repack: repack tensor blk.10.ffn_up.weight with q4_K_8x8
+0.00.899.185 D repack: repack tensor blk.11.attn_q.weight with q4_K_8x8
+0.00.900.714 D repack: repack tensor blk.11.attn_k.weight with q4_K_8x8
+0.00.901.102 D repack: repack tensor blk.11.attn_v.weight with q4_K_8x8
+0.00.901.494 D repack: repack tensor blk.11.attn_output.weight with q4_K_8x8
+0.00.903.054 D repack: repack tensor blk.11.ffn_gate.weight with q4_K_8x8
+0.00.909.061 D repack: repack tensor blk.11.ffn_down.weight with q4_K_8x8
+0.00.914.924 D repack: repack tensor blk.11.ffn_up.weight with q4_K_8x8
+0.00.920.910 D repack: repack tensor blk.12.attn_q.weight with q4_K_8x8
+0.00.922.437 D repack: repack tensor blk.12.attn_k.weight with q4_K_8x8
+0.00.922.814 D repack: repack tensor blk.12.attn_v.weight with q6_K_8x8
+0.00.923.374 D repack: repack tensor blk.12.attn_output.weight with q4_K_8x8
+0.00.924.867 D repack: repack tensor blk.12.ffn_gate.weight with q4_K_8x8
+0.00.930.908 D repack: repack tensor blk.12.ffn_down.weight with q6_K_8x8
+0.00.939.644 D repack: repack tensor blk.12.ffn_up.weight with q4_K_8x8
+0.00.945.632 D repack: repack tensor blk.13.attn_q.weight with q4_K_8x8
+0.00.947.127 D repack: repack tensor blk.13.attn_k.weight with q4_K_8x8
+0.00.947.506 D repack: repack tensor blk.13.attn_v.weight with q4_K_8x8
+0.00.947.889 D repack: repack tensor blk.13.attn_output.weight with q4_K_8x8
+0.00.949.370 D repack: repack tensor blk.13.ffn_gate.weight with q4_K_8x8
+0.00.955.422 D repack: repack tensor blk.13.ffn_down.weight with q4_K_8x8
+0.00.961.238 D repack: repack tensor blk.13.ffn_up.weight with q4_K_8x8
+0.00.967.231 D repack: repack tensor blk.14.attn_q.weight with q4_K_8x8
+0.00.968.711 D repack: repack tensor blk.14.attn_k.weight with q4_K_8x8
+0.00.969.085 D repack: repack tensor blk.14.attn_v.weight with q4_K_8x8
+0.00.969.461 D repack: repack tensor blk.14.attn_output.weight with q4_K_8x8
+0.00.970.935 D repack: repack tensor blk.14.ffn_gate.weight with q4_K_8x8
+0.00.976.918 D repack: repack tensor blk.14.ffn_down.weight with q4_K_8x8
+0.00.982.794 D repack: repack tensor blk.14.ffn_up.weight with q4_K_8x8
+0.00.988.785 D repack: repack tensor blk.15.attn_q.weight with q4_K_8x8
+0.00.990.304 D repack: repack tensor blk.15.attn_k.weight with q4_K_8x8
+0.00.990.675 D repack: repack tensor blk.15.attn_v.weight with q6_K_8x8
+0.00.991.237 D repack: repack tensor blk.15.attn_output.weight with q4_K_8x8
+0.00.992.741 D -repack: repack tensor blk.15.ffn_gate.weight with q4_K_8x8
+0.00.998.780 D repack: repack tensor blk.15.ffn_down.weight with q6_K_8x8
+0.01.007.529 D repack: repack tensor blk.15.ffn_up.weight with q4_K_8x8
+0.01.031.254 I common_init_result: added <|end_of_text|> logit bias = -inf
+0.01.031.263 I common_init_result: added <|eom_id|> logit bias = -inf
+0.01.031.264 I common_init_result: added <|eot_id|> logit bias = -inf
+0.01.031.338 I llama_context: constructing llama_context
+0.01.031.339 I llama_context: n_seq_max     = 1
+0.01.031.340 I llama_context: n_ctx         = 512
+0.01.031.340 I llama_context: n_ctx_seq     = 512
+0.01.031.340 I llama_context: n_batch       = 512
+0.01.031.341 I llama_context: n_ubatch      = 512
+0.01.031.341 I llama_context: causal_attn   = 1
+0.01.031.342 I llama_context: flash_attn    = auto
+0.01.031.342 I llama_context: kv_unified    = false
+0.01.031.344 I llama_context: freq_base     = 500000.0
+0.01.031.344 I llama_context: freq_scale    = 1
+0.01.031.345 I llama_context: n_rs_seq      = 0
+0.01.031.345 I llama_context: n_outputs_max = 1
+0.01.031.346 W llama_context: n_ctx_seq (512) < n_ctx_train (131072) -- the full capacity of the model will not be utilized
+0.01.031.354 D set_abort_callback: call
+0.01.031.453 I llama_context:        CPU  output buffer size =     0.49 MiB
+0.01.031.460 D llama_kv_cache: layer   0: dev = HTP0
+0.01.031.464 D llama_kv_cache: layer   1: dev = HTP0
+0.01.031.465 D llama_kv_cache: layer   2: dev = HTP0
+0.01.031.467 D llama_kv_cache: layer   3: dev = HTP0
+0.01.031.468 D llama_kv_cache: layer   4: dev = HTP0
+0.01.031.469 D llama_kv_cache: layer   5: dev = HTP0
+0.01.031.470 D llama_kv_cache: layer   6: dev = HTP0
+0.01.031.471 D llama_kv_cache: layer   7: dev = HTP0
+0.01.031.471 D llama_kv_cache: layer   8: dev = HTP0
+0.01.031.472 D llama_kv_cache: layer   9: dev = HTP0
+0.01.031.473 D llama_kv_cache: layer  10: dev = HTP0
+0.01.031.474 D llama_kv_cache: layer  11: dev = HTP0
+0.01.031.475 D llama_kv_cache: layer  12: dev = HTP0
+0.01.031.476 D llama_kv_cache: layer  13: dev = HTP0
+0.01.031.476 D llama_kv_cache: layer  14: dev = HTP0
+0.01.031.477 D llama_kv_cache: layer  15: dev = HTP0
+0.01.031.717 I llama_kv_cache:       HTP0 KV buffer size =    16.00 MiB
+0.01.031.977 I llama_kv_cache: size =   16.00 MiB (   512 cells,  16 layers,  1/1 seqs), K (f16):    8.00 MiB, V (f16):    8.00 MiB
+0.01.031.977 I llama_kv_cache: attn_rot_k = 0, n_embd_head_k_all = 64
+0.01.031.978 I llama_kv_cache: attn_rot_v = 0, n_embd_head_k_all = 64
+0.01.031.979 D llama_context: enumerating backends
+0.01.031.980 D llama_context: backend_ptrs.size() = 2
+0.01.031.980 I sched_reserve: reserving ...
+0.01.031.981 D sched_reserve: max_nodes = 1184
+0.01.032.179 D sched_reserve: reserving full memory module
+0.01.032.182 D sched_reserve: worst-case: n_tokens = 512, n_seqs = 1, n_outputs = 1
+0.01.032.183 D graph_reserve: reserving a graph for ubatch with n_tokens =    1, n_seqs =  1, n_outputs =    1
+0.01.032.410 I sched_reserve: Flash Attention was auto, set to enabled
+0.01.032.410 I sched_reserve: resolving fused Gated Delta Net support:
+0.01.032.411 D graph_reserve: reserving a graph for ubatch with n_tokens =    1, n_seqs =  1, n_outputs =    1
+0.01.032.560 I sched_reserve: fused Gated Delta Net (autoregressive) enabled
+0.01.032.560 D graph_reserve: reserving a graph for ubatch with n_tokens =   16, n_seqs =  1, n_outputs =   16
+0.01.032.703 I sched_reserve: fused Gated Delta Net (chunked) enabled
+0.01.032.704 D graph_reserve: reserving a graph for ubatch with n_tokens =  512, n_seqs =  1, n_outputs =    1
+0.01.033.124 D graph_reserve: reserving a graph for ubatch with n_tokens =    1, n_seqs =  1, n_outputs =    1
+0.01.033.319 D graph_reserve: reserving a graph for ubatch with n_tokens =  512, n_seqs =  1, n_outputs =    1
+0.01.033.508 I sched_reserve:       HTP0 compute buffer size =    14.51 MiB
+0.01.033.508 I sched_reserve:        CPU compute buffer size =    52.51 MiB
+0.01.033.509 I sched_reserve: graph nodes  = 502
+0.01.033.509 I sched_reserve: graph splits = 99
+0.01.033.510 I sched_reserve: reserve took 1.53 ms, sched copies = 1
+0.01.033.645 D set_adapters_lora: adapters = 0x0
+0.01.033.646 D adapters_lora_are_same: adapters = 0x0
+0.01.033.646 I common_init_from_params: warming up the model with an empty run - please wait ... (--no-warmup to disable)
+\|/-\|/-\0.01.958.262 I srv    load_model: initializing slots, n_slots = 1
+|/-\|/-\|0.02.879.234 W common_speculative_init: no implementations specified for speculative decoding
+0.02.879.254 I slot   load_model: id  0 | task -1 | new slot, n_ctx = 512
+0.02.879.255 D slot        reset: id  0 | task -1 | 
+0.02.879.295 I srv    load_model: prompt cache is enabled, size limit: 8192 MiB
+0.02.879.296 I srv    load_model: use `--cache-ram 0` to disable the prompt cache
+0.02.879.296 I srv    load_model: for more info see https://github.com/ggml-org/llama.cpp/pull/16391
+0.02.879.297 I srv    load_model: context checkpoints enabled, max = 32, min spacing = 8192
+0.02.879.307 I srv          init: idle slots will be saved to prompt cache upon starting a new task
+0.02.879.307 D srv          init: __TEST_TAG_CACHE_IDLE_SLOTS_ENABLED__
+0.02.880.636 D common_chat_templates_apply_jinja: using differential autoparser
+0.02.880.646 D [1m[38;5;126m=== Starting differential analysis ===
+[0m0.02.880.647 D [1m[38;5;214mPhase 1: Reasoning analysis
+[0m0.02.880.968 D [1m[38;5;214mPhase 2: Content analysis
+[0m0.02.881.760 D 
+--- Reasoning & Content Structure ---
+0.02.881.764 D user_msg_start: <|begin_of_text|><|start_header_id|>user<|end_header_id|>
+0.02.881.765 D assistant_msg_start: 
+0.02.881.766 D reasoning_mode: NONE
+0.02.881.766 D reasoning_start: ''
+0.02.881.766 D reasoning_end: ''
+0.02.881.767 D content_mode: PLAIN
+0.02.881.767 D content_start: ''
+0.02.881.768 D content_end: ''
+0.02.881.768 D 
+--- Tool Call Structure ---
+0.02.881.769 D tool_mode: NONE
+0.02.881.769 D supports_tools: false
+0.02.881.770 D supports_parallel_calls: false
+0.02.881.770 D tool_section_start: ''
+0.02.881.770 D tool_section_end: ''
+0.02.881.771 D per_call_start: ''
+0.02.881.771 D per_call_end: ''
+0.02.881.771 D func_name_prefix: ''
+0.02.881.772 D func_name_suffix: ''
+0.02.881.772 D func_close: ''
+0.02.881.773 D call_id_prefix: ''
+0.02.881.773 D call_id_suffix: ''
+0.02.881.774 D call_id_pos: 'NONE'
+0.02.881.774 D args_start: ''
+0.02.881.774 D args_end: ''
+0.02.881.775 D arg_name_prefix: ''
+0.02.881.775 D arg_name_suffix: ''
+0.02.881.775 D arg_value_prefix: ''
+0.02.881.776 D arg_value_suffix: ''
+0.02.881.776 D name_field: 'name'
+0.02.881.776 D args_field: 'arguments'
+0.02.881.777 D id_field: ''
+0.02.881.777 D gen_id_field: ''
+0.02.881.778 D parameter_order: ''
+0.02.881.778 D [1m[38;5;126m=== Differential analysis complete ===
+[0m0.02.882.305 D common_chat_templates_apply_jinja: generated parser:
+Sequence(Epsilon, Epsilon, Tag(content, Until()), End)
+
+parser generation prompt: 
+0.02.882.313 I init: chat template, example_format: '<|start_header_id|>system<|end_header_id|>
+
+You are a helpful assistant<|eot_id|><|start_header_id|>user<|end_header_id|>
+
+Hello<|eot_id|><|start_header_id|>assistant<|end_header_id|>
+
+Hi there<|eot_id|><|start_header_id|>user<|end_header_id|>
+
+How are you?<|eot_id|><|start_header_id|>assistant<|end_header_id|>
+
+'
+0.02.882.319 D common_chat_templates_apply_jinja: using differential autoparser
+0.02.882.319 D [1m[38;5;126m=== Starting differential analysis ===
+[0m0.02.882.319 D [1m[38;5;214mPhase 1: Reasoning analysis
+[0m0.02.882.627 D [1m[38;5;214mPhase 2: Content analysis
+[0m0.02.883.356 D 
+--- Reasoning & Content Structure ---
+0.02.883.360 D user_msg_start: <|begin_of_text|><|start_header_id|>user<|end_header_id|>
+0.02.883.360 D assistant_msg_start: 
+0.02.883.360 D reasoning_mode: NONE
+0.02.883.361 D reasoning_start: ''
+0.02.883.361 D reasoning_end: ''
+0.02.883.362 D content_mode: PLAIN
+0.02.883.362 D content_start: ''
+0.02.883.362 D content_end: ''
+0.02.883.363 D 
+--- Tool Call Structure ---
+0.02.883.363 D tool_mode: NONE
+0.02.883.363 D supports_tools: false
+0.02.883.364 D supports_parallel_calls: false
+0.02.883.364 D tool_section_start: ''
+0.02.883.364 D tool_section_end: ''
+0.02.883.365 D per_call_start: ''
+0.02.883.365 D per_call_end: ''
+ 0.02.883.365 D func_name_prefix: ''
+0.02.883.366 D func_name_suffix: ''
+0.02.883.366 D func_close: ''
+0.02.883.366 D call_id_prefix: ''
+0.02.883.367 D call_id_suffix: ''
+0.02.883.367 D call_id_pos: 'NONE'
+0.02.883.367 D args_start: ''
+0.02.883.368 D args_end: ''
+0.02.883.368 D arg_name_prefix: ''
+0.02.883.368 D arg_name_suffix: ''
+0.02.883.369 D arg_value_prefix: ''
+0.02.883.369 D arg_value_suffix: ''
+0.02.883.369 D name_field: 'name'
+0.02.883.370 D args_field: 'arguments'
+0.02.883.370 D id_field: ''
+0.02.883.370 D gen_id_field: ''
+0.02.883.371 D parameter_order: ''
+0.02.883.371 D [1m[38;5;126m=== Differential analysis complete ===
+[0m0.02.883.582 D common_chat_templates_apply_jinja: generated parser:
+Sequence(Epsilon, Epsilon, Tag(content, Until()), End)
+
+parser generation prompt: 
+0.02.883.583 I srv          init: init: chat template, thinking = 0
+0.02.883.799 D common_chat_templates_apply_jinja: using differential autoparser
+0.02.883.799 D [1m[38;5;126m=== Starting differential analysis ===
+[0m0.02.883.799 D [1m[38;5;214mPhase 1: Reasoning analysis
+[0m0.02.884.108 D [1m[38;5;214mPhase 2: Content analysis
+[0m0.02.884.267 D que    start_loop: processing new tasks
+0.02.884.284 D que    start_loop: update slots
+0.02.884.288 I srv  update_slots: all slots are idle
+0.02.884.291 D que    start_loop: waiting for new tasks
+0.02.884.823 D 
+--- Reasoning & Content Structure ---
+0.02.884.826 D user_msg_start: <|begin_of_text|><|start_header_id|>user<|end_header_id|>
+0.02.884.827 D assistant_msg_start: 
+0.02.884.827 D reasoning_mode: NONE
+0.02.884.827 D reasoning_start: ''
+0.02.884.828 D reasoning_end: ''
+0.02.884.828 D content_mode: PLAIN
+0.02.884.829 D content_start: ''
+0.02.884.829 D content_end: ''
+0.02.884.829 D 
+--- Tool Call Structure ---
+0.02.884.830 D tool_mode: NONE
+0.02.884.830 D supports_tools: false
+0.02.884.830 D supports_parallel_calls: false
+0.02.884.830 D tool_section_start: ''
+0.02.884.831 D tool_section_end: ''
+0.02.884.831 D per_call_start: ''
+0.02.884.831 D per_call_end: ''
+0.02.884.832 D func_name_prefix: ''
+0.02.884.832 D func_name_suffix: ''
+0.02.884.832 D func_close: ''
+0.02.884.833 D call_id_prefix: ''
+0.02.884.833 D call_id_suffix: ''
+0.02.884.834 D call_id_pos: 'NONE'
+0.02.884.834 D args_start: ''
+0.02.884.834 D args_end: ''
+0.02.884.835 D arg_name_prefix: ''
+0.02.884.835 D arg_name_suffix: ''
+0.02.884.835 D arg_value_prefix: ''
+0.02.884.835 D arg_value_suffix: ''
+0.02.884.836 D name_field: 'name'
+0.02.884.836 D args_field: 'arguments'
+0.02.884.836 D id_field: ''
+0.02.884.837 D gen_id_field: ''
+0.02.884.837 D parameter_order: ''
+0.02.884.838 D [1m[38;5;126m=== Differential analysis complete ===
+[0m0.02.885.052 D common_chat_templates_apply_jinja: generated parser:
+Sequence(Epsilon, Epsilon, Tag(content, Until()), End)
+
+parser generation prompt: 
+0.02.885.094 D res  add_waiting_: add task 0 to waiting list. current waiting = 0 (before add)
+0.02.885.094 D que          post: new task, id = 0, front = 0
+
+
+
+▄▄ ▄▄
+██ ██
+██ ██  ▀▀█▄ ███▄███▄  ▀▀█▄    ▄████ ████▄ ████▄
+██ ██ ▄█▀██ ██ ██ ██ ▄█▀██    ██    ██ ██ ██ ██
+██ ██ ▀█▄██ ██ ██ ██ ▀█▄██ ██ ▀████ ████▀ ████▀
+                                    ██    ██
+                                    ▀▀    ▀▀
+
+build      : b9790-e12a0128a
+model      : /data/local/tmp/gguf/llama-3.2-1b-instruct-q4_k_m.gguf
+modalities : text
+
+available commands:
+  /exit or Ctrl+C     stop or exit
+  /regen              regenerate the last response
+  /clear              clear the chat history
+  /read <file>        add a text file
+  /glob <pattern>     add text files using globbing pattern
+
+
+> Hello. Answer in one short sentence.
+
+|0.02.886.563 I slot get_availabl: id  0 | task -1 | selected slot by LRU, t_last = -1
+0.02.886.565 I srv  get_availabl: updating prompt cache
+0.02.886.598 I srv          load:  - looking for better prompt, base f_keep = -1.000, sim = 0.000
+0.02.886.605 I srv        update:  - cache state: 0 prompts, 0.000 MiB (limits: 8192.000 MiB, 512 tokens, 8589934592 est)
+0.02.886.608 I srv  get_availabl: prompt cache update took 0.04 ms
+0.02.886.747 D slot launch_slot_: id  0 | task -1 | launching slot : {"id":0,"n_ctx":512,"speculative":false,"is_processing":false}
+0.02.886.856 I slot launch_slot_: id  0 | task -1 | sampler chain: logits -> ?penalties -> ?dry -> ?top-n-sigma -> top-k -> ?typical -> top-p -> min-p -> ?xtc -> temp-ext -> dist 
+0.02.886.888 I slot launch_slot_: id  0 | task -1 | sampler params: 
+	repeat_last_n = 64, repeat_penalty = 1.000, frequency_penalty = 0.000, presence_penalty = 0.000
+	dry_multiplier = 0.000, dry_base = 1.750, dry_allowed_length = 2, dry_penalty_last_n = -1
+	top_k = 40, top_p = 0.950, min_p = 0.050, xtc_probability = 0.000, xtc_threshold = 0.100, typical_p = 1.000, top_n_sigma = -1.000, temp = 0.800
+	mirostat = 0, mirostat_lr = 0.100, mirostat_ent = 5.000, adaptive_target = -1.000, adaptive_decay = 0.900
+0.02.886.901 I slot launch_slot_: id  0 | task 0 | processing task, is_child = 0
+0.02.886.905 D que    start_loop: update slots
+0.02.886.911 D srv  update_slots: posting NEXT_RESPONSE
+0.02.886.916 D que          post: new task, id = 1, front = 0
+0.02.886.938 I slot   operator(): id  0 | task 0 | new prompt, n_ctx_slot = 512, n_keep = 0, task.n_tokens = 18
+0.02.886.947 D res          send: sending result for task id = 0
+0.02.886.949 D res          send: task id = 0 pushed to result queue
+0.02.886.979 I slot   operator(): id  0 | task 0 | cached n_tokens = 0, memory_seq_rm [0, end)
+0.02.887.044 I slot init_sampler: id  0 | task 0 | init sampler, took 0.01 ms, tokens: text = 18, total = 18
+0.02.887.048 D slot   operator(): id  0 | task 0 | main/do_checkpoint = no, pos_min = -1, pos_max = -1
+0.02.887.058 D srv        decode: n_batch (effective) = 512, off = 0
+0.02.887.062 D set_adapters_lora: adapters = 0x0
+0.02.887.063 D adapters_lora_are_same: adapters = 0x0
+0.02.887.066 D set_embeddings: value = 0
+-\|/-\|/-\|0.04.053.798 D res          send: sending result for task id = 0
+0.04.053.817 D res          send: task id = 0 pushed to result queue
+0.04.053.824 D slot process_toke: id  0 | task 0 | n_decoded = 1, n_remaining = 15, next token:    40 'I'
+0.04.053.826 D que    start_loop: waiting for new tasks
+0.04.053.827 D que    start_loop: processing new tasks
+0.04.053.831 D que    start_loop: processing task, id = 1
+0.04.053.832 D que    start_loop: update slots
+0.04.053.833 D srv  update_slots: posting NEXT_RESPONSE
+ 0.04.053.835 ID que          post: new task, id = 2, front = 0
+0.04.053.838 D slot handle_last_: id  0 | task 0 | slot decode token, id=40, n_ctx = 512, n_tokens = 18, truncated = 0
+0.04.053.839 D srv        decode: n_batch (effective) = 512, off = 0
+0.04.053.842 D set_adapters_lora: adapters = 0x0
+0.04.053.842 D adapters_lora_are_same: adapters = 0x0
+0.04.053.843 D set_embeddings: value = 0
+'m0.05.010.778 D res          send: sending result for task id = 0
+0.05.010.789 D res          send: task id = 0 pushed to result queue
+0.05.010.796 D slot process_toke: id  0 | task 0 | n_decoded = 2, n_remaining = 14, next token:  2846 ''m'
+0.05.010.799 D que    start_loop: waiting for new tasks
+0.05.010.799 D que    start_loop: processing new tasks
+0.05.010.802 D que    start_loop: processing task, id = 2
+0.05.010.803 D que    start_loop: update slots
+0.05.010.819 D srv  update_slots: posting NEXT_RESPONSE
+0.05.010.820 D que          post: new task, id = 3, front = 0
+0.05.010.823 D slot handle_last_: id  0 | task 0 | slot decode token, id=2846, n_ctx = 512, n_tokens = 19, truncated = 0
+0.05.010.825 D srv        decode: n_batch (effective) = 512, off = 0
+0.05.010.827 D set_adapters_lora: adapters = 0x0
+0.05.010.828 D adapters_lora_are_same: adapters = 0x0
+0.05.010.829 D set_embeddings: value = 0
+0.06.000.609 D res          send: sending result for task id = 0
+0.06.000.618 D res          send: task id = 0 pushed to result queue
+ ready0.06.000.636 D slot process_toke: id  0 | task 0 | n_decoded = 3, n_remaining = 13, next token:  5644 ' ready'
+0.06.000.638 D que    start_loop: waiting for new tasks
+0.06.000.638 D que    start_loop: processing new tasks
+0.06.000.641 D que    start_loop: processing task, id = 3
+0.06.000.643 D que    start_loop: update slots
+0.06.000.644 D srv  update_slots: posting NEXT_RESPONSE
+0.06.000.646 D que          post: new task, id = 4, front = 0
+0.06.000.649 D slot handle_last_: id  0 | task 0 | slot decode token, id=5644, n_ctx = 512, n_tokens = 20, truncated = 0
+0.06.000.651 D srv        decode: n_batch (effective) = 512, off = 0
+0.06.000.654 D set_adapters_lora: adapters = 0x0
+0.06.000.655 D adapters_lora_are_same: adapters = 0x0
+0.06.000.656 D set_embeddings: value = 0
+0.06.936.116  toD res          send: sending result for task id = 0
+0.06.936.129 D res          send: task id = 0 pushed to result queue
+0.06.936.134 D slot process_toke: id  0 | task 0 | n_decoded = 4, n_remaining = 12, next token:   311 ' to'
+0.06.936.137 D que    start_loop: waiting for new tasks
+0.06.936.138 D que    start_loop: processing new tasks
+0.06.936.141 D que    start_loop: processing task, id = 4
+0.06.936.143 D que    start_loop: update slots
+0.06.936.143 D srv  update_slots: posting NEXT_RESPONSE
+0.06.936.145 D que          post: new task, id = 5, front = 0
+0.06.936.148 D slot handle_last_: id  0 | task 0 | slot decode token, id=311, n_ctx = 512, n_tokens = 21, truncated = 0
+0.06.936.150 D srv        decode: n_batch (effective) = 512, off = 0
+0.06.936.153 D set_adapters_lora: adapters = 0x0
+0.06.936.154 D adapters_lora_are_same: adapters = 0x0
+0.06.936.155 D set_embeddings: value = 0
+0.07.989.292 D res          send: sending result for task id = 0
+ respond0.07.989.301 D res          send: task id = 0 pushed to result queue
+0.07.989.309 D slot process_toke: id  0 | task 0 | n_decoded = 5, n_remaining = 11, next token:  6013 ' respond'
+0.07.989.311 D que    start_loop: waiting for new tasks
+0.07.989.312 D que    start_loop: processing new tasks
+0.07.989.315 D que    start_loop: processing task, id = 5
+0.07.989.318 D que    start_loop: update slots
+0.07.989.319 D srv  update_slots: posting NEXT_RESPONSE
+0.07.989.321 D que          post: new task, id = 6, front = 0
+0.07.989.325 D slot handle_last_: id  0 | task 0 | slot decode token, id=6013, n_ctx = 512, n_tokens = 22, truncated = 0
+0.07.989.327 D srv        decode: n_batch (effective) = 512, off = 0
+0.07.989.329 D set_adapters_lora: adapters = 0x0
+0.07.989.330 D adapters_lora_are_same: adapters = 0x0
+0.07.989.331 D set_embeddings: value = 0
+.0.08.912.992 D res          send: sending result for task id = 0
+0.08.913.000 D res          send: task id = 0 pushed to result queue
+0.08.913.016 D slot process_toke: id  0 | task 0 | n_decoded = 6, n_remaining = 10, next token:    13 '.'
+0.08.913.018 D que    start_loop: waiting for new tasks
+0.08.913.019 D que    start_loop: processing new tasks
+0.08.913.022 D que    start_loop: processing task, id = 6
+0.08.913.024 D que    start_loop: update slots
+0.08.913.025 D srv  update_slots: posting NEXT_RESPONSE
+0.08.913.027 D que          post: new task, id = 7, front = 0
+0.08.913.031 D slot handle_last_: id  0 | task 0 | slot decode token, id=13, n_ctx = 512, n_tokens = 23, truncated = 0
+0.08.913.033 D srv        decode: n_batch (effective) = 512, off = 0
+0.08.913.035 D set_adapters_lora: adapters = 0x0
+0.08.913.036 D adapters_lora_are_same: adapters = 0x0
+0.08.913.037 D set_embeddings: value = 0
+0.09.881.136 D res          send: sending result for task id = 0
+0.09.881.143 D res          send: task id = 0 pushed to result queue
+0.09.881.151 D slot process_toke: id  0 | task 0 | stopped by EOS
+0.09.881.152 D slot process_toke: id  0 | task 0 | n_decoded = 7, n_remaining = 9, next token: 128009 ''
+0.09.881.155 I slot print_timing: id  0 | task 0 | prompt eval time =    1166.85 ms /    18 tokens (   64.83 ms per token,    15.43 tokens per second)
+0.09.881.156 I slot print_timing: id  0 | task 0 |        eval time =    5827.34 ms /     7 tokens (  832.48 ms per token,     1.20 tokens per second)
+0.09.881.157 I slot print_timing: id  0 | task 0 |       total time =    6994.19 ms /    25 tokens
+0.09.881.202 I slot print_timing: id  0 | task 0 |    graphs reused =          6
+0.09.881.252 D res          send: sending result for task id = 0
+0.09.881.253 D res          send: task id = 0 pushed to result queue
+0.09.881.264 I slot      release: id  0 | task 0 | stop processing: n_tokens = 24, truncated = 0
+0.09.881.264 D slot        reset: id  0 | task 0 | 
+0.09.881.267 D que    start_loop: waiting for new tasks
+0.09.881.268 D que    start_loop: processing new tasks
+0.09.881.271 I srv  update_slots: all slots are idle
+
+
+[ Prompt: 15.4 t/s | Generation: 1.2 t/s ]
+
+Exiting...

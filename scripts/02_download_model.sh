@@ -1,19 +1,27 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# Optional helper. 모델은 보통 직접 받아서 models/model.gguf 로 배치합니다.
-# 자동 다운로드가 필요하면 MODEL_URL을 지정해서 사용하세요.
-#   MODEL_URL="https://huggingface.co/.../model.gguf" ./scripts/02_download_model.sh
-
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-DEST="$ROOT_DIR/models/model.gguf"
+MODEL_DIR="$ROOT_DIR/models/llama3p2-1b-instruct-q4_k_m"
+mkdir -p "$MODEL_DIR"
 
-if [[ -z "${MODEL_URL:-}" ]]; then
-  echo "MODEL_URL is not set. Place your gguf model manually at: $DEST" >&2
-  echo "  ln -s /path/to/actual-model.gguf $DEST" >&2
+hf download \
+  hugging-quants/Llama-3.2-1B-Instruct-Q4_K_M-GGUF \
+  --include "*.gguf" \
+  --local-dir "$MODEL_DIR"
+
+GGUF_FILE="$(find "$MODEL_DIR" -name "*.gguf" | head -n 1)"
+
+if [ -z "$GGUF_FILE" ]; then
+  echo "ERROR: GGUF file not found"
   exit 1
 fi
 
-mkdir -p "$ROOT_DIR/models"
-curl -L --fail -o "$DEST" "$MODEL_URL"
-echo "Downloaded to $DEST"
+ln -sf "$GGUF_FILE" "$ROOT_DIR/models/model.gguf"
+
+echo "Model downloaded:"
+ls -lh "$GGUF_FILE"
+
+echo
+echo "Symlink:"
+ls -lh "$ROOT_DIR/models/model.gguf"

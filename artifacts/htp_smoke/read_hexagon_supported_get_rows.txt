@@ -1,0 +1,76 @@
+    const struct ggml_tensor * dst  = op;
+
+    if (src0->type != GGML_TYPE_F32) {
+        return false;
+    }
+
+    if (src1->type != GGML_TYPE_I32 && src1->type != GGML_TYPE_I64) {
+        return false;
+    }
+
+    if (dst->type != GGML_TYPE_F16) {
+        return false;
+    }
+
+    return true;
+}
+
+static bool ggml_hexagon_supported_get_rows(const struct ggml_hexagon_session * sess, const struct ggml_tensor * op) {
+    const struct ggml_tensor * src0 = op->src[0]; // values
+    const struct ggml_tensor * src1 = op->src[1]; // indices
+    const struct ggml_tensor * dst  = op;
+
+    if (src0->type != GGML_TYPE_F32) {
+        return false;
+    }
+
+    if (src1->type != GGML_TYPE_I32 && src1->type != GGML_TYPE_I64) {
+        return false;
+    }
+
+    if (dst->type != GGML_TYPE_F32) {
+        return false;
+    }
+
+    return true;
+}
+
+static bool ggml_hexagon_supported_argsort(const struct ggml_hexagon_session * sess, const struct ggml_tensor * op) {
+    const struct ggml_tensor * src0 = op->src[0]; // values
+    const struct ggml_tensor * dst  = op;         // indices
+
+    if (src0->type != GGML_TYPE_F32) {
+        return false;
+    }
+
+    if (dst->type != GGML_TYPE_I32) {
+        return false;
+    }
+
+    if (src0->ne[0] > (16*1024)) {
+        // reject tensors with huge rows for now
+        return false;
+    }
+
+    return true;
+}
+
+static bool ggml_hexagon_supported_rope(const struct ggml_hexagon_session * sess, const struct ggml_tensor * op) {
+    const int32_t * op_params = &op->op_params[0];
+
+    int mode = op_params[2];
+
+    if (mode == GGML_ROPE_TYPE_VISION) {
+        return false;
+    }
+    if (mode & 1) {
+        return false;
+    }
+
+    const struct ggml_tensor * src0 = op->src[0];
+    const struct ggml_tensor * src1 = op->src[1];
+    const struct ggml_tensor * src2 = op->src[2];
+    const struct ggml_tensor * dst  = op;
+
+    if (src0->type != GGML_TYPE_F32) {
+        return false;  // FIXME: add support for GGML_TYPE_F16 for src0
