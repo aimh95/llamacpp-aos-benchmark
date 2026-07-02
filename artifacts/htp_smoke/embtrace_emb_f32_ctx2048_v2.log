@@ -1,0 +1,1752 @@
+0.00.086.888 I llama_completion: llama backend init
+0.00.086.919 I llama_completion: load the model and apply lora adapter, if any
+0.00.086.986 I common_init_result: fitting params to device memory ...
+0.00.086.988 I common_init_result: (for bugs during this step try to reproduce them with -fit off, or provide --verbose logs if the bug only occurs with -fit on)
+0.00.087.018 I common_params_fit_impl: getting device memory data for initial parameters:
+0.00.182.176 I llama_model_loader: loaded meta data with 35 key-value pairs and 147 tensors from /data/local/tmp/gguf/llama-3.2-1b-instruct-q4_0-emb_f32.gguf (version GGUF V3 (latest))
+0.00.182.228 I llama_model_loader: Dumping metadata keys/values. Note: KV overrides do not apply in this output.
+0.00.182.232 I llama_model_loader: - kv   0:                       general.architecture str              = llama
+0.00.182.234 I llama_model_loader: - kv   1:                               general.type str              = model
+0.00.182.240 I llama_model_loader: - kv   2:                     general.sampling.top_p f32              = 0.900000
+0.00.182.242 I llama_model_loader: - kv   3:                      general.sampling.temp f32              = 0.600000
+0.00.182.243 I llama_model_loader: - kv   4:                               general.name str              = Meta llama__Llama 3.2 1B Instruct
+0.00.182.244 I llama_model_loader: - kv   5:                           general.finetune str              = Instruct
+0.00.182.246 I llama_model_loader: - kv   6:                           general.basename str              = meta-llama__Llama-3.2
+0.00.182.247 I llama_model_loader: - kv   7:                         general.size_label str              = 1B
+0.00.182.248 I llama_model_loader: - kv   8:                            general.license str              = llama3.2
+0.00.182.261 I llama_model_loader: - kv   9:                               general.tags arr[str,6]       = ["facebook", "meta", "pytorch", "llam...
+0.00.182.266 I llama_model_loader: - kv  10:                          general.languages arr[str,8]       = ["en", "de", "fr", "it", "pt", "hi", ...
+0.00.182.268 I llama_model_loader: - kv  11:                          llama.block_count u32              = 16
+0.00.182.270 I llama_model_loader: - kv  12:                       llama.context_length u32              = 131072
+0.00.182.271 I llama_model_loader: - kv  13:                     llama.embedding_length u32              = 2048
+0.00.182.272 I llama_model_loader: - kv  14:                  llama.feed_forward_length u32              = 8192
+0.00.182.273 I llama_model_loader: - kv  15:                 llama.attention.head_count u32              = 32
+0.00.182.344 I llama_model_loader: - kv  16:              llama.attention.head_count_kv u32              = 8
+0.00.182.347 I llama_model_loader: - kv  17:                       llama.rope.freq_base f32              = 500000.000000
+0.00.182.348 I llama_model_loader: - kv  18:     llama.attention.layer_norm_rms_epsilon f32              = 0.000010
+0.00.182.349 I llama_model_loader: - kv  19:                 llama.attention.key_length u32              = 64
+0.00.182.349 I llama_model_loader: - kv  20:               llama.attention.value_length u32              = 64
+0.00.182.350 I llama_model_loader: - kv  21:                           llama.vocab_size u32              = 128256
+0.00.182.351 I llama_model_loader: - kv  22:                 llama.rope.dimension_count u32              = 64
+0.00.182.352 I llama_model_loader: - kv  23:                       tokenizer.ggml.model str              = gpt2
+0.00.182.353 I llama_model_loader: - kv  24:                         tokenizer.ggml.pre str              = llama-bpe
+0.00.198.091 I llama_model_loader: - kv  25:                      tokenizer.ggml.tokens arr[str,128256]  = ["!", "\"", "#", "$", "%", "&", "'", ...
+0.00.202.171 I llama_model_loader: - kv  26:                  tokenizer.ggml.token_type arr[i32,128256]  = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, ...
+0.00.231.447 I llama_model_loader: - kv  27:                      tokenizer.ggml.merges arr[str,280147]  = ["Ġ Ġ", "Ġ ĠĠĠ", "ĠĠ ĠĠ", "...
+0.00.231.462 I llama_model_loader: - kv  28:                tokenizer.ggml.bos_token_id u32              = 128000
+0.00.231.463 I llama_model_loader: - kv  29:                tokenizer.ggml.eos_token_id u32              = 128009
+0.00.231.464 I llama_model_loader: - kv  30:               tokenizer.ggml.add_bos_token bool             = true
+0.00.231.464 I llama_model_loader: - kv  31:               tokenizer.ggml.add_sep_token bool             = false
+0.00.231.467 I llama_model_loader: - kv  32:                    tokenizer.chat_template str              = {{- bos_token }}\n{%- if custom_tools ...
+0.00.231.468 I llama_model_loader: - kv  33:               general.quantization_version u32              = 2
+0.00.231.469 I llama_model_loader: - kv  34:                          general.file_type u32              = 2
+0.00.231.470 I llama_model_loader: - type  f32:   35 tensors
+0.00.231.470 I llama_model_loader: - type q4_0:  112 tensors
+0.00.231.487 I print_info: file format = GGUF V3 (latest)
+0.00.231.488 I print_info: file type   = Q4_0
+0.00.231.491 I print_info: file size   = 1.49 GiB (10.35 BPW) 
+0.00.231.497 I llama_prepare_model_devices: using device HTP0 (Hexagon) (unknown id) - 0 MiB free
+0.00.310.017 D init_tokenizer: initializing tokenizer for type 2
+0.00.316.080 I load: 0 unused tokens
+0.00.316.090 D load: control token: 128254 '<|reserved_special_token_246|>' is not marked as EOG
+0.00.316.091 D load: control token: 128252 '<|reserved_special_token_244|>' is not marked as EOG
+0.00.316.091 D load: control token: 128251 '<|reserved_special_token_243|>' is not marked as EOG
+0.00.316.092 D load: control token: 128250 '<|reserved_special_token_242|>' is not marked as EOG
+0.00.316.092 D load: control token: 128248 '<|reserved_special_token_240|>' is not marked as EOG
+0.00.316.093 D load: control token: 128247 '<|reserved_special_token_239|>' is not marked as EOG
+0.00.316.093 D load: control token: 128245 '<|reserved_special_token_237|>' is not marked as EOG
+0.00.316.094 D load: control token: 128244 '<|reserved_special_token_236|>' is not marked as EOG
+0.00.316.094 D load: control token: 128243 '<|reserved_special_token_235|>' is not marked as EOG
+0.00.316.095 D load: control token: 128240 '<|reserved_special_token_232|>' is not marked as EOG
+0.00.316.095 D load: control token: 128238 '<|reserved_special_token_230|>' is not marked as EOG
+0.00.316.095 D load: control token: 128235 '<|reserved_special_token_227|>' is not marked as EOG
+0.00.316.096 D load: control token: 128234 '<|reserved_special_token_226|>' is not marked as EOG
+0.00.316.096 D load: control token: 128229 '<|reserved_special_token_221|>' is not marked as EOG
+0.00.316.097 D load: control token: 128227 '<|reserved_special_token_219|>' is not marked as EOG
+0.00.316.097 D load: control token: 128226 '<|reserved_special_token_218|>' is not marked as EOG
+0.00.316.098 D load: control token: 128224 '<|reserved_special_token_216|>' is not marked as EOG
+0.00.316.098 D load: control token: 128223 '<|reserved_special_token_215|>' is not marked as EOG
+0.00.316.099 D load: control token: 128221 '<|reserved_special_token_213|>' is not marked as EOG
+0.00.316.099 D load: control token: 128219 '<|reserved_special_token_211|>' is not marked as EOG
+0.00.316.100 D load: control token: 128218 '<|reserved_special_token_210|>' is not marked as EOG
+0.00.316.100 D load: control token: 128217 '<|reserved_special_token_209|>' is not marked as EOG
+0.00.316.101 D load: control token: 128216 '<|reserved_special_token_208|>' is not marked as EOG
+0.00.316.101 D load: control token: 128215 '<|reserved_special_token_207|>' is not marked as EOG
+0.00.316.102 D load: control token: 128213 '<|reserved_special_token_205|>' is not marked as EOG
+0.00.316.102 D load: control token: 128211 '<|reserved_special_token_203|>' is not marked as EOG
+0.00.316.103 D load: control token: 128210 '<|reserved_special_token_202|>' is not marked as EOG
+0.00.316.103 D load: control token: 128209 '<|reserved_special_token_201|>' is not marked as EOG
+0.00.316.104 D load: control token: 128208 '<|reserved_special_token_200|>' is not marked as EOG
+0.00.316.104 D load: control token: 128207 '<|reserved_special_token_199|>' is not marked as EOG
+0.00.316.104 D load: control token: 128204 '<|reserved_special_token_196|>' is not marked as EOG
+0.00.316.105 D load: control token: 128202 '<|reserved_special_token_194|>' is not marked as EOG
+0.00.316.105 D load: control token: 128197 '<|reserved_special_token_189|>' is not marked as EOG
+0.00.316.106 D load: control token: 128195 '<|reserved_special_token_187|>' is not marked as EOG
+0.00.316.106 D load: control token: 128194 '<|reserved_special_token_186|>' is not marked as EOG
+0.00.316.107 D load: control token: 128191 '<|reserved_special_token_183|>' is not marked as EOG
+0.00.316.107 D load: control token: 128190 '<|reserved_special_token_182|>' is not marked as EOG
+0.00.316.107 D load: control token: 128188 '<|reserved_special_token_180|>' is not marked as EOG
+0.00.316.108 D load: control token: 128187 '<|reserved_special_token_179|>' is not marked as EOG
+0.00.316.108 D load: control token: 128185 '<|reserved_special_token_177|>' is not marked as EOG
+0.00.316.109 D load: control token: 128184 '<|reserved_special_token_176|>' is not marked as EOG
+0.00.316.109 D load: control token: 128183 '<|reserved_special_token_175|>' is not marked as EOG
+0.00.316.110 D load: control token: 128178 '<|reserved_special_token_170|>' is not marked as EOG
+0.00.316.110 D load: control token: 128177 '<|reserved_special_token_169|>' is not marked as EOG
+0.00.316.110 D load: control token: 128176 '<|reserved_special_token_168|>' is not marked as EOG
+0.00.316.111 D load: control token: 128175 '<|reserved_special_token_167|>' is not marked as EOG
+0.00.316.111 D load: control token: 128174 '<|reserved_special_token_166|>' is not marked as EOG
+0.00.316.112 D load: control token: 128173 '<|reserved_special_token_165|>' is not marked as EOG
+0.00.316.112 D load: control token: 128172 '<|reserved_special_token_164|>' is not marked as EOG
+0.00.316.112 D load: control token: 128169 '<|reserved_special_token_161|>' is not marked as EOG
+0.00.316.113 D load: control token: 128167 '<|reserved_special_token_159|>' is not marked as EOG
+0.00.316.113 D load: control token: 128166 '<|reserved_special_token_158|>' is not marked as EOG
+0.00.316.114 D load: control token: 128160 '<|reserved_special_token_152|>' is not marked as EOG
+0.00.316.114 D load: control token: 128159 '<|reserved_special_token_151|>' is not marked as EOG
+0.00.316.115 D load: control token: 128157 '<|reserved_special_token_149|>' is not marked as EOG
+0.00.316.115 D load: control token: 128156 '<|reserved_special_token_148|>' is not marked as EOG
+0.00.316.115 D load: control token: 128154 '<|reserved_special_token_146|>' is not marked as EOG
+0.00.316.116 D load: control token: 128152 '<|reserved_special_token_144|>' is not marked as EOG
+0.00.316.116 D load: control token: 128151 '<|reserved_special_token_143|>' is not marked as EOG
+0.00.316.117 D load: control token: 128150 '<|reserved_special_token_142|>' is not marked as EOG
+0.00.316.117 D load: control token: 128147 '<|reserved_special_token_139|>' is not marked as EOG
+0.00.316.118 D load: control token: 128144 '<|reserved_special_token_136|>' is not marked as EOG
+0.00.316.118 D load: control token: 128142 '<|reserved_special_token_134|>' is not marked as EOG
+0.00.316.119 D load: control token: 128141 '<|reserved_special_token_133|>' is not marked as EOG
+0.00.316.119 D load: control token: 128140 '<|reserved_special_token_132|>' is not marked as EOG
+0.00.316.119 D load: control token: 128133 '<|reserved_special_token_125|>' is not marked as EOG
+0.00.316.120 D load: control token: 128130 '<|reserved_special_token_122|>' is not marked as EOG
+0.00.316.120 D load: control token: 128128 '<|reserved_special_token_120|>' is not marked as EOG
+0.00.316.121 D load: control token: 128127 '<|reserved_special_token_119|>' is not marked as EOG
+0.00.316.121 D load: control token: 128126 '<|reserved_special_token_118|>' is not marked as EOG
+0.00.316.121 D load: control token: 128125 '<|reserved_special_token_117|>' is not marked as EOG
+0.00.316.122 D load: control token: 128124 '<|reserved_special_token_116|>' is not marked as EOG
+0.00.316.122 D load: control token: 128123 '<|reserved_special_token_115|>' is not marked as EOG
+0.00.316.123 D load: control token: 128122 '<|reserved_special_token_114|>' is not marked as EOG
+0.00.316.123 D load: control token: 128121 '<|reserved_special_token_113|>' is not marked as EOG
+0.00.316.124 D load: control token: 128120 '<|reserved_special_token_112|>' is not marked as EOG
+0.00.316.124 D load: control token: 128119 '<|reserved_special_token_111|>' is not marked as EOG
+0.00.316.124 D load: control token: 128116 '<|reserved_special_token_108|>' is not marked as EOG
+0.00.316.125 D load: control token: 128115 '<|reserved_special_token_107|>' is not marked as EOG
+0.00.316.125 D load: control token: 128114 '<|reserved_special_token_106|>' is not marked as EOG
+0.00.316.126 D load: control token: 128113 '<|reserved_special_token_105|>' is not marked as EOG
+0.00.316.126 D load: control token: 128111 '<|reserved_special_token_103|>' is not marked as EOG
+0.00.316.126 D load: control token: 128110 '<|reserved_special_token_102|>' is not marked as EOG
+0.00.316.127 D load: control token: 128107 '<|reserved_special_token_99|>' is not marked as EOG
+0.00.316.127 D load: control token: 128106 '<|reserved_special_token_98|>' is not marked as EOG
+0.00.316.128 D load: control token: 128105 '<|reserved_special_token_97|>' is not marked as EOG
+0.00.316.128 D load: control token: 128104 '<|reserved_special_token_96|>' is not marked as EOG
+0.00.316.129 D load: control token: 128103 '<|reserved_special_token_95|>' is not marked as EOG
+0.00.316.129 D load: control token: 128100 '<|reserved_special_token_92|>' is not marked as EOG
+0.00.316.130 D load: control token: 128097 '<|reserved_special_token_89|>' is not marked as EOG
+0.00.316.130 D load: control token: 128096 '<|reserved_special_token_88|>' is not marked as EOG
+0.00.316.131 D load: control token: 128094 '<|reserved_special_token_86|>' is not marked as EOG
+0.00.316.131 D load: control token: 128093 '<|reserved_special_token_85|>' is not marked as EOG
+0.00.316.131 D load: control token: 128090 '<|reserved_special_token_82|>' is not marked as EOG
+0.00.316.132 D load: control token: 128089 '<|reserved_special_token_81|>' is not marked as EOG
+0.00.316.132 D load: control token: 128087 '<|reserved_special_token_79|>' is not marked as EOG
+0.00.316.133 D load: control token: 128085 '<|reserved_special_token_77|>' is not marked as EOG
+0.00.316.133 D load: control token: 128080 '<|reserved_special_token_72|>' is not marked as EOG
+0.00.316.133 D load: control token: 128077 '<|reserved_special_token_69|>' is not marked as EOG
+0.00.316.134 D load: control token: 128076 '<|reserved_special_token_68|>' is not marked as EOG
+0.00.316.134 D load: control token: 128073 '<|reserved_special_token_65|>' is not marked as EOG
+0.00.316.135 D load: control token: 128070 '<|reserved_special_token_62|>' is not marked as EOG
+0.00.316.135 D load: control token: 128069 '<|reserved_special_token_61|>' is not marked as EOG
+0.00.316.136 D load: control token: 128067 '<|reserved_special_token_59|>' is not marked as EOG
+0.00.316.136 D load: control token: 128064 '<|reserved_special_token_56|>' is not marked as EOG
+0.00.316.136 D load: control token: 128062 '<|reserved_special_token_54|>' is not marked as EOG
+0.00.316.137 D load: control token: 128061 '<|reserved_special_token_53|>' is not marked as EOG
+0.00.316.137 D load: control token: 128060 '<|reserved_special_token_52|>' is not marked as EOG
+0.00.316.138 D load: control token: 128054 '<|reserved_special_token_46|>' is not marked as EOG
+0.00.316.138 D load: control token: 128045 '<|reserved_special_token_37|>' is not marked as EOG
+0.00.316.139 D load: control token: 128044 '<|reserved_special_token_36|>' is not marked as EOG
+0.00.316.139 D load: control token: 128043 '<|reserved_special_token_35|>' is not marked as EOG
+0.00.316.139 D load: control token: 128042 '<|reserved_special_token_34|>' is not marked as EOG
+0.00.316.140 D load: control token: 128038 '<|reserved_special_token_30|>' is not marked as EOG
+0.00.316.140 D load: control token: 128037 '<|reserved_special_token_29|>' is not marked as EOG
+0.00.316.141 D load: control token: 128035 '<|reserved_special_token_27|>' is not marked as EOG
+0.00.316.141 D load: control token: 128034 '<|reserved_special_token_26|>' is not marked as EOG
+0.00.316.142 D load: control token: 128033 '<|reserved_special_token_25|>' is not marked as EOG
+0.00.316.142 D load: control token: 128032 '<|reserved_special_token_24|>' is not marked as EOG
+0.00.316.146 D load: control token: 128030 '<|reserved_special_token_22|>' is not marked as EOG
+0.00.316.147 D load: control token: 128029 '<|reserved_special_token_21|>' is not marked as EOG
+0.00.316.147 D load: control token: 128028 '<|reserved_special_token_20|>' is not marked as EOG
+0.00.316.147 D load: control token: 128026 '<|reserved_special_token_18|>' is not marked as EOG
+0.00.316.148 D load: control token: 128025 '<|reserved_special_token_17|>' is not marked as EOG
+0.00.316.148 D load: control token: 128024 '<|reserved_special_token_16|>' is not marked as EOG
+0.00.316.148 D load: control token: 128022 '<|reserved_special_token_14|>' is not marked as EOG
+0.00.316.148 D load: control token: 128020 '<|reserved_special_token_12|>' is not marked as EOG
+0.00.316.149 D load: control token: 128017 '<|reserved_special_token_9|>' is not marked as EOG
+0.00.316.149 D load: control token: 128016 '<|reserved_special_token_8|>' is not marked as EOG
+0.00.316.150 D load: control token: 128015 '<|reserved_special_token_7|>' is not marked as EOG
+0.00.316.150 D load: control token: 128014 '<|reserved_special_token_6|>' is not marked as EOG
+0.00.316.150 D load: control token: 128013 '<|reserved_special_token_5|>' is not marked as EOG
+0.00.316.150 D load: control token: 128011 '<|reserved_special_token_3|>' is not marked as EOG
+0.00.316.151 D load: control token: 128010 '<|python_tag|>' is not marked as EOG
+0.00.316.151 D load: control token: 128006 '<|start_header_id|>' is not marked as EOG
+0.00.316.151 D load: control token: 128003 '<|reserved_special_token_1|>' is not marked as EOG
+0.00.316.152 D load: control token: 128002 '<|reserved_special_token_0|>' is not marked as EOG
+0.00.316.152 D load: control token: 128000 '<|begin_of_text|>' is not marked as EOG
+0.00.316.155 D load: control token: 128041 '<|reserved_special_token_33|>' is not marked as EOG
+0.00.316.186 D load: control token: 128063 '<|reserved_special_token_55|>' is not marked as EOG
+0.00.316.189 D load: control token: 128046 '<|reserved_special_token_38|>' is not marked as EOG
+0.00.316.197 D load: control token: 128007 '<|end_header_id|>' is not marked as EOG
+0.00.316.217 D load: control token: 128065 '<|reserved_special_token_57|>' is not marked as EOG
+0.00.316.218 D load: control token: 128171 '<|reserved_special_token_163|>' is not marked as EOG
+0.00.316.235 D load: control token: 128162 '<|reserved_special_token_154|>' is not marked as EOG
+0.00.316.243 D load: control token: 128165 '<|reserved_special_token_157|>' is not marked as EOG
+0.00.316.278 D load: control token: 128057 '<|reserved_special_token_49|>' is not marked as EOG
+0.00.316.286 D load: control token: 128050 '<|reserved_special_token_42|>' is not marked as EOG
+0.00.316.302 D load: control token: 128056 '<|reserved_special_token_48|>' is not marked as EOG
+0.00.316.305 D load: control token: 128230 '<|reserved_special_token_222|>' is not marked as EOG
+0.00.316.307 D load: control token: 128098 '<|reserved_special_token_90|>' is not marked as EOG
+0.00.316.312 D load: control token: 128153 '<|reserved_special_token_145|>' is not marked as EOG
+0.00.316.313 D load: control token: 128084 '<|reserved_special_token_76|>' is not marked as EOG
+0.00.316.320 D load: control token: 128082 '<|reserved_special_token_74|>' is not marked as EOG
+0.00.316.333 D load: control token: 128102 '<|reserved_special_token_94|>' is not marked as EOG
+0.00.316.363 D load: control token: 128253 '<|reserved_special_token_245|>' is not marked as EOG
+0.00.316.374 D load: control token: 128179 '<|reserved_special_token_171|>' is not marked as EOG
+0.00.316.378 D load: control token: 128071 '<|reserved_special_token_63|>' is not marked as EOG
+0.00.316.388 D load: control token: 128135 '<|reserved_special_token_127|>' is not marked as EOG
+0.00.316.426 D load: control token: 128161 '<|reserved_special_token_153|>' is not marked as EOG
+0.00.316.466 D load: control token: 128164 '<|reserved_special_token_156|>' is not marked as EOG
+0.00.316.491 D load: control token: 128134 '<|reserved_special_token_126|>' is not marked as EOG
+0.00.316.502 D load: control token: 128249 '<|reserved_special_token_241|>' is not marked as EOG
+0.00.316.613 D load: control token: 128004 '<|finetune_right_pad_id|>' is not marked as EOG
+0.00.316.674 D load: control token: 128036 '<|reserved_special_token_28|>' is not marked as EOG
+0.00.316.712 D load: control token: 128148 '<|reserved_special_token_140|>' is not marked as EOG
+0.00.316.741 D load: control token: 128181 '<|reserved_special_token_173|>' is not marked as EOG
+0.00.316.749 D load: control token: 128222 '<|reserved_special_token_214|>' is not marked as EOG
+0.00.316.759 D load: control token: 128075 '<|reserved_special_token_67|>' is not marked as EOG
+0.00.316.819 D load: control token: 128241 '<|reserved_special_token_233|>' is not marked as EOG
+0.00.316.828 D load: control token: 128051 '<|reserved_special_token_43|>' is not marked as EOG
+0.00.316.853 D load: control token: 128068 '<|reserved_special_token_60|>' is not marked as EOG
+0.00.316.905 D load: control token: 128149 '<|reserved_special_token_141|>' is not marked as EOG
+0.00.316.935 D load: control token: 128201 '<|reserved_special_token_193|>' is not marked as EOG
+0.00.316.951 D load: control token: 128058 '<|reserved_special_token_50|>' is not marked as EOG
+0.00.316.973 D load: control token: 128146 '<|reserved_special_token_138|>' is not marked as EOG
+0.00.316.975 D load: control token: 128143 '<|reserved_special_token_135|>' is not marked as EOG
+0.00.316.979 D load: control token: 128023 '<|reserved_special_token_15|>' is not marked as EOG
+0.00.316.984 D load: control token: 128039 '<|reserved_special_token_31|>' is not marked as EOG
+0.00.317.038 D load: control token: 128132 '<|reserved_special_token_124|>' is not marked as EOG
+0.00.317.042 D load: control token: 128101 '<|reserved_special_token_93|>' is not marked as EOG
+0.00.317.076 D load: control token: 128212 '<|reserved_special_token_204|>' is not marked as EOG
+0.00.317.100 D load: control token: 128189 '<|reserved_special_token_181|>' is not marked as EOG
+0.00.317.122 D load: control token: 128225 '<|reserved_special_token_217|>' is not marked as EOG
+0.00.317.192 D load: control token: 128129 '<|reserved_special_token_121|>' is not marked as EOG
+0.00.317.274 D load: control token: 128005 '<|reserved_special_token_2|>' is not marked as EOG
+0.00.317.280 D load: control token: 128078 '<|reserved_special_token_70|>' is not marked as EOG
+0.00.317.281 D load: control token: 128163 '<|reserved_special_token_155|>' is not marked as EOG
+0.00.317.303 D load: control token: 128072 '<|reserved_special_token_64|>' is not marked as EOG
+0.00.317.304 D load: control token: 128112 '<|reserved_special_token_104|>' is not marked as EOG
+0.00.317.335 D load: control token: 128186 '<|reserved_special_token_178|>' is not marked as EOG
+0.00.317.353 D load: control token: 128095 '<|reserved_special_token_87|>' is not marked as EOG
+0.00.317.479 D load: control token: 128109 '<|reserved_special_token_101|>' is not marked as EOG
+0.00.317.590 D load: control token: 128099 '<|reserved_special_token_91|>' is not marked as EOG
+0.00.317.591 D load: control token: 128138 '<|reserved_special_token_130|>' is not marked as EOG
+0.00.317.598 D load: control token: 128193 '<|reserved_special_token_185|>' is not marked as EOG
+0.00.317.614 D load: control token: 128199 '<|reserved_special_token_191|>' is not marked as EOG
+0.00.317.655 D load: control token: 128048 '<|reserved_special_token_40|>' is not marked as EOG
+0.00.317.688 D load: control token: 128088 '<|reserved_special_token_80|>' is not marked as EOG
+0.00.317.796 D load: control token: 128192 '<|reserved_special_token_184|>' is not marked as EOG
+0.00.317.808 D load: control token: 128136 '<|reserved_special_token_128|>' is not marked as EOG
+0.00.317.826 D load: control token: 128092 '<|reserved_special_token_84|>' is not marked as EOG
+0.00.317.851 D load: control token: 128158 '<|reserved_special_token_150|>' is not marked as EOG
+0.00.317.867 D load: control token: 128049 '<|reserved_special_token_41|>' is not marked as EOG
+0.00.317.928 D load: control token: 128031 '<|reserved_special_token_23|>' is not marked as EOG
+0.00.318.002 D load: control token: 128255 '<|reserved_special_token_247|>' is not marked as EOG
+0.00.318.049 D load: control token: 128182 '<|reserved_special_token_174|>' is not marked as EOG
+0.00.318.096 D load: control token: 128066 '<|reserved_special_token_58|>' is not marked as EOG
+0.00.318.100 D load: control token: 128180 '<|reserved_special_token_172|>' is not marked as EOG
+0.00.318.110 D load: control token: 128233 '<|reserved_special_token_225|>' is not marked as EOG
+0.00.318.140 D load: control token: 128079 '<|reserved_special_token_71|>' is not marked as EOG
+0.00.318.189 D load: control token: 128081 '<|reserved_special_token_73|>' is not marked as EOG
+0.00.318.199 D load: control token: 128231 '<|reserved_special_token_223|>' is not marked as EOG
+0.00.318.240 D load: control token: 128196 '<|reserved_special_token_188|>' is not marked as EOG
+0.00.318.244 D load: control token: 128047 '<|reserved_special_token_39|>' is not marked as EOG
+0.00.318.278 D load: control token: 128083 '<|reserved_special_token_75|>' is not marked as EOG
+0.00.318.306 D load: control token: 128139 '<|reserved_special_token_131|>' is not marked as EOG
+0.00.318.341 D load: control token: 128131 '<|reserved_special_token_123|>' is not marked as EOG
+0.00.318.347 D load: control token: 128118 '<|reserved_special_token_110|>' is not marked as EOG
+0.00.318.402 D load: control token: 128053 '<|reserved_special_token_45|>' is not marked as EOG
+0.00.318.440 D load: control token: 128220 '<|reserved_special_token_212|>' is not marked as EOG
+0.00.318.509 D load: control token: 128108 '<|reserved_special_token_100|>' is not marked as EOG
+0.00.318.594 D load: control token: 128091 '<|reserved_special_token_83|>' is not marked as EOG
+0.00.318.698 D load: control token: 128203 '<|reserved_special_token_195|>' is not marked as EOG
+0.00.318.826 D load: control token: 128059 '<|reserved_special_token_51|>' is not marked as EOG
+0.00.318.826 D load: control token: 128019 '<|reserved_special_token_11|>' is not marked as EOG
+0.00.318.847 D load: control token: 128170 '<|reserved_special_token_162|>' is not marked as EOG
+0.00.318.848 D load: control token: 128205 '<|reserved_special_token_197|>' is not marked as EOG
+0.00.318.879 D load: control token: 128040 '<|reserved_special_token_32|>' is not marked as EOG
+0.00.318.892 D load: control token: 128200 '<|reserved_special_token_192|>' is not marked as EOG
+0.00.318.905 D load: control token: 128236 '<|reserved_special_token_228|>' is not marked as EOG
+0.00.318.943 D load: control token: 128145 '<|reserved_special_token_137|>' is not marked as EOG
+0.00.319.012 D load: control token: 128168 '<|reserved_special_token_160|>' is not marked as EOG
+0.00.319.033 D load: control token: 128214 '<|reserved_special_token_206|>' is not marked as EOG
+0.00.319.039 D load: control token: 128137 '<|reserved_special_token_129|>' is not marked as EOG
+0.00.319.063 D load: control token: 128232 '<|reserved_special_token_224|>' is not marked as EOG
+0.00.319.063 D load: control token: 128239 '<|reserved_special_token_231|>' is not marked as EOG
+0.00.319.077 D load: control token: 128055 '<|reserved_special_token_47|>' is not marked as EOG
+0.00.319.080 D load: control token: 128228 '<|reserved_special_token_220|>' is not marked as EOG
+0.00.319.108 D load: control token: 128206 '<|reserved_special_token_198|>' is not marked as EOG
+0.00.319.115 D load: control token: 128018 '<|reserved_special_token_10|>' is not marked as EOG
+0.00.319.120 D load: control token: 128012 '<|reserved_special_token_4|>' is not marked as EOG
+0.00.319.141 D load: control token: 128198 '<|reserved_special_token_190|>' is not marked as EOG
+0.00.319.179 D load: control token: 128021 '<|reserved_special_token_13|>' is not marked as EOG
+0.00.319.227 D load: control token: 128086 '<|reserved_special_token_78|>' is not marked as EOG
+0.00.319.239 D load: control token: 128074 '<|reserved_special_token_66|>' is not marked as EOG
+0.00.319.247 D load: control token: 128027 '<|reserved_special_token_19|>' is not marked as EOG
+0.00.319.255 D load: control token: 128242 '<|reserved_special_token_234|>' is not marked as EOG
+0.00.319.278 D load: control token: 128155 '<|reserved_special_token_147|>' is not marked as EOG
+0.00.319.325 D load: control token: 128052 '<|reserved_special_token_44|>' is not marked as EOG
+0.00.319.351 D load: control token: 128246 '<|reserved_special_token_238|>' is not marked as EOG
+0.00.319.381 D load: control token: 128117 '<|reserved_special_token_109|>' is not marked as EOG
+0.00.319.389 D load: control token: 128237 '<|reserved_special_token_229|>' is not marked as EOG
+0.00.320.801 I load: printing all EOG tokens:
+0.00.320.802 I load:   - 128001 ('<|end_of_text|>')
+0.00.320.802 I load:   - 128008 ('<|eom_id|>')
+0.00.320.802 I load:   - 128009 ('<|eot_id|>')
+0.00.320.877 I load: special tokens cache size = 256
+0.00.348.899 I load: token to piece cache size = 0.7999 MB
+0.00.348.921 I print_info: arch                  = llama
+0.00.348.922 I print_info: vocab_only            = 0
+0.00.348.922 I print_info: no_alloc              = 1
+0.00.348.923 I print_info: n_ctx_train           = 131072
+0.00.348.924 I print_info: n_embd_inp            = 2048
+0.00.348.924 I print_info: n_embd                = 2048
+0.00.348.924 I print_info: n_embd_out            = 2048
+0.00.348.925 I print_info: n_layer               = 16
+0.00.348.925 I print_info: n_layer_all           = 16
+0.00.348.953 I print_info: n_head                = 32
+0.00.348.954 I print_info: n_head_kv             = 8
+0.00.348.955 I print_info: n_rot                 = 64
+0.00.348.955 I print_info: n_swa                 = 0
+0.00.348.955 I print_info: is_swa_any            = 0
+0.00.348.956 I print_info: n_embd_head_k         = 64
+0.00.348.956 I print_info: n_embd_head_v         = 64
+0.00.348.957 I print_info: n_gqa                 = 4
+0.00.348.957 I print_info: n_embd_k_gqa          = 512
+0.00.348.958 I print_info: n_embd_v_gqa          = 512
+0.00.348.960 I print_info: f_norm_eps            = 0.0e+00
+0.00.348.960 I print_info: f_norm_rms_eps        = 1.0e-05
+0.00.348.961 I print_info: f_clamp_kqv           = 0.0e+00
+0.00.348.961 I print_info: f_max_alibi_bias      = 0.0e+00
+0.00.348.961 I print_info: f_logit_scale         = 0.0e+00
+0.00.348.962 I print_info: f_attn_scale          = 0.0e+00
+0.00.348.962 I print_info: f_attn_value_scale    = 0.0000
+0.00.348.963 I print_info: n_ff                  = 8192
+0.00.348.963 I print_info: n_expert              = 0
+0.00.348.964 I print_info: n_expert_used         = 0
+0.00.348.964 I print_info: n_expert_groups       = 0
+0.00.348.964 I print_info: n_group_used          = 0
+0.00.348.965 I print_info: causal attn           = 1
+0.00.348.965 I print_info: pooling type          = -1
+0.00.348.966 I print_info: rope type             = 0
+0.00.348.966 I print_info: rope scaling          = linear
+0.00.348.966 I print_info: freq_base_train       = 500000.0
+0.00.348.967 I print_info: freq_scale_train      = 1
+0.00.348.967 I print_info: n_ctx_orig_yarn       = 131072
+0.00.348.968 I print_info: rope_yarn_log_mul     = 0.0000
+0.00.348.968 I print_info: rope_finetuned        = unknown
+0.00.348.968 I print_info: model type            = 1B
+0.00.348.969 I print_info: model params          = 1.24 B
+0.00.348.969 I print_info: general.name          = Meta llama__Llama 3.2 1B Instruct
+0.00.348.970 I print_info: vocab type            = BPE
+0.00.348.970 I print_info: n_vocab               = 128256
+0.00.348.971 I print_info: n_merges              = 280147
+0.00.348.971 I print_info: BOS token             = 128000 '<|begin_of_text|>'
+0.00.348.971 I print_info: EOS token             = 128009 '<|eot_id|>'
+0.00.348.972 I print_info: EOT token             = 128001 '<|end_of_text|>'
+0.00.348.972 I print_info: EOM token             = 128008 '<|eom_id|>'
+0.00.348.973 I print_info: LF token              = 198 'Ċ'
+0.00.348.973 I print_info: EOG token             = 128001 '<|end_of_text|>'
+0.00.348.973 I print_info: EOG token             = 128008 '<|eom_id|>'
+0.00.348.973 I print_info: EOG token             = 128009 '<|eot_id|>'
+0.00.348.974 I print_info: max token length      = 256
+0.00.348.975 I load_tensors: loading model tensors, this can take a while... (mmap = false, direct_io = false)
+0.00.349.005 I [EMBTRACE][BUFT] HTP0 default_buft=HTP0 (added to gpu_buft_list, NOT to cpu_buft_list)
+0.00.349.007 I [EMBTRACE][BUFT] HTP0 extra_buft=HTP0-REPACK (added to gpu_buft_list for LAYER_REPEATING weights, NOT to cpu_buft_list for LAYER_INPUT = token_embd.weight)
+0.00.349.030 I [EMBTRACE][LOAD] dev_input assignment: dev=CPU buft=CPU_REPACK n_cpu_buft_list=2
+0.00.349.030 I [EMBTRACE][LOAD]   token_embd.weight is LAYER_INPUT -> will use cpu_buft_list (no HTP entries)
+0.00.349.031 I [EMBTRACE][BUFT]   cpu_buft_list[0] dev=CPU buft=CPU_REPACK
+0.00.349.031 I [EMBTRACE][BUFT]   cpu_buft_list[1] dev=CPU buft=CPU
+0.00.349.032 I [EMBTRACE][BUFT]   gpu_buft_list dev=HTP0 n_entries=4 (used for LAYER_REPEATING/OUTPUT, NOT for token_embd)
+0.00.349.032 I [EMBTRACE][BUFT]     gpu_buft_list[0] dev=HTP0 buft=HTP0
+0.00.349.033 I [EMBTRACE][BUFT]     gpu_buft_list[1] dev=HTP0 buft=HTP0-REPACK
+0.00.349.033 I [EMBTRACE][BUFT]     gpu_buft_list[2] dev=CPU buft=CPU_REPACK
+0.00.349.033 I [EMBTRACE][BUFT]     gpu_buft_list[3] dev=CPU buft=CPU
+0.00.349.034 D load_tensors: layer   0 assigned to device HTP0, is_swa = 0
+0.00.349.034 D load_tensors: layer   1 assigned to device HTP0, is_swa = 0
+0.00.349.035 D load_tensors: layer   2 assigned to device HTP0, is_swa = 0
+0.00.349.035 D load_tensors: layer   3 assigned to device HTP0, is_swa = 0
+0.00.349.035 D load_tensors: layer   4 assigned to device HTP0, is_swa = 0
+0.00.349.035 D load_tensors: layer   5 assigned to device HTP0, is_swa = 0
+0.00.349.036 D load_tensors: layer   6 assigned to device HTP0, is_swa = 0
+0.00.349.036 D load_tensors: layer   7 assigned to device HTP0, is_swa = 0
+0.00.349.036 D load_tensors: layer   8 assigned to device HTP0, is_swa = 0
+0.00.349.036 D load_tensors: layer   9 assigned to device HTP0, is_swa = 0
+0.00.349.037 D load_tensors: layer  10 assigned to device HTP0, is_swa = 0
+0.00.349.037 D load_tensors: layer  11 assigned to device HTP0, is_swa = 0
+0.00.349.037 D load_tensors: layer  12 assigned to device HTP0, is_swa = 0
+0.00.349.037 D load_tensors: layer  13 assigned to device HTP0, is_swa = 0
+0.00.349.038 D load_tensors: layer  14 assigned to device HTP0, is_swa = 0
+0.00.349.038 D load_tensors: layer  15 assigned to device HTP0, is_swa = 0
+0.00.349.038 D load_tensors: layer  16 assigned to device HTP0, is_swa = 0
+0.00.349.065 I [EMBTRACE][LOAD] name=token_embd.weight type=f32 op=GET_ROWS layer_kind=INPUT buft_list_size=2 selected_buft=CPU
+0.00.349.066 I [EMBTRACE][LOAD]   reason: LLM_TENSOR_TOKEN_EMBD is LAYER_INPUT -> dev_input -> cpu_buft_list (cpu_buft_list does not include HTP0/HTP0-REPACK)
+0.00.349.066 I [EMBTRACE][LOAD]   buft_list[0] dev=CPU buft=CPU_REPACK
+0.00.349.067 I [EMBTRACE][LOAD]   buft_list[1] dev=CPU buft=CPU
+0.00.349.070 D create_tensor: loading tensor token_embd.weight
+0.00.349.120 D create_tensor: loading tensor output_norm.weight
+0.00.349.133 I [EMBTRACE][LOAD] name=token_embd.weight type=f32 op=MUL_MAT layer_kind=OUTPUT buft_list_size=4 selected_buft=HTP0
+0.00.349.134 I [EMBTRACE][LOAD]   reason: LLM_TENSOR_TOKEN_EMBD is LAYER_OUTPUT -> dev_input -> cpu_buft_list (cpu_buft_list does not include HTP0/HTP0-REPACK)
+0.00.349.134 I [EMBTRACE][LOAD]   buft_list[0] dev=HTP0 buft=HTP0
+0.00.349.134 I [EMBTRACE][LOAD]   buft_list[1] dev=HTP0 buft=HTP0-REPACK
+0.00.349.135 I [EMBTRACE][LOAD]   buft_list[2] dev=CPU buft=CPU_REPACK
+0.00.349.135 I [EMBTRACE][LOAD]   buft_list[3] dev=CPU buft=CPU
+0.00.349.136 D create_tensor: loading tensor token_embd.weight
+0.00.349.140 D create_tensor: loading tensor blk.0.attn_norm.weight
+0.00.349.163 D create_tensor: loading tensor blk.0.attn_q.weight
+0.00.349.167 D create_tensor: loading tensor blk.0.attn_k.weight
+0.00.349.171 D create_tensor: loading tensor blk.0.attn_v.weight
+0.00.349.177 D create_tensor: loading tensor blk.0.attn_output.weight
+0.00.349.182 D create_tensor: loading tensor blk.0.ffn_norm.weight
+0.00.349.186 D create_tensor: loading tensor rope_freqs.weight
+0.00.349.202 D create_tensor: loading tensor blk.0.ffn_gate.weight
+0.00.349.206 D create_tensor: loading tensor blk.0.ffn_down.weight
+0.00.349.209 D create_tensor: loading tensor blk.0.ffn_up.weight
+0.00.349.215 D create_tensor: loading tensor blk.1.attn_norm.weight
+0.00.349.231 D create_tensor: loading tensor blk.1.attn_q.weight
+0.00.349.234 D create_tensor: loading tensor blk.1.attn_k.weight
+0.00.349.238 D create_tensor: loading tensor blk.1.attn_v.weight
+0.00.349.243 D create_tensor: loading tensor blk.1.attn_output.weight
+0.00.349.247 D create_tensor: loading tensor blk.1.ffn_norm.weight
+0.00.349.253 D create_tensor: loading tensor blk.1.ffn_gate.weight
+0.00.349.256 D create_tensor: loading tensor blk.1.ffn_down.weight
+0.00.349.260 D create_tensor: loading tensor blk.1.ffn_up.weight
+0.00.349.265 D create_tensor: loading tensor blk.2.attn_norm.weight
+0.00.349.269 D create_tensor: loading tensor blk.2.attn_q.weight
+0.00.349.273 D create_tensor: loading tensor blk.2.attn_k.weight
+0.00.349.276 D create_tensor: loading tensor blk.2.attn_v.weight
+0.00.349.281 D create_tensor: loading tensor blk.2.attn_output.weight
+0.00.349.285 D create_tensor: loading tensor blk.2.ffn_norm.weight
+0.00.349.291 D create_tensor: loading tensor blk.2.ffn_gate.weight
+0.00.349.294 D create_tensor: loading tensor blk.2.ffn_down.weight
+0.00.349.297 D create_tensor: loading tensor blk.2.ffn_up.weight
+0.00.349.303 D create_tensor: loading tensor blk.3.attn_norm.weight
+0.00.349.308 D create_tensor: loading tensor blk.3.attn_q.weight
+0.00.349.311 D create_tensor: loading tensor blk.3.attn_k.weight
+0.00.349.314 D create_tensor: loading tensor blk.3.attn_v.weight
+0.00.349.320 D create_tensor: loading tensor blk.3.attn_output.weight
+0.00.349.346 D create_tensor: loading tensor blk.3.ffn_norm.weight
+0.00.349.351 D create_tensor: loading tensor blk.3.ffn_gate.weight
+0.00.349.354 D create_tensor: loading tensor blk.3.ffn_down.weight
+0.00.349.359 D create_tensor: loading tensor blk.3.ffn_up.weight
+0.00.349.364 D create_tensor: loading tensor blk.4.attn_norm.weight
+0.00.349.368 D create_tensor: loading tensor blk.4.attn_q.weight
+0.00.349.371 D create_tensor: loading tensor blk.4.attn_k.weight
+0.00.349.374 D create_tensor: loading tensor blk.4.attn_v.weight
+0.00.349.380 D create_tensor: loading tensor blk.4.attn_output.weight
+0.00.349.384 D create_tensor: loading tensor blk.4.ffn_norm.weight
+0.00.349.390 D create_tensor: loading tensor blk.4.ffn_gate.weight
+0.00.349.393 D create_tensor: loading tensor blk.4.ffn_down.weight
+0.00.349.397 D create_tensor: loading tensor blk.4.ffn_up.weight
+0.00.349.402 D create_tensor: loading tensor blk.5.attn_norm.weight
+0.00.349.406 D create_tensor: loading tensor blk.5.attn_q.weight
+0.00.349.409 D create_tensor: loading tensor blk.5.attn_k.weight
+0.00.349.412 D create_tensor: loading tensor blk.5.attn_v.weight
+0.00.349.418 D create_tensor: loading tensor blk.5.attn_output.weight
+0.00.349.422 D create_tensor: loading tensor blk.5.ffn_norm.weight
+0.00.349.427 D create_tensor: loading tensor blk.5.ffn_gate.weight
+0.00.349.430 D create_tensor: loading tensor blk.5.ffn_down.weight
+0.00.349.434 D create_tensor: loading tensor blk.5.ffn_up.weight
+0.00.349.440 D create_tensor: loading tensor blk.6.attn_norm.weight
+0.00.349.444 D create_tensor: loading tensor blk.6.attn_q.weight
+0.00.349.447 D create_tensor: loading tensor blk.6.attn_k.weight
+0.00.349.450 D create_tensor: loading tensor blk.6.attn_v.weight
+0.00.349.456 D create_tensor: loading tensor blk.6.attn_output.weight
+0.00.349.460 D create_tensor: loading tensor blk.6.ffn_norm.weight
+0.00.349.466 D create_tensor: loading tensor blk.6.ffn_gate.weight
+0.00.349.469 D create_tensor: loading tensor blk.6.ffn_down.weight
+0.00.349.472 D create_tensor: loading tensor blk.6.ffn_up.weight
+0.00.349.478 D create_tensor: loading tensor blk.7.attn_norm.weight
+0.00.349.483 D create_tensor: loading tensor blk.7.attn_q.weight
+0.00.349.486 D create_tensor: loading tensor blk.7.attn_k.weight
+0.00.349.489 D create_tensor: loading tensor blk.7.attn_v.weight
+0.00.349.495 D create_tensor: loading tensor blk.7.attn_output.weight
+0.00.349.500 D create_tensor: loading tensor blk.7.ffn_norm.weight
+0.00.349.505 D create_tensor: loading tensor blk.7.ffn_gate.weight
+0.00.349.508 D create_tensor: loading tensor blk.7.ffn_down.weight
+0.00.349.512 D create_tensor: loading tensor blk.7.ffn_up.weight
+0.00.349.518 D create_tensor: loading tensor blk.8.attn_norm.weight
+0.00.349.522 D create_tensor: loading tensor blk.8.attn_q.weight
+0.00.349.526 D create_tensor: loading tensor blk.8.attn_k.weight
+0.00.349.529 D create_tensor: loading tensor blk.8.attn_v.weight
+0.00.349.535 D create_tensor: loading tensor blk.8.attn_output.weight
+0.00.349.539 D create_tensor: loading tensor blk.8.ffn_norm.weight
+0.00.349.544 D create_tensor: loading tensor blk.8.ffn_gate.weight
+0.00.349.548 D create_tensor: loading tensor blk.8.ffn_down.weight
+0.00.349.552 D create_tensor: loading tensor blk.8.ffn_up.weight
+0.00.349.557 D create_tensor: loading tensor blk.9.attn_norm.weight
+0.00.349.562 D create_tensor: loading tensor blk.9.attn_q.weight
+0.00.349.565 D create_tensor: loading tensor blk.9.attn_k.weight
+0.00.349.569 D create_tensor: loading tensor blk.9.attn_v.weight
+0.00.349.575 D create_tensor: loading tensor blk.9.attn_output.weight
+0.00.349.579 D create_tensor: loading tensor blk.9.ffn_norm.weight
+0.00.349.584 D create_tensor: loading tensor blk.9.ffn_gate.weight
+0.00.349.587 D create_tensor: loading tensor blk.9.ffn_down.weight
+0.00.349.592 D create_tensor: loading tensor blk.9.ffn_up.weight
+0.00.349.598 D create_tensor: loading tensor blk.10.attn_norm.weight
+0.00.349.603 D create_tensor: loading tensor blk.10.attn_q.weight
+0.00.349.607 D create_tensor: loading tensor blk.10.attn_k.weight
+0.00.349.610 D create_tensor: loading tensor blk.10.attn_v.weight
+0.00.349.617 D create_tensor: loading tensor blk.10.attn_output.weight
+0.00.349.621 D create_tensor: loading tensor blk.10.ffn_norm.weight
+0.00.349.626 D create_tensor: loading tensor blk.10.ffn_gate.weight
+0.00.349.630 D create_tensor: loading tensor blk.10.ffn_down.weight
+0.00.349.634 D create_tensor: loading tensor blk.10.ffn_up.weight
+0.00.349.640 D create_tensor: loading tensor blk.11.attn_norm.weight
+0.00.349.645 D create_tensor: loading tensor blk.11.attn_q.weight
+0.00.349.648 D create_tensor: loading tensor blk.11.attn_k.weight
+0.00.349.652 D create_tensor: loading tensor blk.11.attn_v.weight
+0.00.349.658 D create_tensor: loading tensor blk.11.attn_output.weight
+0.00.349.663 D create_tensor: loading tensor blk.11.ffn_norm.weight
+0.00.349.668 D create_tensor: loading tensor blk.11.ffn_gate.weight
+0.00.349.671 D create_tensor: loading tensor blk.11.ffn_down.weight
+0.00.349.676 D create_tensor: loading tensor blk.11.ffn_up.weight
+0.00.349.682 D create_tensor: loading tensor blk.12.attn_norm.weight
+0.00.349.686 D create_tensor: loading tensor blk.12.attn_q.weight
+0.00.349.690 D create_tensor: loading tensor blk.12.attn_k.weight
+0.00.349.693 D create_tensor: loading tensor blk.12.attn_v.weight
+0.00.349.699 D create_tensor: loading tensor blk.12.attn_output.weight
+0.00.349.703 D create_tensor: loading tensor blk.12.ffn_norm.weight
+0.00.349.709 D create_tensor: loading tensor blk.12.ffn_gate.weight
+0.00.349.712 D create_tensor: loading tensor blk.12.ffn_down.weight
+0.00.349.716 D create_tensor: loading tensor blk.12.ffn_up.weight
+0.00.349.722 D create_tensor: loading tensor blk.13.attn_norm.weight
+0.00.349.727 D create_tensor: loading tensor blk.13.attn_q.weight
+0.00.349.730 D create_tensor: loading tensor blk.13.attn_k.weight
+0.00.349.734 D create_tensor: loading tensor blk.13.attn_v.weight
+0.00.349.741 D create_tensor: loading tensor blk.13.attn_output.weight
+0.00.349.745 D create_tensor: loading tensor blk.13.ffn_norm.weight
+0.00.349.750 D create_tensor: loading tensor blk.13.ffn_gate.weight
+0.00.349.754 D create_tensor: loading tensor blk.13.ffn_down.weight
+0.00.349.758 D create_tensor: loading tensor blk.13.ffn_up.weight
+0.00.349.765 D create_tensor: loading tensor blk.14.attn_norm.weight
+0.00.349.770 D create_tensor: loading tensor blk.14.attn_q.weight
+0.00.349.773 D create_tensor: loading tensor blk.14.attn_k.weight
+0.00.349.777 D create_tensor: loading tensor blk.14.attn_v.weight
+0.00.349.784 D create_tensor: loading tensor blk.14.attn_output.weight
+0.00.349.789 D create_tensor: loading tensor blk.14.ffn_norm.weight
+0.00.349.794 D create_tensor: loading tensor blk.14.ffn_gate.weight
+0.00.349.798 D create_tensor: loading tensor blk.14.ffn_down.weight
+0.00.349.802 D create_tensor: loading tensor blk.14.ffn_up.weight
+0.00.349.809 D create_tensor: loading tensor blk.15.attn_norm.weight
+0.00.349.814 D create_tensor: loading tensor blk.15.attn_q.weight
+0.00.349.818 D create_tensor: loading tensor blk.15.attn_k.weight
+0.00.349.822 D create_tensor: loading tensor blk.15.attn_v.weight
+0.00.349.830 D create_tensor: loading tensor blk.15.attn_output.weight
+0.00.349.835 D create_tensor: loading tensor blk.15.ffn_norm.weight
+0.00.349.841 D create_tensor: loading tensor blk.15.ffn_gate.weight
+0.00.349.845 D create_tensor: loading tensor blk.15.ffn_down.weight
+0.00.349.849 D create_tensor: loading tensor blk.15.ffn_up.weight
+0.00.350.064 D done_getting_tensors: tensor 'token_embd.weight' (f32) (and 112 others) cannot be used with preferred buffer type CPU_REPACK, using CPU instead
+0.00.350.080 I load_tensors: offloading output layer to GPU
+0.00.350.080 I load_tensors: offloading 15 repeating layers to GPU
+0.00.350.080 I load_tensors: offloaded 17/17 layers to GPU
+0.00.350.081 I load_tensors:          CPU model buffer size =     0.00 MiB
+0.00.350.082 I load_tensors:         HTP0 model buffer size =     0.00 MiB
+0.00.350.082 I load_tensors:  HTP0-REPACK model buffer size =     0.00 MiB
+0.00.350.986 I llama_context: constructing llama_context
+0.00.350.987 I llama_context: n_seq_max     = 1
+0.00.350.988 I llama_context: n_ctx         = 2048
+0.00.350.988 I llama_context: n_ctx_seq     = 2048
+0.00.350.988 I llama_context: n_batch       = 2048
+0.00.350.989 I llama_context: n_ubatch      = 512
+0.00.350.989 I llama_context: causal_attn   = 1
+0.00.350.990 I llama_context: flash_attn    = auto
+0.00.350.990 I llama_context: kv_unified    = false
+0.00.350.991 I llama_context: freq_base     = 500000.0
+0.00.350.991 I llama_context: freq_scale    = 1
+0.00.350.992 I llama_context: n_rs_seq      = 0
+0.00.350.992 I llama_context: n_outputs_max = 2048
+0.00.350.992 W llama_context: n_ctx_seq (2048) < n_ctx_train (131072) -- the full capacity of the model will not be utilized
+0.00.350.995 D set_abort_callback: call
+0.00.351.066 I llama_context:        CPU  output buffer size =     0.49 MiB
+0.00.351.080 D llama_kv_cache: layer   0: dev = HTP0
+0.00.351.083 D llama_kv_cache: layer   1: dev = HTP0
+0.00.351.084 D llama_kv_cache: layer   2: dev = HTP0
+0.00.351.085 D llama_kv_cache: layer   3: dev = HTP0
+0.00.351.085 D llama_kv_cache: layer   4: dev = HTP0
+0.00.351.086 D llama_kv_cache: layer   5: dev = HTP0
+0.00.351.087 D llama_kv_cache: layer   6: dev = HTP0
+0.00.351.088 D llama_kv_cache: layer   7: dev = HTP0
+0.00.351.089 D llama_kv_cache: layer   8: dev = HTP0
+0.00.351.089 D llama_kv_cache: layer   9: dev = HTP0
+0.00.351.090 D llama_kv_cache: layer  10: dev = HTP0
+0.00.351.091 D llama_kv_cache: layer  11: dev = HTP0
+0.00.351.092 D llama_kv_cache: layer  12: dev = HTP0
+0.00.351.093 D llama_kv_cache: layer  13: dev = HTP0
+0.00.351.093 D llama_kv_cache: layer  14: dev = HTP0
+0.00.351.094 D llama_kv_cache: layer  15: dev = HTP0
+0.00.351.095 I llama_kv_cache:       HTP0 KV buffer size =     0.00 MiB
+0.00.351.097 I llama_kv_cache: size =   64.00 MiB (  2048 cells,  16 layers,  1/1 seqs), K (f16):   32.00 MiB, V (f16):   32.00 MiB
+0.00.351.098 I llama_kv_cache: attn_rot_k = 0, n_embd_head_k_all = 64
+0.00.351.098 I llama_kv_cache: attn_rot_v = 0, n_embd_head_k_all = 64
+0.00.351.099 D llama_context: enumerating backends
+0.00.351.100 D llama_context: backend_ptrs.size() = 2
+0.00.351.100 I sched_reserve: reserving ...
+0.00.351.100 D sched_reserve: max_nodes = 1184
+0.00.351.343 D sched_reserve: reserving full memory module
+0.00.351.357 D sched_reserve: worst-case: n_tokens = 512, n_seqs = 1, n_outputs = 1
+0.00.351.358 D graph_reserve: reserving a graph for ubatch with n_tokens =    1, n_seqs =  1, n_outputs =    1
+0.00.351.557 I sched_reserve: Flash Attention was auto, set to enabled
+0.00.351.557 I sched_reserve: resolving fused Gated Delta Net support:
+0.00.351.557 D graph_reserve: reserving a graph for ubatch with n_tokens =    1, n_seqs =  1, n_outputs =    1
+0.00.351.685 I sched_reserve: fused Gated Delta Net (autoregressive) enabled
+0.00.351.686 D graph_reserve: reserving a graph for ubatch with n_tokens =   16, n_seqs =  1, n_outputs =   16
+0.00.351.900 I sched_reserve: fused Gated Delta Net (chunked) enabled
+0.00.351.900 D graph_reserve: reserving a graph for ubatch with n_tokens =  512, n_seqs =  1, n_outputs =  512
+0.00.352.162 D graph_reserve: reserving a graph for ubatch with n_tokens =    1, n_seqs =  1, n_outputs =    1
+0.00.352.285 D graph_reserve: reserving a graph for ubatch with n_tokens =  512, n_seqs =  1, n_outputs =  512
+0.00.352.471 I sched_reserve:       HTP0 compute buffer size =   254.50 MiB
+0.00.352.472 I sched_reserve:        CPU compute buffer size =    10.01 MiB
+0.00.352.472 I sched_reserve: graph nodes  = 502
+0.00.352.473 I sched_reserve: graph splits = 2
+0.00.352.473 I sched_reserve: reserve took 1.37 ms, sched copies = 1
+0.00.352.586 W common_get_device_memory_data_impl: device HTP0 did not report memory; --fit will not use it
+0.00.352.593 I common_memory_breakdown_print: | memory breakdown [MiB] | total   free    self   model   context   compute    unaccounted |
+0.00.352.594 I common_memory_breakdown_print: |   - HTP0 (Hexagon)     |     0 =    0 + ( 522 =   522 +       0 +       0) +        -522 |
+0.00.352.594 I common_memory_breakdown_print: |   - Host               |                 2332 =  2004 +      64 +     264                |
+0.00.391.848 I common_params_fit_impl: projected to use 522 MiB of device memory vs. 0 MiB of free device memory
+0.00.391.859 I common_params_fit_impl: cannot meet free memory target of 1024 MiB, need to reduce device memory by 1546 MiB
+0.00.391.860 I common_params_fit_impl: context size set by user to 2048 -> no change
+0.00.391.935 W common_fit_params: failed to fit params to free device memory: n_gpu_layers already set by user to 99, abort
+0.00.391.939 I common_fit_params: fitting params to free memory took 0.30 seconds
+0.00.426.090 I llama_model_loader: loaded meta data with 35 key-value pairs and 147 tensors from /data/local/tmp/gguf/llama-3.2-1b-instruct-q4_0-emb_f32.gguf (version GGUF V3 (latest))
+0.00.426.123 I llama_model_loader: Dumping metadata keys/values. Note: KV overrides do not apply in this output.
+0.00.426.126 I llama_model_loader: - kv   0:                       general.architecture str              = llama
+0.00.426.127 I llama_model_loader: - kv   1:                               general.type str              = model
+0.00.426.130 I llama_model_loader: - kv   2:                     general.sampling.top_p f32              = 0.900000
+0.00.426.131 I llama_model_loader: - kv   3:                      general.sampling.temp f32              = 0.600000
+0.00.426.132 I llama_model_loader: - kv   4:                               general.name str              = Meta llama__Llama 3.2 1B Instruct
+0.00.426.133 I llama_model_loader: - kv   5:                           general.finetune str              = Instruct
+0.00.426.134 I llama_model_loader: - kv   6:                           general.basename str              = meta-llama__Llama-3.2
+0.00.426.135 I llama_model_loader: - kv   7:                         general.size_label str              = 1B
+0.00.426.135 I llama_model_loader: - kv   8:                            general.license str              = llama3.2
+0.00.426.142 I llama_model_loader: - kv   9:                               general.tags arr[str,6]       = ["facebook", "meta", "pytorch", "llam...
+0.00.426.145 I llama_model_loader: - kv  10:                          general.languages arr[str,8]       = ["en", "de", "fr", "it", "pt", "hi", ...
+0.00.426.146 I llama_model_loader: - kv  11:                          llama.block_count u32              = 16
+0.00.426.147 I llama_model_loader: - kv  12:                       llama.context_length u32              = 131072
+0.00.426.148 I llama_model_loader: - kv  13:                     llama.embedding_length u32              = 2048
+0.00.426.148 I llama_model_loader: - kv  14:                  llama.feed_forward_length u32              = 8192
+0.00.426.149 I llama_model_loader: - kv  15:                 llama.attention.head_count u32              = 32
+0.00.426.150 I llama_model_loader: - kv  16:              llama.attention.head_count_kv u32              = 8
+0.00.426.151 I llama_model_loader: - kv  17:                       llama.rope.freq_base f32              = 500000.000000
+0.00.426.152 I llama_model_loader: - kv  18:     llama.attention.layer_norm_rms_epsilon f32              = 0.000010
+0.00.426.152 I llama_model_loader: - kv  19:                 llama.attention.key_length u32              = 64
+0.00.426.153 I llama_model_loader: - kv  20:               llama.attention.value_length u32              = 64
+0.00.426.154 I llama_model_loader: - kv  21:                           llama.vocab_size u32              = 128256
+0.00.426.155 I llama_model_loader: - kv  22:                 llama.rope.dimension_count u32              = 64
+0.00.426.155 I llama_model_loader: - kv  23:                       tokenizer.ggml.model str              = gpt2
+0.00.426.156 I llama_model_loader: - kv  24:                         tokenizer.ggml.pre str              = llama-bpe
+0.00.437.281 I llama_model_loader: - kv  25:                      tokenizer.ggml.tokens arr[str,128256]  = ["!", "\"", "#", "$", "%", "&", "'", ...
+0.00.440.237 I llama_model_loader: - kv  26:                  tokenizer.ggml.token_type arr[i32,128256]  = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, ...
+0.00.464.707 I llama_model_loader: - kv  27:                      tokenizer.ggml.merges arr[str,280147]  = ["Ġ Ġ", "Ġ ĠĠĠ", "ĠĠ ĠĠ", "...
+0.00.464.715 I llama_model_loader: - kv  28:                tokenizer.ggml.bos_token_id u32              = 128000
+0.00.464.716 I llama_model_loader: - kv  29:                tokenizer.ggml.eos_token_id u32              = 128009
+0.00.464.717 I llama_model_loader: - kv  30:               tokenizer.ggml.add_bos_token bool             = true
+0.00.464.718 I llama_model_loader: - kv  31:               tokenizer.ggml.add_sep_token bool             = false
+0.00.464.721 I llama_model_loader: - kv  32:                    tokenizer.chat_template str              = {{- bos_token }}\n{%- if custom_tools ...
+0.00.464.722 I llama_model_loader: - kv  33:               general.quantization_version u32              = 2
+0.00.464.722 I llama_model_loader: - kv  34:                          general.file_type u32              = 2
+0.00.464.723 I llama_model_loader: - type  f32:   35 tensors
+0.00.464.724 I llama_model_loader: - type q4_0:  112 tensors
+0.00.464.726 I print_info: file format = GGUF V3 (latest)
+0.00.464.727 I print_info: file type   = Q4_0
+0.00.464.729 I print_info: file size   = 1.49 GiB (10.35 BPW) 
+0.00.464.734 I llama_prepare_model_devices: using device HTP0 (Hexagon) (unknown id) - 0 MiB free
+0.00.545.793 D init_tokenizer: initializing tokenizer for type 2
+0.00.551.187 I load: 0 unused tokens
+0.00.551.195 D load: control token: 128254 '<|reserved_special_token_246|>' is not marked as EOG
+0.00.551.195 D load: control token: 128252 '<|reserved_special_token_244|>' is not marked as EOG
+0.00.551.196 D load: control token: 128251 '<|reserved_special_token_243|>' is not marked as EOG
+0.00.551.197 D load: control token: 128250 '<|reserved_special_token_242|>' is not marked as EOG
+0.00.551.197 D load: control token: 128248 '<|reserved_special_token_240|>' is not marked as EOG
+0.00.551.197 D load: control token: 128247 '<|reserved_special_token_239|>' is not marked as EOG
+0.00.551.198 D load: control token: 128245 '<|reserved_special_token_237|>' is not marked as EOG
+0.00.551.199 D load: control token: 128244 '<|reserved_special_token_236|>' is not marked as EOG
+0.00.551.199 D load: control token: 128243 '<|reserved_special_token_235|>' is not marked as EOG
+0.00.551.200 D load: control token: 128240 '<|reserved_special_token_232|>' is not marked as EOG
+0.00.551.200 D load: control token: 128238 '<|reserved_special_token_230|>' is not marked as EOG
+0.00.551.201 D load: control token: 128235 '<|reserved_special_token_227|>' is not marked as EOG
+0.00.551.201 D load: control token: 128234 '<|reserved_special_token_226|>' is not marked as EOG
+0.00.551.202 D load: control token: 128229 '<|reserved_special_token_221|>' is not marked as EOG
+0.00.551.202 D load: control token: 128227 '<|reserved_special_token_219|>' is not marked as EOG
+0.00.551.202 D load: control token: 128226 '<|reserved_special_token_218|>' is not marked as EOG
+0.00.551.203 D load: control token: 128224 '<|reserved_special_token_216|>' is not marked as EOG
+0.00.551.203 D load: control token: 128223 '<|reserved_special_token_215|>' is not marked as EOG
+0.00.551.204 D load: control token: 128221 '<|reserved_special_token_213|>' is not marked as EOG
+0.00.551.204 D load: control token: 128219 '<|reserved_special_token_211|>' is not marked as EOG
+0.00.551.205 D load: control token: 128218 '<|reserved_special_token_210|>' is not marked as EOG
+0.00.551.205 D load: control token: 128217 '<|reserved_special_token_209|>' is not marked as EOG
+0.00.551.206 D load: control token: 128216 '<|reserved_special_token_208|>' is not marked as EOG
+0.00.551.206 D load: control token: 128215 '<|reserved_special_token_207|>' is not marked as EOG
+0.00.551.207 D load: control token: 128213 '<|reserved_special_token_205|>' is not marked as EOG
+0.00.551.207 D load: control token: 128211 '<|reserved_special_token_203|>' is not marked as EOG
+0.00.551.208 D load: control token: 128210 '<|reserved_special_token_202|>' is not marked as EOG
+0.00.551.208 D load: control token: 128209 '<|reserved_special_token_201|>' is not marked as EOG
+0.00.551.209 D load: control token: 128208 '<|reserved_special_token_200|>' is not marked as EOG
+0.00.551.209 D load: control token: 128207 '<|reserved_special_token_199|>' is not marked as EOG
+0.00.551.210 D load: control token: 128204 '<|reserved_special_token_196|>' is not marked as EOG
+0.00.551.210 D load: control token: 128202 '<|reserved_special_token_194|>' is not marked as EOG
+0.00.551.210 D load: control token: 128197 '<|reserved_special_token_189|>' is not marked as EOG
+0.00.551.211 D load: control token: 128195 '<|reserved_special_token_187|>' is not marked as EOG
+0.00.551.211 D load: control token: 128194 '<|reserved_special_token_186|>' is not marked as EOG
+0.00.551.212 D load: control token: 128191 '<|reserved_special_token_183|>' is not marked as EOG
+0.00.551.212 D load: control token: 128190 '<|reserved_special_token_182|>' is not marked as EOG
+0.00.551.213 D load: control token: 128188 '<|reserved_special_token_180|>' is not marked as EOG
+0.00.551.213 D load: control token: 128187 '<|reserved_special_token_179|>' is not marked as EOG
+0.00.551.214 D load: control token: 128185 '<|reserved_special_token_177|>' is not marked as EOG
+0.00.551.214 D load: control token: 128184 '<|reserved_special_token_176|>' is not marked as EOG
+0.00.551.215 D load: control token: 128183 '<|reserved_special_token_175|>' is not marked as EOG
+0.00.551.215 D load: control token: 128178 '<|reserved_special_token_170|>' is not marked as EOG
+0.00.551.216 D load: control token: 128177 '<|reserved_special_token_169|>' is not marked as EOG
+0.00.551.216 D load: control token: 128176 '<|reserved_special_token_168|>' is not marked as EOG
+0.00.551.217 D load: control token: 128175 '<|reserved_special_token_167|>' is not marked as EOG
+0.00.551.217 D load: control token: 128174 '<|reserved_special_token_166|>' is not marked as EOG
+0.00.551.217 D load: control token: 128173 '<|reserved_special_token_165|>' is not marked as EOG
+0.00.551.218 D load: control token: 128172 '<|reserved_special_token_164|>' is not marked as EOG
+0.00.551.219 D load: control token: 128169 '<|reserved_special_token_161|>' is not marked as EOG
+0.00.551.219 D load: control token: 128167 '<|reserved_special_token_159|>' is not marked as EOG
+0.00.551.220 D load: control token: 128166 '<|reserved_special_token_158|>' is not marked as EOG
+0.00.551.220 D load: control token: 128160 '<|reserved_special_token_152|>' is not marked as EOG
+0.00.551.221 D load: control token: 128159 '<|reserved_special_token_151|>' is not marked as EOG
+0.00.551.221 D load: control token: 128157 '<|reserved_special_token_149|>' is not marked as EOG
+0.00.551.221 D load: control token: 128156 '<|reserved_special_token_148|>' is not marked as EOG
+0.00.551.222 D load: control token: 128154 '<|reserved_special_token_146|>' is not marked as EOG
+0.00.551.222 D load: control token: 128152 '<|reserved_special_token_144|>' is not marked as EOG
+0.00.551.223 D load: control token: 128151 '<|reserved_special_token_143|>' is not marked as EOG
+0.00.551.223 D load: control token: 128150 '<|reserved_special_token_142|>' is not marked as EOG
+0.00.551.223 D load: control token: 128147 '<|reserved_special_token_139|>' is not marked as EOG
+0.00.551.224 D load: control token: 128144 '<|reserved_special_token_136|>' is not marked as EOG
+0.00.551.224 D load: control token: 128142 '<|reserved_special_token_134|>' is not marked as EOG
+0.00.551.225 D load: control token: 128141 '<|reserved_special_token_133|>' is not marked as EOG
+0.00.551.225 D load: control token: 128140 '<|reserved_special_token_132|>' is not marked as EOG
+0.00.551.226 D load: control token: 128133 '<|reserved_special_token_125|>' is not marked as EOG
+0.00.551.226 D load: control token: 128130 '<|reserved_special_token_122|>' is not marked as EOG
+0.00.551.227 D load: control token: 128128 '<|reserved_special_token_120|>' is not marked as EOG
+0.00.551.227 D load: control token: 128127 '<|reserved_special_token_119|>' is not marked as EOG
+0.00.551.228 D load: control token: 128126 '<|reserved_special_token_118|>' is not marked as EOG
+0.00.551.228 D load: control token: 128125 '<|reserved_special_token_117|>' is not marked as EOG
+0.00.551.229 D load: control token: 128124 '<|reserved_special_token_116|>' is not marked as EOG
+0.00.551.229 D load: control token: 128123 '<|reserved_special_token_115|>' is not marked as EOG
+0.00.551.229 D load: control token: 128122 '<|reserved_special_token_114|>' is not marked as EOG
+0.00.551.230 D load: control token: 128121 '<|reserved_special_token_113|>' is not marked as EOG
+0.00.551.230 D load: control token: 128120 '<|reserved_special_token_112|>' is not marked as EOG
+0.00.551.231 D load: control token: 128119 '<|reserved_special_token_111|>' is not marked as EOG
+0.00.551.231 D load: control token: 128116 '<|reserved_special_token_108|>' is not marked as EOG
+0.00.551.231 D load: control token: 128115 '<|reserved_special_token_107|>' is not marked as EOG
+0.00.551.232 D load: control token: 128114 '<|reserved_special_token_106|>' is not marked as EOG
+0.00.551.232 D load: control token: 128113 '<|reserved_special_token_105|>' is not marked as EOG
+0.00.551.233 D load: control token: 128111 '<|reserved_special_token_103|>' is not marked as EOG
+0.00.551.233 D load: control token: 128110 '<|reserved_special_token_102|>' is not marked as EOG
+0.00.551.233 D load: control token: 128107 '<|reserved_special_token_99|>' is not marked as EOG
+0.00.551.234 D load: control token: 128106 '<|reserved_special_token_98|>' is not marked as EOG
+0.00.551.234 D load: control token: 128105 '<|reserved_special_token_97|>' is not marked as EOG
+0.00.551.235 D load: control token: 128104 '<|reserved_special_token_96|>' is not marked as EOG
+0.00.551.235 D load: control token: 128103 '<|reserved_special_token_95|>' is not marked as EOG
+0.00.551.236 D load: control token: 128100 '<|reserved_special_token_92|>' is not marked as EOG
+0.00.551.236 D load: control token: 128097 '<|reserved_special_token_89|>' is not marked as EOG
+0.00.551.237 D load: control token: 128096 '<|reserved_special_token_88|>' is not marked as EOG
+0.00.551.237 D load: control token: 128094 '<|reserved_special_token_86|>' is not marked as EOG
+0.00.551.237 D load: control token: 128093 '<|reserved_special_token_85|>' is not marked as EOG
+0.00.551.238 D load: control token: 128090 '<|reserved_special_token_82|>' is not marked as EOG
+0.00.551.239 D load: control token: 128089 '<|reserved_special_token_81|>' is not marked as EOG
+0.00.551.239 D load: control token: 128087 '<|reserved_special_token_79|>' is not marked as EOG
+0.00.551.239 D load: control token: 128085 '<|reserved_special_token_77|>' is not marked as EOG
+0.00.551.240 D load: control token: 128080 '<|reserved_special_token_72|>' is not marked as EOG
+0.00.551.240 D load: control token: 128077 '<|reserved_special_token_69|>' is not marked as EOG
+0.00.551.241 D load: control token: 128076 '<|reserved_special_token_68|>' is not marked as EOG
+0.00.551.241 D load: control token: 128073 '<|reserved_special_token_65|>' is not marked as EOG
+0.00.551.242 D load: control token: 128070 '<|reserved_special_token_62|>' is not marked as EOG
+0.00.551.242 D load: control token: 128069 '<|reserved_special_token_61|>' is not marked as EOG
+0.00.551.243 D load: control token: 128067 '<|reserved_special_token_59|>' is not marked as EOG
+0.00.551.243 D load: control token: 128064 '<|reserved_special_token_56|>' is not marked as EOG
+0.00.551.243 D load: control token: 128062 '<|reserved_special_token_54|>' is not marked as EOG
+0.00.551.244 D load: control token: 128061 '<|reserved_special_token_53|>' is not marked as EOG
+0.00.551.244 D load: control token: 128060 '<|reserved_special_token_52|>' is not marked as EOG
+0.00.551.244 D load: control token: 128054 '<|reserved_special_token_46|>' is not marked as EOG
+0.00.551.245 D load: control token: 128045 '<|reserved_special_token_37|>' is not marked as EOG
+0.00.551.245 D load: control token: 128044 '<|reserved_special_token_36|>' is not marked as EOG
+0.00.551.245 D load: control token: 128043 '<|reserved_special_token_35|>' is not marked as EOG
+0.00.551.246 D load: control token: 128042 '<|reserved_special_token_34|>' is not marked as EOG
+0.00.551.246 D load: control token: 128038 '<|reserved_special_token_30|>' is not marked as EOG
+0.00.551.246 D load: control token: 128037 '<|reserved_special_token_29|>' is not marked as EOG
+0.00.551.247 D load: control token: 128035 '<|reserved_special_token_27|>' is not marked as EOG
+0.00.551.247 D load: control token: 128034 '<|reserved_special_token_26|>' is not marked as EOG
+0.00.551.247 D load: control token: 128033 '<|reserved_special_token_25|>' is not marked as EOG
+0.00.551.248 D load: control token: 128032 '<|reserved_special_token_24|>' is not marked as EOG
+0.00.551.248 D load: control token: 128030 '<|reserved_special_token_22|>' is not marked as EOG
+0.00.551.248 D load: control token: 128029 '<|reserved_special_token_21|>' is not marked as EOG
+0.00.551.249 D load: control token: 128028 '<|reserved_special_token_20|>' is not marked as EOG
+0.00.551.249 D load: control token: 128026 '<|reserved_special_token_18|>' is not marked as EOG
+0.00.551.249 D load: control token: 128025 '<|reserved_special_token_17|>' is not marked as EOG
+0.00.551.249 D load: control token: 128024 '<|reserved_special_token_16|>' is not marked as EOG
+0.00.551.250 D load: control token: 128022 '<|reserved_special_token_14|>' is not marked as EOG
+0.00.551.250 D load: control token: 128020 '<|reserved_special_token_12|>' is not marked as EOG
+0.00.551.250 D load: control token: 128017 '<|reserved_special_token_9|>' is not marked as EOG
+0.00.551.251 D load: control token: 128016 '<|reserved_special_token_8|>' is not marked as EOG
+0.00.551.251 D load: control token: 128015 '<|reserved_special_token_7|>' is not marked as EOG
+0.00.551.251 D load: control token: 128014 '<|reserved_special_token_6|>' is not marked as EOG
+0.00.551.252 D load: control token: 128013 '<|reserved_special_token_5|>' is not marked as EOG
+0.00.551.252 D load: control token: 128011 '<|reserved_special_token_3|>' is not marked as EOG
+0.00.551.252 D load: control token: 128010 '<|python_tag|>' is not marked as EOG
+0.00.551.253 D load: control token: 128006 '<|start_header_id|>' is not marked as EOG
+0.00.551.253 D load: control token: 128003 '<|reserved_special_token_1|>' is not marked as EOG
+0.00.551.253 D load: control token: 128002 '<|reserved_special_token_0|>' is not marked as EOG
+0.00.551.254 D load: control token: 128000 '<|begin_of_text|>' is not marked as EOG
+0.00.551.258 D load: control token: 128041 '<|reserved_special_token_33|>' is not marked as EOG
+0.00.551.304 D load: control token: 128063 '<|reserved_special_token_55|>' is not marked as EOG
+0.00.551.309 D load: control token: 128046 '<|reserved_special_token_38|>' is not marked as EOG
+0.00.551.319 D load: control token: 128007 '<|end_header_id|>' is not marked as EOG
+0.00.551.347 D load: control token: 128065 '<|reserved_special_token_57|>' is not marked as EOG
+0.00.551.348 D load: control token: 128171 '<|reserved_special_token_163|>' is not marked as EOG
+0.00.551.371 D load: control token: 128162 '<|reserved_special_token_154|>' is not marked as EOG
+0.00.551.381 D load: control token: 128165 '<|reserved_special_token_157|>' is not marked as EOG
+0.00.551.425 D load: control token: 128057 '<|reserved_special_token_49|>' is not marked as EOG
+0.00.551.435 D load: control token: 128050 '<|reserved_special_token_42|>' is not marked as EOG
+0.00.551.455 D load: control token: 128056 '<|reserved_special_token_48|>' is not marked as EOG
+0.00.551.459 D load: control token: 128230 '<|reserved_special_token_222|>' is not marked as EOG
+0.00.551.460 D load: control token: 128098 '<|reserved_special_token_90|>' is not marked as EOG
+0.00.551.466 D load: control token: 128153 '<|reserved_special_token_145|>' is not marked as EOG
+0.00.551.468 D load: control token: 128084 '<|reserved_special_token_76|>' is not marked as EOG
+0.00.551.476 D load: control token: 128082 '<|reserved_special_token_74|>' is not marked as EOG
+0.00.551.492 D load: control token: 128102 '<|reserved_special_token_94|>' is not marked as EOG
+0.00.551.525 D load: control token: 128253 '<|reserved_special_token_245|>' is not marked as EOG
+0.00.551.537 D load: control token: 128179 '<|reserved_special_token_171|>' is not marked as EOG
+0.00.551.541 D load: control token: 128071 '<|reserved_special_token_63|>' is not marked as EOG
+0.00.551.554 D load: control token: 128135 '<|reserved_special_token_127|>' is not marked as EOG
+0.00.551.602 D load: control token: 128161 '<|reserved_special_token_153|>' is not marked as EOG
+0.00.551.647 D load: control token: 128164 '<|reserved_special_token_156|>' is not marked as EOG
+0.00.551.671 D load: control token: 128134 '<|reserved_special_token_126|>' is not marked as EOG
+0.00.551.684 D load: control token: 128249 '<|reserved_special_token_241|>' is not marked as EOG
+0.00.551.799 D load: control token: 128004 '<|finetune_right_pad_id|>' is not marked as EOG
+0.00.551.863 D load: control token: 128036 '<|reserved_special_token_28|>' is not marked as EOG
+0.00.551.903 D load: control token: 128148 '<|reserved_special_token_140|>' is not marked as EOG
+0.00.551.934 D load: control token: 128181 '<|reserved_special_token_173|>' is not marked as EOG
+0.00.551.942 D load: control token: 128222 '<|reserved_special_token_214|>' is not marked as EOG
+0.00.551.953 D load: control token: 128075 '<|reserved_special_token_67|>' is not marked as EOG
+0.00.552.017 D load: control token: 128241 '<|reserved_special_token_233|>' is not marked as EOG
+0.00.552.026 D load: control token: 128051 '<|reserved_special_token_43|>' is not marked as EOG
+0.00.552.053 D load: control token: 128068 '<|reserved_special_token_60|>' is not marked as EOG
+0.00.552.104 D load: control token: 128149 '<|reserved_special_token_141|>' is not marked as EOG
+0.00.552.134 D load: control token: 128201 '<|reserved_special_token_193|>' is not marked as EOG
+0.00.552.152 D load: control token: 128058 '<|reserved_special_token_50|>' is not marked as EOG
+0.00.552.176 D load: control token: 128146 '<|reserved_special_token_138|>' is not marked as EOG
+0.00.552.178 D load: control token: 128143 '<|reserved_special_token_135|>' is not marked as EOG
+0.00.552.183 D load: control token: 128023 '<|reserved_special_token_15|>' is not marked as EOG
+0.00.552.188 D load: control token: 128039 '<|reserved_special_token_31|>' is not marked as EOG
+0.00.552.247 D load: control token: 128132 '<|reserved_special_token_124|>' is not marked as EOG
+0.00.552.250 D load: control token: 128101 '<|reserved_special_token_93|>' is not marked as EOG
+0.00.552.286 D load: control token: 128212 '<|reserved_special_token_204|>' is not marked as EOG
+0.00.552.310 D load: control token: 128189 '<|reserved_special_token_181|>' is not marked as EOG
+0.00.552.334 D load: control token: 128225 '<|reserved_special_token_217|>' is not marked as EOG
+0.00.552.405 D load: control token: 128129 '<|reserved_special_token_121|>' is not marked as EOG
+0.00.552.449 D load: control token: 128005 '<|reserved_special_token_2|>' is not marked as EOG
+0.00.552.455 D load: control token: 128078 '<|reserved_special_token_70|>' is not marked as EOG
+0.00.552.456 D load: control token: 128163 '<|reserved_special_token_155|>' is not marked as EOG
+0.00.552.479 D load: control token: 128072 '<|reserved_special_token_64|>' is not marked as EOG
+0.00.552.480 D load: control token: 128112 '<|reserved_special_token_104|>' is not marked as EOG
+0.00.552.499 D load: control token: 128186 '<|reserved_special_token_178|>' is not marked as EOG
+0.00.552.519 D load: control token: 128095 '<|reserved_special_token_87|>' is not marked as EOG
+0.00.552.647 D load: control token: 128109 '<|reserved_special_token_101|>' is not marked as EOG
+0.00.552.753 D load: control token: 128099 '<|reserved_special_token_91|>' is not marked as EOG
+0.00.552.755 D load: control token: 128138 '<|reserved_special_token_130|>' is not marked as EOG
+0.00.552.762 D load: control token: 128193 '<|reserved_special_token_185|>' is not marked as EOG
+0.00.552.776 D load: control token: 128199 '<|reserved_special_token_191|>' is not marked as EOG
+0.00.552.814 D load: control token: 128048 '<|reserved_special_token_40|>' is not marked as EOG
+0.00.552.845 D load: control token: 128088 '<|reserved_special_token_80|>' is not marked as EOG
+0.00.552.950 D load: control token: 128192 '<|reserved_special_token_184|>' is not marked as EOG
+0.00.552.962 D load: control token: 128136 '<|reserved_special_token_128|>' is not marked as EOG
+0.00.552.981 D load: control token: 128092 '<|reserved_special_token_84|>' is not marked as EOG
+0.00.553.007 D load: control token: 128158 '<|reserved_special_token_150|>' is not marked as EOG
+0.00.553.022 D load: control token: 128049 '<|reserved_special_token_41|>' is not marked as EOG
+0.00.553.084 D load: control token: 128031 '<|reserved_special_token_23|>' is not marked as EOG
+0.00.553.160 D load: control token: 128255 '<|reserved_special_token_247|>' is not marked as EOG
+0.00.553.205 D load: control token: 128182 '<|reserved_special_token_174|>' is not marked as EOG
+0.00.553.265 D load: control token: 128066 '<|reserved_special_token_58|>' is not marked as EOG
+0.00.553.269 D load: control token: 128180 '<|reserved_special_token_172|>' is not marked as EOG
+0.00.553.278 D load: control token: 128233 '<|reserved_special_token_225|>' is not marked as EOG
+0.00.553.307 D load: control token: 128079 '<|reserved_special_token_71|>' is not marked as EOG
+0.00.553.352 D load: control token: 128081 '<|reserved_special_token_73|>' is not marked as EOG
+0.00.553.361 D load: control token: 128231 '<|reserved_special_token_223|>' is not marked as EOG
+0.00.553.403 D load: control token: 128196 '<|reserved_special_token_188|>' is not marked as EOG
+0.00.553.407 D load: control token: 128047 '<|reserved_special_token_39|>' is not marked as EOG
+0.00.553.438 D load: control token: 128083 '<|reserved_special_token_75|>' is not marked as EOG
+0.00.553.463 D load: control token: 128139 '<|reserved_special_token_131|>' is not marked as EOG
+0.00.553.502 D load: control token: 128131 '<|reserved_special_token_123|>' is not marked as EOG
+0.00.553.507 D load: control token: 128118 '<|reserved_special_token_110|>' is not marked as EOG
+0.00.553.568 D load: control token: 128053 '<|reserved_special_token_45|>' is not marked as EOG
+0.00.553.610 D load: control token: 128220 '<|reserved_special_token_212|>' is not marked as EOG
+0.00.553.683 D load: control token: 128108 '<|reserved_special_token_100|>' is not marked as EOG
+0.00.553.769 D load: control token: 128091 '<|reserved_special_token_83|>' is not marked as EOG
+0.00.553.882 D load: control token: 128203 '<|reserved_special_token_195|>' is not marked as EOG
+0.00.554.015 D load: control token: 128059 '<|reserved_special_token_51|>' is not marked as EOG
+0.00.554.015 D load: control token: 128019 '<|reserved_special_token_11|>' is not marked as EOG
+0.00.554.035 D load: control token: 128170 '<|reserved_special_token_162|>' is not marked as EOG
+0.00.554.036 D load: control token: 128205 '<|reserved_special_token_197|>' is not marked as EOG
+0.00.554.064 D load: control token: 128040 '<|reserved_special_token_32|>' is not marked as EOG
+0.00.554.075 D load: control token: 128200 '<|reserved_special_token_192|>' is not marked as EOG
+0.00.554.088 D load: control token: 128236 '<|reserved_special_token_228|>' is not marked as EOG
+0.00.554.125 D load: control token: 128145 '<|reserved_special_token_137|>' is not marked as EOG
+0.00.554.188 D load: control token: 128168 '<|reserved_special_token_160|>' is not marked as EOG
+0.00.554.208 D load: control token: 128214 '<|reserved_special_token_206|>' is not marked as EOG
+0.00.554.213 D load: control token: 128137 '<|reserved_special_token_129|>' is not marked as EOG
+0.00.554.234 D load: control token: 128232 '<|reserved_special_token_224|>' is not marked as EOG
+0.00.554.235 D load: control token: 128239 '<|reserved_special_token_231|>' is not marked as EOG
+0.00.554.249 D load: control token: 128055 '<|reserved_special_token_47|>' is not marked as EOG
+0.00.554.250 D load: control token: 128228 '<|reserved_special_token_220|>' is not marked as EOG
+0.00.554.276 D load: control token: 128206 '<|reserved_special_token_198|>' is not marked as EOG
+0.00.554.283 D load: control token: 128018 '<|reserved_special_token_10|>' is not marked as EOG
+0.00.554.287 D load: control token: 128012 '<|reserved_special_token_4|>' is not marked as EOG
+0.00.554.305 D load: control token: 128198 '<|reserved_special_token_190|>' is not marked as EOG
+0.00.554.340 D load: control token: 128021 '<|reserved_special_token_13|>' is not marked as EOG
+0.00.554.384 D load: control token: 128086 '<|reserved_special_token_78|>' is not marked as EOG
+0.00.554.396 D load: control token: 128074 '<|reserved_special_token_66|>' is not marked as EOG
+0.00.554.404 D load: control token: 128027 '<|reserved_special_token_19|>' is not marked as EOG
+0.00.554.412 D load: control token: 128242 '<|reserved_special_token_234|>' is not marked as EOG
+0.00.554.433 D load: control token: 128155 '<|reserved_special_token_147|>' is not marked as EOG
+0.00.554.476 D load: control token: 128052 '<|reserved_special_token_44|>' is not marked as EOG
+0.00.554.500 D load: control token: 128246 '<|reserved_special_token_238|>' is not marked as EOG
+0.00.554.527 D load: control token: 128117 '<|reserved_special_token_109|>' is not marked as EOG
+0.00.554.535 D load: control token: 128237 '<|reserved_special_token_229|>' is not marked as EOG
+0.00.556.053 I load: printing all EOG tokens:
+0.00.556.053 I load:   - 128001 ('<|end_of_text|>')
+0.00.556.053 I load:   - 128008 ('<|eom_id|>')
+0.00.556.054 I load:   - 128009 ('<|eot_id|>')
+0.00.556.131 I load: special tokens cache size = 256
+0.00.584.421 I load: token to piece cache size = 0.7999 MB
+0.00.584.435 I print_info: arch                  = llama
+0.00.584.436 I print_info: vocab_only            = 0
+0.00.584.436 I print_info: no_alloc              = 0
+0.00.584.437 I print_info: n_ctx_train           = 131072
+0.00.584.438 I print_info: n_embd_inp            = 2048
+0.00.584.438 I print_info: n_embd                = 2048
+0.00.584.439 I print_info: n_embd_out            = 2048
+0.00.584.439 I print_info: n_layer               = 16
+0.00.584.440 I print_info: n_layer_all           = 16
+0.00.584.447 I print_info: n_head                = 32
+0.00.584.449 I print_info: n_head_kv             = 8
+0.00.584.449 I print_info: n_rot                 = 64
+0.00.584.450 I print_info: n_swa                 = 0
+0.00.584.450 I print_info: is_swa_any            = 0
+0.00.584.450 I print_info: n_embd_head_k         = 64
+0.00.584.484 I print_info: n_embd_head_v         = 64
+0.00.584.485 I print_info: n_gqa                 = 4
+0.00.584.486 I print_info: n_embd_k_gqa          = 512
+0.00.584.487 I print_info: n_embd_v_gqa          = 512
+0.00.584.489 I print_info: f_norm_eps            = 0.0e+00
+0.00.584.489 I print_info: f_norm_rms_eps        = 1.0e-05
+0.00.584.490 I print_info: f_clamp_kqv           = 0.0e+00
+0.00.584.490 I print_info: f_max_alibi_bias      = 0.0e+00
+0.00.584.490 I print_info: f_logit_scale         = 0.0e+00
+0.00.584.491 I print_info: f_attn_scale          = 0.0e+00
+0.00.584.491 I print_info: f_attn_value_scale    = 0.0000
+0.00.584.492 I print_info: n_ff                  = 8192
+0.00.584.492 I print_info: n_expert              = 0
+0.00.584.493 I print_info: n_expert_used         = 0
+0.00.584.493 I print_info: n_expert_groups       = 0
+0.00.584.493 I print_info: n_group_used          = 0
+0.00.584.494 I print_info: causal attn           = 1
+0.00.584.494 I print_info: pooling type          = -1
+0.00.584.495 I print_info: rope type             = 0
+0.00.584.495 I print_info: rope scaling          = linear
+0.00.584.496 I print_info: freq_base_train       = 500000.0
+0.00.584.496 I print_info: freq_scale_train      = 1
+0.00.584.496 I print_info: n_ctx_orig_yarn       = 131072
+0.00.584.497 I print_info: rope_yarn_log_mul     = 0.0000
+0.00.584.497 I print_info: rope_finetuned        = unknown
+0.00.584.498 I print_info: model type            = 1B
+0.00.584.498 I print_info: model params          = 1.24 B
+0.00.584.499 I print_info: general.name          = Meta llama__Llama 3.2 1B Instruct
+0.00.584.500 I print_info: vocab type            = BPE
+0.00.584.500 I print_info: n_vocab               = 128256
+0.00.584.500 I print_info: n_merges              = 280147
+0.00.584.501 I print_info: BOS token             = 128000 '<|begin_of_text|>'
+0.00.584.501 I print_info: EOS token             = 128009 '<|eot_id|>'
+0.00.584.502 I print_info: EOT token             = 128001 '<|end_of_text|>'
+0.00.584.502 I print_info: EOM token             = 128008 '<|eom_id|>'
+0.00.584.503 I print_info: LF token              = 198 'Ċ'
+0.00.584.503 I print_info: EOG token             = 128001 '<|end_of_text|>'
+0.00.584.504 I print_info: EOG token             = 128008 '<|eom_id|>'
+0.00.584.504 I print_info: EOG token             = 128009 '<|eot_id|>'
+0.00.584.504 I print_info: max token length      = 256
+0.00.584.505 I load_tensors: loading model tensors, this can take a while... (mmap = true, direct_io = false)
+0.00.584.538 I [EMBTRACE][LOAD] dev_input assignment: dev=CPU buft=CPU_REPACK n_cpu_buft_list=2
+0.00.584.538 I [EMBTRACE][LOAD]   token_embd.weight is LAYER_INPUT -> will use cpu_buft_list (no HTP entries)
+0.00.584.539 I [EMBTRACE][BUFT]   cpu_buft_list[0] dev=CPU buft=CPU_REPACK
+0.00.584.539 I [EMBTRACE][BUFT]   cpu_buft_list[1] dev=CPU buft=CPU
+0.00.584.540 I [EMBTRACE][BUFT]   gpu_buft_list dev=HTP0 n_entries=4 (used for LAYER_REPEATING/OUTPUT, NOT for token_embd)
+0.00.584.541 I [EMBTRACE][BUFT]     gpu_buft_list[0] dev=HTP0 buft=HTP0
+0.00.584.541 I [EMBTRACE][BUFT]     gpu_buft_list[1] dev=HTP0 buft=HTP0-REPACK
+0.00.584.542 I [EMBTRACE][BUFT]     gpu_buft_list[2] dev=CPU buft=CPU_REPACK
+0.00.584.542 I [EMBTRACE][BUFT]     gpu_buft_list[3] dev=CPU buft=CPU
+0.00.584.542 D load_tensors: layer   0 assigned to device HTP0, is_swa = 0
+0.00.584.543 D load_tensors: layer   1 assigned to device HTP0, is_swa = 0
+0.00.584.543 D load_tensors: layer   2 assigned to device HTP0, is_swa = 0
+0.00.584.544 D load_tensors: layer   3 assigned to device HTP0, is_swa = 0
+0.00.584.544 D load_tensors: layer   4 assigned to device HTP0, is_swa = 0
+0.00.584.544 D load_tensors: layer   5 assigned to device HTP0, is_swa = 0
+0.00.584.544 D load_tensors: layer   6 assigned to device HTP0, is_swa = 0
+0.00.584.545 D load_tensors: layer   7 assigned to device HTP0, is_swa = 0
+0.00.584.545 D load_tensors: layer   8 assigned to device HTP0, is_swa = 0
+0.00.584.545 D load_tensors: layer   9 assigned to device HTP0, is_swa = 0
+0.00.584.546 D load_tensors: layer  10 assigned to device HTP0, is_swa = 0
+0.00.584.546 D load_tensors: layer  11 assigned to device HTP0, is_swa = 0
+0.00.584.546 D load_tensors: layer  12 assigned to device HTP0, is_swa = 0
+0.00.584.547 D load_tensors: layer  13 assigned to device HTP0, is_swa = 0
+0.00.584.547 D load_tensors: layer  14 assigned to device HTP0, is_swa = 0
+0.00.584.547 D load_tensors: layer  15 assigned to device HTP0, is_swa = 0
+0.00.584.547 D load_tensors: layer  16 assigned to device HTP0, is_swa = 0
+0.00.584.563 I [EMBTRACE][LOAD] name=token_embd.weight type=f32 op=GET_ROWS layer_kind=INPUT buft_list_size=2 selected_buft=CPU
+0.00.584.564 I [EMBTRACE][LOAD]   reason: LLM_TENSOR_TOKEN_EMBD is LAYER_INPUT -> dev_input -> cpu_buft_list (cpu_buft_list does not include HTP0/HTP0-REPACK)
+0.00.584.565 I [EMBTRACE][LOAD]   buft_list[0] dev=CPU buft=CPU_REPACK
+0.00.584.565 I [EMBTRACE][LOAD]   buft_list[1] dev=CPU buft=CPU
+0.00.584.569 D create_tensor: loading tensor token_embd.weight
+0.00.584.577 D create_tensor: loading tensor output_norm.weight
+0.00.584.590 I [EMBTRACE][LOAD] name=token_embd.weight type=f32 op=MUL_MAT layer_kind=OUTPUT buft_list_size=4 selected_buft=HTP0
+0.00.584.591 I [EMBTRACE][LOAD]   reason: LLM_TENSOR_TOKEN_EMBD is LAYER_OUTPUT -> dev_input -> cpu_buft_list (cpu_buft_list does not include HTP0/HTP0-REPACK)
+0.00.584.591 I [EMBTRACE][LOAD]   buft_list[0] dev=HTP0 buft=HTP0
+0.00.584.592 I [EMBTRACE][LOAD]   buft_list[1] dev=HTP0 buft=HTP0-REPACK
+0.00.584.592 I [EMBTRACE][LOAD]   buft_list[2] dev=CPU buft=CPU_REPACK
+0.00.584.592 I [EMBTRACE][LOAD]   buft_list[3] dev=CPU buft=CPU
+0.00.584.593 D create_tensor: loading tensor token_embd.weight
+0.00.584.598 D create_tensor: loading tensor blk.0.attn_norm.weight
+0.00.584.607 D create_tensor: loading tensor blk.0.attn_q.weight
+0.00.584.611 D create_tensor: loading tensor blk.0.attn_k.weight
+0.00.584.616 D create_tensor: loading tensor blk.0.attn_v.weight
+0.00.584.624 D create_tensor: loading tensor blk.0.attn_output.weight
+0.00.584.630 D create_tensor: loading tensor blk.0.ffn_norm.weight
+0.00.584.634 D create_tensor: loading tensor rope_freqs.weight
+0.00.584.639 D create_tensor: loading tensor blk.0.ffn_gate.weight
+0.00.584.645 D create_tensor: loading tensor blk.0.ffn_down.weight
+0.00.584.649 D create_tensor: loading tensor blk.0.ffn_up.weight
+0.00.584.656 D create_tensor: loading tensor blk.1.attn_norm.weight
+0.00.584.663 D create_tensor: loading tensor blk.1.attn_q.weight
+0.00.584.666 D create_tensor: loading tensor blk.1.attn_k.weight
+0.00.584.670 D create_tensor: loading tensor blk.1.attn_v.weight
+0.00.584.677 D create_tensor: loading tensor blk.1.attn_output.weight
+0.00.584.682 D create_tensor: loading tensor blk.1.ffn_norm.weight
+0.00.584.687 D create_tensor: loading tensor blk.1.ffn_gate.weight
+0.00.584.691 D create_tensor: loading tensor blk.1.ffn_down.weight
+0.00.584.696 D create_tensor: loading tensor blk.1.ffn_up.weight
+0.00.584.703 D create_tensor: loading tensor blk.2.attn_norm.weight
+0.00.584.709 D create_tensor: loading tensor blk.2.attn_q.weight
+0.00.584.714 D create_tensor: loading tensor blk.2.attn_k.weight
+0.00.584.717 D create_tensor: loading tensor blk.2.attn_v.weight
+0.00.584.724 D create_tensor: loading tensor blk.2.attn_output.weight
+0.00.584.729 D create_tensor: loading tensor blk.2.ffn_norm.weight
+0.00.584.735 D create_tensor: loading tensor blk.2.ffn_gate.weight
+0.00.584.739 D create_tensor: loading tensor blk.2.ffn_down.weight
+0.00.584.744 D create_tensor: loading tensor blk.2.ffn_up.weight
+0.00.584.751 D create_tensor: loading tensor blk.3.attn_norm.weight
+0.00.584.759 D create_tensor: loading tensor blk.3.attn_q.weight
+0.00.584.762 D create_tensor: loading tensor blk.3.attn_k.weight
+0.00.584.766 D create_tensor: loading tensor blk.3.attn_v.weight
+0.00.584.773 D create_tensor: loading tensor blk.3.attn_output.weight
+0.00.584.778 D create_tensor: loading tensor blk.3.ffn_norm.weight
+0.00.584.784 D create_tensor: loading tensor blk.3.ffn_gate.weight
+0.00.584.787 D create_tensor: loading tensor blk.3.ffn_down.weight
+0.00.584.792 D create_tensor: loading tensor blk.3.ffn_up.weight
+0.00.584.798 D create_tensor: loading tensor blk.4.attn_norm.weight
+0.00.584.803 D create_tensor: loading tensor blk.4.attn_q.weight
+0.00.584.806 D create_tensor: loading tensor blk.4.attn_k.weight
+0.00.584.810 D create_tensor: loading tensor blk.4.attn_v.weight
+0.00.584.816 D create_tensor: loading tensor blk.4.attn_output.weight
+0.00.584.820 D create_tensor: loading tensor blk.4.ffn_norm.weight
+0.00.584.826 D create_tensor: loading tensor blk.4.ffn_gate.weight
+0.00.584.829 D create_tensor: loading tensor blk.4.ffn_down.weight
+0.00.584.833 D create_tensor: loading tensor blk.4.ffn_up.weight
+0.00.584.840 D create_tensor: loading tensor blk.5.attn_norm.weight
+0.00.584.845 D create_tensor: loading tensor blk.5.attn_q.weight
+0.00.584.848 D create_tensor: loading tensor blk.5.attn_k.weight
+0.00.584.852 D create_tensor: loading tensor blk.5.attn_v.weight
+0.00.584.858 D create_tensor: loading tensor blk.5.attn_output.weight
+0.00.584.862 D create_tensor: loading tensor blk.5.ffn_norm.weight
+0.00.584.867 D create_tensor: loading tensor blk.5.ffn_gate.weight
+0.00.584.871 D create_tensor: loading tensor blk.5.ffn_down.weight
+0.00.584.876 D create_tensor: loading tensor blk.5.ffn_up.weight
+0.00.584.881 D create_tensor: loading tensor blk.6.attn_norm.weight
+0.00.584.886 D create_tensor: loading tensor blk.6.attn_q.weight
+0.00.584.890 D create_tensor: loading tensor blk.6.attn_k.weight
+0.00.584.893 D create_tensor: loading tensor blk.6.attn_v.weight
+0.00.584.899 D create_tensor: loading tensor blk.6.attn_output.weight
+0.00.584.905 D create_tensor: loading tensor blk.6.ffn_norm.weight
+0.00.584.910 D create_tensor: loading tensor blk.6.ffn_gate.weight
+0.00.584.914 D create_tensor: loading tensor blk.6.ffn_down.weight
+0.00.584.917 D create_tensor: loading tensor blk.6.ffn_up.weight
+0.00.584.924 D create_tensor: loading tensor blk.7.attn_norm.weight
+0.00.584.930 D create_tensor: loading tensor blk.7.attn_q.weight
+0.00.584.933 D create_tensor: loading tensor blk.7.attn_k.weight
+0.00.584.937 D create_tensor: loading tensor blk.7.attn_v.weight
+0.00.584.943 D create_tensor: loading tensor blk.7.attn_output.weight
+0.00.584.948 D create_tensor: loading tensor blk.7.ffn_norm.weight
+0.00.584.953 D create_tensor: loading tensor blk.7.ffn_gate.weight
+0.00.584.957 D create_tensor: loading tensor blk.7.ffn_down.weight
+0.00.584.961 D create_tensor: loading tensor blk.7.ffn_up.weight
+0.00.584.968 D create_tensor: loading tensor blk.8.attn_norm.weight
+0.00.584.973 D create_tensor: loading tensor blk.8.attn_q.weight
+0.00.584.977 D create_tensor: loading tensor blk.8.attn_k.weight
+0.00.584.980 D create_tensor: loading tensor blk.8.attn_v.weight
+0.00.584.986 D create_tensor: loading tensor blk.8.attn_output.weight
+0.00.584.992 D create_tensor: loading tensor blk.8.ffn_norm.weight
+0.00.584.997 D create_tensor: loading tensor blk.8.ffn_gate.weight
+0.00.585.000 D create_tensor: loading tensor blk.8.ffn_down.weight
+0.00.585.005 D create_tensor: loading tensor blk.8.ffn_up.weight
+0.00.585.011 D create_tensor: loading tensor blk.9.attn_norm.weight
+0.00.585.017 D create_tensor: loading tensor blk.9.attn_q.weight
+0.00.585.020 D create_tensor: loading tensor blk.9.attn_k.weight
+0.00.585.024 D create_tensor: loading tensor blk.9.attn_v.weight
+0.00.585.030 D create_tensor: loading tensor blk.9.attn_output.weight
+0.00.585.035 D create_tensor: loading tensor blk.9.ffn_norm.weight
+0.00.585.041 D create_tensor: loading tensor blk.9.ffn_gate.weight
+0.00.585.044 D create_tensor: loading tensor blk.9.ffn_down.weight
+0.00.585.049 D create_tensor: loading tensor blk.9.ffn_up.weight
+0.00.585.055 D create_tensor: loading tensor blk.10.attn_norm.weight
+0.00.585.062 D create_tensor: loading tensor blk.10.attn_q.weight
+0.00.585.065 D create_tensor: loading tensor blk.10.attn_k.weight
+0.00.585.069 D create_tensor: loading tensor blk.10.attn_v.weight
+0.00.585.076 D create_tensor: loading tensor blk.10.attn_output.weight
+0.00.585.081 D create_tensor: loading tensor blk.10.ffn_norm.weight
+0.00.585.086 D create_tensor: loading tensor blk.10.ffn_gate.weight
+0.00.585.090 D create_tensor: loading tensor blk.10.ffn_down.weight
+0.00.585.094 D create_tensor: loading tensor blk.10.ffn_up.weight
+0.00.585.102 D create_tensor: loading tensor blk.11.attn_norm.weight
+0.00.585.107 D create_tensor: loading tensor blk.11.attn_q.weight
+0.00.585.111 D create_tensor: loading tensor blk.11.attn_k.weight
+0.00.585.115 D create_tensor: loading tensor blk.11.attn_v.weight
+0.00.585.122 D create_tensor: loading tensor blk.11.attn_output.weight
+0.00.585.127 D create_tensor: loading tensor blk.11.ffn_norm.weight
+0.00.585.133 D create_tensor: loading tensor blk.11.ffn_gate.weight
+0.00.585.136 D create_tensor: loading tensor blk.11.ffn_down.weight
+0.00.585.141 D create_tensor: loading tensor blk.11.ffn_up.weight
+0.00.585.149 D create_tensor: loading tensor blk.12.attn_norm.weight
+0.00.585.153 D create_tensor: loading tensor blk.12.attn_q.weight
+0.00.585.157 D create_tensor: loading tensor blk.12.attn_k.weight
+0.00.585.161 D create_tensor: loading tensor blk.12.attn_v.weight
+0.00.585.168 D create_tensor: loading tensor blk.12.attn_output.weight
+0.00.585.174 D create_tensor: loading tensor blk.12.ffn_norm.weight
+0.00.585.179 D create_tensor: loading tensor blk.12.ffn_gate.weight
+0.00.585.183 D create_tensor: loading tensor blk.12.ffn_down.weight
+0.00.585.187 D create_tensor: loading tensor blk.12.ffn_up.weight
+0.00.585.194 D create_tensor: loading tensor blk.13.attn_norm.weight
+0.00.585.200 D create_tensor: loading tensor blk.13.attn_q.weight
+0.00.585.204 D create_tensor: loading tensor blk.13.attn_k.weight
+0.00.585.208 D create_tensor: loading tensor blk.13.attn_v.weight
+0.00.585.215 D create_tensor: loading tensor blk.13.attn_output.weight
+0.00.585.227 D create_tensor: loading tensor blk.13.ffn_norm.weight
+0.00.585.233 D create_tensor: loading tensor blk.13.ffn_gate.weight
+0.00.585.236 D create_tensor: loading tensor blk.13.ffn_down.weight
+0.00.585.241 D create_tensor: loading tensor blk.13.ffn_up.weight
+0.00.585.248 D create_tensor: loading tensor blk.14.attn_norm.weight
+0.00.585.253 D create_tensor: loading tensor blk.14.attn_q.weight
+0.00.585.257 D create_tensor: loading tensor blk.14.attn_k.weight
+0.00.585.261 D create_tensor: loading tensor blk.14.attn_v.weight
+0.00.585.268 D create_tensor: loading tensor blk.14.attn_output.weight
+0.00.585.274 D create_tensor: loading tensor blk.14.ffn_norm.weight
+0.00.585.279 D create_tensor: loading tensor blk.14.ffn_gate.weight
+0.00.585.283 D create_tensor: loading tensor blk.14.ffn_down.weight
+0.00.585.287 D create_tensor: loading tensor blk.14.ffn_up.weight
+0.00.585.295 D create_tensor: loading tensor blk.15.attn_norm.weight
+0.00.585.301 D create_tensor: loading tensor blk.15.attn_q.weight
+0.00.585.304 D create_tensor: loading tensor blk.15.attn_k.weight
+0.00.585.308 D create_tensor: loading tensor blk.15.attn_v.weight
+0.00.585.316 D create_tensor: loading tensor blk.15.attn_output.weight
+0.00.585.323 D create_tensor: loading tensor blk.15.ffn_norm.weight
+0.00.585.329 D create_tensor: loading tensor blk.15.ffn_gate.weight
+0.00.585.333 D create_tensor: loading tensor blk.15.ffn_down.weight
+0.00.585.338 D create_tensor: loading tensor blk.15.ffn_up.weight
+0.00.585.558 D done_getting_tensors: tensor 'token_embd.weight' (f32) (and 112 others) cannot be used with preferred buffer type CPU_REPACK, using CPU instead
+0.00.956.869 I load_tensors: offloading output layer to GPU
+0.00.956.935 I load_tensors: offloading 15 repeating layers to GPU
+0.00.956.936 I load_tensors: offloaded 17/17 layers to GPU
+0.00.956.940 I load_tensors:   CPU_Mapped model buffer size =  1002.00 MiB
+0.00.956.941 I load_tensors:         HTP0 model buffer size =  1002.26 MiB
+0.00.956.942 I load_tensors:  HTP0-REPACK model buffer size =   522.00 MiB
+.......................
+0.01.216.282 I common_init_result: added <|end_of_text|> logit bias = -inf
+0.01.216.290 I common_init_result: added <|eom_id|> logit bias = -inf
+0.01.216.291 I common_init_result: added <|eot_id|> logit bias = -inf
+0.01.216.405 I llama_context: constructing llama_context
+0.01.216.406 I llama_context: n_seq_max     = 1
+0.01.216.407 I llama_context: n_ctx         = 2048
+0.01.216.407 I llama_context: n_ctx_seq     = 2048
+0.01.216.408 I llama_context: n_batch       = 2048
+0.01.216.408 I llama_context: n_ubatch      = 512
+0.01.216.408 I llama_context: causal_attn   = 1
+0.01.216.409 I llama_context: flash_attn    = auto
+0.01.216.410 I llama_context: kv_unified    = false
+0.01.216.411 I llama_context: freq_base     = 500000.0
+0.01.216.412 I llama_context: freq_scale    = 1
+0.01.216.412 I llama_context: n_rs_seq      = 0
+0.01.216.412 I llama_context: n_outputs_max = 2048
+0.01.216.413 W llama_context: n_ctx_seq (2048) < n_ctx_train (131072) -- the full capacity of the model will not be utilized
+0.01.216.422 D set_abort_callback: call
+0.01.216.493 I llama_context:        CPU  output buffer size =     0.49 MiB
+0.01.216.505 D llama_kv_cache: layer   0: dev = HTP0
+0.01.216.509 D llama_kv_cache: layer   1: dev = HTP0
+0.01.216.511 D llama_kv_cache: layer   2: dev = HTP0
+0.01.216.512 D llama_kv_cache: layer   3: dev = HTP0
+0.01.216.513 D llama_kv_cache: layer   4: dev = HTP0
+0.01.216.515 D llama_kv_cache: layer   5: dev = HTP0
+0.01.216.516 D llama_kv_cache: layer   6: dev = HTP0
+0.01.216.517 D llama_kv_cache: layer   7: dev = HTP0
+0.01.216.518 D llama_kv_cache: layer   8: dev = HTP0
+0.01.216.519 D llama_kv_cache: layer   9: dev = HTP0
+0.01.216.520 D llama_kv_cache: layer  10: dev = HTP0
+0.01.216.521 D llama_kv_cache: layer  11: dev = HTP0
+0.01.216.522 D llama_kv_cache: layer  12: dev = HTP0
+0.01.216.523 D llama_kv_cache: layer  13: dev = HTP0
+0.01.216.523 D llama_kv_cache: layer  14: dev = HTP0
+0.01.216.524 D llama_kv_cache: layer  15: dev = HTP0
+0.01.226.264 I llama_kv_cache:       HTP0 KV buffer size =    64.00 MiB
+0.01.227.540 I llama_kv_cache: size =   64.00 MiB (  2048 cells,  16 layers,  1/1 seqs), K (f16):   32.00 MiB, V (f16):   32.00 MiB
+0.01.227.556 I llama_kv_cache: attn_rot_k = 0, n_embd_head_k_all = 64
+0.01.227.556 I llama_kv_cache: attn_rot_v = 0, n_embd_head_k_all = 64
+0.01.227.559 D llama_context: enumerating backends
+0.01.227.564 D llama_context: backend_ptrs.size() = 2
+0.01.227.565 I sched_reserve: reserving ...
+0.01.227.566 D sched_reserve: max_nodes = 1184
+0.01.227.756 D sched_reserve: reserving full memory module
+0.01.227.759 D sched_reserve: worst-case: n_tokens = 512, n_seqs = 1, n_outputs = 1
+0.01.227.760 D graph_reserve: reserving a graph for ubatch with n_tokens =    1, n_seqs =  1, n_outputs =    1
+0.01.227.956 I sched_reserve: Flash Attention was auto, set to enabled
+0.01.227.956 I sched_reserve: resolving fused Gated Delta Net support:
+0.01.227.957 D graph_reserve: reserving a graph for ubatch with n_tokens =    1, n_seqs =  1, n_outputs =    1
+0.01.228.087 I sched_reserve: fused Gated Delta Net (autoregressive) enabled
+0.01.228.088 D graph_reserve: reserving a graph for ubatch with n_tokens =   16, n_seqs =  1, n_outputs =   16
+0.01.228.305 I sched_reserve: fused Gated Delta Net (chunked) enabled
+0.01.228.305 D graph_reserve: reserving a graph for ubatch with n_tokens =  512, n_seqs =  1, n_outputs =  512
+0.01.281.524 D graph_reserve: reserving a graph for ubatch with n_tokens =    1, n_seqs =  1, n_outputs =    1
+0.01.281.805 D graph_reserve: reserving a graph for ubatch with n_tokens =  512, n_seqs =  1, n_outputs =  512
+0.01.282.056 I sched_reserve:       HTP0 compute buffer size =   254.50 MiB
+0.01.282.065 I sched_reserve:        CPU compute buffer size =    10.01 MiB
+0.01.282.066 I sched_reserve: graph nodes  = 502
+0.01.282.067 I sched_reserve: graph splits = 2
+0.01.282.068 I sched_reserve: reserve took 54.50 ms, sched copies = 1
+0.01.282.241 D set_adapters_lora: adapters = 0x0
+0.01.282.241 D adapters_lora_are_same: adapters = 0x0
+0.01.291.938 I llama_completion: llama threadpool init, n_threads = 8
+0.01.292.987 D attach_threadpool: call
+0.01.293.017 I 
+0.01.294.112 I system_info: n_threads = 8 (n_threads_batch = 8) / 8 | CPU : NEON = 1 | ARM_FMA = 1 | FP16_VA = 1 | MATMUL_INT8 = 1 | DOTPROD = 1 | REPACK = 1 | 
+0.01.294.116 I 
+0.01.294.117 D n_ctx: 2048, add_bos: 1
+0.01.294.331 D tokenize the prompt
+0.01.294.352 D prompt: "Hello."
+0.01.294.370 D tokens: [ '<|begin_of_text|>':128000, 'Hello':9906, '.':13 ]
+0.01.294.496 I sampler seed: 1208529010
+0.01.294.503 I sampler params: 
+	repeat_last_n = 64, repeat_penalty = 1.000, frequency_penalty = 0.000, presence_penalty = 0.000
+	dry_multiplier = 0.000, dry_base = 1.750, dry_allowed_length = 2, dry_penalty_last_n = -1
+	top_k = 40, top_p = 0.900, min_p = 0.050, xtc_probability = 0.000, xtc_threshold = 0.100, typical_p = 1.000, top_n_sigma = -1.000, temp = 0.600
+	mirostat = 0, mirostat_lr = 0.100, mirostat_ent = 5.000, adaptive_target = -1.000, adaptive_decay = 0.900
+0.01.294.509 I sampler chain: logits -> ?penalties -> ?dry -> ?top-n-sigma -> top-k -> ?typical -> top-p -> min-p -> ?xtc -> temp-ext -> dist 
+0.01.294.510 I generate: n_ctx = 2048, n_batch = 2048, n_predict = 4, n_keep = 1
+0.01.294.510 I 
+0.01.294.549 D embd_inp.size(): 3, n_consumed: 0
+Hello.0.01.295.486 I [OPTRACE][SCHED] call=1 n_splits=2
+0.01.295.487 I [OPTRACE][SCHED] split=0 backend=CPU n_nodes=1 n_inputs=0
+0.01.295.490 I [OPTRACE][SCHED]   GET_ROWS dst="embd" dst_type=f32 dst_buft=CPU src0="token_embd.weight" src0_type=f32 src0_buft=CPU_Mapped src1="inp_tokens" src1_type=i32 src1_buft=CPU
+0.01.295.492 I [OPTRACE][CPU] idx=0 op=GET_ROWS dst="embd" dst_type=f32 dst_buft=CPU src0="token_embd.weight" src0_type=f32 src0_buft=CPU_Mapped src1="inp_tokens" src1_type=i32 src1_buft=CPU
+0.01.295.666 I [OPTRACE][SCHED] split=1 backend=HTP0 n_nodes=501 n_inputs=6
+0.01.295.668 I [OPTRACE][SCHED]   GET_ROWS dst="node_489" dst_type=f32 dst_buft=HTP0 src0="attn_out-15" src0_type=f32 src0_buft=HTP0 src1="HTP0#leaf_183#0" src1_type=i32 src1_buft=HTP0
+0.01.295.669 I [OPTRACE][SCHED]   GET_ROWS dst="node_490" dst_type=f32 dst_buft=HTP0 src0="l_out-14" src0_type=f32 src0_buft=HTP0 src1="HTP0#leaf_183#0" src1_type=i32 src1_buft=HTP0
+0.01.295.690 I [OPTRACE][HTP] HTP0 n_htp_ops=228 graph_uid=39
+0.01.295.692 I [OPTRACE][HTP] idx=0 op=RMS_NORM dst="norm-0" dst_type=f32 dst_buft=HTP0 src0="HTP0#embd#0" src0_buft=HTP0
+0.01.295.693 I [OPTRACE][HTP] idx=1 op=MUL_MAT dst="Vcur-0" dst_type=f32 dst_buft=HTP0 src0="blk.0.attn_v.weight" src0_buft=HTP0-REPACK
+0.01.295.694 I [OPTRACE][HTP] idx=2 op=ROPE dst="Qcur-0" dst_type=f32 dst_buft=HTP0 src0="Qcur-0" src0_buft=HTP0
+0.01.295.694 I [OPTRACE][HTP] idx=3 op=ROPE dst="Kcur-0" dst_type=f32 dst_buft=HTP0 src0="Kcur-0" src0_buft=HTP0
+0.01.295.695 I [OPTRACE][HTP] idx=4 op=SET_ROWS dst="cache_k_l0 (view)" dst_type=f16 dst_buft=HTP0 src0="Kcur-0 (view)" src0_buft=HTP0
+0.01.295.696 I [OPTRACE][HTP] idx=5 op=SET_ROWS dst="cache_v_l0 (view)" dst_type=f16 dst_buft=HTP0 src0="Vcur-0 (view)" src0_buft=HTP0
+0.01.295.697 I [OPTRACE][HTP] idx=6 op=FLASH_ATTN_EXT dst="__fattn__-0" dst_type=f32 dst_buft=HTP0 src0="Qcur-0 (view) (permuted)" src0_buft=HTP0
+0.01.295.698 I [OPTRACE][HTP] idx=7 op=MUL_MAT dst="attn_out-0" dst_type=f32 dst_buft=HTP0 src0="blk.0.attn_output.weight" src0_buft=HTP0-REPACK
+0.01.295.699 I [OPTRACE][HTP] idx=8 op=ADD dst="ffn_inp-0" dst_type=f32 dst_buft=HTP0 src0="attn_out-0" src0_buft=HTP0
+0.01.295.699 I [OPTRACE][HTP] idx=9 op=RMS_NORM dst="norm-0" dst_type=f32 dst_buft=HTP0 src0="ffn_inp-0" src0_buft=HTP0
+0.01.295.700 I [OPTRACE][HTP] idx=10 op=MUL_MAT dst="ffn_gate-0" dst_type=f32 dst_buft=HTP0 src0="blk.0.ffn_gate.weight" src0_buft=HTP0-REPACK
+0.01.295.701 I [OPTRACE][HTP] idx=11 op=GLU dst="ffn_swiglu-0" dst_type=f32 dst_buft=HTP0 src0="ffn_gate-0" src0_buft=HTP0
+0.01.295.702 I [OPTRACE][HTP] idx=12 op=MUL_MAT dst="ffn_out-0" dst_type=f32 dst_buft=HTP0 src0="blk.0.ffn_down.weight" src0_buft=HTP0-REPACK
+0.01.295.702 I [OPTRACE][HTP] idx=13 op=ADD dst="l_out-0" dst_type=f32 dst_buft=HTP0 src0="ffn_out-0" src0_buft=HTP0
+0.01.295.703 I [OPTRACE][HTP] idx=14 op=RMS_NORM dst="norm-1" dst_type=f32 dst_buft=HTP0 src0="l_out-0" src0_buft=HTP0
+0.01.295.704 I [OPTRACE][HTP] idx=15 op=MUL_MAT dst="Vcur-1" dst_type=f32 dst_buft=HTP0 src0="blk.1.attn_v.weight" src0_buft=HTP0-REPACK
+0.01.295.704 I [OPTRACE][HTP] idx=16 op=ROPE dst="Qcur-1" dst_type=f32 dst_buft=HTP0 src0="Qcur-1" src0_buft=HTP0
+0.01.295.705 I [OPTRACE][HTP] idx=17 op=ROPE dst="Kcur-1" dst_type=f32 dst_buft=HTP0 src0="Kcur-1" src0_buft=HTP0
+0.01.295.705 I [OPTRACE][HTP] idx=18 op=SET_ROWS dst="cache_k_l1 (view)" dst_type=f16 dst_buft=HTP0 src0="Kcur-1 (view)" src0_buft=HTP0
+0.01.295.706 I [OPTRACE][HTP] idx=19 op=SET_ROWS dst="cache_v_l1 (view)" dst_type=f16 dst_buft=HTP0 src0="Vcur-1 (view)" src0_buft=HTP0
+0.01.295.707 I [OPTRACE][HTP] idx=20 op=FLASH_ATTN_EXT dst="__fattn__-1" dst_type=f32 dst_buft=HTP0 src0="Qcur-1 (view) (permuted)" src0_buft=HTP0
+0.01.295.708 I [OPTRACE][HTP] idx=21 op=MUL_MAT dst="attn_out-1" dst_type=f32 dst_buft=HTP0 src0="blk.1.attn_output.weight" src0_buft=HTP0-REPACK
+0.01.295.708 I [OPTRACE][HTP] idx=22 op=ADD dst="ffn_inp-1" dst_type=f32 dst_buft=HTP0 src0="attn_out-1" src0_buft=HTP0
+0.01.295.709 I [OPTRACE][HTP] idx=23 op=RMS_NORM dst="norm-1" dst_type=f32 dst_buft=HTP0 src0="ffn_inp-1" src0_buft=HTP0
+0.01.295.709 I [OPTRACE][HTP] idx=24 op=MUL_MAT dst="ffn_gate-1" dst_type=f32 dst_buft=HTP0 src0="blk.1.ffn_gate.weight" src0_buft=HTP0-REPACK
+0.01.295.710 I [OPTRACE][HTP] idx=25 op=GLU dst="ffn_swiglu-1" dst_type=f32 dst_buft=HTP0 src0="ffn_gate-1" src0_buft=HTP0
+0.01.295.711 I [OPTRACE][HTP] idx=26 op=MUL_MAT dst="ffn_out-1" dst_type=f32 dst_buft=HTP0 src0="blk.1.ffn_down.weight" src0_buft=HTP0-REPACK
+0.01.295.711 I [OPTRACE][HTP] idx=27 op=ADD dst="l_out-1" dst_type=f32 dst_buft=HTP0 src0="ffn_out-1" src0_buft=HTP0
+0.01.295.712 I [OPTRACE][HTP] idx=28 op=RMS_NORM dst="norm-2" dst_type=f32 dst_buft=HTP0 src0="l_out-1" src0_buft=HTP0
+0.01.295.712 I [OPTRACE][HTP] idx=29 op=MUL_MAT dst="Vcur-2" dst_type=f32 dst_buft=HTP0 src0="blk.2.attn_v.weight" src0_buft=HTP0-REPACK
+0.01.295.713 I [OPTRACE][HTP] idx=30 op=ROPE dst="Qcur-2" dst_type=f32 dst_buft=HTP0 src0="Qcur-2" src0_buft=HTP0
+0.01.295.713 I [OPTRACE][HTP] idx=31 op=ROPE dst="Kcur-2" dst_type=f32 dst_buft=HTP0 src0="Kcur-2" src0_buft=HTP0
+0.01.295.714 I [OPTRACE][HTP] idx=32 op=SET_ROWS dst="cache_k_l2 (view)" dst_type=f16 dst_buft=HTP0 src0="Kcur-2 (view)" src0_buft=HTP0
+0.01.295.715 I [OPTRACE][HTP] idx=33 op=SET_ROWS dst="cache_v_l2 (view)" dst_type=f16 dst_buft=HTP0 src0="Vcur-2 (view)" src0_buft=HTP0
+0.01.295.716 I [OPTRACE][HTP] idx=34 op=FLASH_ATTN_EXT dst="__fattn__-2" dst_type=f32 dst_buft=HTP0 src0="Qcur-2 (view) (permuted)" src0_buft=HTP0
+0.01.295.718 I [OPTRACE][HTP] idx=35 op=MUL_MAT dst="attn_out-2" dst_type=f32 dst_buft=HTP0 src0="blk.2.attn_output.weight" src0_buft=HTP0-REPACK
+0.01.295.718 I [OPTRACE][HTP] idx=36 op=ADD dst="ffn_inp-2" dst_type=f32 dst_buft=HTP0 src0="attn_out-2" src0_buft=HTP0
+0.01.295.718 I [OPTRACE][HTP] idx=37 op=RMS_NORM dst="norm-2" dst_type=f32 dst_buft=HTP0 src0="ffn_inp-2" src0_buft=HTP0
+0.01.295.719 I [OPTRACE][HTP] idx=38 op=MUL_MAT dst="ffn_gate-2" dst_type=f32 dst_buft=HTP0 src0="blk.2.ffn_gate.weight" src0_buft=HTP0-REPACK
+0.01.295.719 I [OPTRACE][HTP] idx=39 op=GLU dst="ffn_swiglu-2" dst_type=f32 dst_buft=HTP0 src0="ffn_gate-2" src0_buft=HTP0
+0.01.295.720 I [OPTRACE][HTP] idx=40 op=MUL_MAT dst="ffn_out-2" dst_type=f32 dst_buft=HTP0 src0="blk.2.ffn_down.weight" src0_buft=HTP0-REPACK
+0.01.295.720 I [OPTRACE][HTP] idx=41 op=ADD dst="l_out-2" dst_type=f32 dst_buft=HTP0 src0="ffn_out-2" src0_buft=HTP0
+0.01.295.721 I [OPTRACE][HTP] idx=42 op=RMS_NORM dst="norm-3" dst_type=f32 dst_buft=HTP0 src0="l_out-2" src0_buft=HTP0
+0.01.295.721 I [OPTRACE][HTP] idx=43 op=MUL_MAT dst="Vcur-3" dst_type=f32 dst_buft=HTP0 src0="blk.3.attn_v.weight" src0_buft=HTP0-REPACK
+0.01.295.722 I [OPTRACE][HTP] idx=44 op=ROPE dst="Qcur-3" dst_type=f32 dst_buft=HTP0 src0="Qcur-3" src0_buft=HTP0
+0.01.295.722 I [OPTRACE][HTP] idx=45 op=ROPE dst="Kcur-3" dst_type=f32 dst_buft=HTP0 src0="Kcur-3" src0_buft=HTP0
+0.01.295.722 I [OPTRACE][HTP] idx=46 op=SET_ROWS dst="cache_k_l3 (view)" dst_type=f16 dst_buft=HTP0 src0="Kcur-3 (view)" src0_buft=HTP0
+0.01.295.723 I [OPTRACE][HTP] idx=47 op=SET_ROWS dst="cache_v_l3 (view)" dst_type=f16 dst_buft=HTP0 src0="Vcur-3 (view)" src0_buft=HTP0
+0.01.295.724 I [OPTRACE][HTP] idx=48 op=FLASH_ATTN_EXT dst="__fattn__-3" dst_type=f32 dst_buft=HTP0 src0="Qcur-3 (view) (permuted)" src0_buft=HTP0
+0.01.295.724 I [OPTRACE][HTP] idx=49 op=MUL_MAT dst="attn_out-3" dst_type=f32 dst_buft=HTP0 src0="blk.3.attn_output.weight" src0_buft=HTP0-REPACK
+0.01.295.725 I [OPTRACE][HTP] idx=50 op=ADD dst="ffn_inp-3" dst_type=f32 dst_buft=HTP0 src0="attn_out-3" src0_buft=HTP0
+0.01.295.725 I [OPTRACE][HTP] idx=51 op=RMS_NORM dst="norm-3" dst_type=f32 dst_buft=HTP0 src0="ffn_inp-3" src0_buft=HTP0
+0.01.295.726 I [OPTRACE][HTP] idx=52 op=MUL_MAT dst="ffn_gate-3" dst_type=f32 dst_buft=HTP0 src0="blk.3.ffn_gate.weight" src0_buft=HTP0-REPACK
+0.01.295.726 I [OPTRACE][HTP] idx=53 op=GLU dst="ffn_swiglu-3" dst_type=f32 dst_buft=HTP0 src0="ffn_gate-3" src0_buft=HTP0
+0.01.295.727 I [OPTRACE][HTP] idx=54 op=MUL_MAT dst="ffn_out-3" dst_type=f32 dst_buft=HTP0 src0="blk.3.ffn_down.weight" src0_buft=HTP0-REPACK
+0.01.295.727 I [OPTRACE][HTP] idx=55 op=ADD dst="l_out-3" dst_type=f32 dst_buft=HTP0 src0="ffn_out-3" src0_buft=HTP0
+0.01.295.727 I [OPTRACE][HTP] idx=56 op=RMS_NORM dst="norm-4" dst_type=f32 dst_buft=HTP0 src0="l_out-3" src0_buft=HTP0
+0.01.295.728 I [OPTRACE][HTP] idx=57 op=MUL_MAT dst="Vcur-4" dst_type=f32 dst_buft=HTP0 src0="blk.4.attn_v.weight" src0_buft=HTP0-REPACK
+0.01.295.728 I [OPTRACE][HTP] idx=58 op=ROPE dst="Qcur-4" dst_type=f32 dst_buft=HTP0 src0="Qcur-4" src0_buft=HTP0
+0.01.295.729 I [OPTRACE][HTP] idx=59 op=ROPE dst="Kcur-4" dst_type=f32 dst_buft=HTP0 src0="Kcur-4" src0_buft=HTP0
+0.01.295.729 I [OPTRACE][HTP] idx=60 op=SET_ROWS dst="cache_k_l4 (view)" dst_type=f16 dst_buft=HTP0 src0="Kcur-4 (view)" src0_buft=HTP0
+0.01.295.730 I [OPTRACE][HTP] idx=61 op=SET_ROWS dst="cache_v_l4 (view)" dst_type=f16 dst_buft=HTP0 src0="Vcur-4 (view)" src0_buft=HTP0
+0.01.295.730 I [OPTRACE][HTP] idx=62 op=FLASH_ATTN_EXT dst="__fattn__-4" dst_type=f32 dst_buft=HTP0 src0="Qcur-4 (view) (permuted)" src0_buft=HTP0
+0.01.295.731 I [OPTRACE][HTP] idx=63 op=MUL_MAT dst="attn_out-4" dst_type=f32 dst_buft=HTP0 src0="blk.4.attn_output.weight" src0_buft=HTP0-REPACK
+0.01.295.731 I [OPTRACE][HTP] idx=64 op=ADD dst="ffn_inp-4" dst_type=f32 dst_buft=HTP0 src0="attn_out-4" src0_buft=HTP0
+0.01.295.732 I [OPTRACE][HTP] idx=65 op=RMS_NORM dst="norm-4" dst_type=f32 dst_buft=HTP0 src0="ffn_inp-4" src0_buft=HTP0
+0.01.295.732 I [OPTRACE][HTP] idx=66 op=MUL_MAT dst="ffn_gate-4" dst_type=f32 dst_buft=HTP0 src0="blk.4.ffn_gate.weight" src0_buft=HTP0-REPACK
+0.01.295.733 I [OPTRACE][HTP] idx=67 op=GLU dst="ffn_swiglu-4" dst_type=f32 dst_buft=HTP0 src0="ffn_gate-4" src0_buft=HTP0
+0.01.295.733 I [OPTRACE][HTP] idx=68 op=MUL_MAT dst="ffn_out-4" dst_type=f32 dst_buft=HTP0 src0="blk.4.ffn_down.weight" src0_buft=HTP0-REPACK
+0.01.295.734 I [OPTRACE][HTP] idx=69 op=ADD dst="l_out-4" dst_type=f32 dst_buft=HTP0 src0="ffn_out-4" src0_buft=HTP0
+0.01.295.734 I [OPTRACE][HTP] idx=70 op=RMS_NORM dst="norm-5" dst_type=f32 dst_buft=HTP0 src0="l_out-4" src0_buft=HTP0
+0.01.295.735 I [OPTRACE][HTP] idx=71 op=MUL_MAT dst="Vcur-5" dst_type=f32 dst_buft=HTP0 src0="blk.5.attn_v.weight" src0_buft=HTP0-REPACK
+0.01.295.735 I [OPTRACE][HTP] idx=72 op=ROPE dst="Qcur-5" dst_type=f32 dst_buft=HTP0 src0="Qcur-5" src0_buft=HTP0
+0.01.295.736 I [OPTRACE][HTP] idx=73 op=ROPE dst="Kcur-5" dst_type=f32 dst_buft=HTP0 src0="Kcur-5" src0_buft=HTP0
+0.01.295.736 I [OPTRACE][HTP] idx=74 op=SET_ROWS dst="cache_k_l5 (view)" dst_type=f16 dst_buft=HTP0 src0="Kcur-5 (view)" src0_buft=HTP0
+0.01.295.736 I [OPTRACE][HTP] idx=75 op=SET_ROWS dst="cache_v_l5 (view)" dst_type=f16 dst_buft=HTP0 src0="Vcur-5 (view)" src0_buft=HTP0
+0.01.295.737 I [OPTRACE][HTP] idx=76 op=FLASH_ATTN_EXT dst="__fattn__-5" dst_type=f32 dst_buft=HTP0 src0="Qcur-5 (view) (permuted)" src0_buft=HTP0
+0.01.295.738 I [OPTRACE][HTP] idx=77 op=MUL_MAT dst="attn_out-5" dst_type=f32 dst_buft=HTP0 src0="blk.5.attn_output.weight" src0_buft=HTP0-REPACK
+0.01.295.738 I [OPTRACE][HTP] idx=78 op=ADD dst="ffn_inp-5" dst_type=f32 dst_buft=HTP0 src0="attn_out-5" src0_buft=HTP0
+0.01.295.739 I [OPTRACE][HTP] idx=79 op=RMS_NORM dst="norm-5" dst_type=f32 dst_buft=HTP0 src0="ffn_inp-5" src0_buft=HTP0
+0.01.295.739 I [OPTRACE][HTP] idx=80 op=MUL_MAT dst="ffn_gate-5" dst_type=f32 dst_buft=HTP0 src0="blk.5.ffn_gate.weight" src0_buft=HTP0-REPACK
+0.01.295.740 I [OPTRACE][HTP] idx=81 op=GLU dst="ffn_swiglu-5" dst_type=f32 dst_buft=HTP0 src0="ffn_gate-5" src0_buft=HTP0
+0.01.295.740 I [OPTRACE][HTP] idx=82 op=MUL_MAT dst="ffn_out-5" dst_type=f32 dst_buft=HTP0 src0="blk.5.ffn_down.weight" src0_buft=HTP0-REPACK
+0.01.295.741 I [OPTRACE][HTP] idx=83 op=ADD dst="l_out-5" dst_type=f32 dst_buft=HTP0 src0="ffn_out-5" src0_buft=HTP0
+0.01.295.741 I [OPTRACE][HTP] idx=84 op=RMS_NORM dst="norm-6" dst_type=f32 dst_buft=HTP0 src0="l_out-5" src0_buft=HTP0
+0.01.295.741 I [OPTRACE][HTP] idx=85 op=MUL_MAT dst="Vcur-6" dst_type=f32 dst_buft=HTP0 src0="blk.6.attn_v.weight" src0_buft=HTP0-REPACK
+0.01.295.742 I [OPTRACE][HTP] idx=86 op=ROPE dst="Qcur-6" dst_type=f32 dst_buft=HTP0 src0="Qcur-6" src0_buft=HTP0
+0.01.295.742 I [OPTRACE][HTP] idx=87 op=ROPE dst="Kcur-6" dst_type=f32 dst_buft=HTP0 src0="Kcur-6" src0_buft=HTP0
+0.01.295.743 I [OPTRACE][HTP] idx=88 op=SET_ROWS dst="cache_k_l6 (view)" dst_type=f16 dst_buft=HTP0 src0="Kcur-6 (view)" src0_buft=HTP0
+0.01.295.743 I [OPTRACE][HTP] idx=89 op=SET_ROWS dst="cache_v_l6 (view)" dst_type=f16 dst_buft=HTP0 src0="Vcur-6 (view)" src0_buft=HTP0
+0.01.295.744 I [OPTRACE][HTP] idx=90 op=FLASH_ATTN_EXT dst="__fattn__-6" dst_type=f32 dst_buft=HTP0 src0="Qcur-6 (view) (permuted)" src0_buft=HTP0
+0.01.295.744 I [OPTRACE][HTP] idx=91 op=MUL_MAT dst="attn_out-6" dst_type=f32 dst_buft=HTP0 src0="blk.6.attn_output.weight" src0_buft=HTP0-REPACK
+0.01.295.745 I [OPTRACE][HTP] idx=92 op=ADD dst="ffn_inp-6" dst_type=f32 dst_buft=HTP0 src0="attn_out-6" src0_buft=HTP0
+0.01.295.745 I [OPTRACE][HTP] idx=93 op=RMS_NORM dst="norm-6" dst_type=f32 dst_buft=HTP0 src0="ffn_inp-6" src0_buft=HTP0
+0.01.295.746 I [OPTRACE][HTP] idx=94 op=MUL_MAT dst="ffn_gate-6" dst_type=f32 dst_buft=HTP0 src0="blk.6.ffn_gate.weight" src0_buft=HTP0-REPACK
+0.01.295.746 I [OPTRACE][HTP] idx=95 op=GLU dst="ffn_swiglu-6" dst_type=f32 dst_buft=HTP0 src0="ffn_gate-6" src0_buft=HTP0
+0.01.295.747 I [OPTRACE][HTP] idx=96 op=MUL_MAT dst="ffn_out-6" dst_type=f32 dst_buft=HTP0 src0="blk.6.ffn_down.weight" src0_buft=HTP0-REPACK
+0.01.295.747 I [OPTRACE][HTP] idx=97 op=ADD dst="l_out-6" dst_type=f32 dst_buft=HTP0 src0="ffn_out-6" src0_buft=HTP0
+0.01.295.748 I [OPTRACE][HTP] idx=98 op=RMS_NORM dst="norm-7" dst_type=f32 dst_buft=HTP0 src0="l_out-6" src0_buft=HTP0
+0.01.295.748 I [OPTRACE][HTP] idx=99 op=MUL_MAT dst="Vcur-7" dst_type=f32 dst_buft=HTP0 src0="blk.7.attn_v.weight" src0_buft=HTP0-REPACK
+0.01.295.749 I [OPTRACE][HTP] idx=100 op=ROPE dst="Qcur-7" dst_type=f32 dst_buft=HTP0 src0="Qcur-7" src0_buft=HTP0
+0.01.295.749 I [OPTRACE][HTP] idx=101 op=ROPE dst="Kcur-7" dst_type=f32 dst_buft=HTP0 src0="Kcur-7" src0_buft=HTP0
+0.01.295.750 I [OPTRACE][HTP] idx=102 op=SET_ROWS dst="cache_k_l7 (view)" dst_type=f16 dst_buft=HTP0 src0="Kcur-7 (view)" src0_buft=HTP0
+0.01.295.750 I [OPTRACE][HTP] idx=103 op=SET_ROWS dst="cache_v_l7 (view)" dst_type=f16 dst_buft=HTP0 src0="Vcur-7 (view)" src0_buft=HTP0
+0.01.295.751 I [OPTRACE][HTP] idx=104 op=FLASH_ATTN_EXT dst="__fattn__-7" dst_type=f32 dst_buft=HTP0 src0="Qcur-7 (view) (permuted)" src0_buft=HTP0
+0.01.295.751 I [OPTRACE][HTP] idx=105 op=MUL_MAT dst="attn_out-7" dst_type=f32 dst_buft=HTP0 src0="blk.7.attn_output.weight" src0_buft=HTP0-REPACK
+0.01.295.752 I [OPTRACE][HTP] idx=106 op=ADD dst="ffn_inp-7" dst_type=f32 dst_buft=HTP0 src0="attn_out-7" src0_buft=HTP0
+0.01.295.752 I [OPTRACE][HTP] idx=107 op=RMS_NORM dst="norm-7" dst_type=f32 dst_buft=HTP0 src0="ffn_inp-7" src0_buft=HTP0
+0.01.295.753 I [OPTRACE][HTP] idx=108 op=MUL_MAT dst="ffn_gate-7" dst_type=f32 dst_buft=HTP0 src0="blk.7.ffn_gate.weight" src0_buft=HTP0-REPACK
+0.01.295.753 I [OPTRACE][HTP] idx=109 op=GLU dst="ffn_swiglu-7" dst_type=f32 dst_buft=HTP0 src0="ffn_gate-7" src0_buft=HTP0
+0.01.295.754 I [OPTRACE][HTP] idx=110 op=MUL_MAT dst="ffn_out-7" dst_type=f32 dst_buft=HTP0 src0="blk.7.ffn_down.weight" src0_buft=HTP0-REPACK
+0.01.295.754 I [OPTRACE][HTP] idx=111 op=ADD dst="l_out-7" dst_type=f32 dst_buft=HTP0 src0="ffn_out-7" src0_buft=HTP0
+0.01.295.755 I [OPTRACE][HTP] idx=112 op=RMS_NORM dst="norm-8" dst_type=f32 dst_buft=HTP0 src0="l_out-7" src0_buft=HTP0
+0.01.295.755 I [OPTRACE][HTP] idx=113 op=MUL_MAT dst="Vcur-8" dst_type=f32 dst_buft=HTP0 src0="blk.8.attn_v.weight" src0_buft=HTP0-REPACK
+0.01.295.756 I [OPTRACE][HTP] idx=114 op=ROPE dst="Qcur-8" dst_type=f32 dst_buft=HTP0 src0="Qcur-8" src0_buft=HTP0
+0.01.295.756 I [OPTRACE][HTP] idx=115 op=ROPE dst="Kcur-8" dst_type=f32 dst_buft=HTP0 src0="Kcur-8" src0_buft=HTP0
+0.01.295.757 I [OPTRACE][HTP] idx=116 op=SET_ROWS dst="cache_k_l8 (view)" dst_type=f16 dst_buft=HTP0 src0="Kcur-8 (view)" src0_buft=HTP0
+0.01.295.757 I [OPTRACE][HTP] idx=117 op=SET_ROWS dst="cache_v_l8 (view)" dst_type=f16 dst_buft=HTP0 src0="Vcur-8 (view)" src0_buft=HTP0
+0.01.295.758 I [OPTRACE][HTP] idx=118 op=FLASH_ATTN_EXT dst="__fattn__-8" dst_type=f32 dst_buft=HTP0 src0="Qcur-8 (view) (permuted)" src0_buft=HTP0
+0.01.295.759 I [OPTRACE][HTP] idx=119 op=MUL_MAT dst="attn_out-8" dst_type=f32 dst_buft=HTP0 src0="blk.8.attn_output.weight" src0_buft=HTP0-REPACK
+0.01.295.759 I [OPTRACE][HTP] idx=120 op=ADD dst="ffn_inp-8" dst_type=f32 dst_buft=HTP0 src0="attn_out-8" src0_buft=HTP0
+0.01.295.759 I [OPTRACE][HTP] idx=121 op=RMS_NORM dst="norm-8" dst_type=f32 dst_buft=HTP0 src0="ffn_inp-8" src0_buft=HTP0
+0.01.295.760 I [OPTRACE][HTP] idx=122 op=MUL_MAT dst="ffn_gate-8" dst_type=f32 dst_buft=HTP0 src0="blk.8.ffn_gate.weight" src0_buft=HTP0-REPACK
+0.01.295.760 I [OPTRACE][HTP] idx=123 op=GLU dst="ffn_swiglu-8" dst_type=f32 dst_buft=HTP0 src0="ffn_gate-8" src0_buft=HTP0
+0.01.295.761 I [OPTRACE][HTP] idx=124 op=MUL_MAT dst="ffn_out-8" dst_type=f32 dst_buft=HTP0 src0="blk.8.ffn_down.weight" src0_buft=HTP0-REPACK
+0.01.295.762 I [OPTRACE][HTP] idx=125 op=ADD dst="l_out-8" dst_type=f32 dst_buft=HTP0 src0="ffn_out-8" src0_buft=HTP0
+0.01.295.762 I [OPTRACE][HTP] idx=126 op=RMS_NORM dst="norm-9" dst_type=f32 dst_buft=HTP0 src0="l_out-8" src0_buft=HTP0
+0.01.295.762 I [OPTRACE][HTP] idx=127 op=MUL_MAT dst="Vcur-9" dst_type=f32 dst_buft=HTP0 src0="blk.9.attn_v.weight" src0_buft=HTP0-REPACK
+0.01.295.763 I [OPTRACE][HTP] idx=128 op=ROPE dst="Qcur-9" dst_type=f32 dst_buft=HTP0 src0="Qcur-9" src0_buft=HTP0
+0.01.295.763 I [OPTRACE][HTP] idx=129 op=ROPE dst="Kcur-9" dst_type=f32 dst_buft=HTP0 src0="Kcur-9" src0_buft=HTP0
+0.01.295.764 I [OPTRACE][HTP] idx=130 op=SET_ROWS dst="cache_k_l9 (view)" dst_type=f16 dst_buft=HTP0 src0="Kcur-9 (view)" src0_buft=HTP0
+0.01.295.764 I [OPTRACE][HTP] idx=131 op=SET_ROWS dst="cache_v_l9 (view)" dst_type=f16 dst_buft=HTP0 src0="Vcur-9 (view)" src0_buft=HTP0
+0.01.295.765 I [OPTRACE][HTP] idx=132 op=FLASH_ATTN_EXT dst="__fattn__-9" dst_type=f32 dst_buft=HTP0 src0="Qcur-9 (view) (permuted)" src0_buft=HTP0
+0.01.295.766 I [OPTRACE][HTP] idx=133 op=MUL_MAT dst="attn_out-9" dst_type=f32 dst_buft=HTP0 src0="blk.9.attn_output.weight" src0_buft=HTP0-REPACK
+0.01.295.766 I [OPTRACE][HTP] idx=134 op=ADD dst="ffn_inp-9" dst_type=f32 dst_buft=HTP0 src0="attn_out-9" src0_buft=HTP0
+0.01.295.766 I [OPTRACE][HTP] idx=135 op=RMS_NORM dst="norm-9" dst_type=f32 dst_buft=HTP0 src0="ffn_inp-9" src0_buft=HTP0
+0.01.295.767 I [OPTRACE][HTP] idx=136 op=MUL_MAT dst="ffn_gate-9" dst_type=f32 dst_buft=HTP0 src0="blk.9.ffn_gate.weight" src0_buft=HTP0-REPACK
+0.01.295.767 I [OPTRACE][HTP] idx=137 op=GLU dst="ffn_swiglu-9" dst_type=f32 dst_buft=HTP0 src0="ffn_gate-9" src0_buft=HTP0
+0.01.295.768 I [OPTRACE][HTP] idx=138 op=MUL_MAT dst="ffn_out-9" dst_type=f32 dst_buft=HTP0 src0="blk.9.ffn_down.weight" src0_buft=HTP0-REPACK
+0.01.295.769 I [OPTRACE][HTP] idx=139 op=ADD dst="l_out-9" dst_type=f32 dst_buft=HTP0 src0="ffn_out-9" src0_buft=HTP0
+0.01.295.769 I [OPTRACE][HTP] idx=140 op=RMS_NORM dst="norm-10" dst_type=f32 dst_buft=HTP0 src0="l_out-9" src0_buft=HTP0
+0.01.295.769 I [OPTRACE][HTP] idx=141 op=MUL_MAT dst="Vcur-10" dst_type=f32 dst_buft=HTP0 src0="blk.10.attn_v.weight" src0_buft=HTP0-REPACK
+0.01.295.770 I [OPTRACE][HTP] idx=142 op=ROPE dst="Qcur-10" dst_type=f32 dst_buft=HTP0 src0="Qcur-10" src0_buft=HTP0
+0.01.295.770 I [OPTRACE][HTP] idx=143 op=ROPE dst="Kcur-10" dst_type=f32 dst_buft=HTP0 src0="Kcur-10" src0_buft=HTP0
+0.01.295.771 I [OPTRACE][HTP] idx=144 op=SET_ROWS dst="cache_k_l10 (view)" dst_type=f16 dst_buft=HTP0 src0="Kcur-10 (view)" src0_buft=HTP0
+0.01.295.771 I [OPTRACE][HTP] idx=145 op=SET_ROWS dst="cache_v_l10 (view)" dst_type=f16 dst_buft=HTP0 src0="Vcur-10 (view)" src0_buft=HTP0
+0.01.295.772 I [OPTRACE][HTP] idx=146 op=FLASH_ATTN_EXT dst="__fattn__-10" dst_type=f32 dst_buft=HTP0 src0="Qcur-10 (view) (permuted)" src0_buft=HTP0
+0.01.295.772 I [OPTRACE][HTP] idx=147 op=MUL_MAT dst="attn_out-10" dst_type=f32 dst_buft=HTP0 src0="blk.10.attn_output.weight" src0_buft=HTP0-REPACK
+0.01.295.773 I [OPTRACE][HTP] idx=148 op=ADD dst="ffn_inp-10" dst_type=f32 dst_buft=HTP0 src0="attn_out-10" src0_buft=HTP0
+0.01.295.773 I [OPTRACE][HTP] idx=149 op=RMS_NORM dst="norm-10" dst_type=f32 dst_buft=HTP0 src0="ffn_inp-10" src0_buft=HTP0
+0.01.295.774 I [OPTRACE][HTP] idx=150 op=MUL_MAT dst="ffn_gate-10" dst_type=f32 dst_buft=HTP0 src0="blk.10.ffn_gate.weight" src0_buft=HTP0-REPACK
+0.01.295.774 I [OPTRACE][HTP] idx=151 op=GLU dst="ffn_swiglu-10" dst_type=f32 dst_buft=HTP0 src0="ffn_gate-10" src0_buft=HTP0
+0.01.295.775 I [OPTRACE][HTP] idx=152 op=MUL_MAT dst="ffn_out-10" dst_type=f32 dst_buft=HTP0 src0="blk.10.ffn_down.weight" src0_buft=HTP0-REPACK
+0.01.295.776 I [OPTRACE][HTP] idx=153 op=ADD dst="l_out-10" dst_type=f32 dst_buft=HTP0 src0="ffn_out-10" src0_buft=HTP0
+0.01.295.776 I [OPTRACE][HTP] idx=154 op=RMS_NORM dst="norm-11" dst_type=f32 dst_buft=HTP0 src0="l_out-10" src0_buft=HTP0
+0.01.295.776 I [OPTRACE][HTP] idx=155 op=MUL_MAT dst="Vcur-11" dst_type=f32 dst_buft=HTP0 src0="blk.11.attn_v.weight" src0_buft=HTP0-REPACK
+0.01.295.777 I [OPTRACE][HTP] idx=156 op=ROPE dst="Qcur-11" dst_type=f32 dst_buft=HTP0 src0="Qcur-11" src0_buft=HTP0
+0.01.295.777 I [OPTRACE][HTP] idx=157 op=ROPE dst="Kcur-11" dst_type=f32 dst_buft=HTP0 src0="Kcur-11" src0_buft=HTP0
+0.01.295.778 I [OPTRACE][HTP] idx=158 op=SET_ROWS dst="cache_k_l11 (view)" dst_type=f16 dst_buft=HTP0 src0="Kcur-11 (view)" src0_buft=HTP0
+0.01.295.778 I [OPTRACE][HTP] idx=159 op=SET_ROWS dst="cache_v_l11 (view)" dst_type=f16 dst_buft=HTP0 src0="Vcur-11 (view)" src0_buft=HTP0
+0.01.295.779 I [OPTRACE][HTP] idx=160 op=FLASH_ATTN_EXT dst="__fattn__-11" dst_type=f32 dst_buft=HTP0 src0="Qcur-11 (view) (permuted)" src0_buft=HTP0
+0.01.295.780 I [OPTRACE][HTP] idx=161 op=MUL_MAT dst="attn_out-11" dst_type=f32 dst_buft=HTP0 src0="blk.11.attn_output.weight" src0_buft=HTP0-REPACK
+0.01.295.780 I [OPTRACE][HTP] idx=162 op=ADD dst="ffn_inp-11" dst_type=f32 dst_buft=HTP0 src0="attn_out-11" src0_buft=HTP0
+0.01.295.780 I [OPTRACE][HTP] idx=163 op=RMS_NORM dst="norm-11" dst_type=f32 dst_buft=HTP0 src0="ffn_inp-11" src0_buft=HTP0
+0.01.295.781 I [OPTRACE][HTP] idx=164 op=MUL_MAT dst="ffn_gate-11" dst_type=f32 dst_buft=HTP0 src0="blk.11.ffn_gate.weight" src0_buft=HTP0-REPACK
+0.01.295.781 I [OPTRACE][HTP] idx=165 op=GLU dst="ffn_swiglu-11" dst_type=f32 dst_buft=HTP0 src0="ffn_gate-11" src0_buft=HTP0
+0.01.295.782 I [OPTRACE][HTP] idx=166 op=MUL_MAT dst="ffn_out-11" dst_type=f32 dst_buft=HTP0 src0="blk.11.ffn_down.weight" src0_buft=HTP0-REPACK
+0.01.295.783 I [OPTRACE][HTP] idx=167 op=ADD dst="l_out-11" dst_type=f32 dst_buft=HTP0 src0="ffn_out-11" src0_buft=HTP0
+0.01.295.783 I [OPTRACE][HTP] idx=168 op=RMS_NORM dst="norm-12" dst_type=f32 dst_buft=HTP0 src0="l_out-11" src0_buft=HTP0
+0.01.295.784 I [OPTRACE][HTP] idx=169 op=MUL_MAT dst="Vcur-12" dst_type=f32 dst_buft=HTP0 src0="blk.12.attn_v.weight" src0_buft=HTP0-REPACK
+0.01.295.784 I [OPTRACE][HTP] idx=170 op=ROPE dst="Qcur-12" dst_type=f32 dst_buft=HTP0 src0="Qcur-12" src0_buft=HTP0
+0.01.295.785 I [OPTRACE][HTP] idx=171 op=ROPE dst="Kcur-12" dst_type=f32 dst_buft=HTP0 src0="Kcur-12" src0_buft=HTP0
+0.01.295.785 I [OPTRACE][HTP] idx=172 op=SET_ROWS dst="cache_k_l12 (view)" dst_type=f16 dst_buft=HTP0 src0="Kcur-12 (view)" src0_buft=HTP0
+0.01.295.785 I [OPTRACE][HTP] idx=173 op=SET_ROWS dst="cache_v_l12 (view)" dst_type=f16 dst_buft=HTP0 src0="Vcur-12 (view)" src0_buft=HTP0
+0.01.295.786 I [OPTRACE][HTP] idx=174 op=FLASH_ATTN_EXT dst="__fattn__-12" dst_type=f32 dst_buft=HTP0 src0="Qcur-12 (view) (permuted)" src0_buft=HTP0
+0.01.295.787 I [OPTRACE][HTP] idx=175 op=MUL_MAT dst="attn_out-12" dst_type=f32 dst_buft=HTP0 src0="blk.12.attn_output.weight" src0_buft=HTP0-REPACK
+0.01.295.787 I [OPTRACE][HTP] idx=176 op=ADD dst="ffn_inp-12" dst_type=f32 dst_buft=HTP0 src0="attn_out-12" src0_buft=HTP0
+0.01.295.788 I [OPTRACE][HTP] idx=177 op=RMS_NORM dst="norm-12" dst_type=f32 dst_buft=HTP0 src0="ffn_inp-12" src0_buft=HTP0
+0.01.295.788 I [OPTRACE][HTP] idx=178 op=MUL_MAT dst="ffn_gate-12" dst_type=f32 dst_buft=HTP0 src0="blk.12.ffn_gate.weight" src0_buft=HTP0-REPACK
+0.01.295.789 I [OPTRACE][HTP] idx=179 op=GLU dst="ffn_swiglu-12" dst_type=f32 dst_buft=HTP0 src0="ffn_gate-12" src0_buft=HTP0
+0.01.295.789 I [OPTRACE][HTP] idx=180 op=MUL_MAT dst="ffn_out-12" dst_type=f32 dst_buft=HTP0 src0="blk.12.ffn_down.weight" src0_buft=HTP0-REPACK
+0.01.295.790 I [OPTRACE][HTP] idx=181 op=ADD dst="l_out-12" dst_type=f32 dst_buft=HTP0 src0="ffn_out-12" src0_buft=HTP0
+0.01.295.790 I [OPTRACE][HTP] idx=182 op=RMS_NORM dst="norm-13" dst_type=f32 dst_buft=HTP0 src0="l_out-12" src0_buft=HTP0
+0.01.295.791 I [OPTRACE][HTP] idx=183 op=MUL_MAT dst="Vcur-13" dst_type=f32 dst_buft=HTP0 src0="blk.13.attn_v.weight" src0_buft=HTP0-REPACK
+0.01.295.791 I [OPTRACE][HTP] idx=184 op=ROPE dst="Qcur-13" dst_type=f32 dst_buft=HTP0 src0="Qcur-13" src0_buft=HTP0
+0.01.295.792 I [OPTRACE][HTP] idx=185 op=ROPE dst="Kcur-13" dst_type=f32 dst_buft=HTP0 src0="Kcur-13" src0_buft=HTP0
+0.01.295.792 I [OPTRACE][HTP] idx=186 op=SET_ROWS dst="cache_k_l13 (view)" dst_type=f16 dst_buft=HTP0 src0="Kcur-13 (view)" src0_buft=HTP0
+0.01.295.793 I [OPTRACE][HTP] idx=187 op=SET_ROWS dst="cache_v_l13 (view)" dst_type=f16 dst_buft=HTP0 src0="Vcur-13 (view)" src0_buft=HTP0
+0.01.295.793 I [OPTRACE][HTP] idx=188 op=FLASH_ATTN_EXT dst="__fattn__-13" dst_type=f32 dst_buft=HTP0 src0="Qcur-13 (view) (permuted)" src0_buft=HTP0
+0.01.295.794 I [OPTRACE][HTP] idx=189 op=MUL_MAT dst="attn_out-13" dst_type=f32 dst_buft=HTP0 src0="blk.13.attn_output.weight" src0_buft=HTP0-REPACK
+0.01.295.794 I [OPTRACE][HTP] idx=190 op=ADD dst="ffn_inp-13" dst_type=f32 dst_buft=HTP0 src0="attn_out-13" src0_buft=HTP0
+0.01.295.795 I [OPTRACE][HTP] idx=191 op=RMS_NORM dst="norm-13" dst_type=f32 dst_buft=HTP0 src0="ffn_inp-13" src0_buft=HTP0
+0.01.295.795 I [OPTRACE][HTP] idx=192 op=MUL_MAT dst="ffn_gate-13" dst_type=f32 dst_buft=HTP0 src0="blk.13.ffn_gate.weight" src0_buft=HTP0-REPACK
+0.01.295.796 I [OPTRACE][HTP] idx=193 op=GLU dst="ffn_swiglu-13" dst_type=f32 dst_buft=HTP0 src0="ffn_gate-13" src0_buft=HTP0
+0.01.295.796 I [OPTRACE][HTP] idx=194 op=MUL_MAT dst="ffn_out-13" dst_type=f32 dst_buft=HTP0 src0="blk.13.ffn_down.weight" src0_buft=HTP0-REPACK
+0.01.295.797 I [OPTRACE][HTP] idx=195 op=ADD dst="l_out-13" dst_type=f32 dst_buft=HTP0 src0="ffn_out-13" src0_buft=HTP0
+0.01.295.797 I [OPTRACE][HTP] idx=196 op=RMS_NORM dst="norm-14" dst_type=f32 dst_buft=HTP0 src0="l_out-13" src0_buft=HTP0
+0.01.295.798 I [OPTRACE][HTP] idx=197 op=MUL_MAT dst="Vcur-14" dst_type=f32 dst_buft=HTP0 src0="blk.14.attn_v.weight" src0_buft=HTP0-REPACK
+0.01.295.798 I [OPTRACE][HTP] idx=198 op=ROPE dst="Qcur-14" dst_type=f32 dst_buft=HTP0 src0="Qcur-14" src0_buft=HTP0
+0.01.295.799 I [OPTRACE][HTP] idx=199 op=ROPE dst="Kcur-14" dst_type=f32 dst_buft=HTP0 src0="Kcur-14" src0_buft=HTP0
+0.01.295.799 I [OPTRACE][HTP] idx=200 op=SET_ROWS dst="cache_k_l14 (view)" dst_type=f16 dst_buft=HTP0 src0="Kcur-14 (view)" src0_buft=HTP0
+0.01.295.799 I [OPTRACE][HTP] idx=201 op=SET_ROWS dst="cache_v_l14 (view)" dst_type=f16 dst_buft=HTP0 src0="Vcur-14 (view)" src0_buft=HTP0
+0.01.295.800 I [OPTRACE][HTP] idx=202 op=FLASH_ATTN_EXT dst="__fattn__-14" dst_type=f32 dst_buft=HTP0 src0="Qcur-14 (view) (permuted)" src0_buft=HTP0
+0.01.295.801 I [OPTRACE][HTP] idx=203 op=MUL_MAT dst="attn_out-14" dst_type=f32 dst_buft=HTP0 src0="blk.14.attn_output.weight" src0_buft=HTP0-REPACK
+0.01.295.801 I [OPTRACE][HTP] idx=204 op=ADD dst="ffn_inp-14" dst_type=f32 dst_buft=HTP0 src0="attn_out-14" src0_buft=HTP0
+0.01.295.802 I [OPTRACE][HTP] idx=205 op=RMS_NORM dst="norm-14" dst_type=f32 dst_buft=HTP0 src0="ffn_inp-14" src0_buft=HTP0
+0.01.295.802 I [OPTRACE][HTP] idx=206 op=MUL_MAT dst="ffn_gate-14" dst_type=f32 dst_buft=HTP0 src0="blk.14.ffn_gate.weight" src0_buft=HTP0-REPACK
+0.01.295.803 I [OPTRACE][HTP] idx=207 op=GLU dst="ffn_swiglu-14" dst_type=f32 dst_buft=HTP0 src0="ffn_gate-14" src0_buft=HTP0
+0.01.295.804 I [OPTRACE][HTP] idx=208 op=MUL_MAT dst="ffn_out-14" dst_type=f32 dst_buft=HTP0 src0="blk.14.ffn_down.weight" src0_buft=HTP0-REPACK
+0.01.295.804 I [OPTRACE][HTP] idx=209 op=ADD dst="l_out-14" dst_type=f32 dst_buft=HTP0 src0="ffn_out-14" src0_buft=HTP0
+0.01.295.804 I [OPTRACE][HTP] idx=210 op=RMS_NORM dst="norm-15" dst_type=f32 dst_buft=HTP0 src0="l_out-14" src0_buft=HTP0
+0.01.295.805 I [OPTRACE][HTP] idx=211 op=MUL_MAT dst="Vcur-15" dst_type=f32 dst_buft=HTP0 src0="blk.15.attn_v.weight" src0_buft=HTP0-REPACK
+0.01.295.806 I [OPTRACE][HTP] idx=212 op=ROPE dst="Qcur-15" dst_type=f32 dst_buft=HTP0 src0="Qcur-15" src0_buft=HTP0
+0.01.295.806 I [OPTRACE][HTP] idx=213 op=ROPE dst="Kcur-15" dst_type=f32 dst_buft=HTP0 src0="Kcur-15" src0_buft=HTP0
+0.01.295.806 I [OPTRACE][HTP] idx=214 op=SET_ROWS dst="cache_k_l15 (view)" dst_type=f16 dst_buft=HTP0 src0="Kcur-15 (view)" src0_buft=HTP0
+0.01.295.807 I [OPTRACE][HTP] idx=215 op=SET_ROWS dst="cache_v_l15 (view)" dst_type=f16 dst_buft=HTP0 src0="Vcur-15 (view)" src0_buft=HTP0
+0.01.295.807 I [OPTRACE][HTP] idx=216 op=FLASH_ATTN_EXT dst="__fattn__-15" dst_type=f32 dst_buft=HTP0 src0="Qcur-15 (view) (permuted)" src0_buft=HTP0
+0.01.295.808 I [OPTRACE][HTP] idx=217 op=MUL_MAT dst="attn_out-15" dst_type=f32 dst_buft=HTP0 src0="blk.15.attn_output.weight" src0_buft=HTP0-REPACK
+0.01.295.809 I [OPTRACE][HTP] idx=218 op=GET_ROWS dst="node_489" dst_type=f32 dst_buft=HTP0 src0="attn_out-15" src0_type=f32 src0_buft=HTP0 src1="HTP0#leaf_183#0" src1_type=i32 src1_buft=HTP0
+0.01.295.810 I [OPTRACE][HTP] idx=219 op=GET_ROWS dst="node_490" dst_type=f32 dst_buft=HTP0 src0="l_out-14" src0_type=f32 src0_buft=HTP0 src1="HTP0#leaf_183#0" src1_type=i32 src1_buft=HTP0
+0.01.295.811 I [OPTRACE][HTP] idx=220 op=ADD dst="ffn_inp-15" dst_type=f32 dst_buft=HTP0 src0="node_489" src0_buft=HTP0
+0.01.295.811 I [OPTRACE][HTP] idx=221 op=RMS_NORM dst="norm-15" dst_type=f32 dst_buft=HTP0 src0="ffn_inp-15" src0_buft=HTP0
+0.01.295.812 I [OPTRACE][HTP] idx=222 op=MUL_MAT dst="ffn_gate-15" dst_type=f32 dst_buft=HTP0 src0="blk.15.ffn_gate.weight" src0_buft=HTP0-REPACK
+0.01.295.812 I [OPTRACE][HTP] idx=223 op=GLU dst="ffn_swiglu-15" dst_type=f32 dst_buft=HTP0 src0="ffn_gate-15" src0_buft=HTP0
+0.01.295.813 I [OPTRACE][HTP] idx=224 op=MUL_MAT dst="ffn_out-15" dst_type=f32 dst_buft=HTP0 src0="blk.15.ffn_down.weight" src0_buft=HTP0-REPACK
+0.01.295.813 I [OPTRACE][HTP] idx=225 op=ADD dst="l_out-15" dst_type=f32 dst_buft=HTP0 src0="ffn_out-15" src0_buft=HTP0
+0.01.295.814 I [OPTRACE][HTP] idx=226 op=RMS_NORM dst="norm" dst_type=f32 dst_buft=HTP0 src0="l_out-15" src0_buft=HTP0
+0.01.295.814 I [OPTRACE][HTP] idx=227 op=MUL_MAT dst="result_output" dst_type=f32 dst_buft=HTP0 src0="token_embd.weight" src0_buft=HTP0
+0.01.349.826 D n_past = 3
+0.01.351.864 D n_remain: 3
+ I0.01.353.208 I [OPTRACE][SCHED] call=2 n_splits=2
+0.01.353.379 I [OPTRACE][SCHED] split=0 backend=CPU n_nodes=1 n_inputs=0
+0.01.353.393 I [OPTRACE][SCHED]   GET_ROWS dst="embd" dst_type=f32 dst_buft=CPU src0="token_embd.weight" src0_type=f32 src0_buft=CPU_Mapped src1="inp_tokens" src1_type=i32 src1_buft=CPU
+0.01.353.405 I [OPTRACE][CPU] idx=0 op=GET_ROWS dst="embd" dst_type=f32 dst_buft=CPU src0="token_embd.weight" src0_type=f32 src0_buft=CPU_Mapped src1="inp_tokens" src1_type=i32 src1_buft=CPU
+0.01.353.706 I [OPTRACE][SCHED] split=1 backend=HTP0 n_nodes=501 n_inputs=6
+0.01.353.739 I [OPTRACE][SCHED]   GET_ROWS dst="node_489" dst_type=f32 dst_buft=HTP0 src0="attn_out-15" src0_type=f32 src0_buft=HTP0 src1="HTP0#leaf_183#0" src1_type=i32 src1_buft=HTP0
+0.01.353.748 I [OPTRACE][SCHED]   GET_ROWS dst="node_490" dst_type=f32 dst_buft=HTP0 src0="l_out-14" src0_type=f32 src0_buft=HTP0 src1="HTP0#leaf_183#0" src1_type=i32 src1_buft=HTP0
+0.01.353.876 I [OPTRACE][HTP] HTP0 n_htp_ops=228 graph_uid=42
+0.01.353.903 I [OPTRACE][HTP] idx=0 op=RMS_NORM dst="norm-0" dst_type=f32 dst_buft=HTP0 src0="HTP0#embd#0" src0_buft=HTP0
+0.01.353.910 I [OPTRACE][HTP] idx=1 op=MUL_MAT dst="Vcur-0" dst_type=f32 dst_buft=HTP0 src0="blk.0.attn_v.weight" src0_buft=HTP0-REPACK
+0.01.353.914 I [OPTRACE][HTP] idx=2 op=ROPE dst="Qcur-0" dst_type=f32 dst_buft=HTP0 src0="Qcur-0" src0_buft=HTP0
+0.01.353.915 I [OPTRACE][HTP] idx=3 op=ROPE dst="Kcur-0" dst_type=f32 dst_buft=HTP0 src0="Kcur-0" src0_buft=HTP0
+0.01.353.919 I [OPTRACE][HTP] idx=4 op=SET_ROWS dst="cache_k_l0 (view)" dst_type=f16 dst_buft=HTP0 src0="Kcur-0 (view)" src0_buft=HTP0
+0.01.353.921 I [OPTRACE][HTP] idx=5 op=SET_ROWS dst="cache_v_l0 (view)" dst_type=f16 dst_buft=HTP0 src0="Vcur-0 (view)" src0_buft=HTP0
+0.01.353.927 I [OPTRACE][HTP] idx=6 op=FLASH_ATTN_EXT dst="__fattn__-0" dst_type=f32 dst_buft=HTP0 src0="Qcur-0 (view) (permuted)" src0_buft=HTP0
+0.01.353.932 I [OPTRACE][HTP] idx=7 op=MUL_MAT dst="attn_out-0" dst_type=f32 dst_buft=HTP0 src0="blk.0.attn_output.weight" src0_buft=HTP0-REPACK
+0.01.353.936 I [OPTRACE][HTP] idx=8 op=ADD dst="ffn_inp-0" dst_type=f32 dst_buft=HTP0 src0="attn_out-0" src0_buft=HTP0
+0.01.353.938 I [OPTRACE][HTP] idx=9 op=RMS_NORM dst="norm-0" dst_type=f32 dst_buft=HTP0 src0="ffn_inp-0" src0_buft=HTP0
+0.01.353.942 I [OPTRACE][HTP] idx=10 op=MUL_MAT dst="ffn_gate-0" dst_type=f32 dst_buft=HTP0 src0="blk.0.ffn_gate.weight" src0_buft=HTP0-REPACK
+0.01.353.945 I [OPTRACE][HTP] idx=11 op=GLU dst="ffn_swiglu-0" dst_type=f32 dst_buft=HTP0 src0="ffn_gate-0" src0_buft=HTP0
+0.01.353.947 I [OPTRACE][HTP] idx=12 op=MUL_MAT dst="ffn_out-0" dst_type=f32 dst_buft=HTP0 src0="blk.0.ffn_down.weight" src0_buft=HTP0-REPACK
+0.01.353.949 I [OPTRACE][HTP] idx=13 op=ADD dst="l_out-0" dst_type=f32 dst_buft=HTP0 src0="ffn_out-0" src0_buft=HTP0
+0.01.353.952 I [OPTRACE][HTP] idx=14 op=RMS_NORM dst="norm-1" dst_type=f32 dst_buft=HTP0 src0="l_out-0" src0_buft=HTP0
+0.01.353.954 I [OPTRACE][HTP] idx=15 op=MUL_MAT dst="Vcur-1" dst_type=f32 dst_buft=HTP0 src0="blk.1.attn_v.weight" src0_buft=HTP0-REPACK
+0.01.353.956 I [OPTRACE][HTP] idx=16 op=ROPE dst="Qcur-1" dst_type=f32 dst_buft=HTP0 src0="Qcur-1" src0_buft=HTP0
+0.01.353.958 I [OPTRACE][HTP] idx=17 op=ROPE dst="Kcur-1" dst_type=f32 dst_buft=HTP0 src0="Kcur-1" src0_buft=HTP0
+0.01.353.960 I [OPTRACE][HTP] idx=18 op=SET_ROWS dst="cache_k_l1 (view)" dst_type=f16 dst_buft=HTP0 src0="Kcur-1 (view)" src0_buft=HTP0
+0.01.353.963 I [OPTRACE][HTP] idx=19 op=SET_ROWS dst="cache_v_l1 (view)" dst_type=f16 dst_buft=HTP0 src0="Vcur-1 (view)" src0_buft=HTP0
+0.01.353.967 I [OPTRACE][HTP] idx=20 op=FLASH_ATTN_EXT dst="__fattn__-1" dst_type=f32 dst_buft=HTP0 src0="Qcur-1 (view) (permuted)" src0_buft=HTP0
+0.01.353.971 I [OPTRACE][HTP] idx=21 op=MUL_MAT dst="attn_out-1" dst_type=f32 dst_buft=HTP0 src0="blk.1.attn_output.weight" src0_buft=HTP0-REPACK
+0.01.353.974 I [OPTRACE][HTP] idx=22 op=ADD dst="ffn_inp-1" dst_type=f32 dst_buft=HTP0 src0="attn_out-1" src0_buft=HTP0
+0.01.353.976 I [OPTRACE][HTP] idx=23 op=RMS_NORM dst="norm-1" dst_type=f32 dst_buft=HTP0 src0="ffn_inp-1" src0_buft=HTP0
+0.01.353.980 I [OPTRACE][HTP] idx=24 op=MUL_MAT dst="ffn_gate-1" dst_type=f32 dst_buft=HTP0 src0="blk.1.ffn_gate.weight" src0_buft=HTP0-REPACK
+0.01.353.982 I [OPTRACE][HTP] idx=25 op=GLU dst="ffn_swiglu-1" dst_type=f32 dst_buft=HTP0 src0="ffn_gate-1" src0_buft=HTP0
+0.01.353.984 I [OPTRACE][HTP] idx=26 op=MUL_MAT dst="ffn_out-1" dst_type=f32 dst_buft=HTP0 src0="blk.1.ffn_down.weight" src0_buft=HTP0-REPACK
+0.01.353.987 I [OPTRACE][HTP] idx=27 op=ADD dst="l_out-1" dst_type=f32 dst_buft=HTP0 src0="ffn_out-1" src0_buft=HTP0
+0.01.353.989 I [OPTRACE][HTP] idx=28 op=RMS_NORM dst="norm-2" dst_type=f32 dst_buft=HTP0 src0="l_out-1" src0_buft=HTP0
+0.01.353.991 I [OPTRACE][HTP] idx=29 op=MUL_MAT dst="Vcur-2" dst_type=f32 dst_buft=HTP0 src0="blk.2.attn_v.weight" src0_buft=HTP0-REPACK
+0.01.353.993 I [OPTRACE][HTP] idx=30 op=ROPE dst="Qcur-2" dst_type=f32 dst_buft=HTP0 src0="Qcur-2" src0_buft=HTP0
+0.01.353.996 I [OPTRACE][HTP] idx=31 op=ROPE dst="Kcur-2" dst_type=f32 dst_buft=HTP0 src0="Kcur-2" src0_buft=HTP0
+0.01.353.999 I [OPTRACE][HTP] idx=32 op=SET_ROWS dst="cache_k_l2 (view)" dst_type=f16 dst_buft=HTP0 src0="Kcur-2 (view)" src0_buft=HTP0
+0.01.354.001 I [OPTRACE][HTP] idx=33 op=SET_ROWS dst="cache_v_l2 (view)" dst_type=f16 dst_buft=HTP0 src0="Vcur-2 (view)" src0_buft=HTP0
+0.01.354.005 I [OPTRACE][HTP] idx=34 op=FLASH_ATTN_EXT dst="__fattn__-2" dst_type=f32 dst_buft=HTP0 src0="Qcur-2 (view) (permuted)" src0_buft=HTP0
+0.01.354.009 I [OPTRACE][HTP] idx=35 op=MUL_MAT dst="attn_out-2" dst_type=f32 dst_buft=HTP0 src0="blk.2.attn_output.weight" src0_buft=HTP0-REPACK
+0.01.354.012 I [OPTRACE][HTP] idx=36 op=ADD dst="ffn_inp-2" dst_type=f32 dst_buft=HTP0 src0="attn_out-2" src0_buft=HTP0
+0.01.354.014 I [OPTRACE][HTP] idx=37 op=RMS_NORM dst="norm-2" dst_type=f32 dst_buft=HTP0 src0="ffn_inp-2" src0_buft=HTP0
+0.01.354.017 I [OPTRACE][HTP] idx=38 op=MUL_MAT dst="ffn_gate-2" dst_type=f32 dst_buft=HTP0 src0="blk.2.ffn_gate.weight" src0_buft=HTP0-REPACK
+0.01.354.020 I [OPTRACE][HTP] idx=39 op=GLU dst="ffn_swiglu-2" dst_type=f32 dst_buft=HTP0 src0="ffn_gate-2" src0_buft=HTP0
+0.01.354.022 I [OPTRACE][HTP] idx=40 op=MUL_MAT dst="ffn_out-2" dst_type=f32 dst_buft=HTP0 src0="blk.2.ffn_down.weight" src0_buft=HTP0-REPACK
+0.01.354.024 I [OPTRACE][HTP] idx=41 op=ADD dst="l_out-2" dst_type=f32 dst_buft=HTP0 src0="ffn_out-2" src0_buft=HTP0
+0.01.354.026 I [OPTRACE][HTP] idx=42 op=RMS_NORM dst="norm-3" dst_type=f32 dst_buft=HTP0 src0="l_out-2" src0_buft=HTP0
+0.01.354.029 I [OPTRACE][HTP] idx=43 op=MUL_MAT dst="Vcur-3" dst_type=f32 dst_buft=HTP0 src0="blk.3.attn_v.weight" src0_buft=HTP0-REPACK
+0.01.354.031 I [OPTRACE][HTP] idx=44 op=ROPE dst="Qcur-3" dst_type=f32 dst_buft=HTP0 src0="Qcur-3" src0_buft=HTP0
+0.01.354.033 I [OPTRACE][HTP] idx=45 op=ROPE dst="Kcur-3" dst_type=f32 dst_buft=HTP0 src0="Kcur-3" src0_buft=HTP0
+0.01.354.036 I [OPTRACE][HTP] idx=46 op=SET_ROWS dst="cache_k_l3 (view)" dst_type=f16 dst_buft=HTP0 src0="Kcur-3 (view)" src0_buft=HTP0
+0.01.354.038 I [OPTRACE][HTP] idx=47 op=SET_ROWS dst="cache_v_l3 (view)" dst_type=f16 dst_buft=HTP0 src0="Vcur-3 (view)" src0_buft=HTP0
+0.01.354.042 I [OPTRACE][HTP] idx=48 op=FLASH_ATTN_EXT dst="__fattn__-3" dst_type=f32 dst_buft=HTP0 src0="Qcur-3 (view) (permuted)" src0_buft=HTP0
+0.01.354.046 I [OPTRACE][HTP] idx=49 op=MUL_MAT dst="attn_out-3" dst_type=f32 dst_buft=HTP0 src0="blk.3.attn_output.weight" src0_buft=HTP0-REPACK
+0.01.354.049 I [OPTRACE][HTP] idx=50 op=ADD dst="ffn_inp-3" dst_type=f32 dst_buft=HTP0 src0="attn_out-3" src0_buft=HTP0
+0.01.354.051 I [OPTRACE][HTP] idx=51 op=RMS_NORM dst="norm-3" dst_type=f32 dst_buft=HTP0 src0="ffn_inp-3" src0_buft=HTP0
+0.01.354.055 I [OPTRACE][HTP] idx=52 op=MUL_MAT dst="ffn_gate-3" dst_type=f32 dst_buft=HTP0 src0="blk.3.ffn_gate.weight" src0_buft=HTP0-REPACK
+0.01.354.058 I [OPTRACE][HTP] idx=53 op=GLU dst="ffn_swiglu-3" dst_type=f32 dst_buft=HTP0 src0="ffn_gate-3" src0_buft=HTP0
+0.01.354.060 I [OPTRACE][HTP] idx=54 op=MUL_MAT dst="ffn_out-3" dst_type=f32 dst_buft=HTP0 src0="blk.3.ffn_down.weight" src0_buft=HTP0-REPACK
+0.01.354.062 I [OPTRACE][HTP] idx=55 op=ADD dst="l_out-3" dst_type=f32 dst_buft=HTP0 src0="ffn_out-3" src0_buft=HTP0
+0.01.354.064 I [OPTRACE][HTP] idx=56 op=RMS_NORM dst="norm-4" dst_type=f32 dst_buft=HTP0 src0="l_out-3" src0_buft=HTP0
+0.01.354.067 I [OPTRACE][HTP] idx=57 op=MUL_MAT dst="Vcur-4" dst_type=f32 dst_buft=HTP0 src0="blk.4.attn_v.weight" src0_buft=HTP0-REPACK
+0.01.354.069 I [OPTRACE][HTP] idx=58 op=ROPE dst="Qcur-4" dst_type=f32 dst_buft=HTP0 src0="Qcur-4" src0_buft=HTP0
+0.01.354.072 I [OPTRACE][HTP] idx=59 op=ROPE dst="Kcur-4" dst_type=f32 dst_buft=HTP0 src0="Kcur-4" src0_buft=HTP0
+0.01.354.075 I [OPTRACE][HTP] idx=60 op=SET_ROWS dst="cache_k_l4 (view)" dst_type=f16 dst_buft=HTP0 src0="Kcur-4 (view)" src0_buft=HTP0
+0.01.354.077 I [OPTRACE][HTP] idx=61 op=SET_ROWS dst="cache_v_l4 (view)" dst_type=f16 dst_buft=HTP0 src0="Vcur-4 (view)" src0_buft=HTP0
+0.01.354.081 I [OPTRACE][HTP] idx=62 op=FLASH_ATTN_EXT dst="__fattn__-4" dst_type=f32 dst_buft=HTP0 src0="Qcur-4 (view) (permuted)" src0_buft=HTP0
+0.01.354.085 I [OPTRACE][HTP] idx=63 op=MUL_MAT dst="attn_out-4" dst_type=f32 dst_buft=HTP0 src0="blk.4.attn_output.weight" src0_buft=HTP0-REPACK
+0.01.354.087 I [OPTRACE][HTP] idx=64 op=ADD dst="ffn_inp-4" dst_type=f32 dst_buft=HTP0 src0="attn_out-4" src0_buft=HTP0
+0.01.354.089 I [OPTRACE][HTP] idx=65 op=RMS_NORM dst="norm-4" dst_type=f32 dst_buft=HTP0 src0="ffn_inp-4" src0_buft=HTP0
+0.01.354.093 I [OPTRACE][HTP] idx=66 op=MUL_MAT dst="ffn_gate-4" dst_type=f32 dst_buft=HTP0 src0="blk.4.ffn_gate.weight" src0_buft=HTP0-REPACK
+0.01.354.095 I [OPTRACE][HTP] idx=67 op=GLU dst="ffn_swiglu-4" dst_type=f32 dst_buft=HTP0 src0="ffn_gate-4" src0_buft=HTP0
+0.01.354.098 I [OPTRACE][HTP] idx=68 op=MUL_MAT dst="ffn_out-4" dst_type=f32 dst_buft=HTP0 src0="blk.4.ffn_down.weight" src0_buft=HTP0-REPACK
+0.01.354.100 I [OPTRACE][HTP] idx=69 op=ADD dst="l_out-4" dst_type=f32 dst_buft=HTP0 src0="ffn_out-4" src0_buft=HTP0
+0.01.354.102 I [OPTRACE][HTP] idx=70 op=RMS_NORM dst="norm-5" dst_type=f32 dst_buft=HTP0 src0="l_out-4" src0_buft=HTP0
+0.01.354.105 I [OPTRACE][HTP] idx=71 op=MUL_MAT dst="Vcur-5" dst_type=f32 dst_buft=HTP0 src0="blk.5.attn_v.weight" src0_buft=HTP0-REPACK
+0.01.354.107 I [OPTRACE][HTP] idx=72 op=ROPE dst="Qcur-5" dst_type=f32 dst_buft=HTP0 src0="Qcur-5" src0_buft=HTP0
+0.01.354.109 I [OPTRACE][HTP] idx=73 op=ROPE dst="Kcur-5" dst_type=f32 dst_buft=HTP0 src0="Kcur-5" src0_buft=HTP0
+0.01.354.112 I [OPTRACE][HTP] idx=74 op=SET_ROWS dst="cache_k_l5 (view)" dst_type=f16 dst_buft=HTP0 src0="Kcur-5 (view)" src0_buft=HTP0
+0.01.354.114 I [OPTRACE][HTP] idx=75 op=SET_ROWS dst="cache_v_l5 (view)" dst_type=f16 dst_buft=HTP0 src0="Vcur-5 (view)" src0_buft=HTP0
+0.01.354.118 I [OPTRACE][HTP] idx=76 op=FLASH_ATTN_EXT dst="__fattn__-5" dst_type=f32 dst_buft=HTP0 src0="Qcur-5 (view) (permuted)" src0_buft=HTP0
+0.01.354.122 I [OPTRACE][HTP] idx=77 op=MUL_MAT dst="attn_out-5" dst_type=f32 dst_buft=HTP0 src0="blk.5.attn_output.weight" src0_buft=HTP0-REPACK
+0.01.354.124 I [OPTRACE][HTP] idx=78 op=ADD dst="ffn_inp-5" dst_type=f32 dst_buft=HTP0 src0="attn_out-5" src0_buft=HTP0
+0.01.354.127 I [OPTRACE][HTP] idx=79 op=RMS_NORM dst="norm-5" dst_type=f32 dst_buft=HTP0 src0="ffn_inp-5" src0_buft=HTP0
+0.01.354.131 I [OPTRACE][HTP] idx=80 op=MUL_MAT dst="ffn_gate-5" dst_type=f32 dst_buft=HTP0 src0="blk.5.ffn_gate.weight" src0_buft=HTP0-REPACK
+0.01.354.133 I [OPTRACE][HTP] idx=81 op=GLU dst="ffn_swiglu-5" dst_type=f32 dst_buft=HTP0 src0="ffn_gate-5" src0_buft=HTP0
+0.01.354.135 I [OPTRACE][HTP] idx=82 op=MUL_MAT dst="ffn_out-5" dst_type=f32 dst_buft=HTP0 src0="blk.5.ffn_down.weight" src0_buft=HTP0-REPACK
+0.01.354.138 I [OPTRACE][HTP] idx=83 op=ADD dst="l_out-5" dst_type=f32 dst_buft=HTP0 src0="ffn_out-5" src0_buft=HTP0
+0.01.354.140 I [OPTRACE][HTP] idx=84 op=RMS_NORM dst="norm-6" dst_type=f32 dst_buft=HTP0 src0="l_out-5" src0_buft=HTP0
+0.01.354.142 I [OPTRACE][HTP] idx=85 op=MUL_MAT dst="Vcur-6" dst_type=f32 dst_buft=HTP0 src0="blk.6.attn_v.weight" src0_buft=HTP0-REPACK
+0.01.354.145 I [OPTRACE][HTP] idx=86 op=ROPE dst="Qcur-6" dst_type=f32 dst_buft=HTP0 src0="Qcur-6" src0_buft=HTP0
+0.01.354.147 I [OPTRACE][HTP] idx=87 op=ROPE dst="Kcur-6" dst_type=f32 dst_buft=HTP0 src0="Kcur-6" src0_buft=HTP0
+0.01.354.150 I [OPTRACE][HTP] idx=88 op=SET_ROWS dst="cache_k_l6 (view)" dst_type=f16 dst_buft=HTP0 src0="Kcur-6 (view)" src0_buft=HTP0
+0.01.354.152 I [OPTRACE][HTP] idx=89 op=SET_ROWS dst="cache_v_l6 (view)" dst_type=f16 dst_buft=HTP0 src0="Vcur-6 (view)" src0_buft=HTP0
+0.01.354.156 I [OPTRACE][HTP] idx=90 op=FLASH_ATTN_EXT dst="__fattn__-6" dst_type=f32 dst_buft=HTP0 src0="Qcur-6 (view) (permuted)" src0_buft=HTP0
+0.01.354.159 I [OPTRACE][HTP] idx=91 op=MUL_MAT dst="attn_out-6" dst_type=f32 dst_buft=HTP0 src0="blk.6.attn_output.weight" src0_buft=HTP0-REPACK
+0.01.354.162 I [OPTRACE][HTP] idx=92 op=ADD dst="ffn_inp-6" dst_type=f32 dst_buft=HTP0 src0="attn_out-6" src0_buft=HTP0
+0.01.354.164 I [OPTRACE][HTP] idx=93 op=RMS_NORM dst="norm-6" dst_type=f32 dst_buft=HTP0 src0="ffn_inp-6" src0_buft=HTP0
+0.01.354.170 I [OPTRACE][HTP] idx=94 op=MUL_MAT dst="ffn_gate-6" dst_type=f32 dst_buft=HTP0 src0="blk.6.ffn_gate.weight" src0_buft=HTP0-REPACK
+0.01.354.173 I [OPTRACE][HTP] idx=95 op=GLU dst="ffn_swiglu-6" dst_type=f32 dst_buft=HTP0 src0="ffn_gate-6" src0_buft=HTP0
+0.01.354.175 I [OPTRACE][HTP] idx=96 op=MUL_MAT dst="ffn_out-6" dst_type=f32 dst_buft=HTP0 src0="blk.6.ffn_down.weight" src0_buft=HTP0-REPACK
+0.01.354.177 I [OPTRACE][HTP] idx=97 op=ADD dst="l_out-6" dst_type=f32 dst_buft=HTP0 src0="ffn_out-6" src0_buft=HTP0
+0.01.354.179 I [OPTRACE][HTP] idx=98 op=RMS_NORM dst="norm-7" dst_type=f32 dst_buft=HTP0 src0="l_out-6" src0_buft=HTP0
+0.01.354.182 I [OPTRACE][HTP] idx=99 op=MUL_MAT dst="Vcur-7" dst_type=f32 dst_buft=HTP0 src0="blk.7.attn_v.weight" src0_buft=HTP0-REPACK
+0.01.354.185 I [OPTRACE][HTP] idx=100 op=ROPE dst="Qcur-7" dst_type=f32 dst_buft=HTP0 src0="Qcur-7" src0_buft=HTP0
+0.01.354.187 I [OPTRACE][HTP] idx=101 op=ROPE dst="Kcur-7" dst_type=f32 dst_buft=HTP0 src0="Kcur-7" src0_buft=HTP0
+0.01.354.189 I [OPTRACE][HTP] idx=102 op=SET_ROWS dst="cache_k_l7 (view)" dst_type=f16 dst_buft=HTP0 src0="Kcur-7 (view)" src0_buft=HTP0
+0.01.354.191 I [OPTRACE][HTP] idx=103 op=SET_ROWS dst="cache_v_l7 (view)" dst_type=f16 dst_buft=HTP0 src0="Vcur-7 (view)" src0_buft=HTP0
+0.01.354.195 I [OPTRACE][HTP] idx=104 op=FLASH_ATTN_EXT dst="__fattn__-7" dst_type=f32 dst_buft=HTP0 src0="Qcur-7 (view) (permuted)" src0_buft=HTP0
+0.01.354.199 I [OPTRACE][HTP] idx=105 op=MUL_MAT dst="attn_out-7" dst_type=f32 dst_buft=HTP0 src0="blk.7.attn_output.weight" src0_buft=HTP0-REPACK
+0.01.354.201 I [OPTRACE][HTP] idx=106 op=ADD dst="ffn_inp-7" dst_type=f32 dst_buft=HTP0 src0="attn_out-7" src0_buft=HTP0
+0.01.354.204 I [OPTRACE][HTP] idx=107 op=RMS_NORM dst="norm-7" dst_type=f32 dst_buft=HTP0 src0="ffn_inp-7" src0_buft=HTP0
+0.01.354.208 I [OPTRACE][HTP] idx=108 op=MUL_MAT dst="ffn_gate-7" dst_type=f32 dst_buft=HTP0 src0="blk.7.ffn_gate.weight" src0_buft=HTP0-REPACK
+0.01.354.210 I [OPTRACE][HTP] idx=109 op=GLU dst="ffn_swiglu-7" dst_type=f32 dst_buft=HTP0 src0="ffn_gate-7" src0_buft=HTP0
+0.01.354.214 I [OPTRACE][HTP] idx=110 op=MUL_MAT dst="ffn_out-7" dst_type=f32 dst_buft=HTP0 src0="blk.7.ffn_down.weight" src0_buft=HTP0-REPACK
+0.01.354.216 I [OPTRACE][HTP] idx=111 op=ADD dst="l_out-7" dst_type=f32 dst_buft=HTP0 src0="ffn_out-7" src0_buft=HTP0
+0.01.354.218 I [OPTRACE][HTP] idx=112 op=RMS_NORM dst="norm-8" dst_type=f32 dst_buft=HTP0 src0="l_out-7" src0_buft=HTP0
+0.01.354.221 I [OPTRACE][HTP] idx=113 op=MUL_MAT dst="Vcur-8" dst_type=f32 dst_buft=HTP0 src0="blk.8.attn_v.weight" src0_buft=HTP0-REPACK
+0.01.354.223 I [OPTRACE][HTP] idx=114 op=ROPE dst="Qcur-8" dst_type=f32 dst_buft=HTP0 src0="Qcur-8" src0_buft=HTP0
+0.01.354.225 I [OPTRACE][HTP] idx=115 op=ROPE dst="Kcur-8" dst_type=f32 dst_buft=HTP0 src0="Kcur-8" src0_buft=HTP0
+0.01.354.227 I [OPTRACE][HTP] idx=116 op=SET_ROWS dst="cache_k_l8 (view)" dst_type=f16 dst_buft=HTP0 src0="Kcur-8 (view)" src0_buft=HTP0
+0.01.354.229 I [OPTRACE][HTP] idx=117 op=SET_ROWS dst="cache_v_l8 (view)" dst_type=f16 dst_buft=HTP0 src0="Vcur-8 (view)" src0_buft=HTP0
+0.01.354.234 I [OPTRACE][HTP] idx=118 op=FLASH_ATTN_EXT dst="__fattn__-8" dst_type=f32 dst_buft=HTP0 src0="Qcur-8 (view) (permuted)" src0_buft=HTP0
+0.01.354.238 I [OPTRACE][HTP] idx=119 op=MUL_MAT dst="attn_out-8" dst_type=f32 dst_buft=HTP0 src0="blk.8.attn_output.weight" src0_buft=HTP0-REPACK
+0.01.354.240 I [OPTRACE][HTP] idx=120 op=ADD dst="ffn_inp-8" dst_type=f32 dst_buft=HTP0 src0="attn_out-8" src0_buft=HTP0
+0.01.354.242 I [OPTRACE][HTP] idx=121 op=RMS_NORM dst="norm-8" dst_type=f32 dst_buft=HTP0 src0="ffn_inp-8" src0_buft=HTP0
+0.01.354.246 I [OPTRACE][HTP] idx=122 op=MUL_MAT dst="ffn_gate-8" dst_type=f32 dst_buft=HTP0 src0="blk.8.ffn_gate.weight" src0_buft=HTP0-REPACK
+0.01.354.248 I [OPTRACE][HTP] idx=123 op=GLU dst="ffn_swiglu-8" dst_type=f32 dst_buft=HTP0 src0="ffn_gate-8" src0_buft=HTP0
+0.01.354.251 I [OPTRACE][HTP] idx=124 op=MUL_MAT dst="ffn_out-8" dst_type=f32 dst_buft=HTP0 src0="blk.8.ffn_down.weight" src0_buft=HTP0-REPACK
+0.01.354.254 I [OPTRACE][HTP] idx=125 op=ADD dst="l_out-8" dst_type=f32 dst_buft=HTP0 src0="ffn_out-8" src0_buft=HTP0
+0.01.354.256 I [OPTRACE][HTP] idx=126 op=RMS_NORM dst="norm-9" dst_type=f32 dst_buft=HTP0 src0="l_out-8" src0_buft=HTP0
+0.01.354.259 I [OPTRACE][HTP] idx=127 op=MUL_MAT dst="Vcur-9" dst_type=f32 dst_buft=HTP0 src0="blk.9.attn_v.weight" src0_buft=HTP0-REPACK
+0.01.354.261 I [OPTRACE][HTP] idx=128 op=ROPE dst="Qcur-9" dst_type=f32 dst_buft=HTP0 src0="Qcur-9" src0_buft=HTP0
+0.01.354.263 I [OPTRACE][HTP] idx=129 op=ROPE dst="Kcur-9" dst_type=f32 dst_buft=HTP0 src0="Kcur-9" src0_buft=HTP0
+0.01.354.265 I [OPTRACE][HTP] idx=130 op=SET_ROWS dst="cache_k_l9 (view)" dst_type=f16 dst_buft=HTP0 src0="Kcur-9 (view)" src0_buft=HTP0
+0.01.354.268 I [OPTRACE][HTP] idx=131 op=SET_ROWS dst="cache_v_l9 (view)" dst_type=f16 dst_buft=HTP0 src0="Vcur-9 (view)" src0_buft=HTP0
+0.01.354.271 I [OPTRACE][HTP] idx=132 op=FLASH_ATTN_EXT dst="__fattn__-9" dst_type=f32 dst_buft=HTP0 src0="Qcur-9 (view) (permuted)" src0_buft=HTP0
+0.01.354.275 I [OPTRACE][HTP] idx=133 op=MUL_MAT dst="attn_out-9" dst_type=f32 dst_buft=HTP0 src0="blk.9.attn_output.weight" src0_buft=HTP0-REPACK
+0.01.354.278 I [OPTRACE][HTP] idx=134 op=ADD dst="ffn_inp-9" dst_type=f32 dst_buft=HTP0 src0="attn_out-9" src0_buft=HTP0
+0.01.354.280 I [OPTRACE][HTP] idx=135 op=RMS_NORM dst="norm-9" dst_type=f32 dst_buft=HTP0 src0="ffn_inp-9" src0_buft=HTP0
+0.01.354.284 I [OPTRACE][HTP] idx=136 op=MUL_MAT dst="ffn_gate-9" dst_type=f32 dst_buft=HTP0 src0="blk.9.ffn_gate.weight" src0_buft=HTP0-REPACK
+0.01.354.286 I [OPTRACE][HTP] idx=137 op=GLU dst="ffn_swiglu-9" dst_type=f32 dst_buft=HTP0 src0="ffn_gate-9" src0_buft=HTP0
+0.01.354.290 I [OPTRACE][HTP] idx=138 op=MUL_MAT dst="ffn_out-9" dst_type=f32 dst_buft=HTP0 src0="blk.9.ffn_down.weight" src0_buft=HTP0-REPACK
+0.01.354.293 I [OPTRACE][HTP] idx=139 op=ADD dst="l_out-9" dst_type=f32 dst_buft=HTP0 src0="ffn_out-9" src0_buft=HTP0
+0.01.354.296 I [OPTRACE][HTP] idx=140 op=RMS_NORM dst="norm-10" dst_type=f32 dst_buft=HTP0 src0="l_out-9" src0_buft=HTP0
+0.01.354.298 I [OPTRACE][HTP] idx=141 op=MUL_MAT dst="Vcur-10" dst_type=f32 dst_buft=HTP0 src0="blk.10.attn_v.weight" src0_buft=HTP0-REPACK
+0.01.354.300 I [OPTRACE][HTP] idx=142 op=ROPE dst="Qcur-10" dst_type=f32 dst_buft=HTP0 src0="Qcur-10" src0_buft=HTP0
+0.01.354.302 I [OPTRACE][HTP] idx=143 op=ROPE dst="Kcur-10" dst_type=f32 dst_buft=HTP0 src0="Kcur-10" src0_buft=HTP0
+0.01.354.305 I [OPTRACE][HTP] idx=144 op=SET_ROWS dst="cache_k_l10 (view)" dst_type=f16 dst_buft=HTP0 src0="Kcur-10 (view)" src0_buft=HTP0
+0.01.354.307 I [OPTRACE][HTP] idx=145 op=SET_ROWS dst="cache_v_l10 (view)" dst_type=f16 dst_buft=HTP0 src0="Vcur-10 (view)" src0_buft=HTP0
+0.01.354.311 I [OPTRACE][HTP] idx=146 op=FLASH_ATTN_EXT dst="__fattn__-10" dst_type=f32 dst_buft=HTP0 src0="Qcur-10 (view) (permuted)" src0_buft=HTP0
+0.01.354.315 I [OPTRACE][HTP] idx=147 op=MUL_MAT dst="attn_out-10" dst_type=f32 dst_buft=HTP0 src0="blk.10.attn_output.weight" src0_buft=HTP0-REPACK
+0.01.354.317 I [OPTRACE][HTP] idx=148 op=ADD dst="ffn_inp-10" dst_type=f32 dst_buft=HTP0 src0="attn_out-10" src0_buft=HTP0
+0.01.354.319 I [OPTRACE][HTP] idx=149 op=RMS_NORM dst="norm-10" dst_type=f32 dst_buft=HTP0 src0="ffn_inp-10" src0_buft=HTP0
+0.01.354.323 I [OPTRACE][HTP] idx=150 op=MUL_MAT dst="ffn_gate-10" dst_type=f32 dst_buft=HTP0 src0="blk.10.ffn_gate.weight" src0_buft=HTP0-REPACK
+0.01.354.325 I [OPTRACE][HTP] idx=151 op=GLU dst="ffn_swiglu-10" dst_type=f32 dst_buft=HTP0 src0="ffn_gate-10" src0_buft=HTP0
+0.01.354.329 I [OPTRACE][HTP] idx=152 op=MUL_MAT dst="ffn_out-10" dst_type=f32 dst_buft=HTP0 src0="blk.10.ffn_down.weight" src0_buft=HTP0-REPACK
+0.01.354.331 I [OPTRACE][HTP] idx=153 op=ADD dst="l_out-10" dst_type=f32 dst_buft=HTP0 src0="ffn_out-10" src0_buft=HTP0
+0.01.354.333 I [OPTRACE][HTP] idx=154 op=RMS_NORM dst="norm-11" dst_type=f32 dst_buft=HTP0 src0="l_out-10" src0_buft=HTP0
+0.01.354.335 I [OPTRACE][HTP] idx=155 op=MUL_MAT dst="Vcur-11" dst_type=f32 dst_buft=HTP0 src0="blk.11.attn_v.weight" src0_buft=HTP0-REPACK
+0.01.354.338 I [OPTRACE][HTP] idx=156 op=ROPE dst="Qcur-11" dst_type=f32 dst_buft=HTP0 src0="Qcur-11" src0_buft=HTP0
+0.01.354.340 I [OPTRACE][HTP] idx=157 op=ROPE dst="Kcur-11" dst_type=f32 dst_buft=HTP0 src0="Kcur-11" src0_buft=HTP0
+0.01.354.342 I [OPTRACE][HTP] idx=158 op=SET_ROWS dst="cache_k_l11 (view)" dst_type=f16 dst_buft=HTP0 src0="Kcur-11 (view)" src0_buft=HTP0
+0.01.354.344 I [OPTRACE][HTP] idx=159 op=SET_ROWS dst="cache_v_l11 (view)" dst_type=f16 dst_buft=HTP0 src0="Vcur-11 (view)" src0_buft=HTP0
+0.01.354.348 I [OPTRACE][HTP] idx=160 op=FLASH_ATTN_EXT dst="__fattn__-11" dst_type=f32 dst_buft=HTP0 src0="Qcur-11 (view) (permuted)" src0_buft=HTP0
+0.01.354.352 I [OPTRACE][HTP] idx=161 op=MUL_MAT dst="attn_out-11" dst_type=f32 dst_buft=HTP0 src0="blk.11.attn_output.weight" src0_buft=HTP0-REPACK
+0.01.354.354 I [OPTRACE][HTP] idx=162 op=ADD dst="ffn_inp-11" dst_type=f32 dst_buft=HTP0 src0="attn_out-11" src0_buft=HTP0
+0.01.354.356 I [OPTRACE][HTP] idx=163 op=RMS_NORM dst="norm-11" dst_type=f32 dst_buft=HTP0 src0="ffn_inp-11" src0_buft=HTP0
+0.01.354.360 I [OPTRACE][HTP] idx=164 op=MUL_MAT dst="ffn_gate-11" dst_type=f32 dst_buft=HTP0 src0="blk.11.ffn_gate.weight" src0_buft=HTP0-REPACK
+0.01.354.363 I [OPTRACE][HTP] idx=165 op=GLU dst="ffn_swiglu-11" dst_type=f32 dst_buft=HTP0 src0="ffn_gate-11" src0_buft=HTP0
+0.01.354.367 I [OPTRACE][HTP] idx=166 op=MUL_MAT dst="ffn_out-11" dst_type=f32 dst_buft=HTP0 src0="blk.11.ffn_down.weight" src0_buft=HTP0-REPACK
+0.01.354.369 I [OPTRACE][HTP] idx=167 op=ADD dst="l_out-11" dst_type=f32 dst_buft=HTP0 src0="ffn_out-11" src0_buft=HTP0
+0.01.354.372 I [OPTRACE][HTP] idx=168 op=RMS_NORM dst="norm-12" dst_type=f32 dst_buft=HTP0 src0="l_out-11" src0_buft=HTP0
+0.01.354.374 I [OPTRACE][HTP] idx=169 op=MUL_MAT dst="Vcur-12" dst_type=f32 dst_buft=HTP0 src0="blk.12.attn_v.weight" src0_buft=HTP0-REPACK
+0.01.354.376 I [OPTRACE][HTP] idx=170 op=ROPE dst="Qcur-12" dst_type=f32 dst_buft=HTP0 src0="Qcur-12" src0_buft=HTP0
+0.01.354.379 I [OPTRACE][HTP] idx=171 op=ROPE dst="Kcur-12" dst_type=f32 dst_buft=HTP0 src0="Kcur-12" src0_buft=HTP0
+0.01.354.381 I [OPTRACE][HTP] idx=172 op=SET_ROWS dst="cache_k_l12 (view)" dst_type=f16 dst_buft=HTP0 src0="Kcur-12 (view)" src0_buft=HTP0
+0.01.354.383 I [OPTRACE][HTP] idx=173 op=SET_ROWS dst="cache_v_l12 (view)" dst_type=f16 dst_buft=HTP0 src0="Vcur-12 (view)" src0_buft=HTP0
+0.01.354.387 I [OPTRACE][HTP] idx=174 op=FLASH_ATTN_EXT dst="__fattn__-12" dst_type=f32 dst_buft=HTP0 src0="Qcur-12 (view) (permuted)" src0_buft=HTP0
+0.01.354.391 I [OPTRACE][HTP] idx=175 op=MUL_MAT dst="attn_out-12" dst_type=f32 dst_buft=HTP0 src0="blk.12.attn_output.weight" src0_buft=HTP0-REPACK
+0.01.354.394 I [OPTRACE][HTP] idx=176 op=ADD dst="ffn_inp-12" dst_type=f32 dst_buft=HTP0 src0="attn_out-12" src0_buft=HTP0
+0.01.354.396 I [OPTRACE][HTP] idx=177 op=RMS_NORM dst="norm-12" dst_type=f32 dst_buft=HTP0 src0="ffn_inp-12" src0_buft=HTP0
+0.01.354.399 I [OPTRACE][HTP] idx=178 op=MUL_MAT dst="ffn_gate-12" dst_type=f32 dst_buft=HTP0 src0="blk.12.ffn_gate.weight" src0_buft=HTP0-REPACK
+0.01.354.402 I [OPTRACE][HTP] idx=179 op=GLU dst="ffn_swiglu-12" dst_type=f32 dst_buft=HTP0 src0="ffn_gate-12" src0_buft=HTP0
+0.01.354.405 I [OPTRACE][HTP] idx=180 op=MUL_MAT dst="ffn_out-12" dst_type=f32 dst_buft=HTP0 src0="blk.12.ffn_down.weight" src0_buft=HTP0-REPACK
+0.01.354.408 I [OPTRACE][HTP] idx=181 op=ADD dst="l_out-12" dst_type=f32 dst_buft=HTP0 src0="ffn_out-12" src0_buft=HTP0
+0.01.354.410 I [OPTRACE][HTP] idx=182 op=RMS_NORM dst="norm-13" dst_type=f32 dst_buft=HTP0 src0="l_out-12" src0_buft=HTP0
+0.01.354.413 I [OPTRACE][HTP] idx=183 op=MUL_MAT dst="Vcur-13" dst_type=f32 dst_buft=HTP0 src0="blk.13.attn_v.weight" src0_buft=HTP0-REPACK
+0.01.354.415 I [OPTRACE][HTP] idx=184 op=ROPE dst="Qcur-13" dst_type=f32 dst_buft=HTP0 src0="Qcur-13" src0_buft=HTP0
+0.01.354.417 I [OPTRACE][HTP] idx=185 op=ROPE dst="Kcur-13" dst_type=f32 dst_buft=HTP0 src0="Kcur-13" src0_buft=HTP0
+0.01.354.420 I [OPTRACE][HTP] idx=186 op=SET_ROWS dst="cache_k_l13 (view)" dst_type=f16 dst_buft=HTP0 src0="Kcur-13 (view)" src0_buft=HTP0
+0.01.354.422 I [OPTRACE][HTP] idx=187 op=SET_ROWS dst="cache_v_l13 (view)" dst_type=f16 dst_buft=HTP0 src0="Vcur-13 (view)" src0_buft=HTP0
+0.01.354.426 I [OPTRACE][HTP] idx=188 op=FLASH_ATTN_EXT dst="__fattn__-13" dst_type=f32 dst_buft=HTP0 src0="Qcur-13 (view) (permuted)" src0_buft=HTP0
+0.01.354.430 I [OPTRACE][HTP] idx=189 op=MUL_MAT dst="attn_out-13" dst_type=f32 dst_buft=HTP0 src0="blk.13.attn_output.weight" src0_buft=HTP0-REPACK
+0.01.354.433 I [OPTRACE][HTP] idx=190 op=ADD dst="ffn_inp-13" dst_type=f32 dst_buft=HTP0 src0="attn_out-13" src0_buft=HTP0
+0.01.354.435 I [OPTRACE][HTP] idx=191 op=RMS_NORM dst="norm-13" dst_type=f32 dst_buft=HTP0 src0="ffn_inp-13" src0_buft=HTP0
+0.01.354.439 I [OPTRACE][HTP] idx=192 op=MUL_MAT dst="ffn_gate-13" dst_type=f32 dst_buft=HTP0 src0="blk.13.ffn_gate.weight" src0_buft=HTP0-REPACK
+0.01.354.441 I [OPTRACE][HTP] idx=193 op=GLU dst="ffn_swiglu-13" dst_type=f32 dst_buft=HTP0 src0="ffn_gate-13" src0_buft=HTP0
+0.01.354.445 I [OPTRACE][HTP] idx=194 op=MUL_MAT dst="ffn_out-13" dst_type=f32 dst_buft=HTP0 src0="blk.13.ffn_down.weight" src0_buft=HTP0-REPACK
+0.01.354.447 I [OPTRACE][HTP] idx=195 op=ADD dst="l_out-13" dst_type=f32 dst_buft=HTP0 src0="ffn_out-13" src0_buft=HTP0
+0.01.354.449 I [OPTRACE][HTP] idx=196 op=RMS_NORM dst="norm-14" dst_type=f32 dst_buft=HTP0 src0="l_out-13" src0_buft=HTP0
+0.01.354.451 I [OPTRACE][HTP] idx=197 op=MUL_MAT dst="Vcur-14" dst_type=f32 dst_buft=HTP0 src0="blk.14.attn_v.weight" src0_buft=HTP0-REPACK
+0.01.354.454 I [OPTRACE][HTP] idx=198 op=ROPE dst="Qcur-14" dst_type=f32 dst_buft=HTP0 src0="Qcur-14" src0_buft=HTP0
+0.01.354.456 I [OPTRACE][HTP] idx=199 op=ROPE dst="Kcur-14" dst_type=f32 dst_buft=HTP0 src0="Kcur-14" src0_buft=HTP0
+0.01.354.459 I [OPTRACE][HTP] idx=200 op=SET_ROWS dst="cache_k_l14 (view)" dst_type=f16 dst_buft=HTP0 src0="Kcur-14 (view)" src0_buft=HTP0
+0.01.354.461 I [OPTRACE][HTP] idx=201 op=SET_ROWS dst="cache_v_l14 (view)" dst_type=f16 dst_buft=HTP0 src0="Vcur-14 (view)" src0_buft=HTP0
+0.01.354.464 I [OPTRACE][HTP] idx=202 op=FLASH_ATTN_EXT dst="__fattn__-14" dst_type=f32 dst_buft=HTP0 src0="Qcur-14 (view) (permuted)" src0_buft=HTP0
+0.01.354.469 I [OPTRACE][HTP] idx=203 op=MUL_MAT dst="attn_out-14" dst_type=f32 dst_buft=HTP0 src0="blk.14.attn_output.weight" src0_buft=HTP0-REPACK
+0.01.354.472 I [OPTRACE][HTP] idx=204 op=ADD dst="ffn_inp-14" dst_type=f32 dst_buft=HTP0 src0="attn_out-14" src0_buft=HTP0
+0.01.354.474 I [OPTRACE][HTP] idx=205 op=RMS_NORM dst="norm-14" dst_type=f32 dst_buft=HTP0 src0="ffn_inp-14" src0_buft=HTP0
+0.01.354.477 I [OPTRACE][HTP] idx=206 op=MUL_MAT dst="ffn_gate-14" dst_type=f32 dst_buft=HTP0 src0="blk.14.ffn_gate.weight" src0_buft=HTP0-REPACK
+0.01.354.480 I [OPTRACE][HTP] idx=207 op=GLU dst="ffn_swiglu-14" dst_type=f32 dst_buft=HTP0 src0="ffn_gate-14" src0_buft=HTP0
+0.01.354.484 I [OPTRACE][HTP] idx=208 op=MUL_MAT dst="ffn_out-14" dst_type=f32 dst_buft=HTP0 src0="blk.14.ffn_down.weight" src0_buft=HTP0-REPACK
+0.01.354.486 I [OPTRACE][HTP] idx=209 op=ADD dst="l_out-14" dst_type=f32 dst_buft=HTP0 src0="ffn_out-14" src0_buft=HTP0
+0.01.354.488 I [OPTRACE][HTP] idx=210 op=RMS_NORM dst="norm-15" dst_type=f32 dst_buft=HTP0 src0="l_out-14" src0_buft=HTP0
+0.01.354.490 I [OPTRACE][HTP] idx=211 op=MUL_MAT dst="Vcur-15" dst_type=f32 dst_buft=HTP0 src0="blk.15.attn_v.weight" src0_buft=HTP0-REPACK
+0.01.354.492 I [OPTRACE][HTP] idx=212 op=ROPE dst="Qcur-15" dst_type=f32 dst_buft=HTP0 src0="Qcur-15" src0_buft=HTP0
+0.01.354.495 I [OPTRACE][HTP] idx=213 op=ROPE dst="Kcur-15" dst_type=f32 dst_buft=HTP0 src0="Kcur-15" src0_buft=HTP0
+0.01.354.497 I [OPTRACE][HTP] idx=214 op=SET_ROWS dst="cache_k_l15 (view)" dst_type=f16 dst_buft=HTP0 src0="Kcur-15 (view)" src0_buft=HTP0
+0.01.354.499 I [OPTRACE][HTP] idx=215 op=SET_ROWS dst="cache_v_l15 (view)" dst_type=f16 dst_buft=HTP0 src0="Vcur-15 (view)" src0_buft=HTP0
+0.01.354.504 I [OPTRACE][HTP] idx=216 op=FLASH_ATTN_EXT dst="__fattn__-15" dst_type=f32 dst_buft=HTP0 src0="Qcur-15 (view) (permuted)" src0_buft=HTP0
+0.01.354.508 I [OPTRACE][HTP] idx=217 op=MUL_MAT dst="attn_out-15" dst_type=f32 dst_buft=HTP0 src0="blk.15.attn_output.weight" src0_buft=HTP0-REPACK
+0.01.354.514 I [OPTRACE][HTP] idx=218 op=GET_ROWS dst="node_489" dst_type=f32 dst_buft=HTP0 src0="attn_out-15" src0_type=f32 src0_buft=HTP0 src1="HTP0#leaf_183#0" src1_type=i32 src1_buft=HTP0
+0.01.354.521 I [OPTRACE][HTP] idx=219 op=GET_ROWS dst="node_490" dst_type=f32 dst_buft=HTP0 src0="l_out-14" src0_type=f32 src0_buft=HTP0 src1="HTP0#leaf_183#0" src1_type=i32 src1_buft=HTP0
+0.01.354.523 I [OPTRACE][HTP] idx=220 op=ADD dst="ffn_inp-15" dst_type=f32 dst_buft=HTP0 src0="node_489" src0_buft=HTP0
+0.01.354.526 I [OPTRACE][HTP] idx=221 op=RMS_NORM dst="norm-15" dst_type=f32 dst_buft=HTP0 src0="ffn_inp-15" src0_buft=HTP0
+0.01.354.529 I [OPTRACE][HTP] idx=222 op=MUL_MAT dst="ffn_gate-15" dst_type=f32 dst_buft=HTP0 src0="blk.15.ffn_gate.weight" src0_buft=HTP0-REPACK
+0.01.354.532 I [OPTRACE][HTP] idx=223 op=GLU dst="ffn_swiglu-15" dst_type=f32 dst_buft=HTP0 src0="ffn_gate-15" src0_buft=HTP0
+0.01.354.536 I [OPTRACE][HTP] idx=224 op=MUL_MAT dst="ffn_out-15" dst_type=f32 dst_buft=HTP0 src0="blk.15.ffn_down.weight" src0_buft=HTP0-REPACK
+0.01.354.538 I [OPTRACE][HTP] idx=225 op=ADD dst="l_out-15" dst_type=f32 dst_buft=HTP0 src0="ffn_out-15" src0_buft=HTP0
+0.01.354.540 I [OPTRACE][HTP] idx=226 op=RMS_NORM dst="norm" dst_type=f32 dst_buft=HTP0 src0="l_out-15" src0_buft=HTP0
+0.01.354.543 I [OPTRACE][HTP] idx=227 op=MUL_MAT dst="result_output" dst_type=f32 dst_buft=HTP0 src0="token_embd.weight" src0_buft=HTP0
+0.01.396.621 D n_past = 4
+0.01.397.383 D n_remain: 2
+'m0.01.441.510 D n_past = 5
+0.01.442.782 D n_remain: 1
+ looking0.01.485.906 D n_past = 6
+0.01.486.241 D n_remain: 0
+ for
+
+0.01.486.308 I common_perf_print:    sampling time =       3.96 ms
+0.01.486.310 I common_perf_print:    samplers time =       1.59 ms /     7 tokens
+0.01.486.313 I common_perf_print:        load time =      57.98 ms
+0.01.486.318 I common_perf_print: prompt eval time =      55.05 ms /     3 tokens (   18.35 ms per token,    54.49 tokens per second)
+0.01.486.320 I common_perf_print:        eval time =     131.68 ms /     3 runs   (   43.89 ms per token,    22.78 tokens per second)
+0.01.486.322 I common_perf_print:       total time =     194.37 ms /     6 tokens
+0.01.486.324 I common_perf_print: unaccounted time =       3.68 ms /   1.9 %      (total - sampling - prompt eval - eval) / (total)
+0.01.486.325 I common_perf_print:    graphs reused =          2
+0.01.486.352 I common_memory_breakdown_print: | memory breakdown [MiB] | total   free    self   model   context   compute    unaccounted |
+0.01.486.354 I common_memory_breakdown_print: |   - HTP0 (Hexagon)     |     0 =    0 + ( 522 =   522 +       0 +       0) +        -522 |
+0.01.486.355 I common_memory_breakdown_print: |   - Host               |                 2332 =  2004 +      64 +     264                |
+0.01.488.270 D ~llama_context:       HTP0 compute buffer size is 254.5039 MiB, matches expectation of 254.5039 MiB
+0.01.488.294 D ~llama_context:        CPU compute buffer size is  10.0137 MiB, matches expectation of  10.0137 MiB
