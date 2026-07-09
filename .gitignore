@@ -41,5 +41,20 @@ experiments/graph_dump/*.dot
 experiments/graph_dump/*.txt
 !experiments/graph_dump/.gitkeep
 
+# tied embedding experiment outputs (regenerable)
+experiments/tied_embedding_exaone4_1p2b/tied_on/*.log
+experiments/tied_embedding_exaone4_1p2b/tied_on/*.txt
+experiments/tied_embedding_exaone4_1p2b/tied_on/*.json
+experiments/tied_embedding_exaone4_1p2b/tied_on/*.dot
+experiments/tied_embedding_exaone4_1p2b/tied_on/*.md
+!experiments/tied_embedding_exaone4_1p2b/tied_on/.gitkeep
+experiments/tied_embedding_exaone4_1p2b/tied_off/*.log
+experiments/tied_embedding_exaone4_1p2b/tied_off/*.txt
+experiments/tied_embedding_exaone4_1p2b/tied_off/*.json
+experiments/tied_embedding_exaone4_1p2b/tied_off/*.dot
+experiments/tied_embedding_exaone4_1p2b/tied_off/*.md
+!experiments/tied_embedding_exaone4_1p2b/tied_off/.gitkeep
+experiments/tied_embedding_exaone4_1p2b/summary.md
+
 # os / editor
 .DS_Store
