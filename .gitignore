@@ -36,5 +36,10 @@ artifacts/htp_smoke/*/
 artifacts/build_snapdragon/*/
 !artifacts/build_snapdragon/.gitkeep
 
+# graph dump outputs (regenerable — produced by DUMP_GGML_GRAPH=1)
+experiments/graph_dump/*.dot
+experiments/graph_dump/*.txt
+!experiments/graph_dump/.gitkeep
+
 # os / editor
 .DS_Store
