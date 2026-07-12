@@ -148,16 +148,20 @@ def parse_gguf_tensor_summary(summary_path: Path) -> dict:
     if not summary_path.exists():
         return result
 
+    def _found(line: str) -> str:
+        return "FOUND" if ("FOUND" in line and "NOT_FOUND" not in line) else "NOT_FOUND"
+
     text = summary_path.read_text()
     for line in text.splitlines():
-        if "token_embd.weight" in line:
-            result["token_embd_weight"] = "FOUND" if "FOUND" in line else "NOT_FOUND"
-        if "output.weight" in line and "token_embd" not in line:
-            result["output_weight"] = "FOUND" if "FOUND" in line else "NOT_FOUND"
-        if "lm_head.weight" in line:
-            result["lm_head_weight"] = "FOUND" if "FOUND" in line else "NOT_FOUND"
         if "tie_inference" in line:
             result["tie_inference"] = line.split(":", 1)[-1].strip()
+            continue  # tie_inference 줄엔 tensor 이름이 섞여 있으므로 별도 처리
+        if "token_embd.weight" in line:
+            result["token_embd_weight"] = _found(line)
+        if "output.weight" in line and "token_embd" not in line:
+            result["output_weight"] = _found(line)
+        if "lm_head.weight" in line:
+            result["lm_head_weight"] = _found(line)
     return result
 
 
@@ -290,11 +294,12 @@ def main():
                 f.write(f"**결론: 불확실** (GET_ROWS backend={get_rows_be}, buft={get_rows_buf})\n")
 
             if output_wt == "FOUND":
-                f.write("- output.weight 존재 → MUL_MAT은 별도 HTP0 텐서 사용\n")
+                f.write("- output.weight 존재 → lm_head MUL_MAT은 output.weight 텐서 사용 (LAYER_OUTPUT → gpu_buft_list)\n")
             else:
-                f.write("- output.weight 없음 → token_embd.weight TENSOR_DUPLICATED → MUL_MAT=HTP0\n")
-                if mulmat_buf not in ("unknown",):
-                    f.write(f"- token_embd.weight MUL_MAT 배치: {mulmat_buf}\n")
+                mulmat_note = mulmat_buf if mulmat_buf not in ("unknown",) else "확인 불가"
+                f.write(f"- output.weight 없음 → token_embd.weight TENSOR_DUPLICATED → MUL_MAT 실제 배치: {mulmat_note}\n")
+                if mulmat_buf == "CPU_REPACK":
+                    f.write("  (Q8_0 타입이 HTP0-REPACK으로 리패킹 불가 → fallback to CPU_REPACK)\n")
             f.write("\n")
 
         # Known limitations

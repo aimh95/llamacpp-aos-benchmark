@@ -1,190 +1,199 @@
 #!/usr/bin/env python3
-"""tied_on GGUF에서 output.weight 텐서를 추가하여 tied_off GGUF를 생성한다.
+"""
+Binary-level GGUF modification: output.weight = copy of token_embd.weight.
 
-Strategy:
-  - token_embd.weight 의 raw data를 복사하여 output.weight 텐서로 추가
-  - 나머지 메타데이터/텐서는 동일하게 복사
-  - 결과: llama.cpp가 output.weight를 별도 LAYER_OUTPUT 텐서로 로드
-    (token_embd.weight는 LAYER_INPUT/CPU, output.weight는 LAYER_OUTPUT/HTP0)
-
-Limitation:
-  - 메모리 사용량 증가: token_embd.weight 크기만큼 추가 (≈ vocab_size × embd_dim × dtype_bytes)
-  - Q8_0 기준 ~256MB, Q4_0 기준 ~128MB 증가 예상
+Approach: direct byte manipulation instead of GGUFWriter re-encoding.
+- KV section copied byte-for-byte (no re-encoding of tokenizer vocab etc.)
+- Existing tensor_info offsets are relative to data_start → unchanged
+- New output.weight tensor_info appended (offset = aligned end of existing data)
+- Existing tensor data copied byte-for-byte, output.weight appended after
 
 Usage:
   python3 create_tied_off_gguf.py --input tied_on.gguf --output tied_off.gguf [--log log.txt]
 """
 import argparse
-import sys
 import struct
+import sys
 import shutil
-import numpy as np
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parents[2] / "third_party/llama.cpp/gguf-py"))
-
 try:
-    from gguf import GGUFReader, GGUFWriter, GGUFValueType
-    from gguf.constants import GGMLQuantizationType
+    from gguf import GGUFReader
 except ImportError as e:
     print(f"[ERROR] gguf library not found: {e}")
-    print("  Expected at: third_party/llama.cpp/gguf-py/")
     sys.exit(1)
 
 
-def log(msg: str, logfile=None):
-    print(msg)
-    if logfile:
-        print(msg, file=logfile)
+# GGUFValueType scalar byte sizes (type_id → bytes)
+_SCALAR = {0: 1, 1: 1, 2: 2, 3: 2, 4: 4, 5: 4, 6: 4, 7: 1, 10: 8, 11: 8, 12: 8}
 
 
-def create_tied_off(input_path: Path, output_path: Path, logfile=None):
-    log(f"[create_tied_off_gguf] input : {input_path}", logfile)
-    log(f"[create_tied_off_gguf] output: {output_path}", logfile)
+def _skip_kv(data: bytes, pos: int, n_kv: int) -> int:
+    """Advance pos past n_kv KV entries and return new position."""
+    for _ in range(n_kv):
+        key_len, = struct.unpack_from('<Q', data, pos); pos += 8 + key_len
+        vtype,   = struct.unpack_from('<I', data, pos); pos += 4
+        if vtype == 8:    # STRING
+            slen, = struct.unpack_from('<Q', data, pos); pos += 8 + slen
+        elif vtype == 9:  # ARRAY
+            etype, = struct.unpack_from('<I', data, pos); pos += 4
+            alen,  = struct.unpack_from('<Q', data, pos); pos += 8
+            if etype == 8:   # array of STRING
+                for _ in range(alen):
+                    slen, = struct.unpack_from('<Q', data, pos); pos += 8 + slen
+            elif etype in _SCALAR:
+                pos += alen * _SCALAR[etype]
+            else:
+                raise ValueError(f"Unknown ARRAY element type: {etype}")
+        elif vtype in _SCALAR:
+            pos += _SCALAR[vtype]
+        else:
+            raise ValueError(f"Unknown KV value type: {vtype}")
+    return pos
+
+
+def _info_entry_size(name: str, n_dims: int) -> int:
+    return 8 + len(name.encode()) + 4 + n_dims * 8 + 4 + 8
+
+
+def create_tied_off(input_path: Path, output_path: Path, log=print) -> bool:
+    log(f"[create_tied_off_gguf] input : {input_path}")
+    log(f"[create_tied_off_gguf] output: {output_path}")
 
     reader = GGUFReader(str(input_path), "r")
 
-    # --- Check preconditions ---
-    token_embd = None
-    output_exists = False
-    for tensor in reader.tensors:
-        if tensor.name == "token_embd.weight":
-            token_embd = tensor
-        if tensor.name == "output.weight":
-            output_exists = True
+    embd = None
+    for t in reader.tensors:
+        if t.name == "output.weight":
+            log("[WARN] output.weight already exists — copying as-is")
+            shutil.copy2(input_path, output_path)
+            return True
+        if t.name == "token_embd.weight":
+            embd = t
 
-    if token_embd is None:
-        log("[ERROR] token_embd.weight not found in input GGUF", logfile)
-        return False
+    if embd is None:
+        log("[ERROR] token_embd.weight not found"); return False
 
-    if output_exists:
-        log("[WARN] output.weight already exists in input GGUF — this is already a tied_off model", logfile)
-        log("       Copying input to output as-is.", logfile)
-        shutil.copy2(input_path, output_path)
-        return True
+    log(f"[INFO] token_embd.weight: shape={list(embd.shape)} "
+        f"dtype={embd.tensor_type} n_bytes={embd.n_bytes}")
 
-    log(f"[INFO] token_embd.weight: shape={list(token_embd.shape)} dtype={token_embd.tensor_type}", logfile)
-    log(f"[INFO] Adding output.weight = copy of token_embd.weight", logfile)
+    with open(input_path, "rb") as f:
+        src = bytearray(f.read())
 
-    # --- Build new GGUF ---
-    writer = GGUFWriter(str(output_path), arch=None)
+    assert src[:4] == b'GGUF', "Not a GGUF file"
+    version,   = struct.unpack_from('<I', src,  4)
+    n_tensors, = struct.unpack_from('<Q', src,  8)
+    n_kv,      = struct.unpack_from('<Q', src, 16)
 
-    # Copy all metadata key-value pairs
-    kv_count = 0
-    for key in reader.fields:
-        field = reader.fields[key]
-        if field.name == "general.architecture":
-            # Must be added first; get arch string
-            arch_val = bytes(field.parts[-1]).decode("utf-8").rstrip("\x00")
-            writer.add_architecture()  # will be set from arch
-            # Use direct API
-            writer.add_string("general.architecture", arch_val)
-            kv_count += 1
-            continue
+    kv_end  = _skip_kv(src, 24, n_kv)
+    kv_size = kv_end - 24
+    log(f"[INFO] version={version} n_tensors={n_tensors} n_kv={n_kv} kv_size={kv_size}")
 
-        # Re-add each field using the low-level API
-        parts = field.parts
-        if field.types and field.types[0] == GGUFValueType.STRING:
-            val = bytes(parts[-1]).decode("utf-8").rstrip("\x00")
-            writer.add_string(field.name, val)
-        elif field.types and field.types[0] == GGUFValueType.UINT32:
-            writer.add_uint32(field.name, int(parts[-1][0]))
-        elif field.types and field.types[0] == GGUFValueType.INT32:
-            writer.add_int32(field.name, int(parts[-1][0]))
-        elif field.types and field.types[0] == GGUFValueType.FLOAT32:
-            writer.add_float32(field.name, float(parts[-1][0]))
-        elif field.types and field.types[0] == GGUFValueType.BOOL:
-            writer.add_bool(field.name, bool(parts[-1][0]))
-        elif field.types and field.types[0] == GGUFValueType.UINT64:
-            writer.add_uint64(field.name, int(parts[-1][0]))
-        elif field.types and field.types[0] == GGUFValueType.INT64:
-            writer.add_int64(field.name, int(parts[-1][0]))
-        elif field.types and field.types[0] == GGUFValueType.FLOAT64:
-            writer.add_float64(field.name, float(parts[-1][0]))
-        elif field.types and field.types[0] == GGUFValueType.UINT16:
-            writer.add_uint16(field.name, int(parts[-1][0]))
-        elif field.types and field.types[0] == GGUFValueType.INT16:
-            writer.add_int16(field.name, int(parts[-1][0]))
-        elif field.types and field.types[0] == GGUFValueType.UINT8:
-            writer.add_uint8(field.name, int(parts[-1][0]))
-        elif field.types and field.types[0] == GGUFValueType.INT8:
-            writer.add_int8(field.name, int(parts[-1][0]))
-        elif field.types and field.types[0] == GGUFValueType.ARRAY:
-            # Arrays (e.g. tokenizer vocab, merges, etc.) — use raw numpy data
-            # This is complex; log and skip non-critical arrays if needed
-            try:
-                arr_type = field.types[1] if len(field.types) > 1 else None
-                if arr_type == GGUFValueType.STRING:
-                    vals = [bytes(p).decode("utf-8").rstrip("\x00") for p in parts[3::2]]
-                    writer.add_array(field.name, vals)
-                elif arr_type in (GGUFValueType.UINT32, GGUFValueType.INT32,
-                                  GGUFValueType.FLOAT32, GGUFValueType.UINT8,
-                                  GGUFValueType.INT8, GGUFValueType.UINT16,
-                                  GGUFValueType.FLOAT64):
-                    writer.add_array(field.name, list(parts[-1]))
-                else:
-                    log(f"  [SKIP] array field {field.name!r} type={arr_type}", logfile)
-                    continue
-            except Exception as ex:
-                log(f"  [SKIP] array field {field.name!r}: {ex}", logfile)
-                continue
-        else:
-            log(f"  [SKIP] unknown field type {field.name!r} types={field.types}", logfile)
-            continue
-        kv_count += 1
+    # Alignment (default 32; may be stored as general.alignment KV)
+    alignment = 32
+    if "general.alignment" in reader.fields:
+        alignment = int(reader.fields["general.alignment"].parts[-1][0])
 
-    log(f"[INFO] copied {kv_count} metadata fields", logfile)
+    original_data_start = reader.data_offset
 
-    # --- Add all original tensors ---
-    n_tensors = 0
-    embd_data = None
-    embd_qtype = None
+    # Total size of original tensor_info section (no padding)
+    orig_info_size = sum(_info_entry_size(t.name, len(t.shape)) for t in reader.tensors)
 
-    for tensor in reader.tensors:
-        data = tensor.data  # numpy array (raw bytes as uint8 for quantized types)
-        writer.add_tensor(tensor.name, data, raw_shape=tensor.shape,
-                          raw_dtype=tensor.tensor_type)
-        if tensor.name == "token_embd.weight":
-            embd_data  = data.copy()
-            embd_qtype = tensor.tensor_type
-        n_tensors += 1
+    # Verify our KV parser is correct
+    expected_ds = ((24 + kv_size + orig_info_size) + alignment - 1) // alignment * alignment
+    if expected_ds != original_data_start:
+        log(f"[WARN] parsed data_start={expected_ds} != reader.data_offset={original_data_start} "
+            f"— KV parse may be off")
 
-    log(f"[INFO] copied {n_tensors} tensors", logfile)
+    # New tensor_info entry for output.weight
+    new_name    = "output.weight"
+    n_dims      = len(embd.shape)
+    new_info_sz = _info_entry_size(new_name, n_dims)
 
-    # --- Add output.weight as copy of token_embd.weight ---
-    log(f"[INFO] adding output.weight (dtype={embd_qtype}, shape={list(token_embd.shape)})", logfile)
-    writer.add_tensor("output.weight", embd_data, raw_shape=token_embd.shape,
-                      raw_dtype=embd_qtype)
+    new_pre      = 24 + kv_size + orig_info_size + new_info_sz
+    new_ds       = (new_pre + alignment - 1) // alignment * alignment
+    offset_delta = new_ds - original_data_start
+    log(f"[INFO] new_data_start={new_ds} (delta={offset_delta:+d} bytes)")
 
-    writer.write_header_to_file()
-    writer.write_kv_data_to_file()
-    writer.write_tensors_to_file()
-    writer.close()
+    # output.weight lives after all existing tensor data, aligned
+    max_end           = max(t.data_offset + t.n_bytes for t in reader.tensors)
+    existing_data_end = max_end - original_data_start  # relative to data_start
+    out_weight_offset = (existing_data_end + alignment - 1) // alignment * alignment
+    log(f"[INFO] output.weight data offset in section: {out_weight_offset}")
 
-    out_size = output_path.stat().st_size / (1024**3)
-    in_size  = input_path.stat().st_size / (1024**3)
-    log(f"[INFO] tied_off GGUF written: {output_path}", logfile)
-    log(f"       size: {in_size:.2f} GB (tied_on) → {out_size:.2f} GB (tied_off)", logfile)
-    log(f"       delta: +{(out_size - in_size)*1024:.0f} MB (output.weight copy)", logfile)
+    # ---- Assemble new file ----
+    out = bytearray()
+
+    # 1. Header — n_tensors incremented, everything else unchanged
+    out += src[:8]
+    out += struct.pack('<Q', n_tensors + 1)
+    out += src[16:24]
+
+    # 2. KV section — exact bytes, no re-encoding
+    out += src[24:kv_end]
+
+    # 3. Original tensor_info entries — offsets relative to data_start, unchanged
+    out += src[kv_end : kv_end + orig_info_size]
+
+    # 4. New tensor_info entry for output.weight
+    entry  = struct.pack('<Q', len(new_name.encode()))
+    entry += new_name.encode()
+    entry += struct.pack('<I', n_dims)
+    for d in embd.shape:
+        entry += struct.pack('<Q', int(d))
+    entry += struct.pack('<I', embd.tensor_type.value)
+    entry += struct.pack('<Q', out_weight_offset)
+    out += entry
+
+    # 5. Alignment padding → lands at new_ds
+    pad = (alignment - len(out) % alignment) % alignment
+    out += b'\x00' * pad
+    assert len(out) == new_ds, f"Padding error: len={len(out)}, expected={new_ds}"
+
+    # 6. Existing tensor data section (unchanged)
+    out += src[original_data_start:]
+
+    # 7. Inter-tensor alignment padding before output.weight
+    existing_sz = len(src) - original_data_start
+    pad2 = (alignment - existing_sz % alignment) % alignment
+    out += b'\x00' * pad2
+
+    # 8. output.weight data = raw bytes of token_embd.weight
+    out += src[embd.data_offset : embd.data_offset + embd.n_bytes]
+
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    with open(output_path, "wb") as f:
+        f.write(out)
+
+    in_gb  = len(src) / 1024**3
+    out_gb = len(out) / 1024**3
+    log(f"[OK] tied_off GGUF written: {output_path}")
+    log(f"     {in_gb:.2f} GB → {out_gb:.2f} GB (+{(out_gb - in_gb)*1024:.0f} MB)")
     return True
 
 
 def main():
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--input",  required=True)
-    parser.add_argument("--output", required=True)
-    parser.add_argument("--log",    default=None)
+    parser = argparse.ArgumentParser(description="Add output.weight to a tied GGUF")
+    parser.add_argument("--input",  required=True, help="tied_on .gguf path")
+    parser.add_argument("--output", required=True, help="tied_off .gguf output path")
+    parser.add_argument("--log",    default=None,  help="optional log file")
     args = parser.parse_args()
 
     logfile = open(args.log, "w") if args.log else None
+
+    def log_fn(msg):
+        print(msg)
+        if logfile:
+            print(msg, file=logfile, flush=True)
+
     try:
-        ok = create_tied_off(Path(args.input), Path(args.output), logfile)
+        ok = create_tied_off(Path(args.input), Path(args.output), log=log_fn)
     finally:
         if logfile:
             logfile.close()
 
-    if not ok:
-        sys.exit(1)
+    sys.exit(0 if ok else 1)
 
 
 if __name__ == "__main__":

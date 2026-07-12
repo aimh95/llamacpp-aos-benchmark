@@ -13,7 +13,7 @@ from gguf import GGUFReader
 
 def main():
     if len(sys.argv) < 4:
-        print(f"Usage: {sys.argv[0]} <gguf_path> <tensor_list_out> <summary_out}")
+        print(f"Usage: {sys.argv[0]} <gguf_path> <tensor_list_out> <summary_out>")
         sys.exit(1)
 
     gguf_path   = Path(sys.argv[1])

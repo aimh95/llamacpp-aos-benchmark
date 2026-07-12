@@ -41,6 +41,17 @@ experiments/graph_dump/*.dot
 experiments/graph_dump/*.txt
 !experiments/graph_dump/.gitkeep
 
+# backend flow experiment outputs (regenerable)
+experiments/backend_flow/*.txt
+experiments/backend_flow/*.csv
+experiments/backend_flow/*.log
+experiments/backend_flow/summary.md
+!experiments/backend_flow/.gitkeep
+!experiments/backend_flow/parse_backflow.py
+
+# htp smoke trace logs (large, regenerable)
+artifacts/htp_smoke/*.log
+
 # tied embedding experiment outputs (regenerable)
 experiments/tied_embedding_exaone4_1p2b/tied_on/*.log
 experiments/tied_embedding_exaone4_1p2b/tied_on/*.txt

@@ -114,6 +114,7 @@ run_variant() {
             -dev $DEVICE \
             -v \
             --log-file $remote_log \
+            </dev/null \
             2>&1 | tail -3
     " || echo "[WARN] inference exit non-zero — log still collected"
 
