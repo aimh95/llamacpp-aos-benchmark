@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EXAONE 온디바이스 추론 분석: 양자화별 CPU·HTP 실행 구조와 성능</title>
+<style>
+  :root{
+    --bg:#f4f6f9; --panel:#ffffff; --panel2:#eef2f7; --border:#d5dce5; --line:#e3e8ef;
+    --fg:#1a2433; --muted:#5c6675; --navy:#1e3a5f; --navy2:#2b5b8c;
+    --htp:#6b46c1; --htp-soft:#ece5fb; --cpu:#3a6ea5; --cpu-soft:#dde9f5;
+    --fact:#1f8a4c; --fact-soft:#dcefe0; --warn:#c9781a; --warn-soft:#fbeccb;
+    --hyp:#c9781a; --red:#c0392b; --shadow:0 1px 3px rgba(20,30,50,.09);
+    --code-bg:#111a26; --code-fg:#e6edf3;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0;background:var(--bg);color:var(--fg);
+    font-family:-apple-system,"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR","Segoe UI",Roboto,sans-serif;
+    line-height:1.7;font-size:16px;}
+  a{color:var(--navy2);text-decoration:none;}
+  code,.mono{font-family:"D2Coding","Consolas","SFMono-Regular",Menlo,monospace;}
+  p code,li code,td code{background:var(--panel2);border:1px solid var(--border);padding:1px 5px;border-radius:4px;font-size:.87em;word-break:break-word;}
+  h1,h2,h3,h4{line-height:1.3;font-weight:700;color:var(--navy);}
+  strong{color:var(--fg);}
+  /* nav */
+  nav.toc{position:sticky;top:0;z-index:60;background:rgba(244,246,249,.96);backdrop-filter:blur(5px);
+    border-bottom:1px solid var(--border);display:flex;align-items:center;gap:4px;padding:7px 12px;overflow-x:auto;white-space:nowrap;}
+  nav.toc .brand{font-weight:800;color:var(--navy);font-size:13px;margin-right:8px;flex:0 0 auto;}
+  nav.toc a{color:var(--muted);font-size:12px;font-weight:600;padding:5px 9px;border-radius:6px;flex:0 0 auto;}
+  nav.toc a:hover{background:var(--htp-soft);color:var(--navy);}
+  nav.toc a.active{background:var(--navy);color:#fff;}
+  nav.toc .fs{margin-left:auto;flex:0 0 auto;background:var(--navy);color:#fff;border:none;border-radius:6px;padding:6px 11px;font:inherit;font-size:12px;font-weight:700;cursor:pointer;}
+  main{max-width:1180px;margin:0 auto;padding:26px 20px 120px;}
+  header.doc{border-bottom:3px solid var(--navy);padding-bottom:22px;margin-bottom:26px;}
+  header.doc .kick{color:var(--htp);font-weight:800;font-size:13px;letter-spacing:.03em;margin:0;}
+  header.doc h1{font-size:clamp(22px,3.3vw,33px);margin:8px 0 8px;}
+  header.doc .sub{color:var(--muted);font-size:15.5px;margin:0;}
+  section{background:var(--panel);border:1px solid var(--border);border-radius:13px;padding:22px 24px;margin:20px 0;box-shadow:var(--shadow);scroll-margin-top:58px;}
+  section>h2{font-size:21px;margin:0 0 6px;}
+  section>h2 .num{color:var(--htp);margin-right:9px;font-variant-numeric:tabular-nums;}
+  section>.lead{color:var(--muted);font-size:14px;margin:0 0 16px;}
+  h3{font-size:16.5px;margin:22px 0 9px;color:var(--navy2);}
+  h4{font-size:14.5px;margin:15px 0 6px;color:var(--navy);}
+  p{margin:0 0 13px;}
+  ul,ol{margin:0 0 13px;padding-left:22px;}
+  li{margin-bottom:5px;}
+  /* boxes */
+  .box{border-radius:9px;padding:12px 15px;margin:13px 0;font-size:14px;border:1px solid var(--border);}
+  .box.key{background:var(--navy);color:#eaf1f8;border:none;font-size:15px;}
+  .box.key b{color:#fff;}
+  .fact{background:var(--fact-soft);border:1px solid #b6ddc3;border-left:4px solid var(--fact);}
+  .fact b{color:var(--fact);}
+  .hyp{background:var(--warn-soft);border:1px solid #e6cf94;border-left:4px solid var(--warn);}
+  .hyp b{color:var(--warn);}
+  .warn{background:#fbe4de;border:1px solid #eeb3a8;border-left:4px solid var(--red);}
+  .warn b{color:var(--red);}
+  .def{background:var(--cpu-soft);border:1px solid #bcd4ec;border-left:4px solid var(--cpu);font-size:13.6px;}
+  .def b{color:var(--cpu);}
+  /* tags */
+  .tag{display:inline-block;font-size:10.5px;font-weight:800;padding:2px 8px;border-radius:999px;vertical-align:middle;margin-left:2px;}
+  .t-fact{background:var(--fact-soft);color:var(--fact);}
+  .t-hyp{background:var(--warn-soft);color:var(--warn);}
+  .t-todo{background:#e8e2f6;color:var(--htp);}
+  .pill{display:inline-block;font-size:11px;font-weight:700;padding:2px 9px;border-radius:6px;margin:2px;}
+  .pill.htp{background:var(--htp-soft);color:var(--htp);border:1px solid #d3c2f2;}
+  .pill.cpu{background:var(--cpu-soft);color:var(--cpu);border:1px solid #bcd4ec;}
+  /* term tooltip */
+  .term{border-bottom:1px dotted var(--htp);cursor:help;position:relative;font-weight:600;color:var(--navy2);}
+  .term:hover::after{content:attr(data-tip);position:absolute;left:0;top:130%;z-index:40;width:max-content;max-width:290px;
+    background:var(--navy);color:#fff;font-size:12px;font-weight:400;line-height:1.5;padding:8px 11px;border-radius:7px;box-shadow:var(--shadow);white-space:normal;}
+  /* tables */
+  .scroll-x{overflow-x:auto;margin:14px 0;}
+  table{width:100%;border-collapse:collapse;font-size:13px;background:var(--panel);min-width:560px;}
+  th,td{border:1px solid var(--line);padding:7px 10px;text-align:left;vertical-align:top;}
+  th{background:var(--panel2);color:var(--muted);font-size:12px;cursor:pointer;user-select:none;position:relative;}
+  th[data-sort]:hover{color:var(--navy);}
+  td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;}
+  tr.htp td:first-child{border-left:3px solid var(--htp);}
+  tr.cpu td:first-child{border-left:3px solid var(--cpu);}
+  /* code */
+  .code{position:relative;margin:13px 0;}
+  .code pre{background:var(--code-bg);color:var(--code-fg);border-radius:9px;padding:14px 15px;overflow-x:auto;font-size:12.5px;line-height:1.6;margin:0;}
+  .code pre code{color:var(--code-fg);white-space:pre;}
+  .cp{position:absolute;top:7px;right:7px;font:inherit;font-size:11px;font-weight:700;cursor:pointer;background:#26333f;color:#dbe4ee;border:1px solid #43566a;border-radius:6px;padding:3px 9px;}
+  .cp.done{background:var(--fact);border-color:var(--fact);color:#fff;}
+  /* charts */
+  .chart-wrap{margin:14px 0;}
+  .chart-title{font-weight:700;color:var(--navy);font-size:14px;margin-bottom:4px;}
+  .chart-svg{width:100%;height:auto;display:block;background:var(--panel);border:1px solid var(--line);border-radius:8px;}
+  .legend{display:flex;gap:16px;flex-wrap:wrap;font-size:12.5px;color:var(--muted);margin:6px 0 2px;}
+  .legend span{display:inline-flex;align-items:center;gap:5px;}
+  .legend i{width:13px;height:13px;border-radius:3px;display:inline-block;}
+  .chart-tip{position:fixed;z-index:80;pointer-events:none;background:var(--navy);color:#fff;font-size:12px;padding:6px 9px;border-radius:6px;box-shadow:var(--shadow);opacity:0;transition:opacity .1s;white-space:nowrap;}
+  .filterbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;font-size:12.5px;margin:8px 0;padding:8px 10px;background:var(--panel2);border:1px solid var(--line);border-radius:8px;}
+  .filterbar label{display:inline-flex;align-items:center;gap:5px;cursor:pointer;background:#fff;border:1px solid var(--border);border-radius:999px;padding:3px 9px;}
+  .filterbar b{color:var(--navy);}
+  /* diagrams */
+  .flow{display:flex;flex-wrap:wrap;align-items:center;gap:7px;margin:12px 0;}
+  .fbox{border:1px solid var(--border);border-radius:9px;padding:9px 12px;background:var(--panel2);font-size:12.6px;text-align:center;min-width:78px;}
+  .fbox .t{font-weight:700;font-size:12.8px;}
+  .fbox .s{font-size:10.6px;color:var(--muted);margin-top:1px;}
+  .fbox.emb{border-top:4px solid var(--fact);}
+  .fbox.op{border-top:4px solid var(--htp);}
+  .fbox.head{border-top:4px solid var(--navy2);}
+  .fbox.samp{border-top:4px solid var(--warn);}
+  .farrow{color:var(--htp);font-size:16px;flex:0 0 auto;}
+  .two{display:grid;grid-template-columns:1fr;gap:14px;margin:12px 0;}
+  .subcard{border:1px solid var(--border);border-radius:10px;padding:14px;background:var(--panel2);}
+  .subcard h4{margin:0 0 8px;}
+  .subcard.htp{border-top:4px solid var(--htp);}
+  .subcard.cpu{border-top:4px solid var(--cpu);}
+  /* kv cache cells */
+  .kv{display:flex;gap:4px;flex-wrap:wrap;margin:6px 0;}
+  .kvc{width:30px;height:26px;border-radius:5px;border:1px solid var(--border);background:#fff;display:flex;align-items:center;justify-content:center;font-size:9.5px;color:var(--muted);}
+  .kvc.pf{background:var(--cpu-soft);border-color:var(--cpu);color:var(--cpu);}
+  .kvc.dec{background:var(--warn-soft);border-color:var(--warn);color:var(--warn);font-weight:700;}
+  /* env grid */
+  .env{display:grid;grid-template-columns:1fr;gap:8px;margin:10px 0;}
+  .envc{border:1px solid var(--border);border-radius:9px;padding:11px 13px;background:var(--panel2);}
+  .envc .k{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.03em;}
+  .envc .v{font-weight:700;font-size:14px;margin-top:2px;}
+  /* decision matrix */
+  .dm td.yes{background:var(--fact-soft);color:var(--fact);font-weight:700;text-align:center;}
+  .dm td.no{background:#fbe4de;color:var(--red);font-weight:700;text-align:center;}
+  .dm td.mid{background:var(--warn-soft);color:var(--warn);font-weight:700;text-align:center;}
+  details.notes{margin:14px 0 2px;border:1px dashed var(--htp);border-radius:9px;background:#faf8ff;}
+  details.notes>summary{cursor:pointer;padding:9px 13px;font-weight:700;color:var(--htp);font-size:13.5px;list-style:none;}
+  details.notes>summary::before{content:"🎤 발표자 노트  ";}
+  details.notes[open]>summary{border-bottom:1px dashed var(--htp);}
+  details.notes .body{padding:11px 15px;font-size:13.4px;color:var(--fg);}
+  details.notes .body .one{background:var(--htp-soft);border-radius:6px;padding:8px 11px;margin-bottom:8px;font-weight:600;}
+  footer{color:var(--muted);font-size:12.5px;margin-top:30px;text-align:center;}
+  @media (min-width:820px){
+    .two{grid-template-columns:1fr 1fr;}
+    .env{grid-template-columns:repeat(3,1fr);}
+  }
+  @media print{
+    nav.toc,.cp,.fs,.filterbar,.chart-tip{display:none !important;}
+    body{background:#fff;font-size:11px;}
+    section{box-shadow:none;border:1px solid #ccc;break-inside:avoid;page-break-inside:avoid;}
+    details.notes{display:none;}
+    .code pre{background:#f2f2f2;color:#111;border:1px solid #ccc;}
+    a{color:#000;}
+  }
+</style>
+</head>
+<body>
+<nav class="toc" id="toc" aria-label="목차">
+  <span class="brand">EXAONE · HTP</span>
+  <a href="#s1">1 목표</a>
+  <a href="#s2">2 추론흐름</a>
+  <a href="#s3">3 Tied Emb</a>
+  <a href="#s4">4 Prefill/Decode</a>
+  <a href="#s5">5 양자화</a>
+  <a href="#s6">6 환경</a>
+  <a href="#s7">7 벤치마크</a>
+  <a href="#s8">8 메모리</a>
+  <a href="#s9">9 Graph분할</a>
+  <a href="#s10">10 데이터주의</a>
+  <a href="#s11">11 결론</a>
+  <a href="#s12">12 다음계획</a>
+  <a href="#s13">근거</a>
+  <button class="fs" id="fsBtn" aria-label="전체화면">⛶ 전체화면</button>
+</nav>
+
+<main>
+  <header class="doc">
+    <p class="kick">온디바이스 LLM · llama.cpp / GGML · Qualcomm Hexagon HTP</p>
+    <h1>EXAONE 온디바이스 추론 분석: 양자화별 CPU·HTP 실행 구조와 성능</h1>
+    <p class="sub">Prefill/Decode, KV Cache, Tied Embedding부터 Q4_0 HTP Offload 검증까지 · Semantic Agent PoC</p>
+    <div class="box key" style="margin-top:16px;">
+      <b>핵심 메시지 —</b> NPU에 모델을 <b>등록(assign)</b>하는 것과, 실제 주요 연산이 NPU에서 <b>효율적으로 실행(execute)</b>되는 것은 다릅니다. 이 발표는 <span class="term" data-tip="htp_layers=31 처럼 layer가 backend에 배정된 것으로 표시되는 것">layer assignment</span>가 곧 <span class="term" data-tip="weight가 HTP 전용 layout(HTP0-REPACK)으로 실제 이동해 kernel에서 연산되는 것">weight offload/execution</span>을 뜻하지 않음을, EXAONE 1.2B의 실제 벤치마크와 backend 로그로 확인합니다.
+    </div>
+  </header>
+
+  <!-- S1 -->
+  <section id="s1">
+    <h2><span class="num">1.</span>프로젝트 목표</h2>
+    <p class="lead">EXAONE 1.2B급 모델을 Qualcomm HTP에서 추론하여 Semantic Agent PoC에 쓸 온디바이스 경로를 확보한다. 단순 실행 성공이 아니라, 아래를 <strong>함께</strong> 검증하는 것이 목표다.</p>
+    <div class="flow">
+      <div class="fbox"><div class="t">모델 변환·로딩</div></div>
+      <div class="farrow">·</div>
+      <div class="fbox"><div class="t">HTP weight offload</div></div>
+      <div class="farrow">·</div>
+      <div class="fbox"><div class="t">Prefill·Decode 성능</div></div>
+      <div class="farrow">·</div>
+      <div class="fbox"><div class="t">CPU fallback</div></div>
+      <div class="farrow">·</div>
+      <div class="fbox"><div class="t">양자화별 backend 지원</div></div>
+      <div class="farrow">·</div>
+      <div class="fbox"><div class="t">메모리·품질 trade-off</div></div>
+    </div>
+    <div class="box fact"><b>이번 분석에서 확인된 한 줄 —</b> Q4_0의 Transformer weight는 HTP로 실제 offload되어 <strong>Prefill은 HTP가 CPU보다 약 3.49× 빠르지만</strong>, <strong>Decode는 모든 양자화에서 현재 CPU-only가 더 빠릅니다.</strong> "NPU 연결 성공"과 "end-to-end 가속"은 별개 문제입니다.</div>
+    <details class="notes"><summary></summary><div class="body">
+      <div class="one">이 화면 한 문장: "우리는 '돌아간다'가 아니라 '어디서 얼마나 효율적으로 도는가'를 검증했습니다."</div>
+      <b>질문 예상:</b> "31 layer가 HTP에 올라갔다면 다 된 거 아닌가요?" → 뒤(7·8장)에서 Q4_K의 htp_layers=31 + HTP 메모리 0.5MiB 반례를 보여준다고 예고.<br>
+      <b>단정 금지:</b> "HTP가 느리다"가 아니라 "현재 구성의 Decode 경로에서 CPU가 빠르다"로 말한다.
+    </div></details>
+  </section>
+
+  <!-- S2 -->
+  <section id="s2">
+    <h2><span class="num">2.</span>LLM 추론 전체 흐름</h2>
+    <p class="lead">토큰 하나가 만들어지는 경로입니다. 각 단계가 어느 backend에서 도는지가 뒤 분석의 핵심이 됩니다.</p>
+    <div class="flow">
+      <div class="fbox emb"><div class="t">Token ID</div><div class="s">정수</div></div><div class="farrow">→</div>
+      <div class="fbox emb"><div class="t">Token Embedding</div><div class="s">GET_ROWS</div></div><div class="farrow">→</div>
+      <div class="fbox op"><div class="t">Transformer ×30</div><div class="s">hidden state</div></div><div class="farrow">→</div>
+      <div class="fbox op"><div class="t">Final RMSNorm</div></div><div class="farrow">→</div>
+      <div class="fbox head"><div class="t">LM Head</div><div class="s">Linear → logits</div></div><div class="farrow">→</div>
+      <div class="fbox samp"><div class="t">Logits</div><div class="s">vocab 점수</div></div><div class="farrow">→</div>
+      <div class="fbox samp"><div class="t">Sampling/Argmax</div><div class="s">다음 Token</div></div>
+    </div>
+    <ul>
+      <li><span class="term" data-tip="token_embd.weight에서 token ID에 해당하는 row 하나를 읽어오는 조회 연산. 전체 행렬곱이 아니다.">Token Embedding</span> — 이미 정해진 token ID로 <code>token_embd.weight</code>의 특정 row를 가져오는 <code>GET_ROWS</code> 연산.</li>
+      <li><strong>Transformer</strong> — 입력 token의 문맥 표현인 hidden state를 만든다(30개 block).</li>
+      <li><strong>LM Head</strong> — 마지막 hidden state를 vocabulary 전체 token의 logits로 바꾸는 출력 <span class="term" data-tip="hidden(2048) × weight(2048×65536) → logits(65536). 큰 MUL_MAT.">Linear 연산</span>.</li>
+      <li><strong>Logits</strong> — 다음 token 후보별 원시 점수(65536개).</li>
+      <li><strong>Sampling / Argmax</strong> — logits 중 다음 token ID를 선택.</li>
+    </ul>
+    <div class="box warn">
+      <b>흔한 오해 바로잡기 —</b>
+      ① <strong>LM Head는 tensor 이름이 아니다.</strong> hidden을 logits로 바꾸는 출력 Linear layer/연산 모듈이다.
+      ② <strong>Tied 모델</strong>에서는 LM Head가 <code>token_embd.weight</code>를 출력 weight로 <strong>재사용</strong>한다(별도 <code>output.weight</code> 없음).
+      ③ <strong>Softmax는 LM Head 자체가 아니라</strong> logits 이후의 선택 과정이다.
+    </div>
+    <details class="notes"><summary></summary><div class="body">
+      <div class="one">이 화면 한 문장: "입력 embedding과 출력 LM Head는 이름은 대칭이지만 하는 일이 정반대입니다."</div>
+      <b>질문 예상:</b> "LM Head가 tensor인가요?" → 아니오, 연산/모듈. Tied면 그 weight가 token_embd.weight.<br>
+      <b>연결 문장:</b> "그럼 이 둘이 정말 같은 weight를 쓰는지 다음 장에서 확인합니다."
+    </div></details>
+  </section>
+
+  <!-- S3 -->
+  <section id="s3">
+    <h2><span class="num">3.</span>Tied Word Embedding</h2>
+    <div class="def"><b><span class="term" data-tip="tie_word_embeddings=true. 입력 embedding weight와 출력 LM Head weight가 같은 파라미터(메모리)를 공유하는 학습 구조.">Tied Word Embedding</span></b> = 입력 embedding과 출력 LM Head가 <b>같은 weight를 공유</b>하는 <b>모델 구조</b>. 추론 때 켜고 끄는 성능 옵션이 아니라, 학습 시 parameter 공유 여부를 정하는 설계다.</div>
+    <div class="two">
+      <div class="subcard cpu"><h4>Untied (분리)</h4>
+        <p style="font-size:13px;margin:0 0 6px;">입력 <code>token_embd.weight</code> · 출력 <code>output.weight</code>(=<code>lm_head.weight</code>) — 두 weight가 독립 학습.</p>
+        <div class="flow" style="margin:0;"><div class="fbox emb"><div class="t">token_embd</div><div class="s">입력 전용</div></div><div class="farrow">→</div><div class="fbox op"><div class="t">GET_ROWS</div></div></div>
+        <div class="flow" style="margin:0;"><div class="fbox head"><div class="t">output.weight</div><div class="s">출력 전용</div></div><div class="farrow">→</div><div class="fbox op"><div class="t">LM Head MUL_MAT</div></div></div>
+      </div>
+      <div class="subcard htp"><h4>Tied (공유)</h4>
+        <p style="font-size:13px;margin:0 0 6px;">입력·출력이 <b>같은</b> <code>token_embd.weight</code> 사용. 입력=row 조회, 출력=모든 row와 hidden 내적.</p>
+        <div class="flow" style="margin:0;"><div class="fbox emb"><div class="t">token_embd.weight</div><div class="s">공유</div></div><div class="farrow">→</div><div class="fbox op"><div class="t">GET_ROWS(입력)</div></div></div>
+        <div class="flow" style="margin:0;"><div class="farrow" style="visibility:hidden">→</div><div class="farrow">↳</div><div class="fbox head"><div class="t">LM Head MUL_MAT(출력)</div><div class="s">같은 weight 재사용</div></div></div>
+      </div>
+    </div>
+    <p><strong>비유</strong> — 입력 embedding은 "이미 아는 단어를 내부 언어로 번역하는 사전", LM Head는 "내부 생각이 vocabulary의 어떤 단어와 가장 잘 맞는지 전체 사전과 비교하는 과정". EXAONE/HF 구현에서는 두 모듈이 별도로 존재하더라도 <code>tie_word_embeddings=true</code>이면 weight Parameter가 같은 메모리를 공유하도록 구현될 수 있다.</p>
+    <div class="box fact">
+      <b>이 모델은 Tied로 확인됨 <span class="tag t-fact">확정</span></b> — 이 저장소의 EXAONE GGUF에는 <code>output.weight</code>/<code>lm_head.weight</code> tensor가 <strong>존재하지 않고</strong>, backend 로그에서 <code>token_embd.weight</code>가 <strong>MUL_MAT의 입력으로 vocab logits(2048×65536→65536)를 생성</strong>합니다. 또한 llama.cpp 양자화기는 <code>has_tied_embeddings = true</code>를 기본 가정합니다(<code>output.weight</code>를 만나기 전까지). 근거: <a href="#s13">13장</a>.
+    </div>
+    <div class="code"><button class="cp">복사</button><pre><code># backend 로그: token_embd.weight 가 LM Head(MUL_MAT)로 재사용됨 (tied 증거)
+ggml-hex: HTP0 supports-op MUL_MAT|token_embd.weight x  -> |2048:65536 x 2048:512 -> 65536:512|q6_K x f32 -> f32|HTP0-REPACK x NONE -> NONE|no</code></pre></div>
+    <details class="notes"><summary></summary><div class="body">
+      <div class="one">이 화면 한 문장: "이 모델은 Tied입니다 — 그래서 embedding 하나의 backend 문제가 입력과 출력 양쪽에 동시에 영향을 줍니다."</div>
+      <b>단정 금지:</b> tied 여부는 "추측"이 아니라 tensor 목록·로그로 확인한 것이라고 강조. 다른 모델은 다를 수 있음.<br>
+      <b>연결:</b> "그럼 이 token_embd가 HTP에서 지원되는지가 중요해집니다(9장)."
+    </div></details>
+  </section>
+
+  <!-- S4 -->
+  <section id="s4">
+    <h2><span class="num">4.</span>Prefill과 Decode</h2>
+    <div class="two">
+      <div class="subcard cpu"><h4>Prefill — 입력 255 tokens 병렬</h4>
+        <p style="font-size:13px;margin:0 0 8px;">입력 token 여러 개를 한꺼번에 처리. 각 position의 K/V를 계산해 <span class="term" data-tip="과거 token의 Key/Value를 저장해 두는 메모리. Decode에서 재사용된다.">KV cache</span>에 저장한다.</p>
+        <div class="flow" style="margin:0;"><div class="fbox"><div class="t">255 tokens</div></div><div class="farrow">→</div><div class="fbox op"><div class="t">Transformer 병렬</div></div><div class="farrow">→</div><div class="fbox"><div class="t">KV cache 0~254</div></div></div>
+        <p style="font-size:12.5px;color:var(--muted);margin:8px 0 0;">큰 batch 형태의 행렬 연산 → 병렬성 큼 → HTP에 유리.</p>
+      </div>
+      <div class="subcard htp"><h4>Decode — token 1개 loop</h4>
+        <p style="font-size:13px;margin:0 0 8px;">직전 token 1개 입력 → 다음 token 1개 생성을 반복. 과거 K/V는 다시 계산하지 않고 cache를 참조·append.</p>
+        <div class="flow" style="margin:0;"><div class="fbox"><div class="t">token 1개</div></div><div class="farrow">→</div><div class="fbox op"><div class="t">30 blocks</div></div><div class="farrow">→</div><div class="fbox head"><div class="t">LM Head</div></div><div class="farrow">→</div><div class="fbox samp"><div class="t">다음 token</div></div></div>
+        <p style="font-size:12.5px;color:var(--muted);margin:8px 0 0;">batch 1 중심의 작은 연산 반복 → 고정 overhead 비중 큼.</p>
+      </div>
+    </div>
+    <h4>KV cache append 과정</h4>
+    <p style="font-size:13.5px;">Prefill 이후 position 0~254가 채워지고, Decode마다 새 K/V를 <strong>append</strong>하며 과거 전체를 재사용한다.</p>
+    <div class="kv">
+      <div class="kvc pf">0</div><div class="kvc pf">…</div><div class="kvc pf">254</div>
+      <div class="kvc dec">255</div><div class="kvc dec">256</div><div class="kvc dec">257</div>
+      <span style="align-self:center;font-size:12px;color:var(--muted);margin-left:6px;">파랑=Prefill 일괄, 주황=Decode append</span>
+    </div>
+    <ul style="font-size:13.6px;">
+      <li>Decode는 과거 token의 K/V를 <strong>다시 계산하지 않는다</strong>. 하지만 새 token 하나가 <strong>모든 30개 block을 통과</strong>한다.</li>
+      <li>Attention은 과거 KV cache 전체를 읽으므로 <strong>context가 길수록 메모리 접근량이 증가</strong>한다.</li>
+      <li>HTP는 큰 병렬 연산엔 유리하지만, <strong>batch 1과 잦은 backend 전환에는 불리</strong>할 수 있다 <span class="tag t-hyp">가설</span>.</li>
+    </ul>
+    <details class="notes"><summary></summary><div class="body">
+      <div class="one">이 화면 한 문장: "Prefill은 한 번의 큰 연산, Decode는 작은 연산의 무한 반복 — 그래서 최적 backend가 다를 수 있습니다."</div>
+      <b>질문 예상:</b> "KV cache 없으면?" → 매 step prompt 전체 재계산. cache가 decode를 가능하게 함.<br>
+      <b>연결:</b> "이 batch-1 반복이 뒤 Decode 성능 해석의 핵심입니다."
+    </div></details>
+  </section>
+
+  <!-- S5 -->
+  <section id="s5">
+    <h2><span class="num">5.</span>양자화 개념</h2>
+    <p class="lead"><span class="term" data-tip="weight 값을 더 적은 비트로 저장해 용량·대역폭을 줄이는 것. GGUF는 block 단위로 scale과 정수코드를 저장한다.">양자화</span> = weight를 더 적은 비트로 저장. 타입별로 backend 지원성이 다른 것이 이 프로젝트의 핵심.</p>
+    <div class="scroll-x"><table>
+      <thead><tr><th>타입</th><th class="num">bpw</th><th>구조</th><th>HTP 정황(이번 분석)</th></tr></thead>
+      <tbody>
+        <tr><td><b>F16</b></td><td class="num">16</td><td>16-bit float, 품질 기준점</td><td>HTP에 대형 weight 배치됨</td></tr>
+        <tr><td><b>Q8_0</b></td><td class="num">~8.5</td><td>GGUF block quant, ~8-bit weight (<b>W8A8 아님</b>)</td><td>HTP weight offload 정황</td></tr>
+        <tr><td><b>Q4_0</b></td><td class="num">~4.5</td><td>32 weight당 4-bit+scale</td><td><b>HTP offload 확인</b> — 현실적 PoC 후보</td></tr>
+        <tr><td><b>Q4_K</b></td><td class="num">~4.5</td><td>256 super-block + 하위 block scale/min (계층형)</td><td>HTP에 대형 weight buffer <b>미생성</b> 정황</td></tr>
+      </tbody>
+    </table></div>
+    <div class="box warn"><b>Q8_0 주의 —</b> GGUF <code>Q8_0</code>은 weight를 약 8-bit로 저장하는 <strong>weight block quantization</strong>이며, activation까지 int8로 만드는 <strong>W8A8 activation quantization과 동일 개념이 아닙니다.</strong></div>
+
+    <h3>Q4_0 vs Q4_K storage 개념도</h3>
+    <div class="two">
+      <div class="subcard cpu"><h4>Q4_0 — 평면 block</h4>
+        <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
+          <div class="pill cpu" style="background:var(--navy2);color:#fff;">scale (FP16)</div>
+          <div class="pill" style="background:#3a6ea5;color:#fff;">32 × 4bit</div>
+        </div>
+        <p style="font-size:12px;color:var(--muted);margin:8px 0 0;">32 weight당 scale 1개 → 단순, backend kernel 구현 쉬움.</p>
+      </div>
+      <div class="subcard htp"><h4>Q4_K — 계층형 super-block</h4>
+        <div style="border:2px solid var(--htp);border-radius:8px;padding:8px;background:var(--htp-soft);">
+          <div style="font-size:10.5px;color:var(--htp);font-weight:700;margin-bottom:5px;">super-block ≈ 256 weight (super-scale)</div>
+          <div style="display:flex;gap:4px;flex-wrap:wrap;">
+            <div class="pill htp">sub scale/min</div><div class="pill htp">sub scale/min</div><div class="pill htp">sub scale/min</div><div class="pill htp">…</div>
+          </div>
+        </div>
+        <p style="font-size:12px;color:var(--muted);margin:8px 0 0;">같은 ~4.5 bpw라도 scale 구조가 정교 → CPU 품질↑, 그러나 <b>Hexagon backend K-quant kernel 지원 부족 정황</b>.</p>
+      </div>
+    </div>
+
+    <h3>Q4_K_S / Q4_K_M / Q4_K_pure — recipe 구분</h3>
+    <div class="def"><b>storage type vs recipe</b> — <code>Q4_K</code>는 개별 tensor <b>저장 타입</b>이고, <code>Q4_K_S</code>·<code>Q4_K_M</code>은 모델 전체 <b>양자화 recipe</b>(어떤 tensor를 어떤 타입으로 승격할지). <code>Q4_K_pure</code>는 가능한 tensor를 기본 <code>Q4_K</code>로 유지하는 실험 구성이다.</div>
+    <p style="font-size:13.6px;">llama.cpp의 <code>use_more_bits(i_layer, n_layers)</code>가 "더 정밀하게 보호할 layer"를 고른다(<a href="#s13">근거: llama-quant.cpp:417</a>). EXAONE 30-layer에서 선택된 layer:</p>
+    <div class="box" style="background:var(--panel2);font-family:'D2Coding',monospace;font-size:13px;">use_more_bits layers = <b>0, 1, 2, 5, 8, 11, 14, 17, 20, 23, 26, 27, 28, 29</b>  (14개)</div>
+    <p style="font-size:13.6px;"><strong>Q4_K_S와 Q4_K_M의 실제 tensor 차이</strong>(저장소 GGUF 비교 결과, 총 <b>29개</b>): <span class="pill htp">attn_v 15개</span> <span class="pill htp">ffn_down 14개</span>. M은 이들을 <code>Q6_K</code>로 승격한다. Tied로 추정되는 <code>token_embd.weight</code>는 <strong>S·M 모두 Q6_K</strong>였다.</p>
+    <div class="scroll-x"><table>
+      <thead><tr><th>recipe</th><th>대부분 weight</th><th>승격 tensor</th><th class="num">GGUF 크기</th></tr></thead>
+      <tbody>
+        <tr><td>Q4_K_pure</td><td>Q4_K</td><td>token_embd만 Q6_K</td><td class="num">680.1 MB</td></tr>
+        <tr><td>Q4_K_S</td><td>Q4_K</td><td>attn_v·ffn_down 일부 → Q5_K (7개) + token_embd Q6_K</td><td class="num">718.4 MB</td></tr>
+        <tr><td>Q4_K_M</td><td>Q4_K</td><td>선택 14 layer의 attn_v·ffn_down → Q6_K (29개)</td><td class="num">748.8 MB</td></tr>
+      </tbody>
+    </table></div>
+    <p style="font-size:12.5px;color:var(--muted);">※ tensor 타입·개수·크기는 저장소의 <code>q4k_compare/aggregates.json</code>·<code>promoted_tensors.csv</code>에서 직접 추출(<a href="#s13">13장</a>). recipe 매핑은 모델 architecture·llama.cpp 버전에 따라 달라질 수 있다.</p>
+    <details class="notes"><summary></summary><div class="body">
+      <div class="one">이 화면 한 문장: "Q4_K는 CPU에선 똑똑한 양자화지만, 지금 HTP에는 그 kernel이 없어 보입니다."</div>
+      <b>단정 금지:</b> "Q4_K가 HTP 미지원"을 단정하기보다 "대형 HTP buffer 미생성 + K-quant kernel 부족 정황"으로. 확정은 8·9장 근거로.<br>
+      <b>연결:</b> "이 recipe 차이가 실제 backend 배치·성능에 어떻게 나타나는지 벤치마크로 봅니다."
+    </div></details>
+  </section>
+
+  <!-- S6 -->
+  <section id="s6">
+    <h2><span class="num">6.</span>테스트 환경</h2>
+    <div class="env">
+      <div class="envc"><div class="k">모델</div><div class="v">EXAONE (exaone4) 1.2B</div><div style="font-size:12px;color:var(--muted)">260526_ixi_GEN_1.2B_vocab_trim</div></div>
+      <div class="envc"><div class="k">구조</div><div class="v">30 blocks · hidden 2048</div><div style="font-size:12px;color:var(--muted)">vocab 65536 · BPE(gpt2) · 333 tensors</div></div>
+      <div class="envc"><div class="k">입력 / context</div><div class="v">255 tokens / 2048</div><div style="font-size:12px;color:var(--muted)">모델 metadata context_length=32768</div></div>
+      <div class="envc"><div class="k">단말</div><div class="v">SM-F956N</div><div style="font-size:12px;color:var(--muted)">Android 14</div></div>
+      <div class="envc"><div class="k">SoC / platform</div><div class="v">SM8650 / pineapple</div><div style="font-size:12px;color:var(--muted)">QTI</div></div>
+      <div class="envc"><div class="k">HTP version</div><div class="v">V75 <span class="tag t-hyp">후보</span></div><div style="font-size:12px;color:var(--muted)">lib 파일명(libQnnHtpV75Skel.so) 추정</div></div>
+      <div class="envc"><div class="k">backend</div><div class="v">CPU · Hexagon HTP0</div><div style="font-size:12px;color:var(--muted)">llama.cpp Android/HTP</div></div>
+      <div class="envc"><div class="k">llama.cpp</div><div class="v">build 9793</div><div style="font-size:12px;color:var(--muted)">commit e6b88e584</div></div>
+      <div class="envc"><div class="k">quantization</div><div class="v">6종 × {CPU, HTP0}</div><div style="font-size:12px;color:var(--muted)">F16·Q8_0·Q4_0·Q4_K_S·Q4_K_M·Q4_K_pure</div></div>
+    </div>
+    <p style="font-size:13px;"><strong>실행 방식</strong>(저장소 quant_matrix 스크립트) — HTP: <code>--device HTP0</code>, <code>-ngl 99</code> / CPU: <code>-ngl 0</code>. alloc 로그는 <code>llama-cli</code>, throughput은 <code>llama-bench</code>. 비교 항목: HTP/CPU memory allocation, TTFT, Prefill/Decode latency·throughput.</p>
+    <div class="box hyp"><b>확인 필요 —</b> 프로젝트 목표에는 "Gen4 계열"로 기재됐으나, 이 벤치 단말의 <strong>확인된 SoC는 SM8650(pineapple)</strong>이다. HTP <strong>V75</strong>도 라이브러리 파일명 기반 <strong>후보</strong>다. cold/warm TTFT 분리, 정확한 build option 상세는 <span class="tag t-todo">확인 필요</span>.</div>
+    <details class="notes"><summary></summary><div class="body">
+      <div class="one">이 화면 한 문장: "측정 환경은 실제 단말 로그에서 뽑았고, 불확실한 것은 '후보/확인 필요'로 표시했습니다."</div>
+      <b>단정 금지:</b> SoC 세대명(Gen3/Gen4)을 즉석에서 단정하지 말 것. 확인값은 SM8650/pineapple.
+    </div></details>
+  </section>
+
+  <!-- S7 -->
+  <section id="s7">
+    <h2><span class="num">7.</span>벤치마크 결과</h2>
+    <p class="lead">아래 수치는 저장소 <code>quant_matrix.csv</code> 원본이다(임의 보정 없음). 해석은 <strong>ms/token 기준</strong>을 우선하며, TPS 불일치는 <a href="#s10">10장</a>에서 다룬다.</p>
+    <div class="filterbar" id="quantFilter">
+      <b>Quant 필터:</b>
+      <label><input type="checkbox" value="F16" checked>F16</label>
+      <label><input type="checkbox" value="Q8_0" checked>Q8_0</label>
+      <label><input type="checkbox" value="Q4_0" checked>Q4_0</label>
+      <label><input type="checkbox" value="Q4_K_S" checked>Q4_K_S</label>
+      <label><input type="checkbox" value="Q4_K_M" checked>Q4_K_M</label>
+      <label><input type="checkbox" value="Q4_K_pure" checked>Q4_K_pure</label>
+      <span style="margin-left:auto;"><label><input type="checkbox" id="tHTP" checked>HTP0</label> <label><input type="checkbox" id="tCPU" checked>CPU</label></span>
+    </div>
+
+    <div class="chart-wrap"><div class="chart-title">Chart 1 · Quant별 HTP0 메모리 배치 (htp_mib)</div>
+      <svg class="chart-svg" id="c1" viewBox="0 0 760 300" role="img" aria-label="HTP 메모리 배치"></svg></div>
+    <div class="box fact"><b>해석 —</b> F16·Q8_0·Q4_0은 HTP에 대형 weight buffer(2296 / 1084 / 574 MiB)가 생성된다. 반면 <strong>Q4_K 계열은 0.50 MiB</strong> — 이는 실제 모델 weight 전체 offload로 보기 어렵다. <strong><code>htp_layers=31</code>만으로 실제 HTP weight offload를 판단하면 안 된다.</strong></div>
+
+    <div class="chart-wrap"><div class="chart-title">Chart 2 · Prefill latency (prefill_ms, 낮을수록 좋음)</div>
+      <div class="legend"><span><i style="background:var(--htp)"></i>HTP0</span><span><i style="background:var(--cpu)"></i>CPU</span></div>
+      <svg class="chart-svg" id="c2" viewBox="0 0 760 320" role="img" aria-label="Prefill latency"></svg></div>
+    <div class="box fact"><b>해석 —</b> F16/Q8_0/Q4_0에서 HTP Prefill 가속이 크다. <strong>Q4_0 Prefill은 HTP가 CPU보다 약 3.49× 빠름</strong>(151.44 vs 528.58 ms). Q4_K 계열은 HTP 가속 효과가 거의 없거나 일관되지 않아, <strong>HTP 미실행/CPU fallback 가설</strong>과 연결된다.</div>
+
+    <div class="chart-wrap"><div class="chart-title">Chart 3 · Decode latency (decode_ms_per_tok, 낮을수록 좋음)</div>
+      <div class="legend"><span><i style="background:var(--htp)"></i>HTP0</span><span><i style="background:var(--cpu)"></i>CPU</span></div>
+      <svg class="chart-svg" id="c3" viewBox="0 0 760 320" role="img" aria-label="Decode latency"></svg></div>
+    <div class="box warn"><b>해석 —</b> <strong>모든 quant에서 현재 측정 기준 Decode는 CPU가 더 빠르다.</strong> Q4_0은 Prefill은 HTP가 빠르지만 Decode는 <strong>CPU가 약 2.49× 빠름</strong>(HTP 56.30 vs CPU 22.62 ms/token). NPU 연결 성공과 end-to-end Decode 향상은 별개 문제다.</div>
+
+    <div class="chart-wrap"><div class="chart-title">Chart 4 · TTFT (ttft_ms)</div>
+      <div class="legend"><span><i style="background:var(--htp)"></i>HTP0</span><span><i style="background:var(--cpu)"></i>CPU</span></div>
+      <svg class="chart-svg" id="c4" viewBox="0 0 760 320" role="img" aria-label="TTFT"></svg></div>
+    <div class="box hyp"><b>해석 —</b> Prefill 자체가 빨라도 cold initialization, HTP session, repack, backend 준비 비용이 TTFT에 포함될 수 있다(예: Q8_0 HTP TTFT 3267ms). <strong>warm/cold TTFT 분리 측정 필요</strong> <span class="tag t-todo">확인 필요</span>.</div>
+
+    <div class="chart-wrap"><div class="chart-title">Chart 5 · Quant별 CPU/HTP 메모리 (htp_mib + cpu_mib)</div>
+      <div class="legend"><span><i style="background:var(--htp)"></i>HTP mem</span><span><i style="background:var(--cpu)"></i>CPU mem</span></div>
+      <svg class="chart-svg" id="c5" viewBox="0 0 760 320" role="img" aria-label="메모리 배치"></svg></div>
+    <div class="box hyp"><b>주의 —</b> 현재 CSV의 <code>cpu_mib</code>가 <strong>CPU_REPACK 전체를 포함하지 않았을 가능성</strong>이 있다(8장에서 로그상 CPU_REPACK은 훨씬 큼). 이 차트는 CSV 값 그대로이며, 실제 CPU 상주 메모리는 8장 로그를 참조.</div>
+
+    <h3>원본 데이터 표 (정렬 가능)</h3>
+    <div class="scroll-x"><table id="dataTable">
+      <thead><tr>
+        <th data-sort="s">quant</th><th data-sort="s">backend</th>
+        <th data-sort="n" class="num">htp_mib</th><th data-sort="n" class="num">cpu_mib</th>
+        <th data-sort="n" class="num">ttft_ms</th><th data-sort="n" class="num">prefill_ms</th><th data-sort="n" class="num">prefill_tps</th>
+        <th data-sort="n" class="num">decode_ms/tok</th><th data-sort="n" class="num">decode_tps</th>
+      </tr></thead>
+      <tbody id="dataBody"></tbody>
+    </table></div>
+    <details class="notes"><summary></summary><div class="body">
+      <div class="one">이 화면 한 문장: "Q4_0은 Prefill을 HTP로 크게 가속했지만, Decode까지 빨라진 것은 아닙니다. Prefill 가속과 Decode 가속은 별도 문제로 봐야 합니다."</div>
+      <b>질문 예상:</b> "그럼 HTP 쓸 이유가 없나?" → Prefill/TTFT 데모 가치는 큼. hybrid 전략(12장)으로 연결.<br>
+      <b>단정 금지:</b> Decode 저하 원인을 아직 하나로 못박지 말 것 → 9·11장 가설로.
+    </div></details>
+  </section>
+
+  <!-- S8 -->
+  <section id="s8">
+    <h2><span class="num">8.</span>메모리 로그 기반 해석</h2>
+    <h3>Q4_0 — HTP로 실제 이동한 강한 증거 <span class="tag t-fact">확정</span></h3>
+    <p style="font-size:13.6px;">CPU-only 실행에서 <code>CPU_REPACK ≈ 678.75 MiB</code>. HTP0 실행에서는 그 대부분이 HTP layout으로 이동한다.</p>
+    <div class="scroll-x"><table>
+      <thead><tr><th>Q4_0 buffer</th><th class="num">CPU-only</th><th class="num">HTP0 실행</th></tr></thead>
+      <tbody>
+        <tr><td>HTP0-REPACK</td><td class="num">—</td><td class="num">573.75 MiB</td></tr>
+        <tr><td>CPU_REPACK</td><td class="num">678.75 MiB</td><td class="num">105.00 MiB</td></tr>
+      </tbody>
+    </table></div>
+    <div class="box fact"><b>계산 —</b> <code>573.75 + 105.00 = 678.75 MiB</code> (CPU-only와 동일). HTP repack 비율 = <code>573.75 / 678.75 ≈ <b>84.5%</b></code>. Q4_0 주요 Transformer weight가 HTP용 layout으로 이동한 강한 증거다.</div>
+    <div class="box hyp"><b>단, —</b> 남은 CPU 약 105 MiB를 <strong>검증 없이 LM Head라고 확정하지 말 것</strong>. embedding/output 계열(Q6_K token_embd) 및 norm일 가능성이 있으나, tensor별 배치를 확인하기 전까지 미확정 <span class="tag t-todo">확인 필요</span>.</div>
+
+    <h3>Q4_K_pure — HTP에 대형 weight 없음 <span class="tag t-fact">확정</span></h3>
+    <div class="scroll-x"><table>
+      <thead><tr><th>Q4_K_pure buffer (HTP0 실행)</th><th class="num">값</th></tr></thead>
+      <tbody>
+        <tr><td>CPU model buffer</td><td class="num">72.00 MiB</td></tr>
+        <tr><td>CPU_REPACK</td><td class="num">645.75 MiB</td></tr>
+        <tr><td>HTP0 model buffer</td><td class="num">0.50 MiB</td></tr>
+        <tr><td>HTP0-REPACK</td><td class="num">없음/유의미하지 않음</td></tr>
+      </tbody>
+    </table></div>
+    <div class="box warn"><b>해석 —</b> Q4_K 대형 weight는 <strong>CPU에 남아 있다</strong>. <code>HTP0 model buffer 0.50 MiB</code>는 context/control buffer 수준일 가능성이며 <strong>모델 전체 offload로 표현하면 안 된다</strong>. 현재 Hexagon backend에서 K-quant weight kernel 미지원 정황.</div>
+    <details class="notes"><summary></summary><div class="body">
+      <div class="one">이 화면 한 문장: "Q4_0은 84.5%가 HTP로 갔고, Q4_K는 0.5MiB만 갔습니다 — 같은 'htp_layers=31'인데 실제는 정반대입니다."</div>
+      <b>단정 금지:</b> 105MiB=LM Head 확정 금지. 0.5MiB=offload 아님만 확정.
+    </div></details>
+  </section>
+
+  <!-- S9 -->
+  <section id="s9">
+    <h2><span class="num">9.</span>GET_ROWS 로그와 CPU↔HTP Graph 분할</h2>
+    <p class="lead">Tied embedding의 <code>token_embd.weight</code>(Q6_K)가 HTP에서 지원되는지 backend capability 로그로 확인한다.</p>
+    <div class="code"><button class="cp">복사</button><pre><code>HTP0 supports-op GET_ROWS|token_embd.weight x inp_tokens -> embd|2048:65536 x 16:1 -> 2048:16|f16 x i32 -> f32|2:4096 x 4:64 -> 4:8192|CPU x NONE -> NONE|no</code></pre></div>
+    <ul style="font-size:13.6px;">
+      <li><code>GET_ROWS(token_embd.weight)</code>는 HTP0에서 <strong>지원되지 않음(<code>no</code>)</strong> <span class="tag t-fact">확정</span>. 따라서 token embedding 연산은 CPU에 남을 가능성이 높다.</li>
+      <li>저장소 로그에는 <strong>MUL_MAT(token_embd.weight → 65536 logits)도 <code>no</code></strong>로 나타난다 — 즉 tied LM Head도 HTP capability 실패.</li>
+      <li><code>supports-op no</code>는 <strong>backend capability 검사 결과</strong>이지 실제 실행 trace가 아니다. 실제 실행 backend는 scheduler assignment/execution trace로 추가 확인 필요 <span class="tag t-todo">확인 필요</span>.</li>
+    </ul>
+    <div class="box warn"><b>두 표현을 구분 —</b><br>
+      "GET_ROWS가 CPU에서 더 빠르다" → <strong>현재 데이터로 증명되지 않음</strong>.<br>
+      "GET_ROWS가 HTP 미지원이라 CPU graph에 남는다" → <strong>로그로 확인된 사실</strong>.</div>
+
+    <h3>Decode graph 분할 가설 <span class="tag t-hyp">가설</span></h3>
+    <div class="flow" style="flex-direction:column;align-items:stretch;gap:6px;">
+      <div class="subcard cpu" style="padding:9px 13px;"><b>CPU</b> — Token ID → <code>GET_ROWS(token_embd)</code> → embedding</div>
+      <div style="text-align:center;color:var(--warn);font-size:12px;font-weight:700;">▼ CPU → HTP boundary (dispatch/transfer)</div>
+      <div class="subcard htp" style="padding:9px 13px;"><b>HTP</b> — Transformer block 0~29 (Q4_0 MUL_MAT = HTP supported) → final hidden</div>
+      <div style="text-align:center;color:var(--warn);font-size:12px;font-weight:700;">▼ HTP → CPU boundary 가능성</div>
+      <div class="subcard cpu" style="padding:9px 13px;"><b>CPU 또는 HTP</b> — Final RMSNorm → <code>LM Head</code>(tied, Q6_K MUL_MAT = HTP no) → logits → sampling</div>
+    </div>
+    <div class="def" style="font-size:12.8px;">
+      <b>용어 —</b> <span class="term" data-tip="전체 추론 연산 연결 구조">Graph</span>=연산 연결 구조 · <span class="term" data-tip="같은 backend에서 연속 실행되는 구간">Subgraph</span>=동일 backend 연속 구간 · <span class="term" data-tip="CPU와 HTP 사이에서 실행 주체가 바뀌는 지점">Backend boundary</span>=실행 주체 전환점 · <span class="term" data-tip="CPU가 HTP에 실행을 요청하는 과정">Dispatch</span> · <span class="term" data-tip="CPU가 HTP 완료를 기다리는 과정">Synchronization</span> · <span class="term" data-tip="backend 간 중간 결과 전달">Tensor transfer</span>.
+    </div>
+    <p style="font-size:13.6px;"><strong>핵심 가설:</strong> Decode는 token 하나당 이 경로가 반복된다. Prefill은 큰 계산이라 HTP dispatch 비용을 상쇄하지만, Decode는 batch 1이라 <strong>고정 overhead 비중이 커진다</strong>. LM Head까지 CPU라면 token당 CPU→HTP→CPU 왕복이 생길 수 있다.</p>
+    <div class="box hyp"><b>아직 확정하지 말 것 —</b> ① 전체 Decode 저하가 GET_ROWS 하나 때문 ② LM Head가 반드시 CPU 실행 ③ CPU↔HTP copy가 전체 지연의 주원인 ④ HTP batch-1 kernel 자체가 느린지. 모두 추가 profiling 대상 <span class="tag t-todo">확인 필요</span>.</div>
+    <details class="notes"><summary></summary><div class="body">
+      <div class="one">이 화면 한 문장: "embedding과 tied LM Head는 HTP가 지원하지 않아 CPU에 남고, 그 사이 Transformer만 HTP라 경계 왕복이 생길 수 있습니다 — 이건 아직 '가설'입니다."</div>
+      <b>단정 금지:</b> supports-op(capability)를 실행 trace라고 말하지 말 것. "확인됨"과 "가설"을 색으로 구분.
+    </div></details>
+  </section>
+
+  <!-- S10 -->
+  <section id="s10">
+    <h2><span class="num">10.</span>데이터 품질 주의사항</h2>
+    <p class="lead">제공된 CSV의 일부 지표는 서로 수학적 역수 관계가 아니다. 원본 수치는 그대로 쓰되 해석은 <strong>ms/token 우선</strong>.</p>
+    <div class="scroll-x"><table>
+      <thead><tr><th>사례</th><th class="num">decode ms/tok</th><th class="num">1000/ms 역산</th><th class="num">CSV decode_tps</th></tr></thead>
+      <tbody>
+        <tr class="htp"><td>Q4_0 HTP</td><td class="num">56.30</td><td class="num">≈17.76</td><td class="num">20.07</td></tr>
+        <tr class="cpu"><td>Q4_0 CPU</td><td class="num">22.62</td><td class="num">≈44.21</td><td class="num">40.11</td></tr>
+      </tbody>
+    </table></div>
+    <div class="box warn"><b>불일치 원인 가능성 —</b> 서로 다른 측정 구간 · warm-up 포함 여부 차이 · llama.cpp 출력값과 외부 계산값 혼용 · 첫 token 포함 여부 · prompt/decode token count 파싱 차이. 또한 <code>prefill_ms × prefill_tps</code>로 역산한 token 수도 quant별로 일치하지 않아 <strong>prompt eval 로그 파싱 검증이 필요</strong>하다 <span class="tag t-todo">확인 필요</span>.</div>
+    <p style="font-size:13px;color:var(--muted);">→ 차트는 원본 수치를 그대로 표시하되, 상대 비교/의사결정은 <strong>ms/token</strong>을 1차 기준으로 삼는다.</p>
+  </section>
+
+  <!-- S11 -->
+  <section id="s11">
+    <h2><span class="num">11.</span>핵심 결론 — 확인된 사실 vs 가설</h2>
+    <div class="two">
+      <div class="subcard" style="border-top:4px solid var(--fact);">
+        <h4 style="color:var(--fact)">✔ 확인된 사실 <span class="tag t-fact">확정</span></h4>
+        <ol style="font-size:13.4px;margin:0;">
+          <li>F16·Q8_0·Q4_0은 HTP에 대형 weight buffer가 생성된다.</li>
+          <li>Q4_0은 CPU repack 중 약 <b>573.75 MiB</b>가 HTP0-REPACK으로 이동(84.5%).</li>
+          <li>Q4_K 계열은 htp_layers=31이 표시돼도 대형 HTP weight buffer가 <b>생성되지 않았다</b>(0.50 MiB).</li>
+          <li>Q4_0 Prefill은 HTP가 CPU보다 크게 빠르다(≈3.49×).</li>
+          <li>모든 quant에서 현재 Decode는 CPU-only가 더 빠르다.</li>
+          <li><code>GET_ROWS(token_embd.weight)</code>는 HTP0 미지원(<code>no</code>). 이 모델은 tied.</li>
+        </ol>
+      </div>
+      <div class="subcard" style="border-top:4px solid var(--hyp);">
+        <h4 style="color:var(--hyp)">◐ 현재 가설 <span class="tag t-hyp">가설</span></h4>
+        <ol style="font-size:13.4px;margin:0;">
+          <li>Decode graph가 CPU·HTP subgraph로 분할된다.</li>
+          <li>token마다 dispatch·synchronization·tensor 전달이 반복된다.</li>
+          <li>HTP의 batch-1 효율이 낮을 수 있다.</li>
+          <li>tied LM Head가 CPU에 남아 있을 가능성.</li>
+          <li>위 요인이 복합적으로 Decode 지연을 만든다.</li>
+        </ol>
+      </div>
+    </div>
+    <div class="subcard" style="border-top:4px solid var(--htp);margin-top:14px;">
+      <h4 style="color:var(--htp)">◆ 아직 필요한 검증 <span class="tag t-todo">확인 필요</span></h4>
+      <div style="columns:2;column-gap:26px;font-size:13.2px;">
+        <div>1. 각 graph node의 assigned/executed backend</div>
+        <div>2. Transformer block별 CPU/HTP 실행 여부</div>
+        <div>3. LM Head의 실제 backend</div>
+        <div>4. layer·op별 실행 시간</div>
+        <div>5. CPU→HTP / HTP→CPU transition 횟수</div>
+        <div>6. copy·dispatch·synchronize 시간</div>
+        <div>7. Q4_0·Q8_0의 layer별 CPU/HTP latency</div>
+        <div>8. cold TTFT vs warm TTFT 분리</div>
+        <div>9. CSV 파싱 지표 일관성</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- S12 -->
+  <section id="s12">
+    <h2><span class="num">12.</span>다음 개발 계획 & PoC 의사결정</h2>
+    <div class="two">
+      <div class="subcard"><h4>우선순위 1 · Layer/Op backend map</h4><p style="font-size:13px;margin:0;">Q4_0·Q8_0 각각 Embedding / Transformer 0~29 / Output norm / LM Head가 실제 CPU·HTP 중 어디서 실행되는지 기록.</p></div>
+      <div class="subcard"><h4>우선순위 2 · Layer별 latency</h4><p style="font-size:13px;margin:0;">matrix {Q4_0·Q8_0} × {CPU·HTP}, Prefill/Decode 분리, layer·주요 op별 시간을 Excel 정리.</p></div>
+      <div class="subcard"><h4>우선순위 3 · Decode 병목 분해</h4><p style="font-size:13px;margin:0;">GET_ROWS·Attention·FFN·KV access·Output norm·LM Head·CPU↔HTP boundary·dispatch/sync를 분리 측정.</p></div>
+      <div class="subcard"><h4>우선순위 4 · PoC 전략</h4><p style="font-size:13px;margin:0;">단기: Q4_0 HTP <b>Prefill 가속</b>을 데모 가치로, Decode는 CPU/하이브리드. K-quant HTP 개발은 하향. 중장기: LM Head HTP 지원, batch-1 kernel, graph partition 최소화, phase별 backend, 전력·발열 포함 E2E.</p></div>
+    </div>
+    <h3>Semantic Agent PoC 의사결정 matrix</h3>
+    <div class="scroll-x"><table class="dm">
+      <thead><tr><th>구성</th><th>HTP weight offload</th><th>Prefill 가속</th><th>Decode 우위</th><th>PoC 권장</th></tr></thead>
+      <tbody>
+        <tr><td><b>Q4_0 HTP</b></td><td class="yes">예 (84.5%)</td><td class="yes">예 (3.49×)</td><td class="no">아니오</td><td class="yes">Prefill/하이브리드 후보</td></tr>
+        <tr><td><b>Q4_0 CPU</b></td><td class="no">—</td><td class="no">느림</td><td class="yes">현재 최고</td><td class="mid">Decode phase 후보</td></tr>
+        <tr><td><b>Q8_0 HTP</b></td><td class="yes">예</td><td class="yes">예</td><td class="no">아니오</td><td class="mid">품질 상한/검증용</td></tr>
+        <tr><td><b>Q4_K_*</b></td><td class="no">아니오 (0.5MiB)</td><td class="no">불일치</td><td class="no">아니오</td><td class="no">HTP 우선순위 하향</td></tr>
+      </tbody>
+    </table></div>
+    <div class="box key"><b>단기 결론 —</b> Q4_0으로 <b>Prefill/TTFT는 HTP 가속을 데모 가치</b>로 쓰되, <b>Decode는 CPU 또는 phase-hybrid</b>를 검토한다. K-quant HTP 지원 개발은 우선순위를 낮추고, <b>layer/op backend map + Decode 병목 분해</b>를 최우선 계측으로 진행한다.</div>
+    <details class="notes"><summary></summary><div class="body">
+      <div class="one">이 화면 한 문장: "지금 당장의 PoC 가치는 Prefill/TTFT이고, Decode 최적화는 layer 단위 profiling 후에 결정합니다."</div>
+      <b>연결(마무리):</b> "다음 스프린트 산출물은 layer/op backend map 한 장입니다."
+    </div></details>
+  </section>
+
+  <!-- S13 -->
+  <section id="s13">
+    <h2><span class="num">13.</span>근거 및 출처</h2>
+    <p class="lead">모든 수치·주장은 아래 저장소 파일에서 직접 확인했다(경로는 <code>llamacpp-aos-benchmark</code> 기준, 라인은 현재 checkout 기준).</p>
+    <div class="scroll-x"><table>
+      <thead><tr><th>주장</th><th>근거 경로</th></tr></thead>
+      <tbody>
+        <tr><td>벤치마크 원본 12행</td><td class="mono">artifacts/quantization/quant_matrix/quant_matrix.csv</td></tr>
+        <tr><td>Q4_0 HTP0-REPACK 573.75 / CPU_REPACK 105.00</td><td class="mono">artifacts/quantization/quant_matrix/raw/Q4_0_HTP0_alloc.log</td></tr>
+        <tr><td>Q4_0 CPU-only CPU_REPACK 678.75</td><td class="mono">.../raw/Q4_0_CPU_alloc.log</td></tr>
+        <tr><td>Q4_K_pure HTP0 0.50 / CPU_REPACK 645.75 / CPU 72.00</td><td class="mono">.../raw/Q4_K_pure_HTP0_alloc.log</td></tr>
+        <tr><td>GET_ROWS(token_embd) supports-op = no</td><td class="mono">.../raw/Q4_0_HTP0_alloc.log (ggml-hex supports-op GET_ROWS ... |no)</td></tr>
+        <tr><td>MUL_MAT(token_embd→65536) = no (tied LM Head)</td><td class="mono">.../raw/Q4_0_HTP0_alloc.log</td></tr>
+        <tr><td>tied 가정 / output.weight 없음</td><td class="mono">third_party/llama.cpp/src/llama-quant.cpp:181, :105-106, :303</td></tr>
+        <tr><td>token_embd → Q6_K (S·M), attn_v 15·ffn_down 14 = 29</td><td class="mono">artifacts/quantization/q4k_compare/promoted_tensors.csv · aggregates.json</td></tr>
+        <tr><td>use_more_bits recipe (layer 선택식)</td><td class="mono">third_party/llama.cpp/src/llama-quant.cpp:417-418</td></tr>
+        <tr><td>모델 metadata (exaone4·30 blocks·2048·65536)</td><td class="mono">.../raw/Q4_0_HTP0_alloc.log (llama_model_loader kv)</td></tr>
+        <tr><td>device SM-F956N·SM8650·pineapple·Android14</td><td class="mono">artifacts/device_probe/20260629_162940/getprop.txt</td></tr>
+        <tr><td>HTP V75 (candidate, lib 파일명)</td><td class="mono">artifacts/device_probe/20260629_162940/qnn_libs.txt · device_info.md</td></tr>
+        <tr><td>llama.cpp build 9793 / e6b88e584</td><td class="mono">.../raw/*_alloc.log (llama_print_build_info)</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <footer>EXAONE 온디바이스 추론 분석 · 사내 기술 세미나 자료 · 외부 네트워크 없이 단독 실행 · 수치는 저장소 벤치마크 원본 기준</footer>
+</main>
+
+<div class="chart-tip" id="tip"></div>
+
+<script>
+/* ================= DATA (quant_matrix.csv 원본) ================= */
+const ROWS = [
+ {quant:"F16",backend:"HTP0",htp_layers:31,cpu_layers:0,htp_mib:2296.50,cpu_mib:256.00,ttft_ms:1542.83,prefill_ms:251.95,prefill_tps:687.01,decode_ms_per_tok:87.80,decode_tps:15.53},
+ {quant:"F16",backend:"CPU",htp_layers:0,cpu_layers:30,htp_mib:0.00,cpu_mib:2296.49,ttft_ms:2093.39,prefill_ms:1123.99,prefill_tps:76.67,decode_ms_per_tok:47.84,decode_tps:16.56},
+ {quant:"Q8_0",backend:"HTP0",htp_layers:31,cpu_layers:0,htp_mib:1084.26,cpu_mib:136.00,ttft_ms:3267.80,prefill_ms:172.91,prefill_tps:801.73,decode_ms_per_tok:64.02,decode_tps:15.70},
+ {quant:"Q8_0",backend:"CPU",htp_layers:0,cpu_layers:30,htp_mib:0.00,cpu_mib:136.49,ttft_ms:1799.75,prefill_ms:532.13,prefill_tps:206.27,decode_ms_per_tok:33.28,decode_tps:25.89},
+ {quant:"Q4_0",backend:"HTP0",htp_layers:31,cpu_layers:0,htp_mib:574.25,cpu_mib:105.00,ttft_ms:1722.86,prefill_ms:151.44,prefill_tps:833.93,decode_ms_per_tok:56.30,decode_tps:20.07},
+ {quant:"Q4_0",backend:"CPU",htp_layers:0,cpu_layers:30,htp_mib:0.00,cpu_mib:105.49,ttft_ms:1261.37,prefill_ms:528.58,prefill_tps:180.04,decode_ms_per_tok:22.62,decode_tps:40.11},
+ {quant:"Q4_K_S",backend:"HTP0",htp_layers:31,cpu_layers:0,htp_mib:0.50,cpu_mib:105.00,ttft_ms:5527.69,prefill_ms:825.54,prefill_tps:15.59,decode_ms_per_tok:56.09,decode_tps:19.21},
+ {quant:"Q4_K_S",backend:"CPU",htp_layers:0,cpu_layers:30,htp_mib:0.00,cpu_mib:105.49,ttft_ms:2220.75,prefill_ms:804.18,prefill_tps:9.81,decode_ms_per_tok:25.58,decode_tps:33.73},
+ {quant:"Q4_K_M",backend:"HTP0",htp_layers:31,cpu_layers:0,htp_mib:0.50,cpu_mib:105.00,ttft_ms:5389.55,prefill_ms:794.06,prefill_tps:111.78,decode_ms_per_tok:61.46,decode_tps:11.72},
+ {quant:"Q4_K_M",backend:"CPU",htp_layers:0,cpu_layers:30,htp_mib:0.00,cpu_mib:105.49,ttft_ms:2809.24,prefill_ms:840.41,prefill_tps:55.23,decode_ms_per_tok:27.17,decode_tps:32.13},
+ {quant:"Q4_K_pure",backend:"HTP0",htp_layers:31,cpu_layers:0,htp_mib:0.50,cpu_mib:72.00,ttft_ms:5114.53,prefill_ms:794.04,prefill_tps:128.23,decode_ms_per_tok:61.08,decode_tps:19.99},
+ {quant:"Q4_K_pure",backend:"CPU",htp_layers:0,cpu_layers:30,htp_mib:0.00,cpu_mib:72.49,ttft_ms:1981.46,prefill_ms:839.49,prefill_tps:125.06,decode_ms_per_tok:22.66,decode_tps:37.32}
+];
+const QUANTS = ["F16","Q8_0","Q4_0","Q4_K_S","Q4_K_M","Q4_K_pure"];
+const COL={htp:"#6b46c1",cpu:"#3a6ea5",navy:"#1e3a5f",muted:"#5c6675",line:"#e3e8ef"};
+const tip=document.getElementById('tip');
+function get(q,b){return ROWS.find(r=>r.quant===q&&r.backend===b);}
+function fmt(n){return (Math.round(n*100)/100).toLocaleString();}
+
+/* ============ SVG grouped/single bar chart ============ */
+function drawBars(svgId, opts){
+  // opts: {field, series:[{key:'HTP0'|'CPU'|'htp_mib'..., color, label}], stacked, single, unit}
+  const svg=document.getElementById(svgId);
+  const W=760, H=svg.viewBox.baseVal.height;
+  const padL=64, padR=14, padT=16, padB=64;
+  const quants = activeQuants();
+  while(svg.firstChild) svg.removeChild(svg.firstChild);
+  if(!quants.length){ addText(svg, W/2, H/2, "선택된 quant 없음", {anchor:"middle", fill:COL.muted}); return; }
+  // gather values
+  const groups = quants.map(q=>({q, vals: opts.series.map(s=>opts.valueOf(q, s))}));
+  let maxV = 0;
+  groups.forEach(g=>{ if(opts.stacked){ maxV=Math.max(maxV, g.vals.reduce((a,b)=>a+b,0)); } else { g.vals.forEach(v=>maxV=Math.max(maxV,v)); } });
+  maxV = niceMax(maxV);
+  const plotW=W-padL-padR, plotH=H-padT-padB;
+  const y=v=> padT+plotH-(v/maxV)*plotH;
+  // axes + gridlines
+  for(let i=0;i<=4;i++){ const gv=maxV*i/4; const yy=y(gv);
+    line(svg,padL,yy,W-padR,yy,COL.line,1);
+    addText(svg,padL-6,yy+4,fmt(gv),{anchor:"end",size:10,fill:COL.muted});
+  }
+  const gw=plotW/groups.length, bw=Math.min(46, gw*0.7);
+  groups.forEach((g,gi)=>{
+    const gx=padL+gi*gw+gw/2;
+    if(opts.stacked){
+      let acc=0;
+      opts.series.forEach((s,si)=>{ const v=g.vals[si]; const h=(v/maxV)*plotH; const yy=y(acc+v);
+        rect(svg,gx-bw/2,yy,bw,h,s.color, `${g.q} · ${s.label}: ${fmt(v)} ${opts.unit}`); acc+=v; });
+    } else {
+      const n=opts.series.length, sub=bw/n;
+      opts.series.forEach((s,si)=>{ const v=g.vals[si]; const h=(v/maxV)*plotH; const yy=y(v);
+        rect(svg,gx-bw/2+si*sub,yy,sub-2,h,s.color, `${g.q} · ${s.label}: ${fmt(v)} ${opts.unit}`); });
+    }
+    addText(svg,gx,H-padB+16,g.q,{anchor:"middle",size:10.5,fill:COL.navy,weight:600});
+  });
+  addText(svg,padL-52,padT+plotH/2,opts.unit,{anchor:"middle",size:10,fill:COL.muted,rotate:-90,x2:14});
+}
+function niceMax(v){ if(v<=0)return 1; const p=Math.pow(10,Math.floor(Math.log10(v))); const n=v/p; let m=n<=1?1:n<=2?2:n<=5?5:10; return m*p; }
+function activeQuants(){ return QUANTS.filter(q=>document.querySelector(`#quantFilter input[value="${q}"]`).checked); }
+function bkOn(b){ return b==="HTP0"?document.getElementById('tHTP').checked:document.getElementById('tCPU').checked; }
+/* svg helpers */
+function ns(t){return document.createElementNS("http://www.w3.org/2000/svg",t);}
+function rect(svg,x,y,w,h,fill,tipText){ const r=ns("rect"); r.setAttribute("x",x);r.setAttribute("y",y);r.setAttribute("width",Math.max(0,w));r.setAttribute("height",Math.max(0,h));r.setAttribute("rx",2);r.setAttribute("fill",fill);
+  if(tipText){ r.style.cursor="pointer"; r.addEventListener("mousemove",e=>showTip(e,tipText)); r.addEventListener("mouseleave",hideTip); }
+  svg.appendChild(r); return r; }
+function line(svg,x1,y1,x2,y2,stroke,w){ const l=ns("line");l.setAttribute("x1",x1);l.setAttribute("y1",y1);l.setAttribute("x2",x2);l.setAttribute("y2",y2);l.setAttribute("stroke",stroke);l.setAttribute("stroke-width",w);svg.appendChild(l);}
+function addText(svg,x,y,txt,o){o=o||{};const t=ns("text");t.setAttribute("x",x);t.setAttribute("y",y);t.setAttribute("font-size",o.size||11);t.setAttribute("fill",o.fill||COL.navy);if(o.weight)t.setAttribute("font-weight",o.weight);t.setAttribute("text-anchor",o.anchor||"start");t.setAttribute("font-family","D2Coding,monospace");if(o.rotate){t.setAttribute("transform",`rotate(${o.rotate} ${x-(o.x2||0)} ${y})`);}t.textContent=txt;svg.appendChild(t);}
+function showTip(e,txt){tip.textContent=txt;tip.style.opacity=1;tip.style.left=(e.clientX+12)+"px";tip.style.top=(e.clientY-8)+"px";}
+function hideTip(){tip.style.opacity=0;}
+
+/* ============ render all charts ============ */
+function renderCharts(){
+  // Chart 1: HTP mem single (HTP0 rows)
+  drawBars("c1",{unit:"MiB",series:[{label:"HTP mem",color:COL.htp}],
+    valueOf:(q)=> bkOn("HTP0")? get(q,"HTP0").htp_mib : 0});
+  // Chart 2: prefill_ms grouped
+  drawBars("c2",{unit:"ms",series:seriesHC(),valueOf:(q,s)=> get(q,s.bk).prefill_ms});
+  // Chart 3: decode ms/tok grouped
+  drawBars("c3",{unit:"ms/tok",series:seriesHC(),valueOf:(q,s)=> get(q,s.bk).decode_ms_per_tok});
+  // Chart 4: ttft grouped
+  drawBars("c4",{unit:"ms",series:seriesHC(),valueOf:(q,s)=> get(q,s.bk).ttft_ms});
+  // Chart 5: memory HTP+CPU stacked (HTP0 rows: htp_mib + cpu_mib)
+  drawBars("c5",{unit:"MiB",stacked:true,series:[{label:"HTP mem",color:COL.htp},{label:"CPU mem",color:COL.cpu}],
+    valueOf:(q,s)=>{const r=get(q,"HTP0"); return s.label==="HTP mem"? r.htp_mib : r.cpu_mib;}});
+}
+function seriesHC(){ const s=[]; if(document.getElementById('tHTP').checked)s.push({label:"HTP0",bk:"HTP0",color:COL.htp}); if(document.getElementById('tCPU').checked)s.push({label:"CPU",bk:"CPU",color:COL.cpu}); return s.length?s:[{label:"HTP0",bk:"HTP0",color:COL.htp}]; }
+
+/* ============ data table ============ */
+let sortState={col:null,dir:1};
+function renderTable(){
+  const tb=document.getElementById('dataBody');
+  let rows=ROWS.filter(r=>activeQuants().includes(r.quant) && bkOn(r.backend));
+  if(sortState.col){ const c=sortState.col; rows=rows.slice().sort((a,b)=>{ let av=a[c],bv=b[c]; if(typeof av==="string")return sortState.dir*av.localeCompare(bv); return sortState.dir*(av-bv);});}
+  tb.innerHTML=rows.map(r=>`<tr class="${r.backend==='HTP0'?'htp':'cpu'}"><td><b>${r.quant}</b></td><td>${r.backend}</td><td class="num">${fmt(r.htp_mib)}</td><td class="num">${fmt(r.cpu_mib)}</td><td class="num">${fmt(r.ttft_ms)}</td><td class="num">${fmt(r.prefill_ms)}</td><td class="num">${fmt(r.prefill_tps)}</td><td class="num">${fmt(r.decode_ms_per_tok)}</td><td class="num">${fmt(r.decode_tps)}</td></tr>`).join("");
+}
+const COLMAP=["quant","backend","htp_mib","cpu_mib","ttft_ms","prefill_ms","prefill_tps","decode_ms_per_tok","decode_tps"];
+document.querySelectorAll('#dataTable th').forEach((th,i)=>{ th.addEventListener('click',()=>{ const c=COLMAP[i]; sortState.dir=(sortState.col===c)?-sortState.dir:1; sortState.col=c; renderTable(); }); });
+
+/* ============ filters ============ */
+function refresh(){ renderCharts(); renderTable(); }
+document.querySelectorAll('#quantFilter input').forEach(cb=>cb.addEventListener('change',refresh));
+
+/* ============ nav active + fullscreen + copy ============ */
+const secs=[...document.querySelectorAll('main section')];
+const links=[...document.querySelectorAll('nav.toc a')];
+const io=new IntersectionObserver(es=>{es.forEach(en=>{if(en.isIntersecting){const id=en.target.id;links.forEach(l=>l.classList.toggle('active',l.getAttribute('href')==='#'+id));}});},{rootMargin:"-45% 0px -50% 0px"});
+secs.forEach(s=>io.observe(s));
+document.getElementById('fsBtn').addEventListener('click',()=>{ if(!document.fullscreenElement){document.documentElement.requestFullscreen&&document.documentElement.requestFullscreen();}else{document.exitFullscreen&&document.exitFullscreen();} });
+document.querySelectorAll('.cp').forEach(btn=>btn.addEventListener('click',()=>{ const pre=btn.parentElement.querySelector('pre'); const txt=pre.innerText; const done=()=>{btn.textContent="복사됨";btn.classList.add('done');setTimeout(()=>{btn.textContent="복사";btn.classList.remove('done');},1300);}; if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(txt).then(done,()=>fb(txt,done));}else fb(txt,done); }));
+function fb(t,cb){const ta=document.createElement('textarea');ta.value=t;ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.select();try{document.execCommand('copy')}catch(e){}document.body.removeChild(ta);cb&&cb();}
+window.addEventListener('resize',()=>renderCharts());
+refresh();
+</script>
+</body>
+</html>

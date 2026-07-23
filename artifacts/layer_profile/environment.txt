@@ -1,0 +1,26 @@
+captured_at=2026-07-16T08:09:02+09:00
+host_llama_commit=e6b88e58446b72e9c11334a3f7a52fb73fd3b4a2
+serial=R3CX403LWAB
+reps=10 warmup=3 npred=64 ctx=2048 pptok=255
+--- device ---
+SM-F956N
+SM8650
+14
+--- htp arch / bench build ---
+usage: ./bin/llama-bench [options]
+
+--- thermal (start) ---
+37959
+37000
+32300
+32300
+32300
+--- cpu governor ---
+      8 walt
+prompt_actual_tokens=720
+--- thermal (end) ---
+53200
+52500
+52100
+52100
+51700

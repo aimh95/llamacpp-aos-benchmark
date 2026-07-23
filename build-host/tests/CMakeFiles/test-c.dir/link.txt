@@ -1,0 +1,1 @@
+/usr/bin/cc -O3 -DNDEBUG "CMakeFiles/test-c.dir/test-c.c.o" -o ../bin/test-c  -Wl,-rpath,/home/iptv-infra/workspace/llamacpp-aos-benchmark/build-host/bin ../bin/libllama.so.0.0.9793 ../bin/libggml.so.0.15.2 ../bin/libggml-cpu.so.0.15.2 ../bin/libggml-base.so.0.15.2

@@ -1,0 +1,1145 @@
+quantization,execution_mode,idx,op_type,dst,dst_type,dst_buft,src0,src0_buft,block_index,logical_layer,tensor_role,assigned_backend,prefill_us,decode_us,timing_source,fused_note
+Q4_0,HTP0,0,MUL_MAT,Qcur-0,f32,HTP0,blk.0.attn_q.weight,HTP0-REPACK,0,blk.0,attn_q,HTP0,20,86,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,1,MUL_MAT,Vcur-0,f32,HTP0,blk.0.attn_v.weight,HTP0-REPACK,0,blk.0,attn_v,HTP0,260,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,2,MUL_MAT,Kcur-0,f32,HTP0,blk.0.attn_k.weight,HTP0-REPACK,0,blk.0,attn_k,HTP0,239,7,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,3,RMS_NORM,norm-0,f32,HTP0,Qcur-0,HTP0,0,blk.0,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,4,ROPE,Qcur-0,f32,HTP0,Qcur_normed-0,HTP0,0,blk.0,attn_q,HTP0,20,86,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,5,RMS_NORM,norm-0,f32,HTP0,Kcur-0,HTP0,0,blk.0,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,6,ROPE,Kcur-0,f32,HTP0,Kcur_normed-0,HTP0,0,blk.0,attn_k,HTP0,239,7,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,7,SET_ROWS,cache_k_l0 (view),f16,HTP0,Kcur-0 (view),HTP0,0,blk.0,attn_k,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,8,SET_ROWS,cache_v_l0 (view),f16,HTP0,Vcur-0 (view),HTP0,0,blk.0,attn_v,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,9,FLASH_ATTN_EXT,__fattn__-0,f32,HTP0,Qcur-0 (view) (permuted),HTP0,0,blk.0,attn_q,HTP0,273,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,10,MUL_MAT,attn_out-0,f32,HTP0,blk.0.attn_output.weight,HTP0-REPACK,0,blk.0,attn_output,HTP0,451,66,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,11,RMS_NORM,norm-0,f32,HTP0,attn_out-0,HTP0,0,blk.0,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,12,ADD,ffn_inp-0,f32,HTP0,attn_post_norm-0,HTP0,0,blk.0,norm,HTP0,210,7,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,13,MUL_MAT,ffn_gate-0,f32,HTP0,blk.0.ffn_gate.weight,HTP0-REPACK,0,blk.0,ffn_gate,HTP0,753,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,14,MUL_MAT,ffn_up-0,f32,HTP0,blk.0.ffn_up.weight,HTP0-REPACK,0,blk.0,ffn_up,HTP0,775,201,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,15,GLU,ffn_swiglu-0,f32,HTP0,ffn_gate-0,HTP0,0,blk.0,ffn_gate,HTP0,697,11,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,16,MUL_MAT,ffn_out-0,f32,HTP0,blk.0.ffn_down.weight,HTP0-REPACK,0,blk.0,ffn_down,HTP0,786,100,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,17,RMS_NORM,norm,f32,HTP0,ffn_out-0,HTP0,,norm,norm,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,18,ADD,l_out-0,f32,HTP0,ffn_post_norm,HTP0,,ffn_post_norm,norm,HTP0,234,2,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,19,MUL_MAT,Qcur-1,f32,HTP0,blk.1.attn_q.weight,HTP0-REPACK,1,blk.1,attn_q,HTP0,15,84,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,20,MUL_MAT,Vcur-1,f32,HTP0,blk.1.attn_v.weight,HTP0-REPACK,1,blk.1,attn_v,HTP0,235,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,21,MUL_MAT,Kcur-1,f32,HTP0,blk.1.attn_k.weight,HTP0-REPACK,1,blk.1,attn_k,HTP0,232,7,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,22,RMS_NORM,norm-1,f32,HTP0,Qcur-1,HTP0,1,blk.1,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,23,ROPE,Qcur-1,f32,HTP0,Qcur_normed-1,HTP0,1,blk.1,attn_q,HTP0,15,84,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,24,RMS_NORM,norm-1,f32,HTP0,Kcur-1,HTP0,1,blk.1,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,25,ROPE,Kcur-1,f32,HTP0,Kcur_normed-1,HTP0,1,blk.1,attn_k,HTP0,232,7,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,26,SET_ROWS,cache_k_l1 (view),f16,HTP0,Kcur-1 (view),HTP0,1,blk.1,attn_k,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,27,SET_ROWS,cache_v_l1 (view),f16,HTP0,Vcur-1 (view),HTP0,1,blk.1,attn_v,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,28,FLASH_ATTN_EXT,__fattn__-1,f32,HTP0,Qcur-1 (view) (permuted),HTP0,1,blk.1,attn_q,HTP0,261,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,29,MUL_MAT,attn_out-1,f32,HTP0,blk.1.attn_output.weight,HTP0-REPACK,1,blk.1,attn_output,HTP0,449,54,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,30,RMS_NORM,norm-1,f32,HTP0,attn_out-1,HTP0,1,blk.1,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,31,ADD,ffn_inp-1,f32,HTP0,attn_post_norm-1,HTP0,1,blk.1,norm,HTP0,226,6,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,32,MUL_MAT,ffn_gate-1,f32,HTP0,blk.1.ffn_gate.weight,HTP0-REPACK,1,blk.1,ffn_gate,HTP0,749,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,33,MUL_MAT,ffn_up-1,f32,HTP0,blk.1.ffn_up.weight,HTP0-REPACK,1,blk.1,ffn_up,HTP0,778,218,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,34,GLU,ffn_swiglu-1,f32,HTP0,ffn_gate-1,HTP0,1,blk.1,ffn_gate,HTP0,692,10,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,35,MUL_MAT,ffn_out-1,f32,HTP0,blk.1.ffn_down.weight,HTP0-REPACK,1,blk.1,ffn_down,HTP0,797,119,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,36,RMS_NORM,norm,f32,HTP0,ffn_out-1,HTP0,,norm,norm,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,37,ADD,l_out-1,f32,HTP0,ffn_post_norm,HTP0,,ffn_post_norm,norm,HTP0,239,2,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,38,MUL_MAT,Qcur-2,f32,HTP0,blk.2.attn_q.weight,HTP0-REPACK,2,blk.2,attn_q,HTP0,15,87,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,39,MUL_MAT,Vcur-2,f32,HTP0,blk.2.attn_v.weight,HTP0-REPACK,2,blk.2,attn_v,HTP0,229,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,40,MUL_MAT,Kcur-2,f32,HTP0,blk.2.attn_k.weight,HTP0-REPACK,2,blk.2,attn_k,HTP0,227,7,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,41,RMS_NORM,norm-2,f32,HTP0,Qcur-2,HTP0,2,blk.2,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,42,ROPE,Qcur-2,f32,HTP0,Qcur_normed-2,HTP0,2,blk.2,attn_q,HTP0,15,87,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,43,RMS_NORM,norm-2,f32,HTP0,Kcur-2,HTP0,2,blk.2,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,44,ROPE,Kcur-2,f32,HTP0,Kcur_normed-2,HTP0,2,blk.2,attn_k,HTP0,227,7,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,45,SET_ROWS,cache_k_l2 (view),f16,HTP0,Kcur-2 (view),HTP0,2,blk.2,attn_k,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,46,SET_ROWS,cache_v_l2 (view),f16,HTP0,Vcur-2 (view),HTP0,2,blk.2,attn_v,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,47,FLASH_ATTN_EXT,__fattn__-2,f32,HTP0,Qcur-2 (view) (permuted),HTP0,2,blk.2,attn_q,HTP0,262,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,48,MUL_MAT,attn_out-2,f32,HTP0,blk.2.attn_output.weight,HTP0-REPACK,2,blk.2,attn_output,HTP0,446,53,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,49,RMS_NORM,norm-2,f32,HTP0,attn_out-2,HTP0,2,blk.2,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,50,ADD,ffn_inp-2,f32,HTP0,attn_post_norm-2,HTP0,2,blk.2,norm,HTP0,202,6,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,51,MUL_MAT,ffn_gate-2,f32,HTP0,blk.2.ffn_gate.weight,HTP0-REPACK,2,blk.2,ffn_gate,HTP0,746,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,52,MUL_MAT,ffn_up-2,f32,HTP0,blk.2.ffn_up.weight,HTP0-REPACK,2,blk.2,ffn_up,HTP0,799,210,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,53,GLU,ffn_swiglu-2,f32,HTP0,ffn_gate-2,HTP0,2,blk.2,ffn_gate,HTP0,701,10,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,54,MUL_MAT,ffn_out-2,f32,HTP0,blk.2.ffn_down.weight,HTP0-REPACK,2,blk.2,ffn_down,HTP0,793,99,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,55,RMS_NORM,norm,f32,HTP0,ffn_out-2,HTP0,,norm,norm,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,56,ADD,l_out-2,f32,HTP0,ffn_post_norm,HTP0,,ffn_post_norm,norm,HTP0,232,2,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,57,MUL_MAT,Qcur-3,f32,HTP0,blk.3.attn_q.weight,HTP0-REPACK,3,blk.3,attn_q,HTP0,15,90,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,58,MUL_MAT,Vcur-3,f32,HTP0,blk.3.attn_v.weight,HTP0-REPACK,3,blk.3,attn_v,HTP0,229,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,59,MUL_MAT,Kcur-3,f32,HTP0,blk.3.attn_k.weight,HTP0-REPACK,3,blk.3,attn_k,HTP0,231,7,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,60,RMS_NORM,norm-3,f32,HTP0,Qcur-3,HTP0,3,blk.3,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,61,ROPE,Qcur-3,f32,HTP0,Qcur_normed-3,HTP0,3,blk.3,attn_q,HTP0,15,90,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,62,RMS_NORM,norm-3,f32,HTP0,Kcur-3,HTP0,3,blk.3,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,63,ROPE,Kcur-3,f32,HTP0,Kcur_normed-3,HTP0,3,blk.3,attn_k,HTP0,231,7,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,64,SET_ROWS,cache_k_l3 (view),f16,HTP0,Kcur-3 (view),HTP0,3,blk.3,attn_k,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,65,SET_ROWS,cache_v_l3 (view),f16,HTP0,Vcur-3 (view),HTP0,3,blk.3,attn_v,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,66,FLASH_ATTN_EXT,__fattn__-3,f32,HTP0,Qcur-3 (view) (permuted),HTP0,3,blk.3,attn_q,HTP0,263,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,67,MUL_MAT,attn_out-3,f32,HTP0,blk.3.attn_output.weight,HTP0-REPACK,3,blk.3,attn_output,HTP0,449,65,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,68,RMS_NORM,norm-3,f32,HTP0,attn_out-3,HTP0,3,blk.3,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,69,ADD,ffn_inp-3,f32,HTP0,attn_post_norm-3,HTP0,3,blk.3,norm,HTP0,226,6,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,70,MUL_MAT,ffn_gate-3,f32,HTP0,blk.3.ffn_gate.weight,HTP0-REPACK,3,blk.3,ffn_gate,HTP0,755,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,71,MUL_MAT,ffn_up-3,f32,HTP0,blk.3.ffn_up.weight,HTP0-REPACK,3,blk.3,ffn_up,HTP0,781,231,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,72,GLU,ffn_swiglu-3,f32,HTP0,ffn_gate-3,HTP0,3,blk.3,ffn_gate,HTP0,692,10,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,73,MUL_MAT,ffn_out-3,f32,HTP0,blk.3.ffn_down.weight,HTP0-REPACK,3,blk.3,ffn_down,HTP0,796,98,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,74,RMS_NORM,norm,f32,HTP0,ffn_out-3,HTP0,,norm,norm,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,75,ADD,l_out-3,f32,HTP0,ffn_post_norm,HTP0,,ffn_post_norm,norm,HTP0,232,2,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,76,MUL_MAT,Qcur-4,f32,HTP0,blk.4.attn_q.weight,HTP0-REPACK,4,blk.4,attn_q,HTP0,15,81,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,77,MUL_MAT,Vcur-4,f32,HTP0,blk.4.attn_v.weight,HTP0-REPACK,4,blk.4,attn_v,HTP0,231,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,78,MUL_MAT,Kcur-4,f32,HTP0,blk.4.attn_k.weight,HTP0-REPACK,4,blk.4,attn_k,HTP0,226,7,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,79,RMS_NORM,norm-4,f32,HTP0,Qcur-4,HTP0,4,blk.4,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,80,ROPE,Qcur-4,f32,HTP0,Qcur_normed-4,HTP0,4,blk.4,attn_q,HTP0,15,81,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,81,RMS_NORM,norm-4,f32,HTP0,Kcur-4,HTP0,4,blk.4,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,82,ROPE,Kcur-4,f32,HTP0,Kcur_normed-4,HTP0,4,blk.4,attn_k,HTP0,226,7,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,83,SET_ROWS,cache_k_l4 (view),f16,HTP0,Kcur-4 (view),HTP0,4,blk.4,attn_k,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,84,SET_ROWS,cache_v_l4 (view),f16,HTP0,Vcur-4 (view),HTP0,4,blk.4,attn_v,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,85,FLASH_ATTN_EXT,__fattn__-4,f32,HTP0,Qcur-4 (view) (permuted),HTP0,4,blk.4,attn_q,HTP0,266,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,86,MUL_MAT,attn_out-4,f32,HTP0,blk.4.attn_output.weight,HTP0-REPACK,4,blk.4,attn_output,HTP0,451,59,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,87,RMS_NORM,norm-4,f32,HTP0,attn_out-4,HTP0,4,blk.4,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,88,ADD,ffn_inp-4,f32,HTP0,attn_post_norm-4,HTP0,4,blk.4,norm,HTP0,222,6,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,89,MUL_MAT,ffn_gate-4,f32,HTP0,blk.4.ffn_gate.weight,HTP0-REPACK,4,blk.4,ffn_gate,HTP0,753,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,90,MUL_MAT,ffn_up-4,f32,HTP0,blk.4.ffn_up.weight,HTP0-REPACK,4,blk.4,ffn_up,HTP0,775,226,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,91,GLU,ffn_swiglu-4,f32,HTP0,ffn_gate-4,HTP0,4,blk.4,ffn_gate,HTP0,708,10,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,92,MUL_MAT,ffn_out-4,f32,HTP0,blk.4.ffn_down.weight,HTP0-REPACK,4,blk.4,ffn_down,HTP0,791,99,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,93,RMS_NORM,norm,f32,HTP0,ffn_out-4,HTP0,,norm,norm,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,94,ADD,l_out-4,f32,HTP0,ffn_post_norm,HTP0,,ffn_post_norm,norm,HTP0,237,2,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,95,MUL_MAT,Qcur-5,f32,HTP0,blk.5.attn_q.weight,HTP0-REPACK,5,blk.5,attn_q,HTP0,15,81,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,96,MUL_MAT,Vcur-5,f32,HTP0,blk.5.attn_v.weight,HTP0-REPACK,5,blk.5,attn_v,HTP0,230,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,97,MUL_MAT,Kcur-5,f32,HTP0,blk.5.attn_k.weight,HTP0-REPACK,5,blk.5,attn_k,HTP0,237,7,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,98,RMS_NORM,norm-5,f32,HTP0,Qcur-5,HTP0,5,blk.5,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,99,ROPE,Qcur-5,f32,HTP0,Qcur_normed-5,HTP0,5,blk.5,attn_q,HTP0,15,81,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,100,RMS_NORM,norm-5,f32,HTP0,Kcur-5,HTP0,5,blk.5,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,101,ROPE,Kcur-5,f32,HTP0,Kcur_normed-5,HTP0,5,blk.5,attn_k,HTP0,237,7,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,102,SET_ROWS,cache_k_l5 (view),f16,HTP0,Kcur-5 (view),HTP0,5,blk.5,attn_k,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,103,SET_ROWS,cache_v_l5 (view),f16,HTP0,Vcur-5 (view),HTP0,5,blk.5,attn_v,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,104,FLASH_ATTN_EXT,__fattn__-5,f32,HTP0,Qcur-5 (view) (permuted),HTP0,5,blk.5,attn_q,HTP0,261,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,105,MUL_MAT,attn_out-5,f32,HTP0,blk.5.attn_output.weight,HTP0-REPACK,5,blk.5,attn_output,HTP0,448,54,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,106,RMS_NORM,norm-5,f32,HTP0,attn_out-5,HTP0,5,blk.5,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,107,ADD,ffn_inp-5,f32,HTP0,attn_post_norm-5,HTP0,5,blk.5,norm,HTP0,225,6,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,108,MUL_MAT,ffn_gate-5,f32,HTP0,blk.5.ffn_gate.weight,HTP0-REPACK,5,blk.5,ffn_gate,HTP0,751,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,109,MUL_MAT,ffn_up-5,f32,HTP0,blk.5.ffn_up.weight,HTP0-REPACK,5,blk.5,ffn_up,HTP0,781,195,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,110,GLU,ffn_swiglu-5,f32,HTP0,ffn_gate-5,HTP0,5,blk.5,ffn_gate,HTP0,715,10,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,111,MUL_MAT,ffn_out-5,f32,HTP0,blk.5.ffn_down.weight,HTP0-REPACK,5,blk.5,ffn_down,HTP0,798,100,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,112,RMS_NORM,norm,f32,HTP0,ffn_out-5,HTP0,,norm,norm,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,113,ADD,l_out-5,f32,HTP0,ffn_post_norm,HTP0,,ffn_post_norm,norm,HTP0,230,2,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,114,MUL_MAT,Qcur-6,f32,HTP0,blk.6.attn_q.weight,HTP0-REPACK,6,blk.6,attn_q,HTP0,15,81,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,115,MUL_MAT,Vcur-6,f32,HTP0,blk.6.attn_v.weight,HTP0-REPACK,6,blk.6,attn_v,HTP0,226,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,116,MUL_MAT,Kcur-6,f32,HTP0,blk.6.attn_k.weight,HTP0-REPACK,6,blk.6,attn_k,HTP0,234,7,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,117,RMS_NORM,norm-6,f32,HTP0,Qcur-6,HTP0,6,blk.6,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,118,ROPE,Qcur-6,f32,HTP0,Qcur_normed-6,HTP0,6,blk.6,attn_q,HTP0,15,81,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,119,RMS_NORM,norm-6,f32,HTP0,Kcur-6,HTP0,6,blk.6,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,120,ROPE,Kcur-6,f32,HTP0,Kcur_normed-6,HTP0,6,blk.6,attn_k,HTP0,234,7,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,121,SET_ROWS,cache_k_l6 (view),f16,HTP0,Kcur-6 (view),HTP0,6,blk.6,attn_k,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,122,SET_ROWS,cache_v_l6 (view),f16,HTP0,Vcur-6 (view),HTP0,6,blk.6,attn_v,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,123,FLASH_ATTN_EXT,__fattn__-6,f32,HTP0,Qcur-6 (view) (permuted),HTP0,6,blk.6,attn_q,HTP0,261,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,124,MUL_MAT,attn_out-6,f32,HTP0,blk.6.attn_output.weight,HTP0-REPACK,6,blk.6,attn_output,HTP0,444,55,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,125,RMS_NORM,norm-6,f32,HTP0,attn_out-6,HTP0,6,blk.6,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,126,ADD,ffn_inp-6,f32,HTP0,attn_post_norm-6,HTP0,6,blk.6,norm,HTP0,226,6,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,127,MUL_MAT,ffn_gate-6,f32,HTP0,blk.6.ffn_gate.weight,HTP0-REPACK,6,blk.6,ffn_gate,HTP0,753,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,128,MUL_MAT,ffn_up-6,f32,HTP0,blk.6.ffn_up.weight,HTP0-REPACK,6,blk.6,ffn_up,HTP0,773,191,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,129,GLU,ffn_swiglu-6,f32,HTP0,ffn_gate-6,HTP0,6,blk.6,ffn_gate,HTP0,701,11,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,130,MUL_MAT,ffn_out-6,f32,HTP0,blk.6.ffn_down.weight,HTP0-REPACK,6,blk.6,ffn_down,HTP0,792,100,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,131,RMS_NORM,norm,f32,HTP0,ffn_out-6,HTP0,,norm,norm,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,132,ADD,l_out-6,f32,HTP0,ffn_post_norm,HTP0,,ffn_post_norm,norm,HTP0,221,2,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,133,MUL_MAT,Qcur-7,f32,HTP0,blk.7.attn_q.weight,HTP0-REPACK,7,blk.7,attn_q,HTP0,15,84,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,134,MUL_MAT,Vcur-7,f32,HTP0,blk.7.attn_v.weight,HTP0-REPACK,7,blk.7,attn_v,HTP0,227,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,135,MUL_MAT,Kcur-7,f32,HTP0,blk.7.attn_k.weight,HTP0-REPACK,7,blk.7,attn_k,HTP0,241,7,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,136,RMS_NORM,norm-7,f32,HTP0,Qcur-7,HTP0,7,blk.7,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,137,ROPE,Qcur-7,f32,HTP0,Qcur_normed-7,HTP0,7,blk.7,attn_q,HTP0,15,84,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,138,RMS_NORM,norm-7,f32,HTP0,Kcur-7,HTP0,7,blk.7,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,139,ROPE,Kcur-7,f32,HTP0,Kcur_normed-7,HTP0,7,blk.7,attn_k,HTP0,241,7,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,140,SET_ROWS,cache_k_l7 (view),f16,HTP0,Kcur-7 (view),HTP0,7,blk.7,attn_k,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,141,SET_ROWS,cache_v_l7 (view),f16,HTP0,Vcur-7 (view),HTP0,7,blk.7,attn_v,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,142,FLASH_ATTN_EXT,__fattn__-7,f32,HTP0,Qcur-7 (view) (permuted),HTP0,7,blk.7,attn_q,HTP0,261,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,143,MUL_MAT,attn_out-7,f32,HTP0,blk.7.attn_output.weight,HTP0-REPACK,7,blk.7,attn_output,HTP0,451,55,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,144,RMS_NORM,norm-7,f32,HTP0,attn_out-7,HTP0,7,blk.7,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,145,ADD,ffn_inp-7,f32,HTP0,attn_post_norm-7,HTP0,7,blk.7,norm,HTP0,228,6,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,146,MUL_MAT,ffn_gate-7,f32,HTP0,blk.7.ffn_gate.weight,HTP0-REPACK,7,blk.7,ffn_gate,HTP0,751,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,147,MUL_MAT,ffn_up-7,f32,HTP0,blk.7.ffn_up.weight,HTP0-REPACK,7,blk.7,ffn_up,HTP0,778,207,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,148,GLU,ffn_swiglu-7,f32,HTP0,ffn_gate-7,HTP0,7,blk.7,ffn_gate,HTP0,698,10,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,149,MUL_MAT,ffn_out-7,f32,HTP0,blk.7.ffn_down.weight,HTP0-REPACK,7,blk.7,ffn_down,HTP0,800,102,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,150,RMS_NORM,norm,f32,HTP0,ffn_out-7,HTP0,,norm,norm,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,151,ADD,l_out-7,f32,HTP0,ffn_post_norm,HTP0,,ffn_post_norm,norm,HTP0,236,2,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,152,MUL_MAT,Qcur-8,f32,HTP0,blk.8.attn_q.weight,HTP0-REPACK,8,blk.8,attn_q,HTP0,15,92,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,153,MUL_MAT,Vcur-8,f32,HTP0,blk.8.attn_v.weight,HTP0-REPACK,8,blk.8,attn_v,HTP0,231,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,154,MUL_MAT,Kcur-8,f32,HTP0,blk.8.attn_k.weight,HTP0-REPACK,8,blk.8,attn_k,HTP0,233,7,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,155,RMS_NORM,norm-8,f32,HTP0,Qcur-8,HTP0,8,blk.8,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,156,ROPE,Qcur-8,f32,HTP0,Qcur_normed-8,HTP0,8,blk.8,attn_q,HTP0,15,92,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,157,RMS_NORM,norm-8,f32,HTP0,Kcur-8,HTP0,8,blk.8,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,158,ROPE,Kcur-8,f32,HTP0,Kcur_normed-8,HTP0,8,blk.8,attn_k,HTP0,233,7,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,159,SET_ROWS,cache_k_l8 (view),f16,HTP0,Kcur-8 (view),HTP0,8,blk.8,attn_k,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,160,SET_ROWS,cache_v_l8 (view),f16,HTP0,Vcur-8 (view),HTP0,8,blk.8,attn_v,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,161,FLASH_ATTN_EXT,__fattn__-8,f32,HTP0,Qcur-8 (view) (permuted),HTP0,8,blk.8,attn_q,HTP0,259,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,162,MUL_MAT,attn_out-8,f32,HTP0,blk.8.attn_output.weight,HTP0-REPACK,8,blk.8,attn_output,HTP0,445,55,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,163,RMS_NORM,norm-8,f32,HTP0,attn_out-8,HTP0,8,blk.8,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,164,ADD,ffn_inp-8,f32,HTP0,attn_post_norm-8,HTP0,8,blk.8,norm,HTP0,226,6,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,165,MUL_MAT,ffn_gate-8,f32,HTP0,blk.8.ffn_gate.weight,HTP0-REPACK,8,blk.8,ffn_gate,HTP0,749,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,166,MUL_MAT,ffn_up-8,f32,HTP0,blk.8.ffn_up.weight,HTP0-REPACK,8,blk.8,ffn_up,HTP0,804,196,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,167,GLU,ffn_swiglu-8,f32,HTP0,ffn_gate-8,HTP0,8,blk.8,ffn_gate,HTP0,729,10,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,168,MUL_MAT,ffn_out-8,f32,HTP0,blk.8.ffn_down.weight,HTP0-REPACK,8,blk.8,ffn_down,HTP0,820,102,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,169,RMS_NORM,norm,f32,HTP0,ffn_out-8,HTP0,,norm,norm,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,170,ADD,l_out-8,f32,HTP0,ffn_post_norm,HTP0,,ffn_post_norm,norm,HTP0,232,2,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,171,MUL_MAT,Qcur-9,f32,HTP0,blk.9.attn_q.weight,HTP0-REPACK,9,blk.9,attn_q,HTP0,15,80,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,172,MUL_MAT,Vcur-9,f32,HTP0,blk.9.attn_v.weight,HTP0-REPACK,9,blk.9,attn_v,HTP0,228,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,173,MUL_MAT,Kcur-9,f32,HTP0,blk.9.attn_k.weight,HTP0-REPACK,9,blk.9,attn_k,HTP0,237,7,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,174,RMS_NORM,norm-9,f32,HTP0,Qcur-9,HTP0,9,blk.9,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,175,ROPE,Qcur-9,f32,HTP0,Qcur_normed-9,HTP0,9,blk.9,attn_q,HTP0,15,80,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,176,RMS_NORM,norm-9,f32,HTP0,Kcur-9,HTP0,9,blk.9,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,177,ROPE,Kcur-9,f32,HTP0,Kcur_normed-9,HTP0,9,blk.9,attn_k,HTP0,237,7,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,178,SET_ROWS,cache_k_l9 (view),f16,HTP0,Kcur-9 (view),HTP0,9,blk.9,attn_k,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,179,SET_ROWS,cache_v_l9 (view),f16,HTP0,Vcur-9 (view),HTP0,9,blk.9,attn_v,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,180,FLASH_ATTN_EXT,__fattn__-9,f32,HTP0,Qcur-9 (view) (permuted),HTP0,9,blk.9,attn_q,HTP0,262,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,181,MUL_MAT,attn_out-9,f32,HTP0,blk.9.attn_output.weight,HTP0-REPACK,9,blk.9,attn_output,HTP0,450,55,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,182,RMS_NORM,norm-9,f32,HTP0,attn_out-9,HTP0,9,blk.9,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,183,ADD,ffn_inp-9,f32,HTP0,attn_post_norm-9,HTP0,9,blk.9,norm,HTP0,226,6,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,184,MUL_MAT,ffn_gate-9,f32,HTP0,blk.9.ffn_gate.weight,HTP0-REPACK,9,blk.9,ffn_gate,HTP0,751,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,185,MUL_MAT,ffn_up-9,f32,HTP0,blk.9.ffn_up.weight,HTP0-REPACK,9,blk.9,ffn_up,HTP0,775,197,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,186,GLU,ffn_swiglu-9,f32,HTP0,ffn_gate-9,HTP0,9,blk.9,ffn_gate,HTP0,699,10,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,187,MUL_MAT,ffn_out-9,f32,HTP0,blk.9.ffn_down.weight,HTP0-REPACK,9,blk.9,ffn_down,HTP0,783,99,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,188,RMS_NORM,norm,f32,HTP0,ffn_out-9,HTP0,,norm,norm,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,189,ADD,l_out-9,f32,HTP0,ffn_post_norm,HTP0,,ffn_post_norm,norm,HTP0,226,2,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,190,MUL_MAT,Qcur-10,f32,HTP0,blk.10.attn_q.weight,HTP0-REPACK,10,blk.10,attn_q,HTP0,15,83,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,191,MUL_MAT,Vcur-10,f32,HTP0,blk.10.attn_v.weight,HTP0-REPACK,10,blk.10,attn_v,HTP0,235,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,192,MUL_MAT,Kcur-10,f32,HTP0,blk.10.attn_k.weight,HTP0-REPACK,10,blk.10,attn_k,HTP0,227,7,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,193,RMS_NORM,norm-10,f32,HTP0,Qcur-10,HTP0,10,blk.10,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,194,ROPE,Qcur-10,f32,HTP0,Qcur_normed-10,HTP0,10,blk.10,attn_q,HTP0,15,83,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,195,RMS_NORM,norm-10,f32,HTP0,Kcur-10,HTP0,10,blk.10,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,196,ROPE,Kcur-10,f32,HTP0,Kcur_normed-10,HTP0,10,blk.10,attn_k,HTP0,227,7,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,197,SET_ROWS,cache_k_l10 (view),f16,HTP0,Kcur-10 (view),HTP0,10,blk.10,attn_k,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,198,SET_ROWS,cache_v_l10 (view),f16,HTP0,Vcur-10 (view),HTP0,10,blk.10,attn_v,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,199,FLASH_ATTN_EXT,__fattn__-10,f32,HTP0,Qcur-10 (view) (permuted),HTP0,10,blk.10,attn_q,HTP0,262,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,200,MUL_MAT,attn_out-10,f32,HTP0,blk.10.attn_output.weight,HTP0-REPACK,10,blk.10,attn_output,HTP0,449,65,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,201,RMS_NORM,norm-10,f32,HTP0,attn_out-10,HTP0,10,blk.10,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,202,ADD,ffn_inp-10,f32,HTP0,attn_post_norm-10,HTP0,10,blk.10,norm,HTP0,226,6,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,203,MUL_MAT,ffn_gate-10,f32,HTP0,blk.10.ffn_gate.weight,HTP0-REPACK,10,blk.10,ffn_gate,HTP0,751,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,204,MUL_MAT,ffn_up-10,f32,HTP0,blk.10.ffn_up.weight,HTP0-REPACK,10,blk.10,ffn_up,HTP0,773,212,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,205,GLU,ffn_swiglu-10,f32,HTP0,ffn_gate-10,HTP0,10,blk.10,ffn_gate,HTP0,704,10,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,206,MUL_MAT,ffn_out-10,f32,HTP0,blk.10.ffn_down.weight,HTP0-REPACK,10,blk.10,ffn_down,HTP0,794,101,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,207,RMS_NORM,norm,f32,HTP0,ffn_out-10,HTP0,,norm,norm,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,208,ADD,l_out-10,f32,HTP0,ffn_post_norm,HTP0,,ffn_post_norm,norm,HTP0,235,2,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,209,MUL_MAT,Qcur-11,f32,HTP0,blk.11.attn_q.weight,HTP0-REPACK,11,blk.11,attn_q,HTP0,15,89,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,210,MUL_MAT,Vcur-11,f32,HTP0,blk.11.attn_v.weight,HTP0-REPACK,11,blk.11,attn_v,HTP0,241,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,211,MUL_MAT,Kcur-11,f32,HTP0,blk.11.attn_k.weight,HTP0-REPACK,11,blk.11,attn_k,HTP0,229,7,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,212,RMS_NORM,norm-11,f32,HTP0,Qcur-11,HTP0,11,blk.11,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,213,ROPE,Qcur-11,f32,HTP0,Qcur_normed-11,HTP0,11,blk.11,attn_q,HTP0,15,89,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,214,RMS_NORM,norm-11,f32,HTP0,Kcur-11,HTP0,11,blk.11,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,215,ROPE,Kcur-11,f32,HTP0,Kcur_normed-11,HTP0,11,blk.11,attn_k,HTP0,229,7,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,216,SET_ROWS,cache_k_l11 (view),f16,HTP0,Kcur-11 (view),HTP0,11,blk.11,attn_k,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,217,SET_ROWS,cache_v_l11 (view),f16,HTP0,Vcur-11 (view),HTP0,11,blk.11,attn_v,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,218,FLASH_ATTN_EXT,__fattn__-11,f32,HTP0,Qcur-11 (view) (permuted),HTP0,11,blk.11,attn_q,HTP0,264,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,219,MUL_MAT,attn_out-11,f32,HTP0,blk.11.attn_output.weight,HTP0-REPACK,11,blk.11,attn_output,HTP0,448,59,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,220,RMS_NORM,norm-11,f32,HTP0,attn_out-11,HTP0,11,blk.11,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,221,ADD,ffn_inp-11,f32,HTP0,attn_post_norm-11,HTP0,11,blk.11,norm,HTP0,219,6,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,222,MUL_MAT,ffn_gate-11,f32,HTP0,blk.11.ffn_gate.weight,HTP0-REPACK,11,blk.11,ffn_gate,HTP0,753,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,223,MUL_MAT,ffn_up-11,f32,HTP0,blk.11.ffn_up.weight,HTP0-REPACK,11,blk.11,ffn_up,HTP0,781,219,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,224,GLU,ffn_swiglu-11,f32,HTP0,ffn_gate-11,HTP0,11,blk.11,ffn_gate,HTP0,699,10,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,225,MUL_MAT,ffn_out-11,f32,HTP0,blk.11.ffn_down.weight,HTP0-REPACK,11,blk.11,ffn_down,HTP0,795,99,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,226,RMS_NORM,norm,f32,HTP0,ffn_out-11,HTP0,,norm,norm,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,227,ADD,l_out-11,f32,HTP0,ffn_post_norm,HTP0,,ffn_post_norm,norm,HTP0,240,2,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,228,MUL_MAT,Qcur-12,f32,HTP0,blk.12.attn_q.weight,HTP0-REPACK,12,blk.12,attn_q,HTP0,15,82,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,229,MUL_MAT,Vcur-12,f32,HTP0,blk.12.attn_v.weight,HTP0-REPACK,12,blk.12,attn_v,HTP0,232,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,230,MUL_MAT,Kcur-12,f32,HTP0,blk.12.attn_k.weight,HTP0-REPACK,12,blk.12,attn_k,HTP0,230,7,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,231,RMS_NORM,norm-12,f32,HTP0,Qcur-12,HTP0,12,blk.12,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,232,ROPE,Qcur-12,f32,HTP0,Qcur_normed-12,HTP0,12,blk.12,attn_q,HTP0,15,82,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,233,RMS_NORM,norm-12,f32,HTP0,Kcur-12,HTP0,12,blk.12,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,234,ROPE,Kcur-12,f32,HTP0,Kcur_normed-12,HTP0,12,blk.12,attn_k,HTP0,230,7,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,235,SET_ROWS,cache_k_l12 (view),f16,HTP0,Kcur-12 (view),HTP0,12,blk.12,attn_k,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,236,SET_ROWS,cache_v_l12 (view),f16,HTP0,Vcur-12 (view),HTP0,12,blk.12,attn_v,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,237,FLASH_ATTN_EXT,__fattn__-12,f32,HTP0,Qcur-12 (view) (permuted),HTP0,12,blk.12,attn_q,HTP0,264,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,238,MUL_MAT,attn_out-12,f32,HTP0,blk.12.attn_output.weight,HTP0-REPACK,12,blk.12,attn_output,HTP0,444,56,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,239,RMS_NORM,norm-12,f32,HTP0,attn_out-12,HTP0,12,blk.12,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,240,ADD,ffn_inp-12,f32,HTP0,attn_post_norm-12,HTP0,12,blk.12,norm,HTP0,215,6,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,241,MUL_MAT,ffn_gate-12,f32,HTP0,blk.12.ffn_gate.weight,HTP0-REPACK,12,blk.12,ffn_gate,HTP0,749,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,242,MUL_MAT,ffn_up-12,f32,HTP0,blk.12.ffn_up.weight,HTP0-REPACK,12,blk.12,ffn_up,HTP0,775,225,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,243,GLU,ffn_swiglu-12,f32,HTP0,ffn_gate-12,HTP0,12,blk.12,ffn_gate,HTP0,705,10,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,244,MUL_MAT,ffn_out-12,f32,HTP0,blk.12.ffn_down.weight,HTP0-REPACK,12,blk.12,ffn_down,HTP0,803,106,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,245,RMS_NORM,norm,f32,HTP0,ffn_out-12,HTP0,,norm,norm,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,246,ADD,l_out-12,f32,HTP0,ffn_post_norm,HTP0,,ffn_post_norm,norm,HTP0,238,2,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,247,MUL_MAT,Qcur-13,f32,HTP0,blk.13.attn_q.weight,HTP0-REPACK,13,blk.13,attn_q,HTP0,15,91,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,248,MUL_MAT,Vcur-13,f32,HTP0,blk.13.attn_v.weight,HTP0-REPACK,13,blk.13,attn_v,HTP0,228,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,249,MUL_MAT,Kcur-13,f32,HTP0,blk.13.attn_k.weight,HTP0-REPACK,13,blk.13,attn_k,HTP0,247,7,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,250,RMS_NORM,norm-13,f32,HTP0,Qcur-13,HTP0,13,blk.13,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,251,ROPE,Qcur-13,f32,HTP0,Qcur_normed-13,HTP0,13,blk.13,attn_q,HTP0,15,91,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,252,RMS_NORM,norm-13,f32,HTP0,Kcur-13,HTP0,13,blk.13,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,253,ROPE,Kcur-13,f32,HTP0,Kcur_normed-13,HTP0,13,blk.13,attn_k,HTP0,247,7,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,254,SET_ROWS,cache_k_l13 (view),f16,HTP0,Kcur-13 (view),HTP0,13,blk.13,attn_k,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,255,SET_ROWS,cache_v_l13 (view),f16,HTP0,Vcur-13 (view),HTP0,13,blk.13,attn_v,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,256,FLASH_ATTN_EXT,__fattn__-13,f32,HTP0,Qcur-13 (view) (permuted),HTP0,13,blk.13,attn_q,HTP0,262,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,257,MUL_MAT,attn_out-13,f32,HTP0,blk.13.attn_output.weight,HTP0-REPACK,13,blk.13,attn_output,HTP0,443,54,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,258,RMS_NORM,norm-13,f32,HTP0,attn_out-13,HTP0,13,blk.13,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,259,ADD,ffn_inp-13,f32,HTP0,attn_post_norm-13,HTP0,13,blk.13,norm,HTP0,227,6,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,260,MUL_MAT,ffn_gate-13,f32,HTP0,blk.13.ffn_gate.weight,HTP0-REPACK,13,blk.13,ffn_gate,HTP0,746,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,261,MUL_MAT,ffn_up-13,f32,HTP0,blk.13.ffn_up.weight,HTP0-REPACK,13,blk.13,ffn_up,HTP0,773,219,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,262,GLU,ffn_swiglu-13,f32,HTP0,ffn_gate-13,HTP0,13,blk.13,ffn_gate,HTP0,709,11,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,263,MUL_MAT,ffn_out-13,f32,HTP0,blk.13.ffn_down.weight,HTP0-REPACK,13,blk.13,ffn_down,HTP0,801,99,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,264,RMS_NORM,norm,f32,HTP0,ffn_out-13,HTP0,,norm,norm,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,265,ADD,l_out-13,f32,HTP0,ffn_post_norm,HTP0,,ffn_post_norm,norm,HTP0,235,2,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,266,MUL_MAT,Qcur-14,f32,HTP0,blk.14.attn_q.weight,HTP0-REPACK,14,blk.14,attn_q,HTP0,15,81,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,267,MUL_MAT,Vcur-14,f32,HTP0,blk.14.attn_v.weight,HTP0-REPACK,14,blk.14,attn_v,HTP0,231,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,268,MUL_MAT,Kcur-14,f32,HTP0,blk.14.attn_k.weight,HTP0-REPACK,14,blk.14,attn_k,HTP0,233,7,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,269,RMS_NORM,norm-14,f32,HTP0,Qcur-14,HTP0,14,blk.14,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,270,ROPE,Qcur-14,f32,HTP0,Qcur_normed-14,HTP0,14,blk.14,attn_q,HTP0,15,81,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,271,RMS_NORM,norm-14,f32,HTP0,Kcur-14,HTP0,14,blk.14,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,272,ROPE,Kcur-14,f32,HTP0,Kcur_normed-14,HTP0,14,blk.14,attn_k,HTP0,233,7,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,273,SET_ROWS,cache_k_l14 (view),f16,HTP0,Kcur-14 (view),HTP0,14,blk.14,attn_k,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,274,SET_ROWS,cache_v_l14 (view),f16,HTP0,Vcur-14 (view),HTP0,14,blk.14,attn_v,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,275,FLASH_ATTN_EXT,__fattn__-14,f32,HTP0,Qcur-14 (view) (permuted),HTP0,14,blk.14,attn_q,HTP0,269,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,276,MUL_MAT,attn_out-14,f32,HTP0,blk.14.attn_output.weight,HTP0-REPACK,14,blk.14,attn_output,HTP0,447,55,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,277,RMS_NORM,norm-14,f32,HTP0,attn_out-14,HTP0,14,blk.14,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,278,ADD,ffn_inp-14,f32,HTP0,attn_post_norm-14,HTP0,14,blk.14,norm,HTP0,223,6,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,279,MUL_MAT,ffn_gate-14,f32,HTP0,blk.14.ffn_gate.weight,HTP0-REPACK,14,blk.14,ffn_gate,HTP0,753,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,280,MUL_MAT,ffn_up-14,f32,HTP0,blk.14.ffn_up.weight,HTP0-REPACK,14,blk.14,ffn_up,HTP0,790,218,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,281,GLU,ffn_swiglu-14,f32,HTP0,ffn_gate-14,HTP0,14,blk.14,ffn_gate,HTP0,711,11,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,282,MUL_MAT,ffn_out-14,f32,HTP0,blk.14.ffn_down.weight,HTP0-REPACK,14,blk.14,ffn_down,HTP0,797,101,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,283,RMS_NORM,norm,f32,HTP0,ffn_out-14,HTP0,,norm,norm,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,284,ADD,l_out-14,f32,HTP0,ffn_post_norm,HTP0,,ffn_post_norm,norm,HTP0,239,2,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,285,MUL_MAT,Qcur-15,f32,HTP0,blk.15.attn_q.weight,HTP0-REPACK,15,blk.15,attn_q,HTP0,15,93,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,286,MUL_MAT,Vcur-15,f32,HTP0,blk.15.attn_v.weight,HTP0-REPACK,15,blk.15,attn_v,HTP0,237,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,287,MUL_MAT,Kcur-15,f32,HTP0,blk.15.attn_k.weight,HTP0-REPACK,15,blk.15,attn_k,HTP0,234,7,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,288,RMS_NORM,norm-15,f32,HTP0,Qcur-15,HTP0,15,blk.15,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,289,ROPE,Qcur-15,f32,HTP0,Qcur_normed-15,HTP0,15,blk.15,attn_q,HTP0,15,93,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,290,RMS_NORM,norm-15,f32,HTP0,Kcur-15,HTP0,15,blk.15,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,291,ROPE,Kcur-15,f32,HTP0,Kcur_normed-15,HTP0,15,blk.15,attn_k,HTP0,234,7,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,292,SET_ROWS,cache_k_l15 (view),f16,HTP0,Kcur-15 (view),HTP0,15,blk.15,attn_k,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,293,SET_ROWS,cache_v_l15 (view),f16,HTP0,Vcur-15 (view),HTP0,15,blk.15,attn_v,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,294,FLASH_ATTN_EXT,__fattn__-15,f32,HTP0,Qcur-15 (view) (permuted),HTP0,15,blk.15,attn_q,HTP0,263,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,295,MUL_MAT,attn_out-15,f32,HTP0,blk.15.attn_output.weight,HTP0-REPACK,15,blk.15,attn_output,HTP0,443,53,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,296,RMS_NORM,norm-15,f32,HTP0,attn_out-15,HTP0,15,blk.15,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,297,ADD,ffn_inp-15,f32,HTP0,attn_post_norm-15,HTP0,15,blk.15,norm,HTP0,231,6,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,298,MUL_MAT,ffn_gate-15,f32,HTP0,blk.15.ffn_gate.weight,HTP0-REPACK,15,blk.15,ffn_gate,HTP0,750,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,299,MUL_MAT,ffn_up-15,f32,HTP0,blk.15.ffn_up.weight,HTP0-REPACK,15,blk.15,ffn_up,HTP0,776,221,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,300,GLU,ffn_swiglu-15,f32,HTP0,ffn_gate-15,HTP0,15,blk.15,ffn_gate,HTP0,693,11,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,301,MUL_MAT,ffn_out-15,f32,HTP0,blk.15.ffn_down.weight,HTP0-REPACK,15,blk.15,ffn_down,HTP0,793,102,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,302,RMS_NORM,norm,f32,HTP0,ffn_out-15,HTP0,,norm,norm,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,303,ADD,l_out-15,f32,HTP0,ffn_post_norm,HTP0,,ffn_post_norm,norm,HTP0,228,2,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,304,MUL_MAT,Qcur-16,f32,HTP0,blk.16.attn_q.weight,HTP0-REPACK,16,blk.16,attn_q,HTP0,15,85,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,305,MUL_MAT,Vcur-16,f32,HTP0,blk.16.attn_v.weight,HTP0-REPACK,16,blk.16,attn_v,HTP0,231,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,306,MUL_MAT,Kcur-16,f32,HTP0,blk.16.attn_k.weight,HTP0-REPACK,16,blk.16,attn_k,HTP0,247,7,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,307,RMS_NORM,norm-16,f32,HTP0,Qcur-16,HTP0,16,blk.16,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,308,ROPE,Qcur-16,f32,HTP0,Qcur_normed-16,HTP0,16,blk.16,attn_q,HTP0,15,85,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,309,RMS_NORM,norm-16,f32,HTP0,Kcur-16,HTP0,16,blk.16,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,310,ROPE,Kcur-16,f32,HTP0,Kcur_normed-16,HTP0,16,blk.16,attn_k,HTP0,247,7,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,311,SET_ROWS,cache_k_l16 (view),f16,HTP0,Kcur-16 (view),HTP0,16,blk.16,attn_k,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,312,SET_ROWS,cache_v_l16 (view),f16,HTP0,Vcur-16 (view),HTP0,16,blk.16,attn_v,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,313,FLASH_ATTN_EXT,__fattn__-16,f32,HTP0,Qcur-16 (view) (permuted),HTP0,16,blk.16,attn_q,HTP0,265,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,314,MUL_MAT,attn_out-16,f32,HTP0,blk.16.attn_output.weight,HTP0-REPACK,16,blk.16,attn_output,HTP0,449,55,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,315,RMS_NORM,norm-16,f32,HTP0,attn_out-16,HTP0,16,blk.16,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,316,ADD,ffn_inp-16,f32,HTP0,attn_post_norm-16,HTP0,16,blk.16,norm,HTP0,224,6,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,317,MUL_MAT,ffn_gate-16,f32,HTP0,blk.16.ffn_gate.weight,HTP0-REPACK,16,blk.16,ffn_gate,HTP0,749,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,318,MUL_MAT,ffn_up-16,f32,HTP0,blk.16.ffn_up.weight,HTP0-REPACK,16,blk.16,ffn_up,HTP0,772,191,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,319,GLU,ffn_swiglu-16,f32,HTP0,ffn_gate-16,HTP0,16,blk.16,ffn_gate,HTP0,708,10,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,320,MUL_MAT,ffn_out-16,f32,HTP0,blk.16.ffn_down.weight,HTP0-REPACK,16,blk.16,ffn_down,HTP0,793,102,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,321,RMS_NORM,norm,f32,HTP0,ffn_out-16,HTP0,,norm,norm,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,322,ADD,l_out-16,f32,HTP0,ffn_post_norm,HTP0,,ffn_post_norm,norm,HTP0,236,2,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,323,MUL_MAT,Qcur-17,f32,HTP0,blk.17.attn_q.weight,HTP0-REPACK,17,blk.17,attn_q,HTP0,15,93,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,324,MUL_MAT,Vcur-17,f32,HTP0,blk.17.attn_v.weight,HTP0-REPACK,17,blk.17,attn_v,HTP0,232,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,325,MUL_MAT,Kcur-17,f32,HTP0,blk.17.attn_k.weight,HTP0-REPACK,17,blk.17,attn_k,HTP0,236,7,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,326,RMS_NORM,norm-17,f32,HTP0,Qcur-17,HTP0,17,blk.17,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,327,ROPE,Qcur-17,f32,HTP0,Qcur_normed-17,HTP0,17,blk.17,attn_q,HTP0,15,93,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,328,RMS_NORM,norm-17,f32,HTP0,Kcur-17,HTP0,17,blk.17,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,329,ROPE,Kcur-17,f32,HTP0,Kcur_normed-17,HTP0,17,blk.17,attn_k,HTP0,236,7,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,330,SET_ROWS,cache_k_l17 (view),f16,HTP0,Kcur-17 (view),HTP0,17,blk.17,attn_k,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,331,SET_ROWS,cache_v_l17 (view),f16,HTP0,Vcur-17 (view),HTP0,17,blk.17,attn_v,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,332,FLASH_ATTN_EXT,__fattn__-17,f32,HTP0,Qcur-17 (view) (permuted),HTP0,17,blk.17,attn_q,HTP0,266,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,333,MUL_MAT,attn_out-17,f32,HTP0,blk.17.attn_output.weight,HTP0-REPACK,17,blk.17,attn_output,HTP0,447,54,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,334,RMS_NORM,norm-17,f32,HTP0,attn_out-17,HTP0,17,blk.17,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,335,ADD,ffn_inp-17,f32,HTP0,attn_post_norm-17,HTP0,17,blk.17,norm,HTP0,214,6,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,336,MUL_MAT,ffn_gate-17,f32,HTP0,blk.17.ffn_gate.weight,HTP0-REPACK,17,blk.17,ffn_gate,HTP0,752,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,337,MUL_MAT,ffn_up-17,f32,HTP0,blk.17.ffn_up.weight,HTP0-REPACK,17,blk.17,ffn_up,HTP0,778,216,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,338,GLU,ffn_swiglu-17,f32,HTP0,ffn_gate-17,HTP0,17,blk.17,ffn_gate,HTP0,705,10,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,339,MUL_MAT,ffn_out-17,f32,HTP0,blk.17.ffn_down.weight,HTP0-REPACK,17,blk.17,ffn_down,HTP0,793,100,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,340,RMS_NORM,norm,f32,HTP0,ffn_out-17,HTP0,,norm,norm,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,341,ADD,l_out-17,f32,HTP0,ffn_post_norm,HTP0,,ffn_post_norm,norm,HTP0,235,2,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,342,MUL_MAT,Qcur-18,f32,HTP0,blk.18.attn_q.weight,HTP0-REPACK,18,blk.18,attn_q,HTP0,15,89,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,343,MUL_MAT,Vcur-18,f32,HTP0,blk.18.attn_v.weight,HTP0-REPACK,18,blk.18,attn_v,HTP0,246,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,344,MUL_MAT,Kcur-18,f32,HTP0,blk.18.attn_k.weight,HTP0-REPACK,18,blk.18,attn_k,HTP0,229,7,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,345,RMS_NORM,norm-18,f32,HTP0,Qcur-18,HTP0,18,blk.18,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,346,ROPE,Qcur-18,f32,HTP0,Qcur_normed-18,HTP0,18,blk.18,attn_q,HTP0,15,89,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,347,RMS_NORM,norm-18,f32,HTP0,Kcur-18,HTP0,18,blk.18,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,348,ROPE,Kcur-18,f32,HTP0,Kcur_normed-18,HTP0,18,blk.18,attn_k,HTP0,229,7,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,349,SET_ROWS,cache_k_l18 (view),f16,HTP0,Kcur-18 (view),HTP0,18,blk.18,attn_k,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,350,SET_ROWS,cache_v_l18 (view),f16,HTP0,Vcur-18 (view),HTP0,18,blk.18,attn_v,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,351,FLASH_ATTN_EXT,__fattn__-18,f32,HTP0,Qcur-18 (view) (permuted),HTP0,18,blk.18,attn_q,HTP0,264,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,352,MUL_MAT,attn_out-18,f32,HTP0,blk.18.attn_output.weight,HTP0-REPACK,18,blk.18,attn_output,HTP0,447,54,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,353,RMS_NORM,norm-18,f32,HTP0,attn_out-18,HTP0,18,blk.18,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,354,ADD,ffn_inp-18,f32,HTP0,attn_post_norm-18,HTP0,18,blk.18,norm,HTP0,226,6,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,355,MUL_MAT,ffn_gate-18,f32,HTP0,blk.18.ffn_gate.weight,HTP0-REPACK,18,blk.18,ffn_gate,HTP0,752,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,356,MUL_MAT,ffn_up-18,f32,HTP0,blk.18.ffn_up.weight,HTP0-REPACK,18,blk.18,ffn_up,HTP0,777,231,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,357,GLU,ffn_swiglu-18,f32,HTP0,ffn_gate-18,HTP0,18,blk.18,ffn_gate,HTP0,695,11,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,358,MUL_MAT,ffn_out-18,f32,HTP0,blk.18.ffn_down.weight,HTP0-REPACK,18,blk.18,ffn_down,HTP0,791,99,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,359,RMS_NORM,norm,f32,HTP0,ffn_out-18,HTP0,,norm,norm,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,360,ADD,l_out-18,f32,HTP0,ffn_post_norm,HTP0,,ffn_post_norm,norm,HTP0,235,2,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,361,MUL_MAT,Qcur-19,f32,HTP0,blk.19.attn_q.weight,HTP0-REPACK,19,blk.19,attn_q,HTP0,15,93,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,362,MUL_MAT,Vcur-19,f32,HTP0,blk.19.attn_v.weight,HTP0-REPACK,19,blk.19,attn_v,HTP0,228,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,363,MUL_MAT,Kcur-19,f32,HTP0,blk.19.attn_k.weight,HTP0-REPACK,19,blk.19,attn_k,HTP0,230,7,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,364,RMS_NORM,norm-19,f32,HTP0,Qcur-19,HTP0,19,blk.19,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,365,ROPE,Qcur-19,f32,HTP0,Qcur_normed-19,HTP0,19,blk.19,attn_q,HTP0,15,93,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,366,RMS_NORM,norm-19,f32,HTP0,Kcur-19,HTP0,19,blk.19,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,367,ROPE,Kcur-19,f32,HTP0,Kcur_normed-19,HTP0,19,blk.19,attn_k,HTP0,230,7,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,368,SET_ROWS,cache_k_l19 (view),f16,HTP0,Kcur-19 (view),HTP0,19,blk.19,attn_k,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,369,SET_ROWS,cache_v_l19 (view),f16,HTP0,Vcur-19 (view),HTP0,19,blk.19,attn_v,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,370,FLASH_ATTN_EXT,__fattn__-19,f32,HTP0,Qcur-19 (view) (permuted),HTP0,19,blk.19,attn_q,HTP0,262,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,371,MUL_MAT,attn_out-19,f32,HTP0,blk.19.attn_output.weight,HTP0-REPACK,19,blk.19,attn_output,HTP0,447,64,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,372,RMS_NORM,norm-19,f32,HTP0,attn_out-19,HTP0,19,blk.19,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,373,ADD,ffn_inp-19,f32,HTP0,attn_post_norm-19,HTP0,19,blk.19,norm,HTP0,211,6,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,374,MUL_MAT,ffn_gate-19,f32,HTP0,blk.19.ffn_gate.weight,HTP0-REPACK,19,blk.19,ffn_gate,HTP0,756,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,375,MUL_MAT,ffn_up-19,f32,HTP0,blk.19.ffn_up.weight,HTP0-REPACK,19,blk.19,ffn_up,HTP0,772,213,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,376,GLU,ffn_swiglu-19,f32,HTP0,ffn_gate-19,HTP0,19,blk.19,ffn_gate,HTP0,708,11,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,377,MUL_MAT,ffn_out-19,f32,HTP0,blk.19.ffn_down.weight,HTP0-REPACK,19,blk.19,ffn_down,HTP0,795,120,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,378,RMS_NORM,norm,f32,HTP0,ffn_out-19,HTP0,,norm,norm,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,379,ADD,l_out-19,f32,HTP0,ffn_post_norm,HTP0,,ffn_post_norm,norm,HTP0,233,2,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,380,MUL_MAT,Qcur-20,f32,HTP0,blk.20.attn_q.weight,HTP0-REPACK,20,blk.20,attn_q,HTP0,15,93,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,381,MUL_MAT,Vcur-20,f32,HTP0,blk.20.attn_v.weight,HTP0-REPACK,20,blk.20,attn_v,HTP0,235,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,382,MUL_MAT,Kcur-20,f32,HTP0,blk.20.attn_k.weight,HTP0-REPACK,20,blk.20,attn_k,HTP0,230,7,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,383,RMS_NORM,norm-20,f32,HTP0,Qcur-20,HTP0,20,blk.20,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,384,ROPE,Qcur-20,f32,HTP0,Qcur_normed-20,HTP0,20,blk.20,attn_q,HTP0,15,93,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,385,RMS_NORM,norm-20,f32,HTP0,Kcur-20,HTP0,20,blk.20,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,386,ROPE,Kcur-20,f32,HTP0,Kcur_normed-20,HTP0,20,blk.20,attn_k,HTP0,230,7,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,387,SET_ROWS,cache_k_l20 (view),f16,HTP0,Kcur-20 (view),HTP0,20,blk.20,attn_k,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,388,SET_ROWS,cache_v_l20 (view),f16,HTP0,Vcur-20 (view),HTP0,20,blk.20,attn_v,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,389,FLASH_ATTN_EXT,__fattn__-20,f32,HTP0,Qcur-20 (view) (permuted),HTP0,20,blk.20,attn_q,HTP0,262,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,390,MUL_MAT,attn_out-20,f32,HTP0,blk.20.attn_output.weight,HTP0-REPACK,20,blk.20,attn_output,HTP0,450,62,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,391,RMS_NORM,norm-20,f32,HTP0,attn_out-20,HTP0,20,blk.20,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,392,ADD,ffn_inp-20,f32,HTP0,attn_post_norm-20,HTP0,20,blk.20,norm,HTP0,224,6,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,393,MUL_MAT,ffn_gate-20,f32,HTP0,blk.20.ffn_gate.weight,HTP0-REPACK,20,blk.20,ffn_gate,HTP0,756,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,394,MUL_MAT,ffn_up-20,f32,HTP0,blk.20.ffn_up.weight,HTP0-REPACK,20,blk.20,ffn_up,HTP0,774,230,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,395,GLU,ffn_swiglu-20,f32,HTP0,ffn_gate-20,HTP0,20,blk.20,ffn_gate,HTP0,692,11,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,396,MUL_MAT,ffn_out-20,f32,HTP0,blk.20.ffn_down.weight,HTP0-REPACK,20,blk.20,ffn_down,HTP0,794,103,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,397,RMS_NORM,norm,f32,HTP0,ffn_out-20,HTP0,,norm,norm,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,398,ADD,l_out-20,f32,HTP0,ffn_post_norm,HTP0,,ffn_post_norm,norm,HTP0,235,2,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,399,MUL_MAT,Qcur-21,f32,HTP0,blk.21.attn_q.weight,HTP0-REPACK,21,blk.21,attn_q,HTP0,15,86,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,400,MUL_MAT,Vcur-21,f32,HTP0,blk.21.attn_v.weight,HTP0-REPACK,21,blk.21,attn_v,HTP0,239,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,401,MUL_MAT,Kcur-21,f32,HTP0,blk.21.attn_k.weight,HTP0-REPACK,21,blk.21,attn_k,HTP0,237,7,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,402,RMS_NORM,norm-21,f32,HTP0,Qcur-21,HTP0,21,blk.21,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,403,ROPE,Qcur-21,f32,HTP0,Qcur_normed-21,HTP0,21,blk.21,attn_q,HTP0,15,86,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,404,RMS_NORM,norm-21,f32,HTP0,Kcur-21,HTP0,21,blk.21,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,405,ROPE,Kcur-21,f32,HTP0,Kcur_normed-21,HTP0,21,blk.21,attn_k,HTP0,237,7,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,406,SET_ROWS,cache_k_l21 (view),f16,HTP0,Kcur-21 (view),HTP0,21,blk.21,attn_k,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,407,SET_ROWS,cache_v_l21 (view),f16,HTP0,Vcur-21 (view),HTP0,21,blk.21,attn_v,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,408,FLASH_ATTN_EXT,__fattn__-21,f32,HTP0,Qcur-21 (view) (permuted),HTP0,21,blk.21,attn_q,HTP0,262,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,409,MUL_MAT,attn_out-21,f32,HTP0,blk.21.attn_output.weight,HTP0-REPACK,21,blk.21,attn_output,HTP0,450,65,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,410,RMS_NORM,norm-21,f32,HTP0,attn_out-21,HTP0,21,blk.21,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,411,ADD,ffn_inp-21,f32,HTP0,attn_post_norm-21,HTP0,21,blk.21,norm,HTP0,228,6,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,412,MUL_MAT,ffn_gate-21,f32,HTP0,blk.21.ffn_gate.weight,HTP0-REPACK,21,blk.21,ffn_gate,HTP0,753,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,413,MUL_MAT,ffn_up-21,f32,HTP0,blk.21.ffn_up.weight,HTP0-REPACK,21,blk.21,ffn_up,HTP0,788,232,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,414,GLU,ffn_swiglu-21,f32,HTP0,ffn_gate-21,HTP0,21,blk.21,ffn_gate,HTP0,694,11,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,415,MUL_MAT,ffn_out-21,f32,HTP0,blk.21.ffn_down.weight,HTP0-REPACK,21,blk.21,ffn_down,HTP0,790,121,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,416,RMS_NORM,norm,f32,HTP0,ffn_out-21,HTP0,,norm,norm,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,417,ADD,l_out-21,f32,HTP0,ffn_post_norm,HTP0,,ffn_post_norm,norm,HTP0,238,2,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,418,MUL_MAT,Qcur-22,f32,HTP0,blk.22.attn_q.weight,HTP0-REPACK,22,blk.22,attn_q,HTP0,15,98,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,419,MUL_MAT,Vcur-22,f32,HTP0,blk.22.attn_v.weight,HTP0-REPACK,22,blk.22,attn_v,HTP0,230,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,420,MUL_MAT,Kcur-22,f32,HTP0,blk.22.attn_k.weight,HTP0-REPACK,22,blk.22,attn_k,HTP0,233,7,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,421,RMS_NORM,norm-22,f32,HTP0,Qcur-22,HTP0,22,blk.22,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,422,ROPE,Qcur-22,f32,HTP0,Qcur_normed-22,HTP0,22,blk.22,attn_q,HTP0,15,98,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,423,RMS_NORM,norm-22,f32,HTP0,Kcur-22,HTP0,22,blk.22,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,424,ROPE,Kcur-22,f32,HTP0,Kcur_normed-22,HTP0,22,blk.22,attn_k,HTP0,233,7,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,425,SET_ROWS,cache_k_l22 (view),f16,HTP0,Kcur-22 (view),HTP0,22,blk.22,attn_k,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,426,SET_ROWS,cache_v_l22 (view),f16,HTP0,Vcur-22 (view),HTP0,22,blk.22,attn_v,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,427,FLASH_ATTN_EXT,__fattn__-22,f32,HTP0,Qcur-22 (view) (permuted),HTP0,22,blk.22,attn_q,HTP0,264,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,428,MUL_MAT,attn_out-22,f32,HTP0,blk.22.attn_output.weight,HTP0-REPACK,22,blk.22,attn_output,HTP0,454,66,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,429,RMS_NORM,norm-22,f32,HTP0,attn_out-22,HTP0,22,blk.22,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,430,ADD,ffn_inp-22,f32,HTP0,attn_post_norm-22,HTP0,22,blk.22,norm,HTP0,226,6,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,431,MUL_MAT,ffn_gate-22,f32,HTP0,blk.22.ffn_gate.weight,HTP0-REPACK,22,blk.22,ffn_gate,HTP0,756,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,432,MUL_MAT,ffn_up-22,f32,HTP0,blk.22.ffn_up.weight,HTP0-REPACK,22,blk.22,ffn_up,HTP0,780,233,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,433,GLU,ffn_swiglu-22,f32,HTP0,ffn_gate-22,HTP0,22,blk.22,ffn_gate,HTP0,709,11,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,434,MUL_MAT,ffn_out-22,f32,HTP0,blk.22.ffn_down.weight,HTP0-REPACK,22,blk.22,ffn_down,HTP0,787,120,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,435,RMS_NORM,norm,f32,HTP0,ffn_out-22,HTP0,,norm,norm,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,436,ADD,l_out-22,f32,HTP0,ffn_post_norm,HTP0,,ffn_post_norm,norm,HTP0,221,2,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,437,MUL_MAT,Qcur-23,f32,HTP0,blk.23.attn_q.weight,HTP0-REPACK,23,blk.23,attn_q,HTP0,15,98,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,438,MUL_MAT,Vcur-23,f32,HTP0,blk.23.attn_v.weight,HTP0-REPACK,23,blk.23,attn_v,HTP0,237,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,439,MUL_MAT,Kcur-23,f32,HTP0,blk.23.attn_k.weight,HTP0-REPACK,23,blk.23,attn_k,HTP0,237,7,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,440,RMS_NORM,norm-23,f32,HTP0,Qcur-23,HTP0,23,blk.23,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,441,ROPE,Qcur-23,f32,HTP0,Qcur_normed-23,HTP0,23,blk.23,attn_q,HTP0,15,98,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,442,RMS_NORM,norm-23,f32,HTP0,Kcur-23,HTP0,23,blk.23,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,443,ROPE,Kcur-23,f32,HTP0,Kcur_normed-23,HTP0,23,blk.23,attn_k,HTP0,237,7,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,444,SET_ROWS,cache_k_l23 (view),f16,HTP0,Kcur-23 (view),HTP0,23,blk.23,attn_k,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,445,SET_ROWS,cache_v_l23 (view),f16,HTP0,Vcur-23 (view),HTP0,23,blk.23,attn_v,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,446,FLASH_ATTN_EXT,__fattn__-23,f32,HTP0,Qcur-23 (view) (permuted),HTP0,23,blk.23,attn_q,HTP0,265,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,447,MUL_MAT,attn_out-23,f32,HTP0,blk.23.attn_output.weight,HTP0-REPACK,23,blk.23,attn_output,HTP0,449,66,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,448,RMS_NORM,norm-23,f32,HTP0,attn_out-23,HTP0,23,blk.23,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,449,ADD,ffn_inp-23,f32,HTP0,attn_post_norm-23,HTP0,23,blk.23,norm,HTP0,220,6,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,450,MUL_MAT,ffn_gate-23,f32,HTP0,blk.23.ffn_gate.weight,HTP0-REPACK,23,blk.23,ffn_gate,HTP0,752,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,451,MUL_MAT,ffn_up-23,f32,HTP0,blk.23.ffn_up.weight,HTP0-REPACK,23,blk.23,ffn_up,HTP0,781,231,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,452,GLU,ffn_swiglu-23,f32,HTP0,ffn_gate-23,HTP0,23,blk.23,ffn_gate,HTP0,694,11,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,453,MUL_MAT,ffn_out-23,f32,HTP0,blk.23.ffn_down.weight,HTP0-REPACK,23,blk.23,ffn_down,HTP0,787,120,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,454,RMS_NORM,norm,f32,HTP0,ffn_out-23,HTP0,,norm,norm,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,455,ADD,l_out-23,f32,HTP0,ffn_post_norm,HTP0,,ffn_post_norm,norm,HTP0,230,2,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,456,MUL_MAT,Qcur-24,f32,HTP0,blk.24.attn_q.weight,HTP0-REPACK,24,blk.24,attn_q,HTP0,15,97,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,457,MUL_MAT,Vcur-24,f32,HTP0,blk.24.attn_v.weight,HTP0-REPACK,24,blk.24,attn_v,HTP0,232,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,458,MUL_MAT,Kcur-24,f32,HTP0,blk.24.attn_k.weight,HTP0-REPACK,24,blk.24,attn_k,HTP0,233,7,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,459,RMS_NORM,norm-24,f32,HTP0,Qcur-24,HTP0,24,blk.24,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,460,ROPE,Qcur-24,f32,HTP0,Qcur_normed-24,HTP0,24,blk.24,attn_q,HTP0,15,97,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,461,RMS_NORM,norm-24,f32,HTP0,Kcur-24,HTP0,24,blk.24,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,462,ROPE,Kcur-24,f32,HTP0,Kcur_normed-24,HTP0,24,blk.24,attn_k,HTP0,233,7,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,463,SET_ROWS,cache_k_l24 (view),f16,HTP0,Kcur-24 (view),HTP0,24,blk.24,attn_k,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,464,SET_ROWS,cache_v_l24 (view),f16,HTP0,Vcur-24 (view),HTP0,24,blk.24,attn_v,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,465,FLASH_ATTN_EXT,__fattn__-24,f32,HTP0,Qcur-24 (view) (permuted),HTP0,24,blk.24,attn_q,HTP0,263,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,466,MUL_MAT,attn_out-24,f32,HTP0,blk.24.attn_output.weight,HTP0-REPACK,24,blk.24,attn_output,HTP0,450,65,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,467,RMS_NORM,norm-24,f32,HTP0,attn_out-24,HTP0,24,blk.24,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,468,ADD,ffn_inp-24,f32,HTP0,attn_post_norm-24,HTP0,24,blk.24,norm,HTP0,223,6,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,469,MUL_MAT,ffn_gate-24,f32,HTP0,blk.24.ffn_gate.weight,HTP0-REPACK,24,blk.24,ffn_gate,HTP0,750,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,470,MUL_MAT,ffn_up-24,f32,HTP0,blk.24.ffn_up.weight,HTP0-REPACK,24,blk.24,ffn_up,HTP0,784,231,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,471,GLU,ffn_swiglu-24,f32,HTP0,ffn_gate-24,HTP0,24,blk.24,ffn_gate,HTP0,695,11,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,472,MUL_MAT,ffn_out-24,f32,HTP0,blk.24.ffn_down.weight,HTP0-REPACK,24,blk.24,ffn_down,HTP0,816,118,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,473,RMS_NORM,norm,f32,HTP0,ffn_out-24,HTP0,,norm,norm,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,474,ADD,l_out-24,f32,HTP0,ffn_post_norm,HTP0,,ffn_post_norm,norm,HTP0,236,2,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,475,MUL_MAT,Qcur-25,f32,HTP0,blk.25.attn_q.weight,HTP0-REPACK,25,blk.25,attn_q,HTP0,15,96,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,476,MUL_MAT,Vcur-25,f32,HTP0,blk.25.attn_v.weight,HTP0-REPACK,25,blk.25,attn_v,HTP0,229,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,477,MUL_MAT,Kcur-25,f32,HTP0,blk.25.attn_k.weight,HTP0-REPACK,25,blk.25,attn_k,HTP0,231,7,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,478,RMS_NORM,norm-25,f32,HTP0,Qcur-25,HTP0,25,blk.25,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,479,ROPE,Qcur-25,f32,HTP0,Qcur_normed-25,HTP0,25,blk.25,attn_q,HTP0,15,96,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,480,RMS_NORM,norm-25,f32,HTP0,Kcur-25,HTP0,25,blk.25,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,481,ROPE,Kcur-25,f32,HTP0,Kcur_normed-25,HTP0,25,blk.25,attn_k,HTP0,231,7,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,482,SET_ROWS,cache_k_l25 (view),f16,HTP0,Kcur-25 (view),HTP0,25,blk.25,attn_k,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,483,SET_ROWS,cache_v_l25 (view),f16,HTP0,Vcur-25 (view),HTP0,25,blk.25,attn_v,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,484,FLASH_ATTN_EXT,__fattn__-25,f32,HTP0,Qcur-25 (view) (permuted),HTP0,25,blk.25,attn_q,HTP0,264,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,485,MUL_MAT,attn_out-25,f32,HTP0,blk.25.attn_output.weight,HTP0-REPACK,25,blk.25,attn_output,HTP0,452,64,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,486,RMS_NORM,norm-25,f32,HTP0,attn_out-25,HTP0,25,blk.25,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,487,ADD,ffn_inp-25,f32,HTP0,attn_post_norm-25,HTP0,25,blk.25,norm,HTP0,224,6,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,488,MUL_MAT,ffn_gate-25,f32,HTP0,blk.25.ffn_gate.weight,HTP0-REPACK,25,blk.25,ffn_gate,HTP0,754,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,489,MUL_MAT,ffn_up-25,f32,HTP0,blk.25.ffn_up.weight,HTP0-REPACK,25,blk.25,ffn_up,HTP0,783,227,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,490,GLU,ffn_swiglu-25,f32,HTP0,ffn_gate-25,HTP0,25,blk.25,ffn_gate,HTP0,696,11,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,491,MUL_MAT,ffn_out-25,f32,HTP0,blk.25.ffn_down.weight,HTP0-REPACK,25,blk.25,ffn_down,HTP0,791,117,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,492,RMS_NORM,norm,f32,HTP0,ffn_out-25,HTP0,,norm,norm,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,493,ADD,l_out-25,f32,HTP0,ffn_post_norm,HTP0,,ffn_post_norm,norm,HTP0,238,2,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,494,MUL_MAT,Qcur-26,f32,HTP0,blk.26.attn_q.weight,HTP0-REPACK,26,blk.26,attn_q,HTP0,15,91,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,495,MUL_MAT,Vcur-26,f32,HTP0,blk.26.attn_v.weight,HTP0-REPACK,26,blk.26,attn_v,HTP0,230,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,496,MUL_MAT,Kcur-26,f32,HTP0,blk.26.attn_k.weight,HTP0-REPACK,26,blk.26,attn_k,HTP0,234,7,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,497,RMS_NORM,norm-26,f32,HTP0,Qcur-26,HTP0,26,blk.26,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,498,ROPE,Qcur-26,f32,HTP0,Qcur_normed-26,HTP0,26,blk.26,attn_q,HTP0,15,91,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,499,RMS_NORM,norm-26,f32,HTP0,Kcur-26,HTP0,26,blk.26,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,500,ROPE,Kcur-26,f32,HTP0,Kcur_normed-26,HTP0,26,blk.26,attn_k,HTP0,234,7,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,501,SET_ROWS,cache_k_l26 (view),f16,HTP0,Kcur-26 (view),HTP0,26,blk.26,attn_k,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,502,SET_ROWS,cache_v_l26 (view),f16,HTP0,Vcur-26 (view),HTP0,26,blk.26,attn_v,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,503,FLASH_ATTN_EXT,__fattn__-26,f32,HTP0,Qcur-26 (view) (permuted),HTP0,26,blk.26,attn_q,HTP0,267,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,504,MUL_MAT,attn_out-26,f32,HTP0,blk.26.attn_output.weight,HTP0-REPACK,26,blk.26,attn_output,HTP0,450,65,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,505,RMS_NORM,norm-26,f32,HTP0,attn_out-26,HTP0,26,blk.26,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,506,ADD,ffn_inp-26,f32,HTP0,attn_post_norm-26,HTP0,26,blk.26,norm,HTP0,219,6,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,507,MUL_MAT,ffn_gate-26,f32,HTP0,blk.26.ffn_gate.weight,HTP0-REPACK,26,blk.26,ffn_gate,HTP0,748,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,508,MUL_MAT,ffn_up-26,f32,HTP0,blk.26.ffn_up.weight,HTP0-REPACK,26,blk.26,ffn_up,HTP0,776,228,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,509,GLU,ffn_swiglu-26,f32,HTP0,ffn_gate-26,HTP0,26,blk.26,ffn_gate,HTP0,704,11,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,510,MUL_MAT,ffn_out-26,f32,HTP0,blk.26.ffn_down.weight,HTP0-REPACK,26,blk.26,ffn_down,HTP0,784,118,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,511,RMS_NORM,norm,f32,HTP0,ffn_out-26,HTP0,,norm,norm,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,512,ADD,l_out-26,f32,HTP0,ffn_post_norm,HTP0,,ffn_post_norm,norm,HTP0,222,2,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,513,MUL_MAT,Qcur-27,f32,HTP0,blk.27.attn_q.weight,HTP0-REPACK,27,blk.27,attn_q,HTP0,15,94,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,514,MUL_MAT,Vcur-27,f32,HTP0,blk.27.attn_v.weight,HTP0-REPACK,27,blk.27,attn_v,HTP0,230,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,515,MUL_MAT,Kcur-27,f32,HTP0,blk.27.attn_k.weight,HTP0-REPACK,27,blk.27,attn_k,HTP0,233,7,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,516,RMS_NORM,norm-27,f32,HTP0,Qcur-27,HTP0,27,blk.27,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,517,ROPE,Qcur-27,f32,HTP0,Qcur_normed-27,HTP0,27,blk.27,attn_q,HTP0,15,94,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,518,RMS_NORM,norm-27,f32,HTP0,Kcur-27,HTP0,27,blk.27,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,519,ROPE,Kcur-27,f32,HTP0,Kcur_normed-27,HTP0,27,blk.27,attn_k,HTP0,233,7,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,520,SET_ROWS,cache_k_l27 (view),f16,HTP0,Kcur-27 (view),HTP0,27,blk.27,attn_k,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,521,SET_ROWS,cache_v_l27 (view),f16,HTP0,Vcur-27 (view),HTP0,27,blk.27,attn_v,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,522,FLASH_ATTN_EXT,__fattn__-27,f32,HTP0,Qcur-27 (view) (permuted),HTP0,27,blk.27,attn_q,HTP0,265,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,523,MUL_MAT,attn_out-27,f32,HTP0,blk.27.attn_output.weight,HTP0-REPACK,27,blk.27,attn_output,HTP0,451,61,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,524,RMS_NORM,norm-27,f32,HTP0,attn_out-27,HTP0,27,blk.27,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,525,ADD,ffn_inp-27,f32,HTP0,attn_post_norm-27,HTP0,27,blk.27,norm,HTP0,225,6,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,526,MUL_MAT,ffn_gate-27,f32,HTP0,blk.27.ffn_gate.weight,HTP0-REPACK,27,blk.27,ffn_gate,HTP0,759,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,527,MUL_MAT,ffn_up-27,f32,HTP0,blk.27.ffn_up.weight,HTP0-REPACK,27,blk.27,ffn_up,HTP0,778,221,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,528,GLU,ffn_swiglu-27,f32,HTP0,ffn_gate-27,HTP0,27,blk.27,ffn_gate,HTP0,707,11,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,529,MUL_MAT,ffn_out-27,f32,HTP0,blk.27.ffn_down.weight,HTP0-REPACK,27,blk.27,ffn_down,HTP0,788,109,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,530,RMS_NORM,norm,f32,HTP0,ffn_out-27,HTP0,,norm,norm,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,531,ADD,l_out-27,f32,HTP0,ffn_post_norm,HTP0,,ffn_post_norm,norm,HTP0,235,2,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,532,MUL_MAT,Qcur-28,f32,HTP0,blk.28.attn_q.weight,HTP0-REPACK,28,blk.28,attn_q,HTP0,15,95,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,533,MUL_MAT,Vcur-28,f32,HTP0,blk.28.attn_v.weight,HTP0-REPACK,28,blk.28,attn_v,HTP0,228,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,534,MUL_MAT,Kcur-28,f32,HTP0,blk.28.attn_k.weight,HTP0-REPACK,28,blk.28,attn_k,HTP0,237,7,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,535,RMS_NORM,norm-28,f32,HTP0,Qcur-28,HTP0,28,blk.28,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,536,ROPE,Qcur-28,f32,HTP0,Qcur_normed-28,HTP0,28,blk.28,attn_q,HTP0,15,95,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,537,RMS_NORM,norm-28,f32,HTP0,Kcur-28,HTP0,28,blk.28,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,538,ROPE,Kcur-28,f32,HTP0,Kcur_normed-28,HTP0,28,blk.28,attn_k,HTP0,237,7,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,539,SET_ROWS,cache_k_l28 (view),f16,HTP0,Kcur-28 (view),HTP0,28,blk.28,attn_k,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,540,SET_ROWS,cache_v_l28 (view),f16,HTP0,Vcur-28 (view),HTP0,28,blk.28,attn_v,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,541,FLASH_ATTN_EXT,__fattn__-28,f32,HTP0,Qcur-28 (view) (permuted),HTP0,28,blk.28,attn_q,HTP0,267,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,542,MUL_MAT,attn_out-28,f32,HTP0,blk.28.attn_output.weight,HTP0-REPACK,28,blk.28,attn_output,HTP0,454,61,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,543,RMS_NORM,norm-28,f32,HTP0,attn_out-28,HTP0,28,blk.28,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,544,ADD,ffn_inp-28,f32,HTP0,attn_post_norm-28,HTP0,28,blk.28,norm,HTP0,225,6,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,545,MUL_MAT,ffn_gate-28,f32,HTP0,blk.28.ffn_gate.weight,HTP0-REPACK,28,blk.28,ffn_gate,HTP0,756,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,546,MUL_MAT,ffn_up-28,f32,HTP0,blk.28.ffn_up.weight,HTP0-REPACK,28,blk.28,ffn_up,HTP0,787,221,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,547,GLU,ffn_swiglu-28,f32,HTP0,ffn_gate-28,HTP0,28,blk.28,ffn_gate,HTP0,703,11,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,548,MUL_MAT,ffn_out-28,f32,HTP0,blk.28.ffn_down.weight,HTP0-REPACK,28,blk.28,ffn_down,HTP0,844,118,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,549,RMS_NORM,norm,f32,HTP0,ffn_out-28,HTP0,,norm,norm,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,550,ADD,l_out-28,f32,HTP0,ffn_post_norm,HTP0,,ffn_post_norm,norm,HTP0,233,2,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,551,MUL_MAT,Qcur-29,f32,HTP0,blk.29.attn_q.weight,HTP0-REPACK,29,blk.29,attn_q,HTP0,15,90,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,552,MUL_MAT,Vcur-29,f32,HTP0,blk.29.attn_v.weight,HTP0-REPACK,29,blk.29,attn_v,HTP0,231,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,553,MUL_MAT,Kcur-29,f32,HTP0,blk.29.attn_k.weight,HTP0-REPACK,29,blk.29,attn_k,HTP0,233,7,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,554,RMS_NORM,norm-29,f32,HTP0,Qcur-29,HTP0,29,blk.29,norm,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,555,ROPE,Qcur-29,f32,HTP0,Qcur_normed-29,HTP0,29,blk.29,attn_q,HTP0,15,90,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,556,RMS_NORM,norm-29,f32,HTP0,Kcur-29,HTP0,29,blk.29,norm,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,557,ROPE,Kcur-29,f32,HTP0,Kcur_normed-29,HTP0,29,blk.29,attn_k,HTP0,233,7,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,558,SET_ROWS,cache_k_l29 (view),f16,HTP0,Kcur-29 (view),HTP0,29,blk.29,attn_k,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,559,SET_ROWS,cache_v_l29 (view),f16,HTP0,Vcur-29 (view),HTP0,29,blk.29,attn_v,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,560,FLASH_ATTN_EXT,__fattn__-29,f32,HTP0,Qcur-29 (view) (permuted),HTP0,29,blk.29,attn_q,HTP0,264,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,561,MUL_MAT,attn_out-29,f32,HTP0,blk.29.attn_output.weight,HTP0-REPACK,29,blk.29,attn_output,HTP0,449,60,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,562,GET_ROWS,node_1041,f32,HTP0,attn_out-29,HTP0,29,blk.29,attn_output,HTP0,,3,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,563,RMS_NORM,norm-29,f32,HTP0,node_1041,HTP0,29,blk.29,norm,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,564,GET_ROWS,node_1044,f32,HTP0,l_out-28,HTP0,,node_1044,other,HTP0,,1,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,565,ADD,ffn_inp-29,f32,HTP0,attn_post_norm-29,HTP0,29,blk.29,norm,HTP0,,5,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,566,MUL_MAT,ffn_gate-29,f32,HTP0,blk.29.ffn_gate.weight,HTP0-REPACK,29,blk.29,ffn_gate,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,567,GLU,ffn_swiglu-29,f32,HTP0,ffn_gate-29,HTP0,29,blk.29,ffn_gate,HTP0,,11,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,568,MUL_MAT,ffn_out-29,f32,HTP0,blk.29.ffn_down.weight,HTP0-REPACK,29,blk.29,ffn_down,HTP0,,114,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,569,RMS_NORM,norm,f32,HTP0,ffn_out-29,HTP0,,norm,norm,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,570,ADD,l_out-29,f32,HTP0,ffn_post_norm,HTP0,,ffn_post_norm,norm,HTP0,,2,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q4_0,HTP0,571,RMS_NORM,norm,f32,HTP0,l_out-29,HTP0,,norm,norm,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,0,MUL_MAT,Qcur-0,f32,HTP0,blk.0.attn_q.weight,HTP0-REPACK,0,blk.0,attn_q,HTP0,23,153,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,1,MUL_MAT,Vcur-0,f32,HTP0,blk.0.attn_v.weight,HTP0-REPACK,0,blk.0,attn_v,HTP0,247,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,2,MUL_MAT,Kcur-0,f32,HTP0,blk.0.attn_k.weight,HTP0-REPACK,0,blk.0,attn_k,HTP0,248,7,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,3,RMS_NORM,norm-0,f32,HTP0,Qcur-0,HTP0,0,blk.0,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,4,ROPE,Qcur-0,f32,HTP0,Qcur_normed-0,HTP0,0,blk.0,attn_q,HTP0,23,153,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,5,RMS_NORM,norm-0,f32,HTP0,Kcur-0,HTP0,0,blk.0,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,6,ROPE,Kcur-0,f32,HTP0,Kcur_normed-0,HTP0,0,blk.0,attn_k,HTP0,248,7,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,7,SET_ROWS,cache_k_l0 (view),f16,HTP0,Kcur-0 (view),HTP0,0,blk.0,attn_k,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,8,SET_ROWS,cache_v_l0 (view),f16,HTP0,Vcur-0 (view),HTP0,0,blk.0,attn_v,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,9,FLASH_ATTN_EXT,__fattn__-0,f32,HTP0,Qcur-0 (view) (permuted),HTP0,0,blk.0,attn_q,HTP0,274,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,10,MUL_MAT,attn_out-0,f32,HTP0,blk.0.attn_output.weight,HTP0-REPACK,0,blk.0,attn_output,HTP0,493,107,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,11,RMS_NORM,norm-0,f32,HTP0,attn_out-0,HTP0,0,blk.0,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,12,ADD,ffn_inp-0,f32,HTP0,attn_post_norm-0,HTP0,0,blk.0,norm,HTP0,222,8,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,13,MUL_MAT,ffn_gate-0,f32,HTP0,blk.0.ffn_gate.weight,HTP0-REPACK,0,blk.0,ffn_gate,HTP0,830,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,14,MUL_MAT,ffn_up-0,f32,HTP0,blk.0.ffn_up.weight,HTP0-REPACK,0,blk.0,ffn_up,HTP0,854,416,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,15,GLU,ffn_swiglu-0,f32,HTP0,ffn_gate-0,HTP0,0,blk.0,ffn_gate,HTP0,706,12,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,16,MUL_MAT,ffn_out-0,f32,HTP0,blk.0.ffn_down.weight,HTP0-REPACK,0,blk.0,ffn_down,HTP0,874,209,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,17,RMS_NORM,norm,f32,HTP0,ffn_out-0,HTP0,,norm,norm,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,18,ADD,l_out-0,f32,HTP0,ffn_post_norm,HTP0,,ffn_post_norm,norm,HTP0,230,2,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,19,MUL_MAT,Qcur-1,f32,HTP0,blk.1.attn_q.weight,HTP0-REPACK,1,blk.1,attn_q,HTP0,17,145,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,20,MUL_MAT,Vcur-1,f32,HTP0,blk.1.attn_v.weight,HTP0-REPACK,1,blk.1,attn_v,HTP0,237,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,21,MUL_MAT,Kcur-1,f32,HTP0,blk.1.attn_k.weight,HTP0-REPACK,1,blk.1,attn_k,HTP0,244,7,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,22,RMS_NORM,norm-1,f32,HTP0,Qcur-1,HTP0,1,blk.1,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,23,ROPE,Qcur-1,f32,HTP0,Qcur_normed-1,HTP0,1,blk.1,attn_q,HTP0,17,145,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,24,RMS_NORM,norm-1,f32,HTP0,Kcur-1,HTP0,1,blk.1,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,25,ROPE,Kcur-1,f32,HTP0,Kcur_normed-1,HTP0,1,blk.1,attn_k,HTP0,244,7,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,26,SET_ROWS,cache_k_l1 (view),f16,HTP0,Kcur-1 (view),HTP0,1,blk.1,attn_k,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,27,SET_ROWS,cache_v_l1 (view),f16,HTP0,Vcur-1 (view),HTP0,1,blk.1,attn_v,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,28,FLASH_ATTN_EXT,__fattn__-1,f32,HTP0,Qcur-1 (view) (permuted),HTP0,1,blk.1,attn_q,HTP0,265,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,29,MUL_MAT,attn_out-1,f32,HTP0,blk.1.attn_output.weight,HTP0-REPACK,1,blk.1,attn_output,HTP0,487,92,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,30,RMS_NORM,norm-1,f32,HTP0,attn_out-1,HTP0,1,blk.1,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,31,ADD,ffn_inp-1,f32,HTP0,attn_post_norm-1,HTP0,1,blk.1,norm,HTP0,224,5,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,32,MUL_MAT,ffn_gate-1,f32,HTP0,blk.1.ffn_gate.weight,HTP0-REPACK,1,blk.1,ffn_gate,HTP0,832,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,33,MUL_MAT,ffn_up-1,f32,HTP0,blk.1.ffn_up.weight,HTP0-REPACK,1,blk.1,ffn_up,HTP0,853,385,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,34,GLU,ffn_swiglu-1,f32,HTP0,ffn_gate-1,HTP0,1,blk.1,ffn_gate,HTP0,710,10,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,35,MUL_MAT,ffn_out-1,f32,HTP0,blk.1.ffn_down.weight,HTP0-REPACK,1,blk.1,ffn_down,HTP0,879,177,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,36,RMS_NORM,norm,f32,HTP0,ffn_out-1,HTP0,,norm,norm,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,37,ADD,l_out-1,f32,HTP0,ffn_post_norm,HTP0,,ffn_post_norm,norm,HTP0,227,2,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,38,MUL_MAT,Qcur-2,f32,HTP0,blk.2.attn_q.weight,HTP0-REPACK,2,blk.2,attn_q,HTP0,15,151,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,39,MUL_MAT,Vcur-2,f32,HTP0,blk.2.attn_v.weight,HTP0-REPACK,2,blk.2,attn_v,HTP0,243,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,40,MUL_MAT,Kcur-2,f32,HTP0,blk.2.attn_k.weight,HTP0-REPACK,2,blk.2,attn_k,HTP0,240,7,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,41,RMS_NORM,norm-2,f32,HTP0,Qcur-2,HTP0,2,blk.2,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,42,ROPE,Qcur-2,f32,HTP0,Qcur_normed-2,HTP0,2,blk.2,attn_q,HTP0,15,151,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,43,RMS_NORM,norm-2,f32,HTP0,Kcur-2,HTP0,2,blk.2,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,44,ROPE,Kcur-2,f32,HTP0,Kcur_normed-2,HTP0,2,blk.2,attn_k,HTP0,240,7,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,45,SET_ROWS,cache_k_l2 (view),f16,HTP0,Kcur-2 (view),HTP0,2,blk.2,attn_k,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,46,SET_ROWS,cache_v_l2 (view),f16,HTP0,Vcur-2 (view),HTP0,2,blk.2,attn_v,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,47,FLASH_ATTN_EXT,__fattn__-2,f32,HTP0,Qcur-2 (view) (permuted),HTP0,2,blk.2,attn_q,HTP0,265,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,48,MUL_MAT,attn_out-2,f32,HTP0,blk.2.attn_output.weight,HTP0-REPACK,2,blk.2,attn_output,HTP0,487,91,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,49,RMS_NORM,norm-2,f32,HTP0,attn_out-2,HTP0,2,blk.2,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,50,ADD,ffn_inp-2,f32,HTP0,attn_post_norm-2,HTP0,2,blk.2,norm,HTP0,224,6,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,51,MUL_MAT,ffn_gate-2,f32,HTP0,blk.2.ffn_gate.weight,HTP0-REPACK,2,blk.2,ffn_gate,HTP0,829,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,52,MUL_MAT,ffn_up-2,f32,HTP0,blk.2.ffn_up.weight,HTP0-REPACK,2,blk.2,ffn_up,HTP0,854,393,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,53,GLU,ffn_swiglu-2,f32,HTP0,ffn_gate-2,HTP0,2,blk.2,ffn_gate,HTP0,705,10,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,54,MUL_MAT,ffn_out-2,f32,HTP0,blk.2.ffn_down.weight,HTP0-REPACK,2,blk.2,ffn_down,HTP0,879,178,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,55,RMS_NORM,norm,f32,HTP0,ffn_out-2,HTP0,,norm,norm,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,56,ADD,l_out-2,f32,HTP0,ffn_post_norm,HTP0,,ffn_post_norm,norm,HTP0,225,2,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,57,MUL_MAT,Qcur-3,f32,HTP0,blk.3.attn_q.weight,HTP0-REPACK,3,blk.3,attn_q,HTP0,16,138,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,58,MUL_MAT,Vcur-3,f32,HTP0,blk.3.attn_v.weight,HTP0-REPACK,3,blk.3,attn_v,HTP0,236,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,59,MUL_MAT,Kcur-3,f32,HTP0,blk.3.attn_k.weight,HTP0-REPACK,3,blk.3,attn_k,HTP0,240,7,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,60,RMS_NORM,norm-3,f32,HTP0,Qcur-3,HTP0,3,blk.3,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,61,ROPE,Qcur-3,f32,HTP0,Qcur_normed-3,HTP0,3,blk.3,attn_q,HTP0,16,138,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,62,RMS_NORM,norm-3,f32,HTP0,Kcur-3,HTP0,3,blk.3,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,63,ROPE,Kcur-3,f32,HTP0,Kcur_normed-3,HTP0,3,blk.3,attn_k,HTP0,240,7,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,64,SET_ROWS,cache_k_l3 (view),f16,HTP0,Kcur-3 (view),HTP0,3,blk.3,attn_k,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,65,SET_ROWS,cache_v_l3 (view),f16,HTP0,Vcur-3 (view),HTP0,3,blk.3,attn_v,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,66,FLASH_ATTN_EXT,__fattn__-3,f32,HTP0,Qcur-3 (view) (permuted),HTP0,3,blk.3,attn_q,HTP0,268,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,67,MUL_MAT,attn_out-3,f32,HTP0,blk.3.attn_output.weight,HTP0-REPACK,3,blk.3,attn_output,HTP0,489,94,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,68,RMS_NORM,norm-3,f32,HTP0,attn_out-3,HTP0,3,blk.3,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,69,ADD,ffn_inp-3,f32,HTP0,attn_post_norm-3,HTP0,3,blk.3,norm,HTP0,230,6,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,70,MUL_MAT,ffn_gate-3,f32,HTP0,blk.3.ffn_gate.weight,HTP0-REPACK,3,blk.3,ffn_gate,HTP0,838,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,71,MUL_MAT,ffn_up-3,f32,HTP0,blk.3.ffn_up.weight,HTP0-REPACK,3,blk.3,ffn_up,HTP0,852,408,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,72,GLU,ffn_swiglu-3,f32,HTP0,ffn_gate-3,HTP0,3,blk.3,ffn_gate,HTP0,700,10,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,73,MUL_MAT,ffn_out-3,f32,HTP0,blk.3.ffn_down.weight,HTP0-REPACK,3,blk.3,ffn_down,HTP0,887,212,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,74,RMS_NORM,norm,f32,HTP0,ffn_out-3,HTP0,,norm,norm,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,75,ADD,l_out-3,f32,HTP0,ffn_post_norm,HTP0,,ffn_post_norm,norm,HTP0,228,2,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,76,MUL_MAT,Qcur-4,f32,HTP0,blk.4.attn_q.weight,HTP0-REPACK,4,blk.4,attn_q,HTP0,15,139,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,77,MUL_MAT,Vcur-4,f32,HTP0,blk.4.attn_v.weight,HTP0-REPACK,4,blk.4,attn_v,HTP0,256,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,78,MUL_MAT,Kcur-4,f32,HTP0,blk.4.attn_k.weight,HTP0-REPACK,4,blk.4,attn_k,HTP0,240,7,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,79,RMS_NORM,norm-4,f32,HTP0,Qcur-4,HTP0,4,blk.4,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,80,ROPE,Qcur-4,f32,HTP0,Qcur_normed-4,HTP0,4,blk.4,attn_q,HTP0,15,139,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,81,RMS_NORM,norm-4,f32,HTP0,Kcur-4,HTP0,4,blk.4,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,82,ROPE,Kcur-4,f32,HTP0,Kcur_normed-4,HTP0,4,blk.4,attn_k,HTP0,240,7,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,83,SET_ROWS,cache_k_l4 (view),f16,HTP0,Kcur-4 (view),HTP0,4,blk.4,attn_k,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,84,SET_ROWS,cache_v_l4 (view),f16,HTP0,Vcur-4 (view),HTP0,4,blk.4,attn_v,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,85,FLASH_ATTN_EXT,__fattn__-4,f32,HTP0,Qcur-4 (view) (permuted),HTP0,4,blk.4,attn_q,HTP0,269,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,86,MUL_MAT,attn_out-4,f32,HTP0,blk.4.attn_output.weight,HTP0-REPACK,4,blk.4,attn_output,HTP0,494,94,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,87,RMS_NORM,norm-4,f32,HTP0,attn_out-4,HTP0,4,blk.4,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,88,ADD,ffn_inp-4,f32,HTP0,attn_post_norm-4,HTP0,4,blk.4,norm,HTP0,215,5,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,89,MUL_MAT,ffn_gate-4,f32,HTP0,blk.4.ffn_gate.weight,HTP0-REPACK,4,blk.4,ffn_gate,HTP0,832,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,90,MUL_MAT,ffn_up-4,f32,HTP0,blk.4.ffn_up.weight,HTP0-REPACK,4,blk.4,ffn_up,HTP0,850,379,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,91,GLU,ffn_swiglu-4,f32,HTP0,ffn_gate-4,HTP0,4,blk.4,ffn_gate,HTP0,698,10,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,92,MUL_MAT,ffn_out-4,f32,HTP0,blk.4.ffn_down.weight,HTP0-REPACK,4,blk.4,ffn_down,HTP0,884,207,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,93,RMS_NORM,norm,f32,HTP0,ffn_out-4,HTP0,,norm,norm,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,94,ADD,l_out-4,f32,HTP0,ffn_post_norm,HTP0,,ffn_post_norm,norm,HTP0,227,2,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,95,MUL_MAT,Qcur-5,f32,HTP0,blk.5.attn_q.weight,HTP0-REPACK,5,blk.5,attn_q,HTP0,16,153,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,96,MUL_MAT,Vcur-5,f32,HTP0,blk.5.attn_v.weight,HTP0-REPACK,5,blk.5,attn_v,HTP0,248,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,97,MUL_MAT,Kcur-5,f32,HTP0,blk.5.attn_k.weight,HTP0-REPACK,5,blk.5,attn_k,HTP0,241,7,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,98,RMS_NORM,norm-5,f32,HTP0,Qcur-5,HTP0,5,blk.5,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,99,ROPE,Qcur-5,f32,HTP0,Qcur_normed-5,HTP0,5,blk.5,attn_q,HTP0,16,153,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,100,RMS_NORM,norm-5,f32,HTP0,Kcur-5,HTP0,5,blk.5,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,101,ROPE,Kcur-5,f32,HTP0,Kcur_normed-5,HTP0,5,blk.5,attn_k,HTP0,241,7,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,102,SET_ROWS,cache_k_l5 (view),f16,HTP0,Kcur-5 (view),HTP0,5,blk.5,attn_k,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,103,SET_ROWS,cache_v_l5 (view),f16,HTP0,Vcur-5 (view),HTP0,5,blk.5,attn_v,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,104,FLASH_ATTN_EXT,__fattn__-5,f32,HTP0,Qcur-5 (view) (permuted),HTP0,5,blk.5,attn_q,HTP0,263,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,105,MUL_MAT,attn_out-5,f32,HTP0,blk.5.attn_output.weight,HTP0-REPACK,5,blk.5,attn_output,HTP0,488,97,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,106,RMS_NORM,norm-5,f32,HTP0,attn_out-5,HTP0,5,blk.5,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,107,ADD,ffn_inp-5,f32,HTP0,attn_post_norm-5,HTP0,5,blk.5,norm,HTP0,212,5,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,108,MUL_MAT,ffn_gate-5,f32,HTP0,blk.5.ffn_gate.weight,HTP0-REPACK,5,blk.5,ffn_gate,HTP0,829,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,109,MUL_MAT,ffn_up-5,f32,HTP0,blk.5.ffn_up.weight,HTP0-REPACK,5,blk.5,ffn_up,HTP0,850,342,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,110,GLU,ffn_swiglu-5,f32,HTP0,ffn_gate-5,HTP0,5,blk.5,ffn_gate,HTP0,703,10,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,111,MUL_MAT,ffn_out-5,f32,HTP0,blk.5.ffn_down.weight,HTP0-REPACK,5,blk.5,ffn_down,HTP0,881,174,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,112,RMS_NORM,norm,f32,HTP0,ffn_out-5,HTP0,,norm,norm,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,113,ADD,l_out-5,f32,HTP0,ffn_post_norm,HTP0,,ffn_post_norm,norm,HTP0,223,2,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,114,MUL_MAT,Qcur-6,f32,HTP0,blk.6.attn_q.weight,HTP0-REPACK,6,blk.6,attn_q,HTP0,16,139,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,115,MUL_MAT,Vcur-6,f32,HTP0,blk.6.attn_v.weight,HTP0-REPACK,6,blk.6,attn_v,HTP0,235,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,116,MUL_MAT,Kcur-6,f32,HTP0,blk.6.attn_k.weight,HTP0-REPACK,6,blk.6,attn_k,HTP0,240,7,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,117,RMS_NORM,norm-6,f32,HTP0,Qcur-6,HTP0,6,blk.6,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,118,ROPE,Qcur-6,f32,HTP0,Qcur_normed-6,HTP0,6,blk.6,attn_q,HTP0,16,139,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,119,RMS_NORM,norm-6,f32,HTP0,Kcur-6,HTP0,6,blk.6,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,120,ROPE,Kcur-6,f32,HTP0,Kcur_normed-6,HTP0,6,blk.6,attn_k,HTP0,240,7,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,121,SET_ROWS,cache_k_l6 (view),f16,HTP0,Kcur-6 (view),HTP0,6,blk.6,attn_k,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,122,SET_ROWS,cache_v_l6 (view),f16,HTP0,Vcur-6 (view),HTP0,6,blk.6,attn_v,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,123,FLASH_ATTN_EXT,__fattn__-6,f32,HTP0,Qcur-6 (view) (permuted),HTP0,6,blk.6,attn_q,HTP0,266,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,124,MUL_MAT,attn_out-6,f32,HTP0,blk.6.attn_output.weight,HTP0-REPACK,6,blk.6,attn_output,HTP0,485,108,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,125,RMS_NORM,norm-6,f32,HTP0,attn_out-6,HTP0,6,blk.6,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,126,ADD,ffn_inp-6,f32,HTP0,attn_post_norm-6,HTP0,6,blk.6,norm,HTP0,228,6,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,127,MUL_MAT,ffn_gate-6,f32,HTP0,blk.6.ffn_gate.weight,HTP0-REPACK,6,blk.6,ffn_gate,HTP0,834,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,128,MUL_MAT,ffn_up-6,f32,HTP0,blk.6.ffn_up.weight,HTP0-REPACK,6,blk.6,ffn_up,HTP0,858,377,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,129,GLU,ffn_swiglu-6,f32,HTP0,ffn_gate-6,HTP0,6,blk.6,ffn_gate,HTP0,696,11,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,130,MUL_MAT,ffn_out-6,f32,HTP0,blk.6.ffn_down.weight,HTP0-REPACK,6,blk.6,ffn_down,HTP0,882,219,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,131,RMS_NORM,norm,f32,HTP0,ffn_out-6,HTP0,,norm,norm,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,132,ADD,l_out-6,f32,HTP0,ffn_post_norm,HTP0,,ffn_post_norm,norm,HTP0,225,2,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,133,MUL_MAT,Qcur-7,f32,HTP0,blk.7.attn_q.weight,HTP0-REPACK,7,blk.7,attn_q,HTP0,16,137,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,134,MUL_MAT,Vcur-7,f32,HTP0,blk.7.attn_v.weight,HTP0-REPACK,7,blk.7,attn_v,HTP0,240,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,135,MUL_MAT,Kcur-7,f32,HTP0,blk.7.attn_k.weight,HTP0-REPACK,7,blk.7,attn_k,HTP0,235,7,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,136,RMS_NORM,norm-7,f32,HTP0,Qcur-7,HTP0,7,blk.7,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,137,ROPE,Qcur-7,f32,HTP0,Qcur_normed-7,HTP0,7,blk.7,attn_q,HTP0,16,137,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,138,RMS_NORM,norm-7,f32,HTP0,Kcur-7,HTP0,7,blk.7,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,139,ROPE,Kcur-7,f32,HTP0,Kcur_normed-7,HTP0,7,blk.7,attn_k,HTP0,235,7,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,140,SET_ROWS,cache_k_l7 (view),f16,HTP0,Kcur-7 (view),HTP0,7,blk.7,attn_k,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,141,SET_ROWS,cache_v_l7 (view),f16,HTP0,Vcur-7 (view),HTP0,7,blk.7,attn_v,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,142,FLASH_ATTN_EXT,__fattn__-7,f32,HTP0,Qcur-7 (view) (permuted),HTP0,7,blk.7,attn_q,HTP0,270,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,143,MUL_MAT,attn_out-7,f32,HTP0,blk.7.attn_output.weight,HTP0-REPACK,7,blk.7,attn_output,HTP0,495,100,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,144,RMS_NORM,norm-7,f32,HTP0,attn_out-7,HTP0,7,blk.7,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,145,ADD,ffn_inp-7,f32,HTP0,attn_post_norm-7,HTP0,7,blk.7,norm,HTP0,228,6,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,146,MUL_MAT,ffn_gate-7,f32,HTP0,blk.7.ffn_gate.weight,HTP0-REPACK,7,blk.7,ffn_gate,HTP0,827,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,147,MUL_MAT,ffn_up-7,f32,HTP0,blk.7.ffn_up.weight,HTP0-REPACK,7,blk.7,ffn_up,HTP0,869,380,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,148,GLU,ffn_swiglu-7,f32,HTP0,ffn_gate-7,HTP0,7,blk.7,ffn_gate,HTP0,723,10,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,149,MUL_MAT,ffn_out-7,f32,HTP0,blk.7.ffn_down.weight,HTP0-REPACK,7,blk.7,ffn_down,HTP0,881,175,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,150,RMS_NORM,norm,f32,HTP0,ffn_out-7,HTP0,,norm,norm,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,151,ADD,l_out-7,f32,HTP0,ffn_post_norm,HTP0,,ffn_post_norm,norm,HTP0,226,2,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,152,MUL_MAT,Qcur-8,f32,HTP0,blk.8.attn_q.weight,HTP0-REPACK,8,blk.8,attn_q,HTP0,15,161,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,153,MUL_MAT,Vcur-8,f32,HTP0,blk.8.attn_v.weight,HTP0-REPACK,8,blk.8,attn_v,HTP0,244,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,154,MUL_MAT,Kcur-8,f32,HTP0,blk.8.attn_k.weight,HTP0-REPACK,8,blk.8,attn_k,HTP0,241,7,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,155,RMS_NORM,norm-8,f32,HTP0,Qcur-8,HTP0,8,blk.8,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,156,ROPE,Qcur-8,f32,HTP0,Qcur_normed-8,HTP0,8,blk.8,attn_q,HTP0,15,161,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,157,RMS_NORM,norm-8,f32,HTP0,Kcur-8,HTP0,8,blk.8,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,158,ROPE,Kcur-8,f32,HTP0,Kcur_normed-8,HTP0,8,blk.8,attn_k,HTP0,241,7,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,159,SET_ROWS,cache_k_l8 (view),f16,HTP0,Kcur-8 (view),HTP0,8,blk.8,attn_k,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,160,SET_ROWS,cache_v_l8 (view),f16,HTP0,Vcur-8 (view),HTP0,8,blk.8,attn_v,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,161,FLASH_ATTN_EXT,__fattn__-8,f32,HTP0,Qcur-8 (view) (permuted),HTP0,8,blk.8,attn_q,HTP0,276,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,162,MUL_MAT,attn_out-8,f32,HTP0,blk.8.attn_output.weight,HTP0-REPACK,8,blk.8,attn_output,HTP0,492,105,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,163,RMS_NORM,norm-8,f32,HTP0,attn_out-8,HTP0,8,blk.8,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,164,ADD,ffn_inp-8,f32,HTP0,attn_post_norm-8,HTP0,8,blk.8,norm,HTP0,224,6,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,165,MUL_MAT,ffn_gate-8,f32,HTP0,blk.8.ffn_gate.weight,HTP0-REPACK,8,blk.8,ffn_gate,HTP0,834,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,166,MUL_MAT,ffn_up-8,f32,HTP0,blk.8.ffn_up.weight,HTP0-REPACK,8,blk.8,ffn_up,HTP0,853,409,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,167,GLU,ffn_swiglu-8,f32,HTP0,ffn_gate-8,HTP0,8,blk.8,ffn_gate,HTP0,706,10,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,168,MUL_MAT,ffn_out-8,f32,HTP0,blk.8.ffn_down.weight,HTP0-REPACK,8,blk.8,ffn_down,HTP0,880,205,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,169,RMS_NORM,norm,f32,HTP0,ffn_out-8,HTP0,,norm,norm,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,170,ADD,l_out-8,f32,HTP0,ffn_post_norm,HTP0,,ffn_post_norm,norm,HTP0,231,2,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,171,MUL_MAT,Qcur-9,f32,HTP0,blk.9.attn_q.weight,HTP0-REPACK,9,blk.9,attn_q,HTP0,16,145,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,172,MUL_MAT,Vcur-9,f32,HTP0,blk.9.attn_v.weight,HTP0-REPACK,9,blk.9,attn_v,HTP0,239,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,173,MUL_MAT,Kcur-9,f32,HTP0,blk.9.attn_k.weight,HTP0-REPACK,9,blk.9,attn_k,HTP0,240,7,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,174,RMS_NORM,norm-9,f32,HTP0,Qcur-9,HTP0,9,blk.9,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,175,ROPE,Qcur-9,f32,HTP0,Qcur_normed-9,HTP0,9,blk.9,attn_q,HTP0,16,145,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,176,RMS_NORM,norm-9,f32,HTP0,Kcur-9,HTP0,9,blk.9,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,177,ROPE,Kcur-9,f32,HTP0,Kcur_normed-9,HTP0,9,blk.9,attn_k,HTP0,240,7,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,178,SET_ROWS,cache_k_l9 (view),f16,HTP0,Kcur-9 (view),HTP0,9,blk.9,attn_k,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,179,SET_ROWS,cache_v_l9 (view),f16,HTP0,Vcur-9 (view),HTP0,9,blk.9,attn_v,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,180,FLASH_ATTN_EXT,__fattn__-9,f32,HTP0,Qcur-9 (view) (permuted),HTP0,9,blk.9,attn_q,HTP0,269,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,181,MUL_MAT,attn_out-9,f32,HTP0,blk.9.attn_output.weight,HTP0-REPACK,9,blk.9,attn_output,HTP0,492,93,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,182,RMS_NORM,norm-9,f32,HTP0,attn_out-9,HTP0,9,blk.9,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,183,ADD,ffn_inp-9,f32,HTP0,attn_post_norm-9,HTP0,9,blk.9,norm,HTP0,229,6,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,184,MUL_MAT,ffn_gate-9,f32,HTP0,blk.9.ffn_gate.weight,HTP0-REPACK,9,blk.9,ffn_gate,HTP0,836,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,185,MUL_MAT,ffn_up-9,f32,HTP0,blk.9.ffn_up.weight,HTP0-REPACK,9,blk.9,ffn_up,HTP0,853,382,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,186,GLU,ffn_swiglu-9,f32,HTP0,ffn_gate-9,HTP0,9,blk.9,ffn_gate,HTP0,708,10,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,187,MUL_MAT,ffn_out-9,f32,HTP0,blk.9.ffn_down.weight,HTP0-REPACK,9,blk.9,ffn_down,HTP0,883,206,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,188,RMS_NORM,norm,f32,HTP0,ffn_out-9,HTP0,,norm,norm,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,189,ADD,l_out-9,f32,HTP0,ffn_post_norm,HTP0,,ffn_post_norm,norm,HTP0,222,2,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,190,MUL_MAT,Qcur-10,f32,HTP0,blk.10.attn_q.weight,HTP0-REPACK,10,blk.10,attn_q,HTP0,16,142,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,191,MUL_MAT,Vcur-10,f32,HTP0,blk.10.attn_v.weight,HTP0-REPACK,10,blk.10,attn_v,HTP0,241,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,192,MUL_MAT,Kcur-10,f32,HTP0,blk.10.attn_k.weight,HTP0-REPACK,10,blk.10,attn_k,HTP0,249,7,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,193,RMS_NORM,norm-10,f32,HTP0,Qcur-10,HTP0,10,blk.10,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,194,ROPE,Qcur-10,f32,HTP0,Qcur_normed-10,HTP0,10,blk.10,attn_q,HTP0,16,142,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,195,RMS_NORM,norm-10,f32,HTP0,Kcur-10,HTP0,10,blk.10,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,196,ROPE,Kcur-10,f32,HTP0,Kcur_normed-10,HTP0,10,blk.10,attn_k,HTP0,249,7,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,197,SET_ROWS,cache_k_l10 (view),f16,HTP0,Kcur-10 (view),HTP0,10,blk.10,attn_k,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,198,SET_ROWS,cache_v_l10 (view),f16,HTP0,Vcur-10 (view),HTP0,10,blk.10,attn_v,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,199,FLASH_ATTN_EXT,__fattn__-10,f32,HTP0,Qcur-10 (view) (permuted),HTP0,10,blk.10,attn_q,HTP0,273,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,200,MUL_MAT,attn_out-10,f32,HTP0,blk.10.attn_output.weight,HTP0-REPACK,10,blk.10,attn_output,HTP0,487,101,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,201,RMS_NORM,norm-10,f32,HTP0,attn_out-10,HTP0,10,blk.10,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,202,ADD,ffn_inp-10,f32,HTP0,attn_post_norm-10,HTP0,10,blk.10,norm,HTP0,228,6,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,203,MUL_MAT,ffn_gate-10,f32,HTP0,blk.10.ffn_gate.weight,HTP0-REPACK,10,blk.10,ffn_gate,HTP0,839,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,204,MUL_MAT,ffn_up-10,f32,HTP0,blk.10.ffn_up.weight,HTP0-REPACK,10,blk.10,ffn_up,HTP0,859,415,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,205,GLU,ffn_swiglu-10,f32,HTP0,ffn_gate-10,HTP0,10,blk.10,ffn_gate,HTP0,696,11,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,206,MUL_MAT,ffn_out-10,f32,HTP0,blk.10.ffn_down.weight,HTP0-REPACK,10,blk.10,ffn_down,HTP0,881,193,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,207,RMS_NORM,norm,f32,HTP0,ffn_out-10,HTP0,,norm,norm,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,208,ADD,l_out-10,f32,HTP0,ffn_post_norm,HTP0,,ffn_post_norm,norm,HTP0,228,2,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,209,MUL_MAT,Qcur-11,f32,HTP0,blk.11.attn_q.weight,HTP0-REPACK,11,blk.11,attn_q,HTP0,16,160,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,210,MUL_MAT,Vcur-11,f32,HTP0,blk.11.attn_v.weight,HTP0-REPACK,11,blk.11,attn_v,HTP0,241,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,211,MUL_MAT,Kcur-11,f32,HTP0,blk.11.attn_k.weight,HTP0-REPACK,11,blk.11,attn_k,HTP0,241,7,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,212,RMS_NORM,norm-11,f32,HTP0,Qcur-11,HTP0,11,blk.11,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,213,ROPE,Qcur-11,f32,HTP0,Qcur_normed-11,HTP0,11,blk.11,attn_q,HTP0,16,160,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,214,RMS_NORM,norm-11,f32,HTP0,Kcur-11,HTP0,11,blk.11,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,215,ROPE,Kcur-11,f32,HTP0,Kcur_normed-11,HTP0,11,blk.11,attn_k,HTP0,241,7,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,216,SET_ROWS,cache_k_l11 (view),f16,HTP0,Kcur-11 (view),HTP0,11,blk.11,attn_k,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,217,SET_ROWS,cache_v_l11 (view),f16,HTP0,Vcur-11 (view),HTP0,11,blk.11,attn_v,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,218,FLASH_ATTN_EXT,__fattn__-11,f32,HTP0,Qcur-11 (view) (permuted),HTP0,11,blk.11,attn_q,HTP0,284,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,219,MUL_MAT,attn_out-11,f32,HTP0,blk.11.attn_output.weight,HTP0-REPACK,11,blk.11,attn_output,HTP0,494,107,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,220,RMS_NORM,norm-11,f32,HTP0,attn_out-11,HTP0,11,blk.11,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,221,ADD,ffn_inp-11,f32,HTP0,attn_post_norm-11,HTP0,11,blk.11,norm,HTP0,229,6,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,222,MUL_MAT,ffn_gate-11,f32,HTP0,blk.11.ffn_gate.weight,HTP0-REPACK,11,blk.11,ffn_gate,HTP0,833,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,223,MUL_MAT,ffn_up-11,f32,HTP0,blk.11.ffn_up.weight,HTP0-REPACK,11,blk.11,ffn_up,HTP0,853,392,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,224,GLU,ffn_swiglu-11,f32,HTP0,ffn_gate-11,HTP0,11,blk.11,ffn_gate,HTP0,704,11,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,225,MUL_MAT,ffn_out-11,f32,HTP0,blk.11.ffn_down.weight,HTP0-REPACK,11,blk.11,ffn_down,HTP0,878,203,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,226,RMS_NORM,norm,f32,HTP0,ffn_out-11,HTP0,,norm,norm,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,227,ADD,l_out-11,f32,HTP0,ffn_post_norm,HTP0,,ffn_post_norm,norm,HTP0,227,2,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,228,MUL_MAT,Qcur-12,f32,HTP0,blk.12.attn_q.weight,HTP0-REPACK,12,blk.12,attn_q,HTP0,16,165,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,229,MUL_MAT,Vcur-12,f32,HTP0,blk.12.attn_v.weight,HTP0-REPACK,12,blk.12,attn_v,HTP0,242,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,230,MUL_MAT,Kcur-12,f32,HTP0,blk.12.attn_k.weight,HTP0-REPACK,12,blk.12,attn_k,HTP0,242,7,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,231,RMS_NORM,norm-12,f32,HTP0,Qcur-12,HTP0,12,blk.12,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,232,ROPE,Qcur-12,f32,HTP0,Qcur_normed-12,HTP0,12,blk.12,attn_q,HTP0,16,165,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,233,RMS_NORM,norm-12,f32,HTP0,Kcur-12,HTP0,12,blk.12,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,234,ROPE,Kcur-12,f32,HTP0,Kcur_normed-12,HTP0,12,blk.12,attn_k,HTP0,242,7,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,235,SET_ROWS,cache_k_l12 (view),f16,HTP0,Kcur-12 (view),HTP0,12,blk.12,attn_k,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,236,SET_ROWS,cache_v_l12 (view),f16,HTP0,Vcur-12 (view),HTP0,12,blk.12,attn_v,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,237,FLASH_ATTN_EXT,__fattn__-12,f32,HTP0,Qcur-12 (view) (permuted),HTP0,12,blk.12,attn_q,HTP0,270,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,238,MUL_MAT,attn_out-12,f32,HTP0,blk.12.attn_output.weight,HTP0-REPACK,12,blk.12,attn_output,HTP0,491,114,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,239,RMS_NORM,norm-12,f32,HTP0,attn_out-12,HTP0,12,blk.12,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,240,ADD,ffn_inp-12,f32,HTP0,attn_post_norm-12,HTP0,12,blk.12,norm,HTP0,224,6,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,241,MUL_MAT,ffn_gate-12,f32,HTP0,blk.12.ffn_gate.weight,HTP0-REPACK,12,blk.12,ffn_gate,HTP0,834,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,242,MUL_MAT,ffn_up-12,f32,HTP0,blk.12.ffn_up.weight,HTP0-REPACK,12,blk.12,ffn_up,HTP0,876,390,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,243,GLU,ffn_swiglu-12,f32,HTP0,ffn_gate-12,HTP0,12,blk.12,ffn_gate,HTP0,715,11,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,244,MUL_MAT,ffn_out-12,f32,HTP0,blk.12.ffn_down.weight,HTP0-REPACK,12,blk.12,ffn_down,HTP0,881,201,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,245,RMS_NORM,norm,f32,HTP0,ffn_out-12,HTP0,,norm,norm,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,246,ADD,l_out-12,f32,HTP0,ffn_post_norm,HTP0,,ffn_post_norm,norm,HTP0,227,2,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,247,MUL_MAT,Qcur-13,f32,HTP0,blk.13.attn_q.weight,HTP0-REPACK,13,blk.13,attn_q,HTP0,16,167,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,248,MUL_MAT,Vcur-13,f32,HTP0,blk.13.attn_v.weight,HTP0-REPACK,13,blk.13,attn_v,HTP0,242,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,249,MUL_MAT,Kcur-13,f32,HTP0,blk.13.attn_k.weight,HTP0-REPACK,13,blk.13,attn_k,HTP0,239,7,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,250,RMS_NORM,norm-13,f32,HTP0,Qcur-13,HTP0,13,blk.13,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,251,ROPE,Qcur-13,f32,HTP0,Qcur_normed-13,HTP0,13,blk.13,attn_q,HTP0,16,167,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,252,RMS_NORM,norm-13,f32,HTP0,Kcur-13,HTP0,13,blk.13,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,253,ROPE,Kcur-13,f32,HTP0,Kcur_normed-13,HTP0,13,blk.13,attn_k,HTP0,239,7,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,254,SET_ROWS,cache_k_l13 (view),f16,HTP0,Kcur-13 (view),HTP0,13,blk.13,attn_k,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,255,SET_ROWS,cache_v_l13 (view),f16,HTP0,Vcur-13 (view),HTP0,13,blk.13,attn_v,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,256,FLASH_ATTN_EXT,__fattn__-13,f32,HTP0,Qcur-13 (view) (permuted),HTP0,13,blk.13,attn_q,HTP0,287,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,257,MUL_MAT,attn_out-13,f32,HTP0,blk.13.attn_output.weight,HTP0-REPACK,13,blk.13,attn_output,HTP0,486,111,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,258,RMS_NORM,norm-13,f32,HTP0,attn_out-13,HTP0,13,blk.13,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,259,ADD,ffn_inp-13,f32,HTP0,attn_post_norm-13,HTP0,13,blk.13,norm,HTP0,226,6,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,260,MUL_MAT,ffn_gate-13,f32,HTP0,blk.13.ffn_gate.weight,HTP0-REPACK,13,blk.13,ffn_gate,HTP0,832,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,261,MUL_MAT,ffn_up-13,f32,HTP0,blk.13.ffn_up.weight,HTP0-REPACK,13,blk.13,ffn_up,HTP0,858,410,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,262,GLU,ffn_swiglu-13,f32,HTP0,ffn_gate-13,HTP0,13,blk.13,ffn_gate,HTP0,709,11,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,263,MUL_MAT,ffn_out-13,f32,HTP0,blk.13.ffn_down.weight,HTP0-REPACK,13,blk.13,ffn_down,HTP0,882,202,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,264,RMS_NORM,norm,f32,HTP0,ffn_out-13,HTP0,,norm,norm,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,265,ADD,l_out-13,f32,HTP0,ffn_post_norm,HTP0,,ffn_post_norm,norm,HTP0,230,2,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,266,MUL_MAT,Qcur-14,f32,HTP0,blk.14.attn_q.weight,HTP0-REPACK,14,blk.14,attn_q,HTP0,16,168,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,267,MUL_MAT,Vcur-14,f32,HTP0,blk.14.attn_v.weight,HTP0-REPACK,14,blk.14,attn_v,HTP0,250,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,268,MUL_MAT,Kcur-14,f32,HTP0,blk.14.attn_k.weight,HTP0-REPACK,14,blk.14,attn_k,HTP0,245,7,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,269,RMS_NORM,norm-14,f32,HTP0,Qcur-14,HTP0,14,blk.14,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,270,ROPE,Qcur-14,f32,HTP0,Qcur_normed-14,HTP0,14,blk.14,attn_q,HTP0,16,168,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,271,RMS_NORM,norm-14,f32,HTP0,Kcur-14,HTP0,14,blk.14,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,272,ROPE,Kcur-14,f32,HTP0,Kcur_normed-14,HTP0,14,blk.14,attn_k,HTP0,245,7,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,273,SET_ROWS,cache_k_l14 (view),f16,HTP0,Kcur-14 (view),HTP0,14,blk.14,attn_k,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,274,SET_ROWS,cache_v_l14 (view),f16,HTP0,Vcur-14 (view),HTP0,14,blk.14,attn_v,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,275,FLASH_ATTN_EXT,__fattn__-14,f32,HTP0,Qcur-14 (view) (permuted),HTP0,14,blk.14,attn_q,HTP0,269,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,276,MUL_MAT,attn_out-14,f32,HTP0,blk.14.attn_output.weight,HTP0-REPACK,14,blk.14,attn_output,HTP0,501,113,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,277,RMS_NORM,norm-14,f32,HTP0,attn_out-14,HTP0,14,blk.14,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,278,ADD,ffn_inp-14,f32,HTP0,attn_post_norm-14,HTP0,14,blk.14,norm,HTP0,227,6,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,279,MUL_MAT,ffn_gate-14,f32,HTP0,blk.14.ffn_gate.weight,HTP0-REPACK,14,blk.14,ffn_gate,HTP0,837,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,280,MUL_MAT,ffn_up-14,f32,HTP0,blk.14.ffn_up.weight,HTP0-REPACK,14,blk.14,ffn_up,HTP0,868,412,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,281,GLU,ffn_swiglu-14,f32,HTP0,ffn_gate-14,HTP0,14,blk.14,ffn_gate,HTP0,713,11,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,282,MUL_MAT,ffn_out-14,f32,HTP0,blk.14.ffn_down.weight,HTP0-REPACK,14,blk.14,ffn_down,HTP0,880,205,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,283,RMS_NORM,norm,f32,HTP0,ffn_out-14,HTP0,,norm,norm,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,284,ADD,l_out-14,f32,HTP0,ffn_post_norm,HTP0,,ffn_post_norm,norm,HTP0,227,2,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,285,MUL_MAT,Qcur-15,f32,HTP0,blk.15.attn_q.weight,HTP0-REPACK,15,blk.15,attn_q,HTP0,15,164,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,286,MUL_MAT,Vcur-15,f32,HTP0,blk.15.attn_v.weight,HTP0-REPACK,15,blk.15,attn_v,HTP0,246,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,287,MUL_MAT,Kcur-15,f32,HTP0,blk.15.attn_k.weight,HTP0-REPACK,15,blk.15,attn_k,HTP0,248,7,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,288,RMS_NORM,norm-15,f32,HTP0,Qcur-15,HTP0,15,blk.15,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,289,ROPE,Qcur-15,f32,HTP0,Qcur_normed-15,HTP0,15,blk.15,attn_q,HTP0,15,164,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,290,RMS_NORM,norm-15,f32,HTP0,Kcur-15,HTP0,15,blk.15,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,291,ROPE,Kcur-15,f32,HTP0,Kcur_normed-15,HTP0,15,blk.15,attn_k,HTP0,248,7,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,292,SET_ROWS,cache_k_l15 (view),f16,HTP0,Kcur-15 (view),HTP0,15,blk.15,attn_k,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,293,SET_ROWS,cache_v_l15 (view),f16,HTP0,Vcur-15 (view),HTP0,15,blk.15,attn_v,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,294,FLASH_ATTN_EXT,__fattn__-15,f32,HTP0,Qcur-15 (view) (permuted),HTP0,15,blk.15,attn_q,HTP0,282,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,295,MUL_MAT,attn_out-15,f32,HTP0,blk.15.attn_output.weight,HTP0-REPACK,15,blk.15,attn_output,HTP0,497,107,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,296,RMS_NORM,norm-15,f32,HTP0,attn_out-15,HTP0,15,blk.15,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,297,ADD,ffn_inp-15,f32,HTP0,attn_post_norm-15,HTP0,15,blk.15,norm,HTP0,228,6,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,298,MUL_MAT,ffn_gate-15,f32,HTP0,blk.15.ffn_gate.weight,HTP0-REPACK,15,blk.15,ffn_gate,HTP0,846,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,299,MUL_MAT,ffn_up-15,f32,HTP0,blk.15.ffn_up.weight,HTP0-REPACK,15,blk.15,ffn_up,HTP0,870,415,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,300,GLU,ffn_swiglu-15,f32,HTP0,ffn_gate-15,HTP0,15,blk.15,ffn_gate,HTP0,709,11,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,301,MUL_MAT,ffn_out-15,f32,HTP0,blk.15.ffn_down.weight,HTP0-REPACK,15,blk.15,ffn_down,HTP0,884,212,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,302,RMS_NORM,norm,f32,HTP0,ffn_out-15,HTP0,,norm,norm,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,303,ADD,l_out-15,f32,HTP0,ffn_post_norm,HTP0,,ffn_post_norm,norm,HTP0,224,2,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,304,MUL_MAT,Qcur-16,f32,HTP0,blk.16.attn_q.weight,HTP0-REPACK,16,blk.16,attn_q,HTP0,17,169,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,305,MUL_MAT,Vcur-16,f32,HTP0,blk.16.attn_v.weight,HTP0-REPACK,16,blk.16,attn_v,HTP0,255,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,306,MUL_MAT,Kcur-16,f32,HTP0,blk.16.attn_k.weight,HTP0-REPACK,16,blk.16,attn_k,HTP0,245,7,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,307,RMS_NORM,norm-16,f32,HTP0,Qcur-16,HTP0,16,blk.16,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,308,ROPE,Qcur-16,f32,HTP0,Qcur_normed-16,HTP0,16,blk.16,attn_q,HTP0,17,169,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,309,RMS_NORM,norm-16,f32,HTP0,Kcur-16,HTP0,16,blk.16,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,310,ROPE,Kcur-16,f32,HTP0,Kcur_normed-16,HTP0,16,blk.16,attn_k,HTP0,245,7,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,311,SET_ROWS,cache_k_l16 (view),f16,HTP0,Kcur-16 (view),HTP0,16,blk.16,attn_k,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,312,SET_ROWS,cache_v_l16 (view),f16,HTP0,Vcur-16 (view),HTP0,16,blk.16,attn_v,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,313,FLASH_ATTN_EXT,__fattn__-16,f32,HTP0,Qcur-16 (view) (permuted),HTP0,16,blk.16,attn_q,HTP0,292,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,314,MUL_MAT,attn_out-16,f32,HTP0,blk.16.attn_output.weight,HTP0-REPACK,16,blk.16,attn_output,HTP0,493,110,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,315,RMS_NORM,norm-16,f32,HTP0,attn_out-16,HTP0,16,blk.16,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,316,ADD,ffn_inp-16,f32,HTP0,attn_post_norm-16,HTP0,16,blk.16,norm,HTP0,232,6,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,317,MUL_MAT,ffn_gate-16,f32,HTP0,blk.16.ffn_gate.weight,HTP0-REPACK,16,blk.16,ffn_gate,HTP0,842,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,318,MUL_MAT,ffn_up-16,f32,HTP0,blk.16.ffn_up.weight,HTP0-REPACK,16,blk.16,ffn_up,HTP0,878,417,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,319,GLU,ffn_swiglu-16,f32,HTP0,ffn_gate-16,HTP0,16,blk.16,ffn_gate,HTP0,701,11,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,320,MUL_MAT,ffn_out-16,f32,HTP0,blk.16.ffn_down.weight,HTP0-REPACK,16,blk.16,ffn_down,HTP0,882,211,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,321,RMS_NORM,norm,f32,HTP0,ffn_out-16,HTP0,,norm,norm,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,322,ADD,l_out-16,f32,HTP0,ffn_post_norm,HTP0,,ffn_post_norm,norm,HTP0,228,2,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,323,MUL_MAT,Qcur-17,f32,HTP0,blk.17.attn_q.weight,HTP0-REPACK,17,blk.17,attn_q,HTP0,16,154,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,324,MUL_MAT,Vcur-17,f32,HTP0,blk.17.attn_v.weight,HTP0-REPACK,17,blk.17,attn_v,HTP0,239,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,325,MUL_MAT,Kcur-17,f32,HTP0,blk.17.attn_k.weight,HTP0-REPACK,17,blk.17,attn_k,HTP0,243,7,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,326,RMS_NORM,norm-17,f32,HTP0,Qcur-17,HTP0,17,blk.17,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,327,ROPE,Qcur-17,f32,HTP0,Qcur_normed-17,HTP0,17,blk.17,attn_q,HTP0,16,154,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,328,RMS_NORM,norm-17,f32,HTP0,Kcur-17,HTP0,17,blk.17,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,329,ROPE,Kcur-17,f32,HTP0,Kcur_normed-17,HTP0,17,blk.17,attn_k,HTP0,243,7,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,330,SET_ROWS,cache_k_l17 (view),f16,HTP0,Kcur-17 (view),HTP0,17,blk.17,attn_k,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,331,SET_ROWS,cache_v_l17 (view),f16,HTP0,Vcur-17 (view),HTP0,17,blk.17,attn_v,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,332,FLASH_ATTN_EXT,__fattn__-17,f32,HTP0,Qcur-17 (view) (permuted),HTP0,17,blk.17,attn_q,HTP0,286,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,333,MUL_MAT,attn_out-17,f32,HTP0,blk.17.attn_output.weight,HTP0-REPACK,17,blk.17,attn_output,HTP0,485,113,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,334,RMS_NORM,norm-17,f32,HTP0,attn_out-17,HTP0,17,blk.17,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,335,ADD,ffn_inp-17,f32,HTP0,attn_post_norm-17,HTP0,17,blk.17,norm,HTP0,232,6,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,336,MUL_MAT,ffn_gate-17,f32,HTP0,blk.17.ffn_gate.weight,HTP0-REPACK,17,blk.17,ffn_gate,HTP0,837,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,337,MUL_MAT,ffn_up-17,f32,HTP0,blk.17.ffn_up.weight,HTP0-REPACK,17,blk.17,ffn_up,HTP0,861,394,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,338,GLU,ffn_swiglu-17,f32,HTP0,ffn_gate-17,HTP0,17,blk.17,ffn_gate,HTP0,712,11,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,339,MUL_MAT,ffn_out-17,f32,HTP0,blk.17.ffn_down.weight,HTP0-REPACK,17,blk.17,ffn_down,HTP0,882,199,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,340,RMS_NORM,norm,f32,HTP0,ffn_out-17,HTP0,,norm,norm,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,341,ADD,l_out-17,f32,HTP0,ffn_post_norm,HTP0,,ffn_post_norm,norm,HTP0,226,2,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,342,MUL_MAT,Qcur-18,f32,HTP0,blk.18.attn_q.weight,HTP0-REPACK,18,blk.18,attn_q,HTP0,16,167,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,343,MUL_MAT,Vcur-18,f32,HTP0,blk.18.attn_v.weight,HTP0-REPACK,18,blk.18,attn_v,HTP0,249,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,344,MUL_MAT,Kcur-18,f32,HTP0,blk.18.attn_k.weight,HTP0-REPACK,18,blk.18,attn_k,HTP0,248,7,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,345,RMS_NORM,norm-18,f32,HTP0,Qcur-18,HTP0,18,blk.18,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,346,ROPE,Qcur-18,f32,HTP0,Qcur_normed-18,HTP0,18,blk.18,attn_q,HTP0,16,167,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,347,RMS_NORM,norm-18,f32,HTP0,Kcur-18,HTP0,18,blk.18,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,348,ROPE,Kcur-18,f32,HTP0,Kcur_normed-18,HTP0,18,blk.18,attn_k,HTP0,248,7,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,349,SET_ROWS,cache_k_l18 (view),f16,HTP0,Kcur-18 (view),HTP0,18,blk.18,attn_k,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,350,SET_ROWS,cache_v_l18 (view),f16,HTP0,Vcur-18 (view),HTP0,18,blk.18,attn_v,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,351,FLASH_ATTN_EXT,__fattn__-18,f32,HTP0,Qcur-18 (view) (permuted),HTP0,18,blk.18,attn_q,HTP0,273,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,352,MUL_MAT,attn_out-18,f32,HTP0,blk.18.attn_output.weight,HTP0-REPACK,18,blk.18,attn_output,HTP0,498,113,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,353,RMS_NORM,norm-18,f32,HTP0,attn_out-18,HTP0,18,blk.18,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,354,ADD,ffn_inp-18,f32,HTP0,attn_post_norm-18,HTP0,18,blk.18,norm,HTP0,220,6,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,355,MUL_MAT,ffn_gate-18,f32,HTP0,blk.18.ffn_gate.weight,HTP0-REPACK,18,blk.18,ffn_gate,HTP0,845,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,356,MUL_MAT,ffn_up-18,f32,HTP0,blk.18.ffn_up.weight,HTP0-REPACK,18,blk.18,ffn_up,HTP0,867,420,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,357,GLU,ffn_swiglu-18,f32,HTP0,ffn_gate-18,HTP0,18,blk.18,ffn_gate,HTP0,702,11,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,358,MUL_MAT,ffn_out-18,f32,HTP0,blk.18.ffn_down.weight,HTP0-REPACK,18,blk.18,ffn_down,HTP0,887,214,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,359,RMS_NORM,norm,f32,HTP0,ffn_out-18,HTP0,,norm,norm,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,360,ADD,l_out-18,f32,HTP0,ffn_post_norm,HTP0,,ffn_post_norm,norm,HTP0,227,2,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,361,MUL_MAT,Qcur-19,f32,HTP0,blk.19.attn_q.weight,HTP0-REPACK,19,blk.19,attn_q,HTP0,16,166,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,362,MUL_MAT,Vcur-19,f32,HTP0,blk.19.attn_v.weight,HTP0-REPACK,19,blk.19,attn_v,HTP0,244,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,363,MUL_MAT,Kcur-19,f32,HTP0,blk.19.attn_k.weight,HTP0-REPACK,19,blk.19,attn_k,HTP0,243,7,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,364,RMS_NORM,norm-19,f32,HTP0,Qcur-19,HTP0,19,blk.19,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,365,ROPE,Qcur-19,f32,HTP0,Qcur_normed-19,HTP0,19,blk.19,attn_q,HTP0,16,166,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,366,RMS_NORM,norm-19,f32,HTP0,Kcur-19,HTP0,19,blk.19,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,367,ROPE,Kcur-19,f32,HTP0,Kcur_normed-19,HTP0,19,blk.19,attn_k,HTP0,243,7,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,368,SET_ROWS,cache_k_l19 (view),f16,HTP0,Kcur-19 (view),HTP0,19,blk.19,attn_k,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,369,SET_ROWS,cache_v_l19 (view),f16,HTP0,Vcur-19 (view),HTP0,19,blk.19,attn_v,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,370,FLASH_ATTN_EXT,__fattn__-19,f32,HTP0,Qcur-19 (view) (permuted),HTP0,19,blk.19,attn_q,HTP0,280,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,371,MUL_MAT,attn_out-19,f32,HTP0,blk.19.attn_output.weight,HTP0-REPACK,19,blk.19,attn_output,HTP0,497,112,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,372,RMS_NORM,norm-19,f32,HTP0,attn_out-19,HTP0,19,blk.19,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,373,ADD,ffn_inp-19,f32,HTP0,attn_post_norm-19,HTP0,19,blk.19,norm,HTP0,226,6,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,374,MUL_MAT,ffn_gate-19,f32,HTP0,blk.19.ffn_gate.weight,HTP0-REPACK,19,blk.19,ffn_gate,HTP0,836,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,375,MUL_MAT,ffn_up-19,f32,HTP0,blk.19.ffn_up.weight,HTP0-REPACK,19,blk.19,ffn_up,HTP0,860,414,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,376,GLU,ffn_swiglu-19,f32,HTP0,ffn_gate-19,HTP0,19,blk.19,ffn_gate,HTP0,715,11,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,377,MUL_MAT,ffn_out-19,f32,HTP0,blk.19.ffn_down.weight,HTP0-REPACK,19,blk.19,ffn_down,HTP0,887,213,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,378,RMS_NORM,norm,f32,HTP0,ffn_out-19,HTP0,,norm,norm,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,379,ADD,l_out-19,f32,HTP0,ffn_post_norm,HTP0,,ffn_post_norm,norm,HTP0,227,2,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,380,MUL_MAT,Qcur-20,f32,HTP0,blk.20.attn_q.weight,HTP0-REPACK,20,blk.20,attn_q,HTP0,15,167,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,381,MUL_MAT,Vcur-20,f32,HTP0,blk.20.attn_v.weight,HTP0-REPACK,20,blk.20,attn_v,HTP0,251,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,382,MUL_MAT,Kcur-20,f32,HTP0,blk.20.attn_k.weight,HTP0-REPACK,20,blk.20,attn_k,HTP0,239,7,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,383,RMS_NORM,norm-20,f32,HTP0,Qcur-20,HTP0,20,blk.20,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,384,ROPE,Qcur-20,f32,HTP0,Qcur_normed-20,HTP0,20,blk.20,attn_q,HTP0,15,167,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,385,RMS_NORM,norm-20,f32,HTP0,Kcur-20,HTP0,20,blk.20,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,386,ROPE,Kcur-20,f32,HTP0,Kcur_normed-20,HTP0,20,blk.20,attn_k,HTP0,239,7,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,387,SET_ROWS,cache_k_l20 (view),f16,HTP0,Kcur-20 (view),HTP0,20,blk.20,attn_k,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,388,SET_ROWS,cache_v_l20 (view),f16,HTP0,Vcur-20 (view),HTP0,20,blk.20,attn_v,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,389,FLASH_ATTN_EXT,__fattn__-20,f32,HTP0,Qcur-20 (view) (permuted),HTP0,20,blk.20,attn_q,HTP0,291,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,390,MUL_MAT,attn_out-20,f32,HTP0,blk.20.attn_output.weight,HTP0-REPACK,20,blk.20,attn_output,HTP0,486,109,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,391,RMS_NORM,norm-20,f32,HTP0,attn_out-20,HTP0,20,blk.20,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,392,ADD,ffn_inp-20,f32,HTP0,attn_post_norm-20,HTP0,20,blk.20,norm,HTP0,226,6,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,393,MUL_MAT,ffn_gate-20,f32,HTP0,blk.20.ffn_gate.weight,HTP0-REPACK,20,blk.20,ffn_gate,HTP0,840,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,394,MUL_MAT,ffn_up-20,f32,HTP0,blk.20.ffn_up.weight,HTP0-REPACK,20,blk.20,ffn_up,HTP0,856,412,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,395,GLU,ffn_swiglu-20,f32,HTP0,ffn_gate-20,HTP0,20,blk.20,ffn_gate,HTP0,706,11,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,396,MUL_MAT,ffn_out-20,f32,HTP0,blk.20.ffn_down.weight,HTP0-REPACK,20,blk.20,ffn_down,HTP0,882,212,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,397,RMS_NORM,norm,f32,HTP0,ffn_out-20,HTP0,,norm,norm,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,398,ADD,l_out-20,f32,HTP0,ffn_post_norm,HTP0,,ffn_post_norm,norm,HTP0,223,2,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,399,MUL_MAT,Qcur-21,f32,HTP0,blk.21.attn_q.weight,HTP0-REPACK,21,blk.21,attn_q,HTP0,15,165,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,400,MUL_MAT,Vcur-21,f32,HTP0,blk.21.attn_v.weight,HTP0-REPACK,21,blk.21,attn_v,HTP0,237,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,401,MUL_MAT,Kcur-21,f32,HTP0,blk.21.attn_k.weight,HTP0-REPACK,21,blk.21,attn_k,HTP0,234,7,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,402,RMS_NORM,norm-21,f32,HTP0,Qcur-21,HTP0,21,blk.21,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,403,ROPE,Qcur-21,f32,HTP0,Qcur_normed-21,HTP0,21,blk.21,attn_q,HTP0,15,165,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,404,RMS_NORM,norm-21,f32,HTP0,Kcur-21,HTP0,21,blk.21,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,405,ROPE,Kcur-21,f32,HTP0,Kcur_normed-21,HTP0,21,blk.21,attn_k,HTP0,234,7,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,406,SET_ROWS,cache_k_l21 (view),f16,HTP0,Kcur-21 (view),HTP0,21,blk.21,attn_k,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,407,SET_ROWS,cache_v_l21 (view),f16,HTP0,Vcur-21 (view),HTP0,21,blk.21,attn_v,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,408,FLASH_ATTN_EXT,__fattn__-21,f32,HTP0,Qcur-21 (view) (permuted),HTP0,21,blk.21,attn_q,HTP0,276,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,409,MUL_MAT,attn_out-21,f32,HTP0,blk.21.attn_output.weight,HTP0-REPACK,21,blk.21,attn_output,HTP0,492,105,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,410,RMS_NORM,norm-21,f32,HTP0,attn_out-21,HTP0,21,blk.21,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,411,ADD,ffn_inp-21,f32,HTP0,attn_post_norm-21,HTP0,21,blk.21,norm,HTP0,231,6,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,412,MUL_MAT,ffn_gate-21,f32,HTP0,blk.21.ffn_gate.weight,HTP0-REPACK,21,blk.21,ffn_gate,HTP0,833,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,413,MUL_MAT,ffn_up-21,f32,HTP0,blk.21.ffn_up.weight,HTP0-REPACK,21,blk.21,ffn_up,HTP0,854,399,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,414,GLU,ffn_swiglu-21,f32,HTP0,ffn_gate-21,HTP0,21,blk.21,ffn_gate,HTP0,711,11,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,415,MUL_MAT,ffn_out-21,f32,HTP0,blk.21.ffn_down.weight,HTP0-REPACK,21,blk.21,ffn_down,HTP0,885,205,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,416,RMS_NORM,norm,f32,HTP0,ffn_out-21,HTP0,,norm,norm,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,417,ADD,l_out-21,f32,HTP0,ffn_post_norm,HTP0,,ffn_post_norm,norm,HTP0,225,2,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,418,MUL_MAT,Qcur-22,f32,HTP0,blk.22.attn_q.weight,HTP0-REPACK,22,blk.22,attn_q,HTP0,16,165,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,419,MUL_MAT,Vcur-22,f32,HTP0,blk.22.attn_v.weight,HTP0-REPACK,22,blk.22,attn_v,HTP0,238,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,420,MUL_MAT,Kcur-22,f32,HTP0,blk.22.attn_k.weight,HTP0-REPACK,22,blk.22,attn_k,HTP0,238,7,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,421,RMS_NORM,norm-22,f32,HTP0,Qcur-22,HTP0,22,blk.22,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,422,ROPE,Qcur-22,f32,HTP0,Qcur_normed-22,HTP0,22,blk.22,attn_q,HTP0,16,165,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,423,RMS_NORM,norm-22,f32,HTP0,Kcur-22,HTP0,22,blk.22,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,424,ROPE,Kcur-22,f32,HTP0,Kcur_normed-22,HTP0,22,blk.22,attn_k,HTP0,238,7,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,425,SET_ROWS,cache_k_l22 (view),f16,HTP0,Kcur-22 (view),HTP0,22,blk.22,attn_k,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,426,SET_ROWS,cache_v_l22 (view),f16,HTP0,Vcur-22 (view),HTP0,22,blk.22,attn_v,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,427,FLASH_ATTN_EXT,__fattn__-22,f32,HTP0,Qcur-22 (view) (permuted),HTP0,22,blk.22,attn_q,HTP0,289,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,428,MUL_MAT,attn_out-22,f32,HTP0,blk.22.attn_output.weight,HTP0-REPACK,22,blk.22,attn_output,HTP0,490,111,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,429,RMS_NORM,norm-22,f32,HTP0,attn_out-22,HTP0,22,blk.22,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,430,ADD,ffn_inp-22,f32,HTP0,attn_post_norm-22,HTP0,22,blk.22,norm,HTP0,226,6,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,431,MUL_MAT,ffn_gate-22,f32,HTP0,blk.22.ffn_gate.weight,HTP0-REPACK,22,blk.22,ffn_gate,HTP0,836,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,432,MUL_MAT,ffn_up-22,f32,HTP0,blk.22.ffn_up.weight,HTP0-REPACK,22,blk.22,ffn_up,HTP0,858,386,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,433,GLU,ffn_swiglu-22,f32,HTP0,ffn_gate-22,HTP0,22,blk.22,ffn_gate,HTP0,709,11,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,434,MUL_MAT,ffn_out-22,f32,HTP0,blk.22.ffn_down.weight,HTP0-REPACK,22,blk.22,ffn_down,HTP0,885,192,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,435,RMS_NORM,norm,f32,HTP0,ffn_out-22,HTP0,,norm,norm,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,436,ADD,l_out-22,f32,HTP0,ffn_post_norm,HTP0,,ffn_post_norm,norm,HTP0,226,2,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,437,MUL_MAT,Qcur-23,f32,HTP0,blk.23.attn_q.weight,HTP0-REPACK,23,blk.23,attn_q,HTP0,16,160,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,438,MUL_MAT,Vcur-23,f32,HTP0,blk.23.attn_v.weight,HTP0-REPACK,23,blk.23,attn_v,HTP0,244,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,439,MUL_MAT,Kcur-23,f32,HTP0,blk.23.attn_k.weight,HTP0-REPACK,23,blk.23,attn_k,HTP0,239,7,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,440,RMS_NORM,norm-23,f32,HTP0,Qcur-23,HTP0,23,blk.23,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,441,ROPE,Qcur-23,f32,HTP0,Qcur_normed-23,HTP0,23,blk.23,attn_q,HTP0,16,160,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,442,RMS_NORM,norm-23,f32,HTP0,Kcur-23,HTP0,23,blk.23,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,443,ROPE,Kcur-23,f32,HTP0,Kcur_normed-23,HTP0,23,blk.23,attn_k,HTP0,239,7,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,444,SET_ROWS,cache_k_l23 (view),f16,HTP0,Kcur-23 (view),HTP0,23,blk.23,attn_k,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,445,SET_ROWS,cache_v_l23 (view),f16,HTP0,Vcur-23 (view),HTP0,23,blk.23,attn_v,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,446,FLASH_ATTN_EXT,__fattn__-23,f32,HTP0,Qcur-23 (view) (permuted),HTP0,23,blk.23,attn_q,HTP0,275,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,447,MUL_MAT,attn_out-23,f32,HTP0,blk.23.attn_output.weight,HTP0-REPACK,23,blk.23,attn_output,HTP0,491,107,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,448,RMS_NORM,norm-23,f32,HTP0,attn_out-23,HTP0,23,blk.23,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,449,ADD,ffn_inp-23,f32,HTP0,attn_post_norm-23,HTP0,23,blk.23,norm,HTP0,227,6,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,450,MUL_MAT,ffn_gate-23,f32,HTP0,blk.23.ffn_gate.weight,HTP0-REPACK,23,blk.23,ffn_gate,HTP0,838,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,451,MUL_MAT,ffn_up-23,f32,HTP0,blk.23.ffn_up.weight,HTP0-REPACK,23,blk.23,ffn_up,HTP0,861,405,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,452,GLU,ffn_swiglu-23,f32,HTP0,ffn_gate-23,HTP0,23,blk.23,ffn_gate,HTP0,695,11,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,453,MUL_MAT,ffn_out-23,f32,HTP0,blk.23.ffn_down.weight,HTP0-REPACK,23,blk.23,ffn_down,HTP0,882,200,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,454,RMS_NORM,norm,f32,HTP0,ffn_out-23,HTP0,,norm,norm,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,455,ADD,l_out-23,f32,HTP0,ffn_post_norm,HTP0,,ffn_post_norm,norm,HTP0,228,2,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,456,MUL_MAT,Qcur-24,f32,HTP0,blk.24.attn_q.weight,HTP0-REPACK,24,blk.24,attn_q,HTP0,16,162,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,457,MUL_MAT,Vcur-24,f32,HTP0,blk.24.attn_v.weight,HTP0-REPACK,24,blk.24,attn_v,HTP0,240,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,458,MUL_MAT,Kcur-24,f32,HTP0,blk.24.attn_k.weight,HTP0-REPACK,24,blk.24,attn_k,HTP0,243,7,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,459,RMS_NORM,norm-24,f32,HTP0,Qcur-24,HTP0,24,blk.24,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,460,ROPE,Qcur-24,f32,HTP0,Qcur_normed-24,HTP0,24,blk.24,attn_q,HTP0,16,162,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,461,RMS_NORM,norm-24,f32,HTP0,Kcur-24,HTP0,24,blk.24,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,462,ROPE,Kcur-24,f32,HTP0,Kcur_normed-24,HTP0,24,blk.24,attn_k,HTP0,243,7,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,463,SET_ROWS,cache_k_l24 (view),f16,HTP0,Kcur-24 (view),HTP0,24,blk.24,attn_k,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,464,SET_ROWS,cache_v_l24 (view),f16,HTP0,Vcur-24 (view),HTP0,24,blk.24,attn_v,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,465,FLASH_ATTN_EXT,__fattn__-24,f32,HTP0,Qcur-24 (view) (permuted),HTP0,24,blk.24,attn_q,HTP0,268,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,466,MUL_MAT,attn_out-24,f32,HTP0,blk.24.attn_output.weight,HTP0-REPACK,24,blk.24,attn_output,HTP0,481,112,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,467,RMS_NORM,norm-24,f32,HTP0,attn_out-24,HTP0,24,blk.24,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,468,ADD,ffn_inp-24,f32,HTP0,attn_post_norm-24,HTP0,24,blk.24,norm,HTP0,229,6,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,469,MUL_MAT,ffn_gate-24,f32,HTP0,blk.24.ffn_gate.weight,HTP0-REPACK,24,blk.24,ffn_gate,HTP0,840,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,470,MUL_MAT,ffn_up-24,f32,HTP0,blk.24.ffn_up.weight,HTP0-REPACK,24,blk.24,ffn_up,HTP0,853,401,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,471,GLU,ffn_swiglu-24,f32,HTP0,ffn_gate-24,HTP0,24,blk.24,ffn_gate,HTP0,703,11,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,472,MUL_MAT,ffn_out-24,f32,HTP0,blk.24.ffn_down.weight,HTP0-REPACK,24,blk.24,ffn_down,HTP0,881,203,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,473,RMS_NORM,norm,f32,HTP0,ffn_out-24,HTP0,,norm,norm,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,474,ADD,l_out-24,f32,HTP0,ffn_post_norm,HTP0,,ffn_post_norm,norm,HTP0,228,2,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,475,MUL_MAT,Qcur-25,f32,HTP0,blk.25.attn_q.weight,HTP0-REPACK,25,blk.25,attn_q,HTP0,16,165,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,476,MUL_MAT,Vcur-25,f32,HTP0,blk.25.attn_v.weight,HTP0-REPACK,25,blk.25,attn_v,HTP0,240,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,477,MUL_MAT,Kcur-25,f32,HTP0,blk.25.attn_k.weight,HTP0-REPACK,25,blk.25,attn_k,HTP0,238,7,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,478,RMS_NORM,norm-25,f32,HTP0,Qcur-25,HTP0,25,blk.25,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,479,ROPE,Qcur-25,f32,HTP0,Qcur_normed-25,HTP0,25,blk.25,attn_q,HTP0,16,165,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,480,RMS_NORM,norm-25,f32,HTP0,Kcur-25,HTP0,25,blk.25,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,481,ROPE,Kcur-25,f32,HTP0,Kcur_normed-25,HTP0,25,blk.25,attn_k,HTP0,238,7,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,482,SET_ROWS,cache_k_l25 (view),f16,HTP0,Kcur-25 (view),HTP0,25,blk.25,attn_k,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,483,SET_ROWS,cache_v_l25 (view),f16,HTP0,Vcur-25 (view),HTP0,25,blk.25,attn_v,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,484,FLASH_ATTN_EXT,__fattn__-25,f32,HTP0,Qcur-25 (view) (permuted),HTP0,25,blk.25,attn_q,HTP0,288,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,485,MUL_MAT,attn_out-25,f32,HTP0,blk.25.attn_output.weight,HTP0-REPACK,25,blk.25,attn_output,HTP0,492,101,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,486,RMS_NORM,norm-25,f32,HTP0,attn_out-25,HTP0,25,blk.25,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,487,ADD,ffn_inp-25,f32,HTP0,attn_post_norm-25,HTP0,25,blk.25,norm,HTP0,229,6,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,488,MUL_MAT,ffn_gate-25,f32,HTP0,blk.25.ffn_gate.weight,HTP0-REPACK,25,blk.25,ffn_gate,HTP0,831,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,489,MUL_MAT,ffn_up-25,f32,HTP0,blk.25.ffn_up.weight,HTP0-REPACK,25,blk.25,ffn_up,HTP0,852,406,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,490,GLU,ffn_swiglu-25,f32,HTP0,ffn_gate-25,HTP0,25,blk.25,ffn_gate,HTP0,701,11,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,491,MUL_MAT,ffn_out-25,f32,HTP0,blk.25.ffn_down.weight,HTP0-REPACK,25,blk.25,ffn_down,HTP0,884,202,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,492,RMS_NORM,norm,f32,HTP0,ffn_out-25,HTP0,,norm,norm,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,493,ADD,l_out-25,f32,HTP0,ffn_post_norm,HTP0,,ffn_post_norm,norm,HTP0,219,2,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,494,MUL_MAT,Qcur-26,f32,HTP0,blk.26.attn_q.weight,HTP0-REPACK,26,blk.26,attn_q,HTP0,15,167,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,495,MUL_MAT,Vcur-26,f32,HTP0,blk.26.attn_v.weight,HTP0-REPACK,26,blk.26,attn_v,HTP0,256,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,496,MUL_MAT,Kcur-26,f32,HTP0,blk.26.attn_k.weight,HTP0-REPACK,26,blk.26,attn_k,HTP0,242,7,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,497,RMS_NORM,norm-26,f32,HTP0,Qcur-26,HTP0,26,blk.26,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,498,ROPE,Qcur-26,f32,HTP0,Qcur_normed-26,HTP0,26,blk.26,attn_q,HTP0,15,167,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,499,RMS_NORM,norm-26,f32,HTP0,Kcur-26,HTP0,26,blk.26,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,500,ROPE,Kcur-26,f32,HTP0,Kcur_normed-26,HTP0,26,blk.26,attn_k,HTP0,242,7,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,501,SET_ROWS,cache_k_l26 (view),f16,HTP0,Kcur-26 (view),HTP0,26,blk.26,attn_k,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,502,SET_ROWS,cache_v_l26 (view),f16,HTP0,Vcur-26 (view),HTP0,26,blk.26,attn_v,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,503,FLASH_ATTN_EXT,__fattn__-26,f32,HTP0,Qcur-26 (view) (permuted),HTP0,26,blk.26,attn_q,HTP0,275,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,504,MUL_MAT,attn_out-26,f32,HTP0,blk.26.attn_output.weight,HTP0-REPACK,26,blk.26,attn_output,HTP0,487,112,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,505,RMS_NORM,norm-26,f32,HTP0,attn_out-26,HTP0,26,blk.26,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,506,ADD,ffn_inp-26,f32,HTP0,attn_post_norm-26,HTP0,26,blk.26,norm,HTP0,226,6,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,507,MUL_MAT,ffn_gate-26,f32,HTP0,blk.26.ffn_gate.weight,HTP0-REPACK,26,blk.26,ffn_gate,HTP0,830,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,508,MUL_MAT,ffn_up-26,f32,HTP0,blk.26.ffn_up.weight,HTP0-REPACK,26,blk.26,ffn_up,HTP0,858,407,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,509,GLU,ffn_swiglu-26,f32,HTP0,ffn_gate-26,HTP0,26,blk.26,ffn_gate,HTP0,700,11,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,510,MUL_MAT,ffn_out-26,f32,HTP0,blk.26.ffn_down.weight,HTP0-REPACK,26,blk.26,ffn_down,HTP0,885,206,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,511,RMS_NORM,norm,f32,HTP0,ffn_out-26,HTP0,,norm,norm,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,512,ADD,l_out-26,f32,HTP0,ffn_post_norm,HTP0,,ffn_post_norm,norm,HTP0,227,2,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,513,MUL_MAT,Qcur-27,f32,HTP0,blk.27.attn_q.weight,HTP0-REPACK,27,blk.27,attn_q,HTP0,16,156,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,514,MUL_MAT,Vcur-27,f32,HTP0,blk.27.attn_v.weight,HTP0-REPACK,27,blk.27,attn_v,HTP0,242,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,515,MUL_MAT,Kcur-27,f32,HTP0,blk.27.attn_k.weight,HTP0-REPACK,27,blk.27,attn_k,HTP0,241,7,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,516,RMS_NORM,norm-27,f32,HTP0,Qcur-27,HTP0,27,blk.27,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,517,ROPE,Qcur-27,f32,HTP0,Qcur_normed-27,HTP0,27,blk.27,attn_q,HTP0,16,156,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,518,RMS_NORM,norm-27,f32,HTP0,Kcur-27,HTP0,27,blk.27,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,519,ROPE,Kcur-27,f32,HTP0,Kcur_normed-27,HTP0,27,blk.27,attn_k,HTP0,241,7,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,520,SET_ROWS,cache_k_l27 (view),f16,HTP0,Kcur-27 (view),HTP0,27,blk.27,attn_k,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,521,SET_ROWS,cache_v_l27 (view),f16,HTP0,Vcur-27 (view),HTP0,27,blk.27,attn_v,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,522,FLASH_ATTN_EXT,__fattn__-27,f32,HTP0,Qcur-27 (view) (permuted),HTP0,27,blk.27,attn_q,HTP0,283,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,523,MUL_MAT,attn_out-27,f32,HTP0,blk.27.attn_output.weight,HTP0-REPACK,27,blk.27,attn_output,HTP0,493,113,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,524,RMS_NORM,norm-27,f32,HTP0,attn_out-27,HTP0,27,blk.27,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,525,ADD,ffn_inp-27,f32,HTP0,attn_post_norm-27,HTP0,27,blk.27,norm,HTP0,225,6,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,526,MUL_MAT,ffn_gate-27,f32,HTP0,blk.27.ffn_gate.weight,HTP0-REPACK,27,blk.27,ffn_gate,HTP0,837,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,527,MUL_MAT,ffn_up-27,f32,HTP0,blk.27.ffn_up.weight,HTP0-REPACK,27,blk.27,ffn_up,HTP0,860,400,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,528,GLU,ffn_swiglu-27,f32,HTP0,ffn_gate-27,HTP0,27,blk.27,ffn_gate,HTP0,701,11,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,529,MUL_MAT,ffn_out-27,f32,HTP0,blk.27.ffn_down.weight,HTP0-REPACK,27,blk.27,ffn_down,HTP0,879,188,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,530,RMS_NORM,norm,f32,HTP0,ffn_out-27,HTP0,,norm,norm,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,531,ADD,l_out-27,f32,HTP0,ffn_post_norm,HTP0,,ffn_post_norm,norm,HTP0,225,2,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,532,MUL_MAT,Qcur-28,f32,HTP0,blk.28.attn_q.weight,HTP0-REPACK,28,blk.28,attn_q,HTP0,16,157,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,533,MUL_MAT,Vcur-28,f32,HTP0,blk.28.attn_v.weight,HTP0-REPACK,28,blk.28,attn_v,HTP0,245,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,534,MUL_MAT,Kcur-28,f32,HTP0,blk.28.attn_k.weight,HTP0-REPACK,28,blk.28,attn_k,HTP0,242,7,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,535,RMS_NORM,norm-28,f32,HTP0,Qcur-28,HTP0,28,blk.28,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,536,ROPE,Qcur-28,f32,HTP0,Qcur_normed-28,HTP0,28,blk.28,attn_q,HTP0,16,157,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,537,RMS_NORM,norm-28,f32,HTP0,Kcur-28,HTP0,28,blk.28,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,538,ROPE,Kcur-28,f32,HTP0,Kcur_normed-28,HTP0,28,blk.28,attn_k,HTP0,242,7,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,539,SET_ROWS,cache_k_l28 (view),f16,HTP0,Kcur-28 (view),HTP0,28,blk.28,attn_k,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,540,SET_ROWS,cache_v_l28 (view),f16,HTP0,Vcur-28 (view),HTP0,28,blk.28,attn_v,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,541,FLASH_ATTN_EXT,__fattn__-28,f32,HTP0,Qcur-28 (view) (permuted),HTP0,28,blk.28,attn_q,HTP0,297,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,542,MUL_MAT,attn_out-28,f32,HTP0,blk.28.attn_output.weight,HTP0-REPACK,28,blk.28,attn_output,HTP0,491,112,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,543,RMS_NORM,norm-28,f32,HTP0,attn_out-28,HTP0,28,blk.28,attn_output,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,544,ADD,ffn_inp-28,f32,HTP0,attn_post_norm-28,HTP0,28,blk.28,norm,HTP0,223,6,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,545,MUL_MAT,ffn_gate-28,f32,HTP0,blk.28.ffn_gate.weight,HTP0-REPACK,28,blk.28,ffn_gate,HTP0,838,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,546,MUL_MAT,ffn_up-28,f32,HTP0,blk.28.ffn_up.weight,HTP0-REPACK,28,blk.28,ffn_up,HTP0,860,387,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,547,GLU,ffn_swiglu-28,f32,HTP0,ffn_gate-28,HTP0,28,blk.28,ffn_gate,HTP0,711,11,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,548,MUL_MAT,ffn_out-28,f32,HTP0,blk.28.ffn_down.weight,HTP0-REPACK,28,blk.28,ffn_down,HTP0,884,199,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,549,RMS_NORM,norm,f32,HTP0,ffn_out-28,HTP0,,norm,norm,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,550,ADD,l_out-28,f32,HTP0,ffn_post_norm,HTP0,,ffn_post_norm,norm,HTP0,235,2,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,551,MUL_MAT,Qcur-29,f32,HTP0,blk.29.attn_q.weight,HTP0-REPACK,29,blk.29,attn_q,HTP0,15,150,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,552,MUL_MAT,Vcur-29,f32,HTP0,blk.29.attn_v.weight,HTP0-REPACK,29,blk.29,attn_v,HTP0,237,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,553,MUL_MAT,Kcur-29,f32,HTP0,blk.29.attn_k.weight,HTP0-REPACK,29,blk.29,attn_k,HTP0,244,7,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,554,RMS_NORM,norm-29,f32,HTP0,Qcur-29,HTP0,29,blk.29,norm,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,555,ROPE,Qcur-29,f32,HTP0,Qcur_normed-29,HTP0,29,blk.29,attn_q,HTP0,15,150,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,556,RMS_NORM,norm-29,f32,HTP0,Kcur-29,HTP0,29,blk.29,norm,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,557,ROPE,Kcur-29,f32,HTP0,Kcur_normed-29,HTP0,29,blk.29,attn_k,HTP0,244,7,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,558,SET_ROWS,cache_k_l29 (view),f16,HTP0,Kcur-29 (view),HTP0,29,blk.29,attn_k,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,559,SET_ROWS,cache_v_l29 (view),f16,HTP0,Vcur-29 (view),HTP0,29,blk.29,attn_v,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,560,FLASH_ATTN_EXT,__fattn__-29,f32,HTP0,Qcur-29 (view) (permuted),HTP0,29,blk.29,attn_q,HTP0,292,,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,561,MUL_MAT,attn_out-29,f32,HTP0,blk.29.attn_output.weight,HTP0-REPACK,29,blk.29,attn_output,HTP0,496,103,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,562,GET_ROWS,node_1041,f32,HTP0,attn_out-29,HTP0,29,blk.29,attn_output,HTP0,,4,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,563,RMS_NORM,norm-29,f32,HTP0,node_1041,HTP0,29,blk.29,norm,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,564,GET_ROWS,node_1044,f32,HTP0,l_out-28,HTP0,,node_1044,other,HTP0,,2,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,565,ADD,ffn_inp-29,f32,HTP0,attn_post_norm-29,HTP0,29,blk.29,norm,HTP0,,5,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,566,MUL_MAT,ffn_gate-29,f32,HTP0,blk.29.ffn_gate.weight,HTP0-REPACK,29,blk.29,ffn_gate,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,567,GLU,ffn_swiglu-29,f32,HTP0,ffn_gate-29,HTP0,29,blk.29,ffn_gate,HTP0,,10,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,568,MUL_MAT,ffn_out-29,f32,HTP0,blk.29.ffn_down.weight,HTP0-REPACK,29,blk.29,ffn_down,HTP0,,178,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,569,RMS_NORM,norm,f32,HTP0,ffn_out-29,HTP0,,norm,norm,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,570,ADD,l_out-29,f32,HTP0,ffn_post_norm,HTP0,,ffn_post_norm,norm,HTP0,,2,profile-op(name),HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음
+Q8_0,HTP0,571,RMS_NORM,norm,f32,HTP0,l_out-29,HTP0,,norm,norm,HTP0,,,확인불가,HTP op-fusion 가능(dst 1개에 여러 matmul 융합) — 값은 융합그룹 기준일 수 있음

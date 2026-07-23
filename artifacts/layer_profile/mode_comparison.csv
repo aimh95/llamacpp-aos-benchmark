@@ -1,0 +1,5 @@
+config,quantization,mode,prefill_tps,prefill_ms_255tok,decode_tps,decode_ms_per_token
+Q4_0_CPU,Q4_0,CPU,232.75,1095.6,45.42,22.017
+Q4_0_HTP0,Q4_0,HTP0,1034.95,246.39,19.63,50.942
+Q8_0_CPU,Q8_0,CPU,213.71,1193.21,26.89,37.189
+Q8_0_HTP0,Q8_0,HTP0,1019.62,250.09,15.47,64.641

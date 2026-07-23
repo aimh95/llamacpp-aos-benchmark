@@ -1,0 +1,3 @@
+quantization,n_batches,median_batch_dur_us,median_htp_ops_us,median_overhead_us,note
+Q4_0,66,25149,24321,828,overhead=dispatch/synchronize (host↔DSP). decode 병목 원인 판별용
+Q8_0,15,37175,36438,737,overhead=dispatch/synchronize (host↔DSP). decode 병목 원인 판별용

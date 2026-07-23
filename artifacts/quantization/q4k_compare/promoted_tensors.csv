@@ -1,0 +1,31 @@
+tensor_name,layer_index,tensor_role,q4_k_pure_type,q4_k_s_type,q4_k_m_type,change_pattern
+token_embd.weight,,token_embd,Q4_K,Q6_K,Q6_K,Q4_K -> Q6_K (S+M)
+blk.0.attn_v.weight,0,attn_v,Q4_K,Q5_K,Q6_K,Q4_K -> S:Q5_K / M:Q6_K
+blk.0.ffn_down.weight,0,ffn_down,Q4_K,Q5_K,Q6_K,Q4_K -> S:Q5_K / M:Q6_K
+blk.1.attn_v.weight,1,attn_v,Q4_K,Q5_K,Q6_K,Q4_K -> S:Q5_K / M:Q6_K
+blk.1.ffn_down.weight,1,ffn_down,Q4_K,Q5_K,Q6_K,Q4_K -> S:Q5_K / M:Q6_K
+blk.2.attn_v.weight,2,attn_v,Q4_K,Q5_K,Q6_K,Q4_K -> S:Q5_K / M:Q6_K
+blk.2.ffn_down.weight,2,ffn_down,Q4_K,Q5_K,Q6_K,Q4_K -> S:Q5_K / M:Q6_K
+blk.3.attn_v.weight,3,attn_v,Q4_K,Q5_K,Q4_K,Q4_K -> Q5_K (S only)
+blk.5.attn_v.weight,5,attn_v,Q4_K,Q4_K,Q6_K,Q4_K -> Q6_K (M only)
+blk.5.ffn_down.weight,5,ffn_down,Q4_K,Q4_K,Q6_K,Q4_K -> Q6_K (M only)
+blk.8.attn_v.weight,8,attn_v,Q4_K,Q4_K,Q6_K,Q4_K -> Q6_K (M only)
+blk.8.ffn_down.weight,8,ffn_down,Q4_K,Q4_K,Q6_K,Q4_K -> Q6_K (M only)
+blk.11.attn_v.weight,11,attn_v,Q4_K,Q4_K,Q6_K,Q4_K -> Q6_K (M only)
+blk.11.ffn_down.weight,11,ffn_down,Q4_K,Q4_K,Q6_K,Q4_K -> Q6_K (M only)
+blk.14.attn_v.weight,14,attn_v,Q4_K,Q4_K,Q6_K,Q4_K -> Q6_K (M only)
+blk.14.ffn_down.weight,14,ffn_down,Q4_K,Q4_K,Q6_K,Q4_K -> Q6_K (M only)
+blk.17.attn_v.weight,17,attn_v,Q4_K,Q4_K,Q6_K,Q4_K -> Q6_K (M only)
+blk.17.ffn_down.weight,17,ffn_down,Q4_K,Q4_K,Q6_K,Q4_K -> Q6_K (M only)
+blk.20.attn_v.weight,20,attn_v,Q4_K,Q4_K,Q6_K,Q4_K -> Q6_K (M only)
+blk.20.ffn_down.weight,20,ffn_down,Q4_K,Q4_K,Q6_K,Q4_K -> Q6_K (M only)
+blk.23.attn_v.weight,23,attn_v,Q4_K,Q4_K,Q6_K,Q4_K -> Q6_K (M only)
+blk.23.ffn_down.weight,23,ffn_down,Q4_K,Q4_K,Q6_K,Q4_K -> Q6_K (M only)
+blk.26.attn_v.weight,26,attn_v,Q4_K,Q4_K,Q6_K,Q4_K -> Q6_K (M only)
+blk.26.ffn_down.weight,26,ffn_down,Q4_K,Q4_K,Q6_K,Q4_K -> Q6_K (M only)
+blk.27.attn_v.weight,27,attn_v,Q4_K,Q4_K,Q6_K,Q4_K -> Q6_K (M only)
+blk.27.ffn_down.weight,27,ffn_down,Q4_K,Q4_K,Q6_K,Q4_K -> Q6_K (M only)
+blk.28.attn_v.weight,28,attn_v,Q4_K,Q4_K,Q6_K,Q4_K -> Q6_K (M only)
+blk.28.ffn_down.weight,28,ffn_down,Q4_K,Q4_K,Q6_K,Q4_K -> Q6_K (M only)
+blk.29.attn_v.weight,29,attn_v,Q4_K,Q4_K,Q6_K,Q4_K -> Q6_K (M only)
+blk.29.ffn_down.weight,29,ffn_down,Q4_K,Q4_K,Q6_K,Q4_K -> Q6_K (M only)

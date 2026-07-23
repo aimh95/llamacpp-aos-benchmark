@@ -1,0 +1,13 @@
+ggml-hex: Loading driver libcdsprpc.so
+ggml-hex: Hexagon backend (experimental) : allocating new registry : ndev 1
+ggml-hex: Hexagon Arch version v75
+ggml-hex: HTP0 allocating new session
+ggml-hex: HTP0 hwinfo: threads 4, hvx 4, hmx 1, vtcm 8 MB
+ggml-hex: HTP0 new session : session-id 0 domain-id 3 uri file:///libggml-htp-v75.so?htp_iface_skel_handle_invoke&_modver=1.0&_dom=cdsp&_session=0 handle 0xb400007e2766b650
+ggml-hex: HTP0 op batching: n-bufs 16 n-tensors 7168 n-ops 1024 vmem 3355443200
+| model                          |       size |     params | backend    | ngl |            test |                  t/s |
+| ------------------------------ | ---------: | ---------: | ---------- | --: | --------------: | -------------------: |
+| exaone4 1.2B Q4_0              | 679.24 MiB |     1.20 B | HTP        |   0 |           pp255 |       232.75 ± 15.82 |
+| exaone4 1.2B Q4_0              | 679.24 MiB |     1.20 B | HTP        |   0 |            tg64 |         45.42 ± 0.87 |
+
+build: e6b88e584 (9793)

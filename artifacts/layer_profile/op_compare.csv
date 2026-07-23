@@ -1,0 +1,1149 @@
+quantization,idx,op_type,dst,dst_type,src0,logical_layer,tensor_role,cpu_mode_time_us,htp_mode_time_us,cpu_mode_src0_buft,htp_mode_src0_buft
+Q4_0,,GET_ROWS,embd,,token_embd.weight,embedding,token_embd,확인불가(patch),"확인불가(CPU fallback, patch)",CPU,CPU
+Q4_0,,MUL_MAT,result_output,,token_embd.weight,embedding,token_embd,확인불가(patch),"확인불가(CPU fallback, patch)",CPU,CPU
+Q4_0,0,MUL_MAT,Qcur-0,f32,blk.0.attn_q.weight,blk.0,attn_q,확인불가(patch),86,CPU,HTP0-REPACK
+Q4_0,1,MUL_MAT,Vcur-0,f32,blk.0.attn_v.weight,blk.0,attn_v,확인불가(patch),260,CPU,HTP0-REPACK
+Q4_0,2,MUL_MAT,Kcur-0,f32,blk.0.attn_k.weight,blk.0,attn_k,확인불가(patch),7,CPU,HTP0-REPACK
+Q4_0,3,RMS_NORM,norm-0,f32,Qcur-0,blk.0,attn_q,확인불가(patch),,CPU,HTP0
+Q4_0,4,ROPE,Qcur-0,f32,Qcur_normed-0,blk.0,attn_q,확인불가(patch),86,CPU,HTP0
+Q4_0,5,RMS_NORM,norm-0,f32,Kcur-0,blk.0,attn_k,확인불가(patch),,CPU,HTP0
+Q4_0,6,ROPE,Kcur-0,f32,Kcur_normed-0,blk.0,attn_k,확인불가(patch),7,CPU,HTP0
+Q4_0,7,SET_ROWS,cache_k_l0 (view),f16,Kcur-0 (view),blk.0,attn_k,확인불가(patch),,CPU,HTP0
+Q4_0,8,SET_ROWS,cache_v_l0 (view),f16,Vcur-0 (view),blk.0,attn_v,확인불가(patch),,CPU,HTP0
+Q4_0,9,FLASH_ATTN_EXT,__fattn__-0,f32,Qcur-0 (view) (permuted),blk.0,attn_q,확인불가(patch),273,CPU,HTP0
+Q4_0,10,MUL_MAT,attn_out-0,f32,blk.0.attn_output.weight,blk.0,attn_output,확인불가(patch),66,CPU,HTP0-REPACK
+Q4_0,11,RMS_NORM,norm-0,f32,attn_out-0,blk.0,attn_output,확인불가(patch),,CPU,HTP0
+Q4_0,12,ADD,ffn_inp-0,f32,attn_post_norm-0,blk.0,norm,확인불가(patch),7,CPU,HTP0
+Q4_0,13,MUL_MAT,ffn_gate-0,f32,blk.0.ffn_gate.weight,blk.0,ffn_gate,확인불가(patch),753,CPU,HTP0-REPACK
+Q4_0,14,MUL_MAT,ffn_up-0,f32,blk.0.ffn_up.weight,blk.0,ffn_up,확인불가(patch),201,CPU,HTP0-REPACK
+Q4_0,15,GLU,ffn_swiglu-0,f32,ffn_gate-0,blk.0,ffn_gate,확인불가(patch),11,CPU,HTP0
+Q4_0,16,MUL_MAT,ffn_out-0,f32,blk.0.ffn_down.weight,blk.0,ffn_down,확인불가(patch),100,CPU,HTP0-REPACK
+Q4_0,17,RMS_NORM,norm,f32,ffn_out-0,blk.0,ffn_down,확인불가(patch),,CPU,HTP0
+Q4_0,18,ADD,l_out-0,f32,ffn_post_norm,ffn_post_norm,norm,확인불가(patch),2,CPU,HTP0
+Q4_0,19,MUL_MAT,Qcur-1,f32,blk.1.attn_q.weight,blk.1,attn_q,확인불가(patch),84,CPU,HTP0-REPACK
+Q4_0,20,MUL_MAT,Vcur-1,f32,blk.1.attn_v.weight,blk.1,attn_v,확인불가(patch),235,CPU,HTP0-REPACK
+Q4_0,21,MUL_MAT,Kcur-1,f32,blk.1.attn_k.weight,blk.1,attn_k,확인불가(patch),7,CPU,HTP0-REPACK
+Q4_0,22,RMS_NORM,norm-1,f32,Qcur-1,blk.1,attn_q,확인불가(patch),,CPU,HTP0
+Q4_0,23,ROPE,Qcur-1,f32,Qcur_normed-1,blk.1,attn_q,확인불가(patch),84,CPU,HTP0
+Q4_0,24,RMS_NORM,norm-1,f32,Kcur-1,blk.1,attn_k,확인불가(patch),,CPU,HTP0
+Q4_0,25,ROPE,Kcur-1,f32,Kcur_normed-1,blk.1,attn_k,확인불가(patch),7,CPU,HTP0
+Q4_0,26,SET_ROWS,cache_k_l1 (view),f16,Kcur-1 (view),blk.1,attn_k,확인불가(patch),,CPU,HTP0
+Q4_0,27,SET_ROWS,cache_v_l1 (view),f16,Vcur-1 (view),blk.1,attn_v,확인불가(patch),,CPU,HTP0
+Q4_0,28,FLASH_ATTN_EXT,__fattn__-1,f32,Qcur-1 (view) (permuted),blk.1,attn_q,확인불가(patch),261,CPU,HTP0
+Q4_0,29,MUL_MAT,attn_out-1,f32,blk.1.attn_output.weight,blk.1,attn_output,확인불가(patch),54,CPU,HTP0-REPACK
+Q4_0,30,RMS_NORM,norm-1,f32,attn_out-1,blk.1,attn_output,확인불가(patch),,CPU,HTP0
+Q4_0,31,ADD,ffn_inp-1,f32,attn_post_norm-1,blk.1,norm,확인불가(patch),6,CPU,HTP0
+Q4_0,32,MUL_MAT,ffn_gate-1,f32,blk.1.ffn_gate.weight,blk.1,ffn_gate,확인불가(patch),749,CPU,HTP0-REPACK
+Q4_0,33,MUL_MAT,ffn_up-1,f32,blk.1.ffn_up.weight,blk.1,ffn_up,확인불가(patch),218,CPU,HTP0-REPACK
+Q4_0,34,GLU,ffn_swiglu-1,f32,ffn_gate-1,blk.1,ffn_gate,확인불가(patch),10,CPU,HTP0
+Q4_0,35,MUL_MAT,ffn_out-1,f32,blk.1.ffn_down.weight,blk.1,ffn_down,확인불가(patch),119,CPU,HTP0-REPACK
+Q4_0,36,RMS_NORM,norm,f32,ffn_out-1,blk.1,ffn_down,확인불가(patch),,CPU,HTP0
+Q4_0,37,ADD,l_out-1,f32,ffn_post_norm,ffn_post_norm,norm,확인불가(patch),2,CPU,HTP0
+Q4_0,38,MUL_MAT,Qcur-2,f32,blk.2.attn_q.weight,blk.2,attn_q,확인불가(patch),87,CPU,HTP0-REPACK
+Q4_0,39,MUL_MAT,Vcur-2,f32,blk.2.attn_v.weight,blk.2,attn_v,확인불가(patch),229,CPU,HTP0-REPACK
+Q4_0,40,MUL_MAT,Kcur-2,f32,blk.2.attn_k.weight,blk.2,attn_k,확인불가(patch),7,CPU,HTP0-REPACK
+Q4_0,41,RMS_NORM,norm-2,f32,Qcur-2,blk.2,attn_q,확인불가(patch),,CPU,HTP0
+Q4_0,42,ROPE,Qcur-2,f32,Qcur_normed-2,blk.2,attn_q,확인불가(patch),87,CPU,HTP0
+Q4_0,43,RMS_NORM,norm-2,f32,Kcur-2,blk.2,attn_k,확인불가(patch),,CPU,HTP0
+Q4_0,44,ROPE,Kcur-2,f32,Kcur_normed-2,blk.2,attn_k,확인불가(patch),7,CPU,HTP0
+Q4_0,45,SET_ROWS,cache_k_l2 (view),f16,Kcur-2 (view),blk.2,attn_k,확인불가(patch),,CPU,HTP0
+Q4_0,46,SET_ROWS,cache_v_l2 (view),f16,Vcur-2 (view),blk.2,attn_v,확인불가(patch),,CPU,HTP0
+Q4_0,47,FLASH_ATTN_EXT,__fattn__-2,f32,Qcur-2 (view) (permuted),blk.2,attn_q,확인불가(patch),262,CPU,HTP0
+Q4_0,48,MUL_MAT,attn_out-2,f32,blk.2.attn_output.weight,blk.2,attn_output,확인불가(patch),53,CPU,HTP0-REPACK
+Q4_0,49,RMS_NORM,norm-2,f32,attn_out-2,blk.2,attn_output,확인불가(patch),,CPU,HTP0
+Q4_0,50,ADD,ffn_inp-2,f32,attn_post_norm-2,blk.2,norm,확인불가(patch),6,CPU,HTP0
+Q4_0,51,MUL_MAT,ffn_gate-2,f32,blk.2.ffn_gate.weight,blk.2,ffn_gate,확인불가(patch),746,CPU,HTP0-REPACK
+Q4_0,52,MUL_MAT,ffn_up-2,f32,blk.2.ffn_up.weight,blk.2,ffn_up,확인불가(patch),210,CPU,HTP0-REPACK
+Q4_0,53,GLU,ffn_swiglu-2,f32,ffn_gate-2,blk.2,ffn_gate,확인불가(patch),10,CPU,HTP0
+Q4_0,54,MUL_MAT,ffn_out-2,f32,blk.2.ffn_down.weight,blk.2,ffn_down,확인불가(patch),99,CPU,HTP0-REPACK
+Q4_0,55,RMS_NORM,norm,f32,ffn_out-2,blk.2,ffn_down,확인불가(patch),,CPU,HTP0
+Q4_0,56,ADD,l_out-2,f32,ffn_post_norm,ffn_post_norm,norm,확인불가(patch),2,CPU,HTP0
+Q4_0,57,MUL_MAT,Qcur-3,f32,blk.3.attn_q.weight,blk.3,attn_q,확인불가(patch),90,CPU,HTP0-REPACK
+Q4_0,58,MUL_MAT,Vcur-3,f32,blk.3.attn_v.weight,blk.3,attn_v,확인불가(patch),229,CPU,HTP0-REPACK
+Q4_0,59,MUL_MAT,Kcur-3,f32,blk.3.attn_k.weight,blk.3,attn_k,확인불가(patch),7,CPU,HTP0-REPACK
+Q4_0,60,RMS_NORM,norm-3,f32,Qcur-3,blk.3,attn_q,확인불가(patch),,CPU,HTP0
+Q4_0,61,ROPE,Qcur-3,f32,Qcur_normed-3,blk.3,attn_q,확인불가(patch),90,CPU,HTP0
+Q4_0,62,RMS_NORM,norm-3,f32,Kcur-3,blk.3,attn_k,확인불가(patch),,CPU,HTP0
+Q4_0,63,ROPE,Kcur-3,f32,Kcur_normed-3,blk.3,attn_k,확인불가(patch),7,CPU,HTP0
+Q4_0,64,SET_ROWS,cache_k_l3 (view),f16,Kcur-3 (view),blk.3,attn_k,확인불가(patch),,CPU,HTP0
+Q4_0,65,SET_ROWS,cache_v_l3 (view),f16,Vcur-3 (view),blk.3,attn_v,확인불가(patch),,CPU,HTP0
+Q4_0,66,FLASH_ATTN_EXT,__fattn__-3,f32,Qcur-3 (view) (permuted),blk.3,attn_q,확인불가(patch),263,CPU,HTP0
+Q4_0,67,MUL_MAT,attn_out-3,f32,blk.3.attn_output.weight,blk.3,attn_output,확인불가(patch),65,CPU,HTP0-REPACK
+Q4_0,68,RMS_NORM,norm-3,f32,attn_out-3,blk.3,attn_output,확인불가(patch),,CPU,HTP0
+Q4_0,69,ADD,ffn_inp-3,f32,attn_post_norm-3,blk.3,norm,확인불가(patch),6,CPU,HTP0
+Q4_0,70,MUL_MAT,ffn_gate-3,f32,blk.3.ffn_gate.weight,blk.3,ffn_gate,확인불가(patch),755,CPU,HTP0-REPACK
+Q4_0,71,MUL_MAT,ffn_up-3,f32,blk.3.ffn_up.weight,blk.3,ffn_up,확인불가(patch),231,CPU,HTP0-REPACK
+Q4_0,72,GLU,ffn_swiglu-3,f32,ffn_gate-3,blk.3,ffn_gate,확인불가(patch),10,CPU,HTP0
+Q4_0,73,MUL_MAT,ffn_out-3,f32,blk.3.ffn_down.weight,blk.3,ffn_down,확인불가(patch),98,CPU,HTP0-REPACK
+Q4_0,74,RMS_NORM,norm,f32,ffn_out-3,blk.3,ffn_down,확인불가(patch),,CPU,HTP0
+Q4_0,75,ADD,l_out-3,f32,ffn_post_norm,ffn_post_norm,norm,확인불가(patch),2,CPU,HTP0
+Q4_0,76,MUL_MAT,Qcur-4,f32,blk.4.attn_q.weight,blk.4,attn_q,확인불가(patch),81,CPU,HTP0-REPACK
+Q4_0,77,MUL_MAT,Vcur-4,f32,blk.4.attn_v.weight,blk.4,attn_v,확인불가(patch),231,CPU,HTP0-REPACK
+Q4_0,78,MUL_MAT,Kcur-4,f32,blk.4.attn_k.weight,blk.4,attn_k,확인불가(patch),7,CPU,HTP0-REPACK
+Q4_0,79,RMS_NORM,norm-4,f32,Qcur-4,blk.4,attn_q,확인불가(patch),,CPU,HTP0
+Q4_0,80,ROPE,Qcur-4,f32,Qcur_normed-4,blk.4,attn_q,확인불가(patch),81,CPU,HTP0
+Q4_0,81,RMS_NORM,norm-4,f32,Kcur-4,blk.4,attn_k,확인불가(patch),,CPU,HTP0
+Q4_0,82,ROPE,Kcur-4,f32,Kcur_normed-4,blk.4,attn_k,확인불가(patch),7,CPU,HTP0
+Q4_0,83,SET_ROWS,cache_k_l4 (view),f16,Kcur-4 (view),blk.4,attn_k,확인불가(patch),,CPU,HTP0
+Q4_0,84,SET_ROWS,cache_v_l4 (view),f16,Vcur-4 (view),blk.4,attn_v,확인불가(patch),,CPU,HTP0
+Q4_0,85,FLASH_ATTN_EXT,__fattn__-4,f32,Qcur-4 (view) (permuted),blk.4,attn_q,확인불가(patch),266,CPU,HTP0
+Q4_0,86,MUL_MAT,attn_out-4,f32,blk.4.attn_output.weight,blk.4,attn_output,확인불가(patch),59,CPU,HTP0-REPACK
+Q4_0,87,RMS_NORM,norm-4,f32,attn_out-4,blk.4,attn_output,확인불가(patch),,CPU,HTP0
+Q4_0,88,ADD,ffn_inp-4,f32,attn_post_norm-4,blk.4,norm,확인불가(patch),6,CPU,HTP0
+Q4_0,89,MUL_MAT,ffn_gate-4,f32,blk.4.ffn_gate.weight,blk.4,ffn_gate,확인불가(patch),753,CPU,HTP0-REPACK
+Q4_0,90,MUL_MAT,ffn_up-4,f32,blk.4.ffn_up.weight,blk.4,ffn_up,확인불가(patch),226,CPU,HTP0-REPACK
+Q4_0,91,GLU,ffn_swiglu-4,f32,ffn_gate-4,blk.4,ffn_gate,확인불가(patch),10,CPU,HTP0
+Q4_0,92,MUL_MAT,ffn_out-4,f32,blk.4.ffn_down.weight,blk.4,ffn_down,확인불가(patch),99,CPU,HTP0-REPACK
+Q4_0,93,RMS_NORM,norm,f32,ffn_out-4,blk.4,ffn_down,확인불가(patch),,CPU,HTP0
+Q4_0,94,ADD,l_out-4,f32,ffn_post_norm,ffn_post_norm,norm,확인불가(patch),2,CPU,HTP0
+Q4_0,95,MUL_MAT,Qcur-5,f32,blk.5.attn_q.weight,blk.5,attn_q,확인불가(patch),81,CPU,HTP0-REPACK
+Q4_0,96,MUL_MAT,Vcur-5,f32,blk.5.attn_v.weight,blk.5,attn_v,확인불가(patch),230,CPU,HTP0-REPACK
+Q4_0,97,MUL_MAT,Kcur-5,f32,blk.5.attn_k.weight,blk.5,attn_k,확인불가(patch),7,CPU,HTP0-REPACK
+Q4_0,98,RMS_NORM,norm-5,f32,Qcur-5,blk.5,attn_q,확인불가(patch),,CPU,HTP0
+Q4_0,99,ROPE,Qcur-5,f32,Qcur_normed-5,blk.5,attn_q,확인불가(patch),81,CPU,HTP0
+Q4_0,100,RMS_NORM,norm-5,f32,Kcur-5,blk.5,attn_k,확인불가(patch),,CPU,HTP0
+Q4_0,101,ROPE,Kcur-5,f32,Kcur_normed-5,blk.5,attn_k,확인불가(patch),7,CPU,HTP0
+Q4_0,102,SET_ROWS,cache_k_l5 (view),f16,Kcur-5 (view),blk.5,attn_k,확인불가(patch),,CPU,HTP0
+Q4_0,103,SET_ROWS,cache_v_l5 (view),f16,Vcur-5 (view),blk.5,attn_v,확인불가(patch),,CPU,HTP0
+Q4_0,104,FLASH_ATTN_EXT,__fattn__-5,f32,Qcur-5 (view) (permuted),blk.5,attn_q,확인불가(patch),261,CPU,HTP0
+Q4_0,105,MUL_MAT,attn_out-5,f32,blk.5.attn_output.weight,blk.5,attn_output,확인불가(patch),54,CPU,HTP0-REPACK
+Q4_0,106,RMS_NORM,norm-5,f32,attn_out-5,blk.5,attn_output,확인불가(patch),,CPU,HTP0
+Q4_0,107,ADD,ffn_inp-5,f32,attn_post_norm-5,blk.5,norm,확인불가(patch),6,CPU,HTP0
+Q4_0,108,MUL_MAT,ffn_gate-5,f32,blk.5.ffn_gate.weight,blk.5,ffn_gate,확인불가(patch),751,CPU,HTP0-REPACK
+Q4_0,109,MUL_MAT,ffn_up-5,f32,blk.5.ffn_up.weight,blk.5,ffn_up,확인불가(patch),195,CPU,HTP0-REPACK
+Q4_0,110,GLU,ffn_swiglu-5,f32,ffn_gate-5,blk.5,ffn_gate,확인불가(patch),10,CPU,HTP0
+Q4_0,111,MUL_MAT,ffn_out-5,f32,blk.5.ffn_down.weight,blk.5,ffn_down,확인불가(patch),100,CPU,HTP0-REPACK
+Q4_0,112,RMS_NORM,norm,f32,ffn_out-5,blk.5,ffn_down,확인불가(patch),,CPU,HTP0
+Q4_0,113,ADD,l_out-5,f32,ffn_post_norm,ffn_post_norm,norm,확인불가(patch),2,CPU,HTP0
+Q4_0,114,MUL_MAT,Qcur-6,f32,blk.6.attn_q.weight,blk.6,attn_q,확인불가(patch),81,CPU,HTP0-REPACK
+Q4_0,115,MUL_MAT,Vcur-6,f32,blk.6.attn_v.weight,blk.6,attn_v,확인불가(patch),226,CPU,HTP0-REPACK
+Q4_0,116,MUL_MAT,Kcur-6,f32,blk.6.attn_k.weight,blk.6,attn_k,확인불가(patch),7,CPU,HTP0-REPACK
+Q4_0,117,RMS_NORM,norm-6,f32,Qcur-6,blk.6,attn_q,확인불가(patch),,CPU,HTP0
+Q4_0,118,ROPE,Qcur-6,f32,Qcur_normed-6,blk.6,attn_q,확인불가(patch),81,CPU,HTP0
+Q4_0,119,RMS_NORM,norm-6,f32,Kcur-6,blk.6,attn_k,확인불가(patch),,CPU,HTP0
+Q4_0,120,ROPE,Kcur-6,f32,Kcur_normed-6,blk.6,attn_k,확인불가(patch),7,CPU,HTP0
+Q4_0,121,SET_ROWS,cache_k_l6 (view),f16,Kcur-6 (view),blk.6,attn_k,확인불가(patch),,CPU,HTP0
+Q4_0,122,SET_ROWS,cache_v_l6 (view),f16,Vcur-6 (view),blk.6,attn_v,확인불가(patch),,CPU,HTP0
+Q4_0,123,FLASH_ATTN_EXT,__fattn__-6,f32,Qcur-6 (view) (permuted),blk.6,attn_q,확인불가(patch),261,CPU,HTP0
+Q4_0,124,MUL_MAT,attn_out-6,f32,blk.6.attn_output.weight,blk.6,attn_output,확인불가(patch),55,CPU,HTP0-REPACK
+Q4_0,125,RMS_NORM,norm-6,f32,attn_out-6,blk.6,attn_output,확인불가(patch),,CPU,HTP0
+Q4_0,126,ADD,ffn_inp-6,f32,attn_post_norm-6,blk.6,norm,확인불가(patch),6,CPU,HTP0
+Q4_0,127,MUL_MAT,ffn_gate-6,f32,blk.6.ffn_gate.weight,blk.6,ffn_gate,확인불가(patch),753,CPU,HTP0-REPACK
+Q4_0,128,MUL_MAT,ffn_up-6,f32,blk.6.ffn_up.weight,blk.6,ffn_up,확인불가(patch),191,CPU,HTP0-REPACK
+Q4_0,129,GLU,ffn_swiglu-6,f32,ffn_gate-6,blk.6,ffn_gate,확인불가(patch),11,CPU,HTP0
+Q4_0,130,MUL_MAT,ffn_out-6,f32,blk.6.ffn_down.weight,blk.6,ffn_down,확인불가(patch),100,CPU,HTP0-REPACK
+Q4_0,131,RMS_NORM,norm,f32,ffn_out-6,blk.6,ffn_down,확인불가(patch),,CPU,HTP0
+Q4_0,132,ADD,l_out-6,f32,ffn_post_norm,ffn_post_norm,norm,확인불가(patch),2,CPU,HTP0
+Q4_0,133,MUL_MAT,Qcur-7,f32,blk.7.attn_q.weight,blk.7,attn_q,확인불가(patch),84,CPU,HTP0-REPACK
+Q4_0,134,MUL_MAT,Vcur-7,f32,blk.7.attn_v.weight,blk.7,attn_v,확인불가(patch),227,CPU,HTP0-REPACK
+Q4_0,135,MUL_MAT,Kcur-7,f32,blk.7.attn_k.weight,blk.7,attn_k,확인불가(patch),7,CPU,HTP0-REPACK
+Q4_0,136,RMS_NORM,norm-7,f32,Qcur-7,blk.7,attn_q,확인불가(patch),,CPU,HTP0
+Q4_0,137,ROPE,Qcur-7,f32,Qcur_normed-7,blk.7,attn_q,확인불가(patch),84,CPU,HTP0
+Q4_0,138,RMS_NORM,norm-7,f32,Kcur-7,blk.7,attn_k,확인불가(patch),,CPU,HTP0
+Q4_0,139,ROPE,Kcur-7,f32,Kcur_normed-7,blk.7,attn_k,확인불가(patch),7,CPU,HTP0
+Q4_0,140,SET_ROWS,cache_k_l7 (view),f16,Kcur-7 (view),blk.7,attn_k,확인불가(patch),,CPU,HTP0
+Q4_0,141,SET_ROWS,cache_v_l7 (view),f16,Vcur-7 (view),blk.7,attn_v,확인불가(patch),,CPU,HTP0
+Q4_0,142,FLASH_ATTN_EXT,__fattn__-7,f32,Qcur-7 (view) (permuted),blk.7,attn_q,확인불가(patch),261,CPU,HTP0
+Q4_0,143,MUL_MAT,attn_out-7,f32,blk.7.attn_output.weight,blk.7,attn_output,확인불가(patch),55,CPU,HTP0-REPACK
+Q4_0,144,RMS_NORM,norm-7,f32,attn_out-7,blk.7,attn_output,확인불가(patch),,CPU,HTP0
+Q4_0,145,ADD,ffn_inp-7,f32,attn_post_norm-7,blk.7,norm,확인불가(patch),6,CPU,HTP0
+Q4_0,146,MUL_MAT,ffn_gate-7,f32,blk.7.ffn_gate.weight,blk.7,ffn_gate,확인불가(patch),751,CPU,HTP0-REPACK
+Q4_0,147,MUL_MAT,ffn_up-7,f32,blk.7.ffn_up.weight,blk.7,ffn_up,확인불가(patch),207,CPU,HTP0-REPACK
+Q4_0,148,GLU,ffn_swiglu-7,f32,ffn_gate-7,blk.7,ffn_gate,확인불가(patch),10,CPU,HTP0
+Q4_0,149,MUL_MAT,ffn_out-7,f32,blk.7.ffn_down.weight,blk.7,ffn_down,확인불가(patch),102,CPU,HTP0-REPACK
+Q4_0,150,RMS_NORM,norm,f32,ffn_out-7,blk.7,ffn_down,확인불가(patch),,CPU,HTP0
+Q4_0,151,ADD,l_out-7,f32,ffn_post_norm,ffn_post_norm,norm,확인불가(patch),2,CPU,HTP0
+Q4_0,152,MUL_MAT,Qcur-8,f32,blk.8.attn_q.weight,blk.8,attn_q,확인불가(patch),92,CPU,HTP0-REPACK
+Q4_0,153,MUL_MAT,Vcur-8,f32,blk.8.attn_v.weight,blk.8,attn_v,확인불가(patch),231,CPU,HTP0-REPACK
+Q4_0,154,MUL_MAT,Kcur-8,f32,blk.8.attn_k.weight,blk.8,attn_k,확인불가(patch),7,CPU,HTP0-REPACK
+Q4_0,155,RMS_NORM,norm-8,f32,Qcur-8,blk.8,attn_q,확인불가(patch),,CPU,HTP0
+Q4_0,156,ROPE,Qcur-8,f32,Qcur_normed-8,blk.8,attn_q,확인불가(patch),92,CPU,HTP0
+Q4_0,157,RMS_NORM,norm-8,f32,Kcur-8,blk.8,attn_k,확인불가(patch),,CPU,HTP0
+Q4_0,158,ROPE,Kcur-8,f32,Kcur_normed-8,blk.8,attn_k,확인불가(patch),7,CPU,HTP0
+Q4_0,159,SET_ROWS,cache_k_l8 (view),f16,Kcur-8 (view),blk.8,attn_k,확인불가(patch),,CPU,HTP0
+Q4_0,160,SET_ROWS,cache_v_l8 (view),f16,Vcur-8 (view),blk.8,attn_v,확인불가(patch),,CPU,HTP0
+Q4_0,161,FLASH_ATTN_EXT,__fattn__-8,f32,Qcur-8 (view) (permuted),blk.8,attn_q,확인불가(patch),259,CPU,HTP0
+Q4_0,162,MUL_MAT,attn_out-8,f32,blk.8.attn_output.weight,blk.8,attn_output,확인불가(patch),55,CPU,HTP0-REPACK
+Q4_0,163,RMS_NORM,norm-8,f32,attn_out-8,blk.8,attn_output,확인불가(patch),,CPU,HTP0
+Q4_0,164,ADD,ffn_inp-8,f32,attn_post_norm-8,blk.8,norm,확인불가(patch),6,CPU,HTP0
+Q4_0,165,MUL_MAT,ffn_gate-8,f32,blk.8.ffn_gate.weight,blk.8,ffn_gate,확인불가(patch),749,CPU,HTP0-REPACK
+Q4_0,166,MUL_MAT,ffn_up-8,f32,blk.8.ffn_up.weight,blk.8,ffn_up,확인불가(patch),196,CPU,HTP0-REPACK
+Q4_0,167,GLU,ffn_swiglu-8,f32,ffn_gate-8,blk.8,ffn_gate,확인불가(patch),10,CPU,HTP0
+Q4_0,168,MUL_MAT,ffn_out-8,f32,blk.8.ffn_down.weight,blk.8,ffn_down,확인불가(patch),102,CPU,HTP0-REPACK
+Q4_0,169,RMS_NORM,norm,f32,ffn_out-8,blk.8,ffn_down,확인불가(patch),,CPU,HTP0
+Q4_0,170,ADD,l_out-8,f32,ffn_post_norm,ffn_post_norm,norm,확인불가(patch),2,CPU,HTP0
+Q4_0,171,MUL_MAT,Qcur-9,f32,blk.9.attn_q.weight,blk.9,attn_q,확인불가(patch),80,CPU,HTP0-REPACK
+Q4_0,172,MUL_MAT,Vcur-9,f32,blk.9.attn_v.weight,blk.9,attn_v,확인불가(patch),228,CPU,HTP0-REPACK
+Q4_0,173,MUL_MAT,Kcur-9,f32,blk.9.attn_k.weight,blk.9,attn_k,확인불가(patch),7,CPU,HTP0-REPACK
+Q4_0,174,RMS_NORM,norm-9,f32,Qcur-9,blk.9,attn_q,확인불가(patch),,CPU,HTP0
+Q4_0,175,ROPE,Qcur-9,f32,Qcur_normed-9,blk.9,attn_q,확인불가(patch),80,CPU,HTP0
+Q4_0,176,RMS_NORM,norm-9,f32,Kcur-9,blk.9,attn_k,확인불가(patch),,CPU,HTP0
+Q4_0,177,ROPE,Kcur-9,f32,Kcur_normed-9,blk.9,attn_k,확인불가(patch),7,CPU,HTP0
+Q4_0,178,SET_ROWS,cache_k_l9 (view),f16,Kcur-9 (view),blk.9,attn_k,확인불가(patch),,CPU,HTP0
+Q4_0,179,SET_ROWS,cache_v_l9 (view),f16,Vcur-9 (view),blk.9,attn_v,확인불가(patch),,CPU,HTP0
+Q4_0,180,FLASH_ATTN_EXT,__fattn__-9,f32,Qcur-9 (view) (permuted),blk.9,attn_q,확인불가(patch),262,CPU,HTP0
+Q4_0,181,MUL_MAT,attn_out-9,f32,blk.9.attn_output.weight,blk.9,attn_output,확인불가(patch),55,CPU,HTP0-REPACK
+Q4_0,182,RMS_NORM,norm-9,f32,attn_out-9,blk.9,attn_output,확인불가(patch),,CPU,HTP0
+Q4_0,183,ADD,ffn_inp-9,f32,attn_post_norm-9,blk.9,norm,확인불가(patch),6,CPU,HTP0
+Q4_0,184,MUL_MAT,ffn_gate-9,f32,blk.9.ffn_gate.weight,blk.9,ffn_gate,확인불가(patch),751,CPU,HTP0-REPACK
+Q4_0,185,MUL_MAT,ffn_up-9,f32,blk.9.ffn_up.weight,blk.9,ffn_up,확인불가(patch),197,CPU,HTP0-REPACK
+Q4_0,186,GLU,ffn_swiglu-9,f32,ffn_gate-9,blk.9,ffn_gate,확인불가(patch),10,CPU,HTP0
+Q4_0,187,MUL_MAT,ffn_out-9,f32,blk.9.ffn_down.weight,blk.9,ffn_down,확인불가(patch),99,CPU,HTP0-REPACK
+Q4_0,188,RMS_NORM,norm,f32,ffn_out-9,blk.9,ffn_down,확인불가(patch),,CPU,HTP0
+Q4_0,189,ADD,l_out-9,f32,ffn_post_norm,ffn_post_norm,norm,확인불가(patch),2,CPU,HTP0
+Q4_0,190,MUL_MAT,Qcur-10,f32,blk.10.attn_q.weight,blk.10,attn_q,확인불가(patch),83,CPU,HTP0-REPACK
+Q4_0,191,MUL_MAT,Vcur-10,f32,blk.10.attn_v.weight,blk.10,attn_v,확인불가(patch),235,CPU,HTP0-REPACK
+Q4_0,192,MUL_MAT,Kcur-10,f32,blk.10.attn_k.weight,blk.10,attn_k,확인불가(patch),7,CPU,HTP0-REPACK
+Q4_0,193,RMS_NORM,norm-10,f32,Qcur-10,blk.10,attn_q,확인불가(patch),,CPU,HTP0
+Q4_0,194,ROPE,Qcur-10,f32,Qcur_normed-10,blk.10,attn_q,확인불가(patch),83,CPU,HTP0
+Q4_0,195,RMS_NORM,norm-10,f32,Kcur-10,blk.10,attn_k,확인불가(patch),,CPU,HTP0
+Q4_0,196,ROPE,Kcur-10,f32,Kcur_normed-10,blk.10,attn_k,확인불가(patch),7,CPU,HTP0
+Q4_0,197,SET_ROWS,cache_k_l10 (view),f16,Kcur-10 (view),blk.10,attn_k,확인불가(patch),,CPU,HTP0
+Q4_0,198,SET_ROWS,cache_v_l10 (view),f16,Vcur-10 (view),blk.10,attn_v,확인불가(patch),,CPU,HTP0
+Q4_0,199,FLASH_ATTN_EXT,__fattn__-10,f32,Qcur-10 (view) (permuted),blk.10,attn_q,확인불가(patch),262,CPU,HTP0
+Q4_0,200,MUL_MAT,attn_out-10,f32,blk.10.attn_output.weight,blk.10,attn_output,확인불가(patch),65,CPU,HTP0-REPACK
+Q4_0,201,RMS_NORM,norm-10,f32,attn_out-10,blk.10,attn_output,확인불가(patch),,CPU,HTP0
+Q4_0,202,ADD,ffn_inp-10,f32,attn_post_norm-10,blk.10,norm,확인불가(patch),6,CPU,HTP0
+Q4_0,203,MUL_MAT,ffn_gate-10,f32,blk.10.ffn_gate.weight,blk.10,ffn_gate,확인불가(patch),751,CPU,HTP0-REPACK
+Q4_0,204,MUL_MAT,ffn_up-10,f32,blk.10.ffn_up.weight,blk.10,ffn_up,확인불가(patch),212,CPU,HTP0-REPACK
+Q4_0,205,GLU,ffn_swiglu-10,f32,ffn_gate-10,blk.10,ffn_gate,확인불가(patch),10,CPU,HTP0
+Q4_0,206,MUL_MAT,ffn_out-10,f32,blk.10.ffn_down.weight,blk.10,ffn_down,확인불가(patch),101,CPU,HTP0-REPACK
+Q4_0,207,RMS_NORM,norm,f32,ffn_out-10,blk.10,ffn_down,확인불가(patch),,CPU,HTP0
+Q4_0,208,ADD,l_out-10,f32,ffn_post_norm,ffn_post_norm,norm,확인불가(patch),2,CPU,HTP0
+Q4_0,209,MUL_MAT,Qcur-11,f32,blk.11.attn_q.weight,blk.11,attn_q,확인불가(patch),89,CPU,HTP0-REPACK
+Q4_0,210,MUL_MAT,Vcur-11,f32,blk.11.attn_v.weight,blk.11,attn_v,확인불가(patch),241,CPU,HTP0-REPACK
+Q4_0,211,MUL_MAT,Kcur-11,f32,blk.11.attn_k.weight,blk.11,attn_k,확인불가(patch),7,CPU,HTP0-REPACK
+Q4_0,212,RMS_NORM,norm-11,f32,Qcur-11,blk.11,attn_q,확인불가(patch),,CPU,HTP0
+Q4_0,213,ROPE,Qcur-11,f32,Qcur_normed-11,blk.11,attn_q,확인불가(patch),89,CPU,HTP0
+Q4_0,214,RMS_NORM,norm-11,f32,Kcur-11,blk.11,attn_k,확인불가(patch),,CPU,HTP0
+Q4_0,215,ROPE,Kcur-11,f32,Kcur_normed-11,blk.11,attn_k,확인불가(patch),7,CPU,HTP0
+Q4_0,216,SET_ROWS,cache_k_l11 (view),f16,Kcur-11 (view),blk.11,attn_k,확인불가(patch),,CPU,HTP0
+Q4_0,217,SET_ROWS,cache_v_l11 (view),f16,Vcur-11 (view),blk.11,attn_v,확인불가(patch),,CPU,HTP0
+Q4_0,218,FLASH_ATTN_EXT,__fattn__-11,f32,Qcur-11 (view) (permuted),blk.11,attn_q,확인불가(patch),264,CPU,HTP0
+Q4_0,219,MUL_MAT,attn_out-11,f32,blk.11.attn_output.weight,blk.11,attn_output,확인불가(patch),59,CPU,HTP0-REPACK
+Q4_0,220,RMS_NORM,norm-11,f32,attn_out-11,blk.11,attn_output,확인불가(patch),,CPU,HTP0
+Q4_0,221,ADD,ffn_inp-11,f32,attn_post_norm-11,blk.11,norm,확인불가(patch),6,CPU,HTP0
+Q4_0,222,MUL_MAT,ffn_gate-11,f32,blk.11.ffn_gate.weight,blk.11,ffn_gate,확인불가(patch),753,CPU,HTP0-REPACK
+Q4_0,223,MUL_MAT,ffn_up-11,f32,blk.11.ffn_up.weight,blk.11,ffn_up,확인불가(patch),219,CPU,HTP0-REPACK
+Q4_0,224,GLU,ffn_swiglu-11,f32,ffn_gate-11,blk.11,ffn_gate,확인불가(patch),10,CPU,HTP0
+Q4_0,225,MUL_MAT,ffn_out-11,f32,blk.11.ffn_down.weight,blk.11,ffn_down,확인불가(patch),99,CPU,HTP0-REPACK
+Q4_0,226,RMS_NORM,norm,f32,ffn_out-11,blk.11,ffn_down,확인불가(patch),,CPU,HTP0
+Q4_0,227,ADD,l_out-11,f32,ffn_post_norm,ffn_post_norm,norm,확인불가(patch),2,CPU,HTP0
+Q4_0,228,MUL_MAT,Qcur-12,f32,blk.12.attn_q.weight,blk.12,attn_q,확인불가(patch),82,CPU,HTP0-REPACK
+Q4_0,229,MUL_MAT,Vcur-12,f32,blk.12.attn_v.weight,blk.12,attn_v,확인불가(patch),232,CPU,HTP0-REPACK
+Q4_0,230,MUL_MAT,Kcur-12,f32,blk.12.attn_k.weight,blk.12,attn_k,확인불가(patch),7,CPU,HTP0-REPACK
+Q4_0,231,RMS_NORM,norm-12,f32,Qcur-12,blk.12,attn_q,확인불가(patch),,CPU,HTP0
+Q4_0,232,ROPE,Qcur-12,f32,Qcur_normed-12,blk.12,attn_q,확인불가(patch),82,CPU,HTP0
+Q4_0,233,RMS_NORM,norm-12,f32,Kcur-12,blk.12,attn_k,확인불가(patch),,CPU,HTP0
+Q4_0,234,ROPE,Kcur-12,f32,Kcur_normed-12,blk.12,attn_k,확인불가(patch),7,CPU,HTP0
+Q4_0,235,SET_ROWS,cache_k_l12 (view),f16,Kcur-12 (view),blk.12,attn_k,확인불가(patch),,CPU,HTP0
+Q4_0,236,SET_ROWS,cache_v_l12 (view),f16,Vcur-12 (view),blk.12,attn_v,확인불가(patch),,CPU,HTP0
+Q4_0,237,FLASH_ATTN_EXT,__fattn__-12,f32,Qcur-12 (view) (permuted),blk.12,attn_q,확인불가(patch),264,CPU,HTP0
+Q4_0,238,MUL_MAT,attn_out-12,f32,blk.12.attn_output.weight,blk.12,attn_output,확인불가(patch),56,CPU,HTP0-REPACK
+Q4_0,239,RMS_NORM,norm-12,f32,attn_out-12,blk.12,attn_output,확인불가(patch),,CPU,HTP0
+Q4_0,240,ADD,ffn_inp-12,f32,attn_post_norm-12,blk.12,norm,확인불가(patch),6,CPU,HTP0
+Q4_0,241,MUL_MAT,ffn_gate-12,f32,blk.12.ffn_gate.weight,blk.12,ffn_gate,확인불가(patch),749,CPU,HTP0-REPACK
+Q4_0,242,MUL_MAT,ffn_up-12,f32,blk.12.ffn_up.weight,blk.12,ffn_up,확인불가(patch),225,CPU,HTP0-REPACK
+Q4_0,243,GLU,ffn_swiglu-12,f32,ffn_gate-12,blk.12,ffn_gate,확인불가(patch),10,CPU,HTP0
+Q4_0,244,MUL_MAT,ffn_out-12,f32,blk.12.ffn_down.weight,blk.12,ffn_down,확인불가(patch),106,CPU,HTP0-REPACK
+Q4_0,245,RMS_NORM,norm,f32,ffn_out-12,blk.12,ffn_down,확인불가(patch),,CPU,HTP0
+Q4_0,246,ADD,l_out-12,f32,ffn_post_norm,ffn_post_norm,norm,확인불가(patch),2,CPU,HTP0
+Q4_0,247,MUL_MAT,Qcur-13,f32,blk.13.attn_q.weight,blk.13,attn_q,확인불가(patch),91,CPU,HTP0-REPACK
+Q4_0,248,MUL_MAT,Vcur-13,f32,blk.13.attn_v.weight,blk.13,attn_v,확인불가(patch),228,CPU,HTP0-REPACK
+Q4_0,249,MUL_MAT,Kcur-13,f32,blk.13.attn_k.weight,blk.13,attn_k,확인불가(patch),7,CPU,HTP0-REPACK
+Q4_0,250,RMS_NORM,norm-13,f32,Qcur-13,blk.13,attn_q,확인불가(patch),,CPU,HTP0
+Q4_0,251,ROPE,Qcur-13,f32,Qcur_normed-13,blk.13,attn_q,확인불가(patch),91,CPU,HTP0
+Q4_0,252,RMS_NORM,norm-13,f32,Kcur-13,blk.13,attn_k,확인불가(patch),,CPU,HTP0
+Q4_0,253,ROPE,Kcur-13,f32,Kcur_normed-13,blk.13,attn_k,확인불가(patch),7,CPU,HTP0
+Q4_0,254,SET_ROWS,cache_k_l13 (view),f16,Kcur-13 (view),blk.13,attn_k,확인불가(patch),,CPU,HTP0
+Q4_0,255,SET_ROWS,cache_v_l13 (view),f16,Vcur-13 (view),blk.13,attn_v,확인불가(patch),,CPU,HTP0
+Q4_0,256,FLASH_ATTN_EXT,__fattn__-13,f32,Qcur-13 (view) (permuted),blk.13,attn_q,확인불가(patch),262,CPU,HTP0
+Q4_0,257,MUL_MAT,attn_out-13,f32,blk.13.attn_output.weight,blk.13,attn_output,확인불가(patch),54,CPU,HTP0-REPACK
+Q4_0,258,RMS_NORM,norm-13,f32,attn_out-13,blk.13,attn_output,확인불가(patch),,CPU,HTP0
+Q4_0,259,ADD,ffn_inp-13,f32,attn_post_norm-13,blk.13,norm,확인불가(patch),6,CPU,HTP0
+Q4_0,260,MUL_MAT,ffn_gate-13,f32,blk.13.ffn_gate.weight,blk.13,ffn_gate,확인불가(patch),746,CPU,HTP0-REPACK
+Q4_0,261,MUL_MAT,ffn_up-13,f32,blk.13.ffn_up.weight,blk.13,ffn_up,확인불가(patch),219,CPU,HTP0-REPACK
+Q4_0,262,GLU,ffn_swiglu-13,f32,ffn_gate-13,blk.13,ffn_gate,확인불가(patch),11,CPU,HTP0
+Q4_0,263,MUL_MAT,ffn_out-13,f32,blk.13.ffn_down.weight,blk.13,ffn_down,확인불가(patch),99,CPU,HTP0-REPACK
+Q4_0,264,RMS_NORM,norm,f32,ffn_out-13,blk.13,ffn_down,확인불가(patch),,CPU,HTP0
+Q4_0,265,ADD,l_out-13,f32,ffn_post_norm,ffn_post_norm,norm,확인불가(patch),2,CPU,HTP0
+Q4_0,266,MUL_MAT,Qcur-14,f32,blk.14.attn_q.weight,blk.14,attn_q,확인불가(patch),81,CPU,HTP0-REPACK
+Q4_0,267,MUL_MAT,Vcur-14,f32,blk.14.attn_v.weight,blk.14,attn_v,확인불가(patch),231,CPU,HTP0-REPACK
+Q4_0,268,MUL_MAT,Kcur-14,f32,blk.14.attn_k.weight,blk.14,attn_k,확인불가(patch),7,CPU,HTP0-REPACK
+Q4_0,269,RMS_NORM,norm-14,f32,Qcur-14,blk.14,attn_q,확인불가(patch),,CPU,HTP0
+Q4_0,270,ROPE,Qcur-14,f32,Qcur_normed-14,blk.14,attn_q,확인불가(patch),81,CPU,HTP0
+Q4_0,271,RMS_NORM,norm-14,f32,Kcur-14,blk.14,attn_k,확인불가(patch),,CPU,HTP0
+Q4_0,272,ROPE,Kcur-14,f32,Kcur_normed-14,blk.14,attn_k,확인불가(patch),7,CPU,HTP0
+Q4_0,273,SET_ROWS,cache_k_l14 (view),f16,Kcur-14 (view),blk.14,attn_k,확인불가(patch),,CPU,HTP0
+Q4_0,274,SET_ROWS,cache_v_l14 (view),f16,Vcur-14 (view),blk.14,attn_v,확인불가(patch),,CPU,HTP0
+Q4_0,275,FLASH_ATTN_EXT,__fattn__-14,f32,Qcur-14 (view) (permuted),blk.14,attn_q,확인불가(patch),269,CPU,HTP0
+Q4_0,276,MUL_MAT,attn_out-14,f32,blk.14.attn_output.weight,blk.14,attn_output,확인불가(patch),55,CPU,HTP0-REPACK
+Q4_0,277,RMS_NORM,norm-14,f32,attn_out-14,blk.14,attn_output,확인불가(patch),,CPU,HTP0
+Q4_0,278,ADD,ffn_inp-14,f32,attn_post_norm-14,blk.14,norm,확인불가(patch),6,CPU,HTP0
+Q4_0,279,MUL_MAT,ffn_gate-14,f32,blk.14.ffn_gate.weight,blk.14,ffn_gate,확인불가(patch),753,CPU,HTP0-REPACK
+Q4_0,280,MUL_MAT,ffn_up-14,f32,blk.14.ffn_up.weight,blk.14,ffn_up,확인불가(patch),218,CPU,HTP0-REPACK
+Q4_0,281,GLU,ffn_swiglu-14,f32,ffn_gate-14,blk.14,ffn_gate,확인불가(patch),11,CPU,HTP0
+Q4_0,282,MUL_MAT,ffn_out-14,f32,blk.14.ffn_down.weight,blk.14,ffn_down,확인불가(patch),101,CPU,HTP0-REPACK
+Q4_0,283,RMS_NORM,norm,f32,ffn_out-14,blk.14,ffn_down,확인불가(patch),,CPU,HTP0
+Q4_0,284,ADD,l_out-14,f32,ffn_post_norm,ffn_post_norm,norm,확인불가(patch),2,CPU,HTP0
+Q4_0,285,MUL_MAT,Qcur-15,f32,blk.15.attn_q.weight,blk.15,attn_q,확인불가(patch),93,CPU,HTP0-REPACK
+Q4_0,286,MUL_MAT,Vcur-15,f32,blk.15.attn_v.weight,blk.15,attn_v,확인불가(patch),237,CPU,HTP0-REPACK
+Q4_0,287,MUL_MAT,Kcur-15,f32,blk.15.attn_k.weight,blk.15,attn_k,확인불가(patch),7,CPU,HTP0-REPACK
+Q4_0,288,RMS_NORM,norm-15,f32,Qcur-15,blk.15,attn_q,확인불가(patch),,CPU,HTP0
+Q4_0,289,ROPE,Qcur-15,f32,Qcur_normed-15,blk.15,attn_q,확인불가(patch),93,CPU,HTP0
+Q4_0,290,RMS_NORM,norm-15,f32,Kcur-15,blk.15,attn_k,확인불가(patch),,CPU,HTP0
+Q4_0,291,ROPE,Kcur-15,f32,Kcur_normed-15,blk.15,attn_k,확인불가(patch),7,CPU,HTP0
+Q4_0,292,SET_ROWS,cache_k_l15 (view),f16,Kcur-15 (view),blk.15,attn_k,확인불가(patch),,CPU,HTP0
+Q4_0,293,SET_ROWS,cache_v_l15 (view),f16,Vcur-15 (view),blk.15,attn_v,확인불가(patch),,CPU,HTP0
+Q4_0,294,FLASH_ATTN_EXT,__fattn__-15,f32,Qcur-15 (view) (permuted),blk.15,attn_q,확인불가(patch),263,CPU,HTP0
+Q4_0,295,MUL_MAT,attn_out-15,f32,blk.15.attn_output.weight,blk.15,attn_output,확인불가(patch),53,CPU,HTP0-REPACK
+Q4_0,296,RMS_NORM,norm-15,f32,attn_out-15,blk.15,attn_output,확인불가(patch),,CPU,HTP0
+Q4_0,297,ADD,ffn_inp-15,f32,attn_post_norm-15,blk.15,norm,확인불가(patch),6,CPU,HTP0
+Q4_0,298,MUL_MAT,ffn_gate-15,f32,blk.15.ffn_gate.weight,blk.15,ffn_gate,확인불가(patch),750,CPU,HTP0-REPACK
+Q4_0,299,MUL_MAT,ffn_up-15,f32,blk.15.ffn_up.weight,blk.15,ffn_up,확인불가(patch),221,CPU,HTP0-REPACK
+Q4_0,300,GLU,ffn_swiglu-15,f32,ffn_gate-15,blk.15,ffn_gate,확인불가(patch),11,CPU,HTP0
+Q4_0,301,MUL_MAT,ffn_out-15,f32,blk.15.ffn_down.weight,blk.15,ffn_down,확인불가(patch),102,CPU,HTP0-REPACK
+Q4_0,302,RMS_NORM,norm,f32,ffn_out-15,blk.15,ffn_down,확인불가(patch),,CPU,HTP0
+Q4_0,303,ADD,l_out-15,f32,ffn_post_norm,ffn_post_norm,norm,확인불가(patch),2,CPU,HTP0
+Q4_0,304,MUL_MAT,Qcur-16,f32,blk.16.attn_q.weight,blk.16,attn_q,확인불가(patch),85,CPU,HTP0-REPACK
+Q4_0,305,MUL_MAT,Vcur-16,f32,blk.16.attn_v.weight,blk.16,attn_v,확인불가(patch),231,CPU,HTP0-REPACK
+Q4_0,306,MUL_MAT,Kcur-16,f32,blk.16.attn_k.weight,blk.16,attn_k,확인불가(patch),7,CPU,HTP0-REPACK
+Q4_0,307,RMS_NORM,norm-16,f32,Qcur-16,blk.16,attn_q,확인불가(patch),,CPU,HTP0
+Q4_0,308,ROPE,Qcur-16,f32,Qcur_normed-16,blk.16,attn_q,확인불가(patch),85,CPU,HTP0
+Q4_0,309,RMS_NORM,norm-16,f32,Kcur-16,blk.16,attn_k,확인불가(patch),,CPU,HTP0
+Q4_0,310,ROPE,Kcur-16,f32,Kcur_normed-16,blk.16,attn_k,확인불가(patch),7,CPU,HTP0
+Q4_0,311,SET_ROWS,cache_k_l16 (view),f16,Kcur-16 (view),blk.16,attn_k,확인불가(patch),,CPU,HTP0
+Q4_0,312,SET_ROWS,cache_v_l16 (view),f16,Vcur-16 (view),blk.16,attn_v,확인불가(patch),,CPU,HTP0
+Q4_0,313,FLASH_ATTN_EXT,__fattn__-16,f32,Qcur-16 (view) (permuted),blk.16,attn_q,확인불가(patch),265,CPU,HTP0
+Q4_0,314,MUL_MAT,attn_out-16,f32,blk.16.attn_output.weight,blk.16,attn_output,확인불가(patch),55,CPU,HTP0-REPACK
+Q4_0,315,RMS_NORM,norm-16,f32,attn_out-16,blk.16,attn_output,확인불가(patch),,CPU,HTP0
+Q4_0,316,ADD,ffn_inp-16,f32,attn_post_norm-16,blk.16,norm,확인불가(patch),6,CPU,HTP0
+Q4_0,317,MUL_MAT,ffn_gate-16,f32,blk.16.ffn_gate.weight,blk.16,ffn_gate,확인불가(patch),749,CPU,HTP0-REPACK
+Q4_0,318,MUL_MAT,ffn_up-16,f32,blk.16.ffn_up.weight,blk.16,ffn_up,확인불가(patch),191,CPU,HTP0-REPACK
+Q4_0,319,GLU,ffn_swiglu-16,f32,ffn_gate-16,blk.16,ffn_gate,확인불가(patch),10,CPU,HTP0
+Q4_0,320,MUL_MAT,ffn_out-16,f32,blk.16.ffn_down.weight,blk.16,ffn_down,확인불가(patch),102,CPU,HTP0-REPACK
+Q4_0,321,RMS_NORM,norm,f32,ffn_out-16,blk.16,ffn_down,확인불가(patch),,CPU,HTP0
+Q4_0,322,ADD,l_out-16,f32,ffn_post_norm,ffn_post_norm,norm,확인불가(patch),2,CPU,HTP0
+Q4_0,323,MUL_MAT,Qcur-17,f32,blk.17.attn_q.weight,blk.17,attn_q,확인불가(patch),93,CPU,HTP0-REPACK
+Q4_0,324,MUL_MAT,Vcur-17,f32,blk.17.attn_v.weight,blk.17,attn_v,확인불가(patch),232,CPU,HTP0-REPACK
+Q4_0,325,MUL_MAT,Kcur-17,f32,blk.17.attn_k.weight,blk.17,attn_k,확인불가(patch),7,CPU,HTP0-REPACK
+Q4_0,326,RMS_NORM,norm-17,f32,Qcur-17,blk.17,attn_q,확인불가(patch),,CPU,HTP0
+Q4_0,327,ROPE,Qcur-17,f32,Qcur_normed-17,blk.17,attn_q,확인불가(patch),93,CPU,HTP0
+Q4_0,328,RMS_NORM,norm-17,f32,Kcur-17,blk.17,attn_k,확인불가(patch),,CPU,HTP0
+Q4_0,329,ROPE,Kcur-17,f32,Kcur_normed-17,blk.17,attn_k,확인불가(patch),7,CPU,HTP0
+Q4_0,330,SET_ROWS,cache_k_l17 (view),f16,Kcur-17 (view),blk.17,attn_k,확인불가(patch),,CPU,HTP0
+Q4_0,331,SET_ROWS,cache_v_l17 (view),f16,Vcur-17 (view),blk.17,attn_v,확인불가(patch),,CPU,HTP0
+Q4_0,332,FLASH_ATTN_EXT,__fattn__-17,f32,Qcur-17 (view) (permuted),blk.17,attn_q,확인불가(patch),266,CPU,HTP0
+Q4_0,333,MUL_MAT,attn_out-17,f32,blk.17.attn_output.weight,blk.17,attn_output,확인불가(patch),54,CPU,HTP0-REPACK
+Q4_0,334,RMS_NORM,norm-17,f32,attn_out-17,blk.17,attn_output,확인불가(patch),,CPU,HTP0
+Q4_0,335,ADD,ffn_inp-17,f32,attn_post_norm-17,blk.17,norm,확인불가(patch),6,CPU,HTP0
+Q4_0,336,MUL_MAT,ffn_gate-17,f32,blk.17.ffn_gate.weight,blk.17,ffn_gate,확인불가(patch),752,CPU,HTP0-REPACK
+Q4_0,337,MUL_MAT,ffn_up-17,f32,blk.17.ffn_up.weight,blk.17,ffn_up,확인불가(patch),216,CPU,HTP0-REPACK
+Q4_0,338,GLU,ffn_swiglu-17,f32,ffn_gate-17,blk.17,ffn_gate,확인불가(patch),10,CPU,HTP0
+Q4_0,339,MUL_MAT,ffn_out-17,f32,blk.17.ffn_down.weight,blk.17,ffn_down,확인불가(patch),100,CPU,HTP0-REPACK
+Q4_0,340,RMS_NORM,norm,f32,ffn_out-17,blk.17,ffn_down,확인불가(patch),,CPU,HTP0
+Q4_0,341,ADD,l_out-17,f32,ffn_post_norm,ffn_post_norm,norm,확인불가(patch),2,CPU,HTP0
+Q4_0,342,MUL_MAT,Qcur-18,f32,blk.18.attn_q.weight,blk.18,attn_q,확인불가(patch),89,CPU,HTP0-REPACK
+Q4_0,343,MUL_MAT,Vcur-18,f32,blk.18.attn_v.weight,blk.18,attn_v,확인불가(patch),246,CPU,HTP0-REPACK
+Q4_0,344,MUL_MAT,Kcur-18,f32,blk.18.attn_k.weight,blk.18,attn_k,확인불가(patch),7,CPU,HTP0-REPACK
+Q4_0,345,RMS_NORM,norm-18,f32,Qcur-18,blk.18,attn_q,확인불가(patch),,CPU,HTP0
+Q4_0,346,ROPE,Qcur-18,f32,Qcur_normed-18,blk.18,attn_q,확인불가(patch),89,CPU,HTP0
+Q4_0,347,RMS_NORM,norm-18,f32,Kcur-18,blk.18,attn_k,확인불가(patch),,CPU,HTP0
+Q4_0,348,ROPE,Kcur-18,f32,Kcur_normed-18,blk.18,attn_k,확인불가(patch),7,CPU,HTP0
+Q4_0,349,SET_ROWS,cache_k_l18 (view),f16,Kcur-18 (view),blk.18,attn_k,확인불가(patch),,CPU,HTP0
+Q4_0,350,SET_ROWS,cache_v_l18 (view),f16,Vcur-18 (view),blk.18,attn_v,확인불가(patch),,CPU,HTP0
+Q4_0,351,FLASH_ATTN_EXT,__fattn__-18,f32,Qcur-18 (view) (permuted),blk.18,attn_q,확인불가(patch),264,CPU,HTP0
+Q4_0,352,MUL_MAT,attn_out-18,f32,blk.18.attn_output.weight,blk.18,attn_output,확인불가(patch),54,CPU,HTP0-REPACK
+Q4_0,353,RMS_NORM,norm-18,f32,attn_out-18,blk.18,attn_output,확인불가(patch),,CPU,HTP0
+Q4_0,354,ADD,ffn_inp-18,f32,attn_post_norm-18,blk.18,norm,확인불가(patch),6,CPU,HTP0
+Q4_0,355,MUL_MAT,ffn_gate-18,f32,blk.18.ffn_gate.weight,blk.18,ffn_gate,확인불가(patch),752,CPU,HTP0-REPACK
+Q4_0,356,MUL_MAT,ffn_up-18,f32,blk.18.ffn_up.weight,blk.18,ffn_up,확인불가(patch),231,CPU,HTP0-REPACK
+Q4_0,357,GLU,ffn_swiglu-18,f32,ffn_gate-18,blk.18,ffn_gate,확인불가(patch),11,CPU,HTP0
+Q4_0,358,MUL_MAT,ffn_out-18,f32,blk.18.ffn_down.weight,blk.18,ffn_down,확인불가(patch),99,CPU,HTP0-REPACK
+Q4_0,359,RMS_NORM,norm,f32,ffn_out-18,blk.18,ffn_down,확인불가(patch),,CPU,HTP0
+Q4_0,360,ADD,l_out-18,f32,ffn_post_norm,ffn_post_norm,norm,확인불가(patch),2,CPU,HTP0
+Q4_0,361,MUL_MAT,Qcur-19,f32,blk.19.attn_q.weight,blk.19,attn_q,확인불가(patch),93,CPU,HTP0-REPACK
+Q4_0,362,MUL_MAT,Vcur-19,f32,blk.19.attn_v.weight,blk.19,attn_v,확인불가(patch),228,CPU,HTP0-REPACK
+Q4_0,363,MUL_MAT,Kcur-19,f32,blk.19.attn_k.weight,blk.19,attn_k,확인불가(patch),7,CPU,HTP0-REPACK
+Q4_0,364,RMS_NORM,norm-19,f32,Qcur-19,blk.19,attn_q,확인불가(patch),,CPU,HTP0
+Q4_0,365,ROPE,Qcur-19,f32,Qcur_normed-19,blk.19,attn_q,확인불가(patch),93,CPU,HTP0
+Q4_0,366,RMS_NORM,norm-19,f32,Kcur-19,blk.19,attn_k,확인불가(patch),,CPU,HTP0
+Q4_0,367,ROPE,Kcur-19,f32,Kcur_normed-19,blk.19,attn_k,확인불가(patch),7,CPU,HTP0
+Q4_0,368,SET_ROWS,cache_k_l19 (view),f16,Kcur-19 (view),blk.19,attn_k,확인불가(patch),,CPU,HTP0
+Q4_0,369,SET_ROWS,cache_v_l19 (view),f16,Vcur-19 (view),blk.19,attn_v,확인불가(patch),,CPU,HTP0
+Q4_0,370,FLASH_ATTN_EXT,__fattn__-19,f32,Qcur-19 (view) (permuted),blk.19,attn_q,확인불가(patch),262,CPU,HTP0
+Q4_0,371,MUL_MAT,attn_out-19,f32,blk.19.attn_output.weight,blk.19,attn_output,확인불가(patch),64,CPU,HTP0-REPACK
+Q4_0,372,RMS_NORM,norm-19,f32,attn_out-19,blk.19,attn_output,확인불가(patch),,CPU,HTP0
+Q4_0,373,ADD,ffn_inp-19,f32,attn_post_norm-19,blk.19,norm,확인불가(patch),6,CPU,HTP0
+Q4_0,374,MUL_MAT,ffn_gate-19,f32,blk.19.ffn_gate.weight,blk.19,ffn_gate,확인불가(patch),756,CPU,HTP0-REPACK
+Q4_0,375,MUL_MAT,ffn_up-19,f32,blk.19.ffn_up.weight,blk.19,ffn_up,확인불가(patch),213,CPU,HTP0-REPACK
+Q4_0,376,GLU,ffn_swiglu-19,f32,ffn_gate-19,blk.19,ffn_gate,확인불가(patch),11,CPU,HTP0
+Q4_0,377,MUL_MAT,ffn_out-19,f32,blk.19.ffn_down.weight,blk.19,ffn_down,확인불가(patch),120,CPU,HTP0-REPACK
+Q4_0,378,RMS_NORM,norm,f32,ffn_out-19,blk.19,ffn_down,확인불가(patch),,CPU,HTP0
+Q4_0,379,ADD,l_out-19,f32,ffn_post_norm,ffn_post_norm,norm,확인불가(patch),2,CPU,HTP0
+Q4_0,380,MUL_MAT,Qcur-20,f32,blk.20.attn_q.weight,blk.20,attn_q,확인불가(patch),93,CPU,HTP0-REPACK
+Q4_0,381,MUL_MAT,Vcur-20,f32,blk.20.attn_v.weight,blk.20,attn_v,확인불가(patch),235,CPU,HTP0-REPACK
+Q4_0,382,MUL_MAT,Kcur-20,f32,blk.20.attn_k.weight,blk.20,attn_k,확인불가(patch),7,CPU,HTP0-REPACK
+Q4_0,383,RMS_NORM,norm-20,f32,Qcur-20,blk.20,attn_q,확인불가(patch),,CPU,HTP0
+Q4_0,384,ROPE,Qcur-20,f32,Qcur_normed-20,blk.20,attn_q,확인불가(patch),93,CPU,HTP0
+Q4_0,385,RMS_NORM,norm-20,f32,Kcur-20,blk.20,attn_k,확인불가(patch),,CPU,HTP0
+Q4_0,386,ROPE,Kcur-20,f32,Kcur_normed-20,blk.20,attn_k,확인불가(patch),7,CPU,HTP0
+Q4_0,387,SET_ROWS,cache_k_l20 (view),f16,Kcur-20 (view),blk.20,attn_k,확인불가(patch),,CPU,HTP0
+Q4_0,388,SET_ROWS,cache_v_l20 (view),f16,Vcur-20 (view),blk.20,attn_v,확인불가(patch),,CPU,HTP0
+Q4_0,389,FLASH_ATTN_EXT,__fattn__-20,f32,Qcur-20 (view) (permuted),blk.20,attn_q,확인불가(patch),262,CPU,HTP0
+Q4_0,390,MUL_MAT,attn_out-20,f32,blk.20.attn_output.weight,blk.20,attn_output,확인불가(patch),62,CPU,HTP0-REPACK
+Q4_0,391,RMS_NORM,norm-20,f32,attn_out-20,blk.20,attn_output,확인불가(patch),,CPU,HTP0
+Q4_0,392,ADD,ffn_inp-20,f32,attn_post_norm-20,blk.20,norm,확인불가(patch),6,CPU,HTP0
+Q4_0,393,MUL_MAT,ffn_gate-20,f32,blk.20.ffn_gate.weight,blk.20,ffn_gate,확인불가(patch),756,CPU,HTP0-REPACK
+Q4_0,394,MUL_MAT,ffn_up-20,f32,blk.20.ffn_up.weight,blk.20,ffn_up,확인불가(patch),230,CPU,HTP0-REPACK
+Q4_0,395,GLU,ffn_swiglu-20,f32,ffn_gate-20,blk.20,ffn_gate,확인불가(patch),11,CPU,HTP0
+Q4_0,396,MUL_MAT,ffn_out-20,f32,blk.20.ffn_down.weight,blk.20,ffn_down,확인불가(patch),103,CPU,HTP0-REPACK
+Q4_0,397,RMS_NORM,norm,f32,ffn_out-20,blk.20,ffn_down,확인불가(patch),,CPU,HTP0
+Q4_0,398,ADD,l_out-20,f32,ffn_post_norm,ffn_post_norm,norm,확인불가(patch),2,CPU,HTP0
+Q4_0,399,MUL_MAT,Qcur-21,f32,blk.21.attn_q.weight,blk.21,attn_q,확인불가(patch),86,CPU,HTP0-REPACK
+Q4_0,400,MUL_MAT,Vcur-21,f32,blk.21.attn_v.weight,blk.21,attn_v,확인불가(patch),239,CPU,HTP0-REPACK
+Q4_0,401,MUL_MAT,Kcur-21,f32,blk.21.attn_k.weight,blk.21,attn_k,확인불가(patch),7,CPU,HTP0-REPACK
+Q4_0,402,RMS_NORM,norm-21,f32,Qcur-21,blk.21,attn_q,확인불가(patch),,CPU,HTP0
+Q4_0,403,ROPE,Qcur-21,f32,Qcur_normed-21,blk.21,attn_q,확인불가(patch),86,CPU,HTP0
+Q4_0,404,RMS_NORM,norm-21,f32,Kcur-21,blk.21,attn_k,확인불가(patch),,CPU,HTP0
+Q4_0,405,ROPE,Kcur-21,f32,Kcur_normed-21,blk.21,attn_k,확인불가(patch),7,CPU,HTP0
+Q4_0,406,SET_ROWS,cache_k_l21 (view),f16,Kcur-21 (view),blk.21,attn_k,확인불가(patch),,CPU,HTP0
+Q4_0,407,SET_ROWS,cache_v_l21 (view),f16,Vcur-21 (view),blk.21,attn_v,확인불가(patch),,CPU,HTP0
+Q4_0,408,FLASH_ATTN_EXT,__fattn__-21,f32,Qcur-21 (view) (permuted),blk.21,attn_q,확인불가(patch),262,CPU,HTP0
+Q4_0,409,MUL_MAT,attn_out-21,f32,blk.21.attn_output.weight,blk.21,attn_output,확인불가(patch),65,CPU,HTP0-REPACK
+Q4_0,410,RMS_NORM,norm-21,f32,attn_out-21,blk.21,attn_output,확인불가(patch),,CPU,HTP0
+Q4_0,411,ADD,ffn_inp-21,f32,attn_post_norm-21,blk.21,norm,확인불가(patch),6,CPU,HTP0
+Q4_0,412,MUL_MAT,ffn_gate-21,f32,blk.21.ffn_gate.weight,blk.21,ffn_gate,확인불가(patch),753,CPU,HTP0-REPACK
+Q4_0,413,MUL_MAT,ffn_up-21,f32,blk.21.ffn_up.weight,blk.21,ffn_up,확인불가(patch),232,CPU,HTP0-REPACK
+Q4_0,414,GLU,ffn_swiglu-21,f32,ffn_gate-21,blk.21,ffn_gate,확인불가(patch),11,CPU,HTP0
+Q4_0,415,MUL_MAT,ffn_out-21,f32,blk.21.ffn_down.weight,blk.21,ffn_down,확인불가(patch),121,CPU,HTP0-REPACK
+Q4_0,416,RMS_NORM,norm,f32,ffn_out-21,blk.21,ffn_down,확인불가(patch),,CPU,HTP0
+Q4_0,417,ADD,l_out-21,f32,ffn_post_norm,ffn_post_norm,norm,확인불가(patch),2,CPU,HTP0
+Q4_0,418,MUL_MAT,Qcur-22,f32,blk.22.attn_q.weight,blk.22,attn_q,확인불가(patch),98,CPU,HTP0-REPACK
+Q4_0,419,MUL_MAT,Vcur-22,f32,blk.22.attn_v.weight,blk.22,attn_v,확인불가(patch),230,CPU,HTP0-REPACK
+Q4_0,420,MUL_MAT,Kcur-22,f32,blk.22.attn_k.weight,blk.22,attn_k,확인불가(patch),7,CPU,HTP0-REPACK
+Q4_0,421,RMS_NORM,norm-22,f32,Qcur-22,blk.22,attn_q,확인불가(patch),,CPU,HTP0
+Q4_0,422,ROPE,Qcur-22,f32,Qcur_normed-22,blk.22,attn_q,확인불가(patch),98,CPU,HTP0
+Q4_0,423,RMS_NORM,norm-22,f32,Kcur-22,blk.22,attn_k,확인불가(patch),,CPU,HTP0
+Q4_0,424,ROPE,Kcur-22,f32,Kcur_normed-22,blk.22,attn_k,확인불가(patch),7,CPU,HTP0
+Q4_0,425,SET_ROWS,cache_k_l22 (view),f16,Kcur-22 (view),blk.22,attn_k,확인불가(patch),,CPU,HTP0
+Q4_0,426,SET_ROWS,cache_v_l22 (view),f16,Vcur-22 (view),blk.22,attn_v,확인불가(patch),,CPU,HTP0
+Q4_0,427,FLASH_ATTN_EXT,__fattn__-22,f32,Qcur-22 (view) (permuted),blk.22,attn_q,확인불가(patch),264,CPU,HTP0
+Q4_0,428,MUL_MAT,attn_out-22,f32,blk.22.attn_output.weight,blk.22,attn_output,확인불가(patch),66,CPU,HTP0-REPACK
+Q4_0,429,RMS_NORM,norm-22,f32,attn_out-22,blk.22,attn_output,확인불가(patch),,CPU,HTP0
+Q4_0,430,ADD,ffn_inp-22,f32,attn_post_norm-22,blk.22,norm,확인불가(patch),6,CPU,HTP0
+Q4_0,431,MUL_MAT,ffn_gate-22,f32,blk.22.ffn_gate.weight,blk.22,ffn_gate,확인불가(patch),756,CPU,HTP0-REPACK
+Q4_0,432,MUL_MAT,ffn_up-22,f32,blk.22.ffn_up.weight,blk.22,ffn_up,확인불가(patch),233,CPU,HTP0-REPACK
+Q4_0,433,GLU,ffn_swiglu-22,f32,ffn_gate-22,blk.22,ffn_gate,확인불가(patch),11,CPU,HTP0
+Q4_0,434,MUL_MAT,ffn_out-22,f32,blk.22.ffn_down.weight,blk.22,ffn_down,확인불가(patch),120,CPU,HTP0-REPACK
+Q4_0,435,RMS_NORM,norm,f32,ffn_out-22,blk.22,ffn_down,확인불가(patch),,CPU,HTP0
+Q4_0,436,ADD,l_out-22,f32,ffn_post_norm,ffn_post_norm,norm,확인불가(patch),2,CPU,HTP0
+Q4_0,437,MUL_MAT,Qcur-23,f32,blk.23.attn_q.weight,blk.23,attn_q,확인불가(patch),98,CPU,HTP0-REPACK
+Q4_0,438,MUL_MAT,Vcur-23,f32,blk.23.attn_v.weight,blk.23,attn_v,확인불가(patch),237,CPU,HTP0-REPACK
+Q4_0,439,MUL_MAT,Kcur-23,f32,blk.23.attn_k.weight,blk.23,attn_k,확인불가(patch),7,CPU,HTP0-REPACK
+Q4_0,440,RMS_NORM,norm-23,f32,Qcur-23,blk.23,attn_q,확인불가(patch),,CPU,HTP0
+Q4_0,441,ROPE,Qcur-23,f32,Qcur_normed-23,blk.23,attn_q,확인불가(patch),98,CPU,HTP0
+Q4_0,442,RMS_NORM,norm-23,f32,Kcur-23,blk.23,attn_k,확인불가(patch),,CPU,HTP0
+Q4_0,443,ROPE,Kcur-23,f32,Kcur_normed-23,blk.23,attn_k,확인불가(patch),7,CPU,HTP0
+Q4_0,444,SET_ROWS,cache_k_l23 (view),f16,Kcur-23 (view),blk.23,attn_k,확인불가(patch),,CPU,HTP0
+Q4_0,445,SET_ROWS,cache_v_l23 (view),f16,Vcur-23 (view),blk.23,attn_v,확인불가(patch),,CPU,HTP0
+Q4_0,446,FLASH_ATTN_EXT,__fattn__-23,f32,Qcur-23 (view) (permuted),blk.23,attn_q,확인불가(patch),265,CPU,HTP0
+Q4_0,447,MUL_MAT,attn_out-23,f32,blk.23.attn_output.weight,blk.23,attn_output,확인불가(patch),66,CPU,HTP0-REPACK
+Q4_0,448,RMS_NORM,norm-23,f32,attn_out-23,blk.23,attn_output,확인불가(patch),,CPU,HTP0
+Q4_0,449,ADD,ffn_inp-23,f32,attn_post_norm-23,blk.23,norm,확인불가(patch),6,CPU,HTP0
+Q4_0,450,MUL_MAT,ffn_gate-23,f32,blk.23.ffn_gate.weight,blk.23,ffn_gate,확인불가(patch),752,CPU,HTP0-REPACK
+Q4_0,451,MUL_MAT,ffn_up-23,f32,blk.23.ffn_up.weight,blk.23,ffn_up,확인불가(patch),231,CPU,HTP0-REPACK
+Q4_0,452,GLU,ffn_swiglu-23,f32,ffn_gate-23,blk.23,ffn_gate,확인불가(patch),11,CPU,HTP0
+Q4_0,453,MUL_MAT,ffn_out-23,f32,blk.23.ffn_down.weight,blk.23,ffn_down,확인불가(patch),120,CPU,HTP0-REPACK
+Q4_0,454,RMS_NORM,norm,f32,ffn_out-23,blk.23,ffn_down,확인불가(patch),,CPU,HTP0
+Q4_0,455,ADD,l_out-23,f32,ffn_post_norm,ffn_post_norm,norm,확인불가(patch),2,CPU,HTP0
+Q4_0,456,MUL_MAT,Qcur-24,f32,blk.24.attn_q.weight,blk.24,attn_q,확인불가(patch),97,CPU,HTP0-REPACK
+Q4_0,457,MUL_MAT,Vcur-24,f32,blk.24.attn_v.weight,blk.24,attn_v,확인불가(patch),232,CPU,HTP0-REPACK
+Q4_0,458,MUL_MAT,Kcur-24,f32,blk.24.attn_k.weight,blk.24,attn_k,확인불가(patch),7,CPU,HTP0-REPACK
+Q4_0,459,RMS_NORM,norm-24,f32,Qcur-24,blk.24,attn_q,확인불가(patch),,CPU,HTP0
+Q4_0,460,ROPE,Qcur-24,f32,Qcur_normed-24,blk.24,attn_q,확인불가(patch),97,CPU,HTP0
+Q4_0,461,RMS_NORM,norm-24,f32,Kcur-24,blk.24,attn_k,확인불가(patch),,CPU,HTP0
+Q4_0,462,ROPE,Kcur-24,f32,Kcur_normed-24,blk.24,attn_k,확인불가(patch),7,CPU,HTP0
+Q4_0,463,SET_ROWS,cache_k_l24 (view),f16,Kcur-24 (view),blk.24,attn_k,확인불가(patch),,CPU,HTP0
+Q4_0,464,SET_ROWS,cache_v_l24 (view),f16,Vcur-24 (view),blk.24,attn_v,확인불가(patch),,CPU,HTP0
+Q4_0,465,FLASH_ATTN_EXT,__fattn__-24,f32,Qcur-24 (view) (permuted),blk.24,attn_q,확인불가(patch),263,CPU,HTP0
+Q4_0,466,MUL_MAT,attn_out-24,f32,blk.24.attn_output.weight,blk.24,attn_output,확인불가(patch),65,CPU,HTP0-REPACK
+Q4_0,467,RMS_NORM,norm-24,f32,attn_out-24,blk.24,attn_output,확인불가(patch),,CPU,HTP0
+Q4_0,468,ADD,ffn_inp-24,f32,attn_post_norm-24,blk.24,norm,확인불가(patch),6,CPU,HTP0
+Q4_0,469,MUL_MAT,ffn_gate-24,f32,blk.24.ffn_gate.weight,blk.24,ffn_gate,확인불가(patch),750,CPU,HTP0-REPACK
+Q4_0,470,MUL_MAT,ffn_up-24,f32,blk.24.ffn_up.weight,blk.24,ffn_up,확인불가(patch),231,CPU,HTP0-REPACK
+Q4_0,471,GLU,ffn_swiglu-24,f32,ffn_gate-24,blk.24,ffn_gate,확인불가(patch),11,CPU,HTP0
+Q4_0,472,MUL_MAT,ffn_out-24,f32,blk.24.ffn_down.weight,blk.24,ffn_down,확인불가(patch),118,CPU,HTP0-REPACK
+Q4_0,473,RMS_NORM,norm,f32,ffn_out-24,blk.24,ffn_down,확인불가(patch),,CPU,HTP0
+Q4_0,474,ADD,l_out-24,f32,ffn_post_norm,ffn_post_norm,norm,확인불가(patch),2,CPU,HTP0
+Q4_0,475,MUL_MAT,Qcur-25,f32,blk.25.attn_q.weight,blk.25,attn_q,확인불가(patch),96,CPU,HTP0-REPACK
+Q4_0,476,MUL_MAT,Vcur-25,f32,blk.25.attn_v.weight,blk.25,attn_v,확인불가(patch),229,CPU,HTP0-REPACK
+Q4_0,477,MUL_MAT,Kcur-25,f32,blk.25.attn_k.weight,blk.25,attn_k,확인불가(patch),7,CPU,HTP0-REPACK
+Q4_0,478,RMS_NORM,norm-25,f32,Qcur-25,blk.25,attn_q,확인불가(patch),,CPU,HTP0
+Q4_0,479,ROPE,Qcur-25,f32,Qcur_normed-25,blk.25,attn_q,확인불가(patch),96,CPU,HTP0
+Q4_0,480,RMS_NORM,norm-25,f32,Kcur-25,blk.25,attn_k,확인불가(patch),,CPU,HTP0
+Q4_0,481,ROPE,Kcur-25,f32,Kcur_normed-25,blk.25,attn_k,확인불가(patch),7,CPU,HTP0
+Q4_0,482,SET_ROWS,cache_k_l25 (view),f16,Kcur-25 (view),blk.25,attn_k,확인불가(patch),,CPU,HTP0
+Q4_0,483,SET_ROWS,cache_v_l25 (view),f16,Vcur-25 (view),blk.25,attn_v,확인불가(patch),,CPU,HTP0
+Q4_0,484,FLASH_ATTN_EXT,__fattn__-25,f32,Qcur-25 (view) (permuted),blk.25,attn_q,확인불가(patch),264,CPU,HTP0
+Q4_0,485,MUL_MAT,attn_out-25,f32,blk.25.attn_output.weight,blk.25,attn_output,확인불가(patch),64,CPU,HTP0-REPACK
+Q4_0,486,RMS_NORM,norm-25,f32,attn_out-25,blk.25,attn_output,확인불가(patch),,CPU,HTP0
+Q4_0,487,ADD,ffn_inp-25,f32,attn_post_norm-25,blk.25,norm,확인불가(patch),6,CPU,HTP0
+Q4_0,488,MUL_MAT,ffn_gate-25,f32,blk.25.ffn_gate.weight,blk.25,ffn_gate,확인불가(patch),754,CPU,HTP0-REPACK
+Q4_0,489,MUL_MAT,ffn_up-25,f32,blk.25.ffn_up.weight,blk.25,ffn_up,확인불가(patch),227,CPU,HTP0-REPACK
+Q4_0,490,GLU,ffn_swiglu-25,f32,ffn_gate-25,blk.25,ffn_gate,확인불가(patch),11,CPU,HTP0
+Q4_0,491,MUL_MAT,ffn_out-25,f32,blk.25.ffn_down.weight,blk.25,ffn_down,확인불가(patch),117,CPU,HTP0-REPACK
+Q4_0,492,RMS_NORM,norm,f32,ffn_out-25,blk.25,ffn_down,확인불가(patch),,CPU,HTP0
+Q4_0,493,ADD,l_out-25,f32,ffn_post_norm,ffn_post_norm,norm,확인불가(patch),2,CPU,HTP0
+Q4_0,494,MUL_MAT,Qcur-26,f32,blk.26.attn_q.weight,blk.26,attn_q,확인불가(patch),91,CPU,HTP0-REPACK
+Q4_0,495,MUL_MAT,Vcur-26,f32,blk.26.attn_v.weight,blk.26,attn_v,확인불가(patch),230,CPU,HTP0-REPACK
+Q4_0,496,MUL_MAT,Kcur-26,f32,blk.26.attn_k.weight,blk.26,attn_k,확인불가(patch),7,CPU,HTP0-REPACK
+Q4_0,497,RMS_NORM,norm-26,f32,Qcur-26,blk.26,attn_q,확인불가(patch),,CPU,HTP0
+Q4_0,498,ROPE,Qcur-26,f32,Qcur_normed-26,blk.26,attn_q,확인불가(patch),91,CPU,HTP0
+Q4_0,499,RMS_NORM,norm-26,f32,Kcur-26,blk.26,attn_k,확인불가(patch),,CPU,HTP0
+Q4_0,500,ROPE,Kcur-26,f32,Kcur_normed-26,blk.26,attn_k,확인불가(patch),7,CPU,HTP0
+Q4_0,501,SET_ROWS,cache_k_l26 (view),f16,Kcur-26 (view),blk.26,attn_k,확인불가(patch),,CPU,HTP0
+Q4_0,502,SET_ROWS,cache_v_l26 (view),f16,Vcur-26 (view),blk.26,attn_v,확인불가(patch),,CPU,HTP0
+Q4_0,503,FLASH_ATTN_EXT,__fattn__-26,f32,Qcur-26 (view) (permuted),blk.26,attn_q,확인불가(patch),267,CPU,HTP0
+Q4_0,504,MUL_MAT,attn_out-26,f32,blk.26.attn_output.weight,blk.26,attn_output,확인불가(patch),65,CPU,HTP0-REPACK
+Q4_0,505,RMS_NORM,norm-26,f32,attn_out-26,blk.26,attn_output,확인불가(patch),,CPU,HTP0
+Q4_0,506,ADD,ffn_inp-26,f32,attn_post_norm-26,blk.26,norm,확인불가(patch),6,CPU,HTP0
+Q4_0,507,MUL_MAT,ffn_gate-26,f32,blk.26.ffn_gate.weight,blk.26,ffn_gate,확인불가(patch),748,CPU,HTP0-REPACK
+Q4_0,508,MUL_MAT,ffn_up-26,f32,blk.26.ffn_up.weight,blk.26,ffn_up,확인불가(patch),228,CPU,HTP0-REPACK
+Q4_0,509,GLU,ffn_swiglu-26,f32,ffn_gate-26,blk.26,ffn_gate,확인불가(patch),11,CPU,HTP0
+Q4_0,510,MUL_MAT,ffn_out-26,f32,blk.26.ffn_down.weight,blk.26,ffn_down,확인불가(patch),118,CPU,HTP0-REPACK
+Q4_0,511,RMS_NORM,norm,f32,ffn_out-26,blk.26,ffn_down,확인불가(patch),,CPU,HTP0
+Q4_0,512,ADD,l_out-26,f32,ffn_post_norm,ffn_post_norm,norm,확인불가(patch),2,CPU,HTP0
+Q4_0,513,MUL_MAT,Qcur-27,f32,blk.27.attn_q.weight,blk.27,attn_q,확인불가(patch),94,CPU,HTP0-REPACK
+Q4_0,514,MUL_MAT,Vcur-27,f32,blk.27.attn_v.weight,blk.27,attn_v,확인불가(patch),230,CPU,HTP0-REPACK
+Q4_0,515,MUL_MAT,Kcur-27,f32,blk.27.attn_k.weight,blk.27,attn_k,확인불가(patch),7,CPU,HTP0-REPACK
+Q4_0,516,RMS_NORM,norm-27,f32,Qcur-27,blk.27,attn_q,확인불가(patch),,CPU,HTP0
+Q4_0,517,ROPE,Qcur-27,f32,Qcur_normed-27,blk.27,attn_q,확인불가(patch),94,CPU,HTP0
+Q4_0,518,RMS_NORM,norm-27,f32,Kcur-27,blk.27,attn_k,확인불가(patch),,CPU,HTP0
+Q4_0,519,ROPE,Kcur-27,f32,Kcur_normed-27,blk.27,attn_k,확인불가(patch),7,CPU,HTP0
+Q4_0,520,SET_ROWS,cache_k_l27 (view),f16,Kcur-27 (view),blk.27,attn_k,확인불가(patch),,CPU,HTP0
+Q4_0,521,SET_ROWS,cache_v_l27 (view),f16,Vcur-27 (view),blk.27,attn_v,확인불가(patch),,CPU,HTP0
+Q4_0,522,FLASH_ATTN_EXT,__fattn__-27,f32,Qcur-27 (view) (permuted),blk.27,attn_q,확인불가(patch),265,CPU,HTP0
+Q4_0,523,MUL_MAT,attn_out-27,f32,blk.27.attn_output.weight,blk.27,attn_output,확인불가(patch),61,CPU,HTP0-REPACK
+Q4_0,524,RMS_NORM,norm-27,f32,attn_out-27,blk.27,attn_output,확인불가(patch),,CPU,HTP0
+Q4_0,525,ADD,ffn_inp-27,f32,attn_post_norm-27,blk.27,norm,확인불가(patch),6,CPU,HTP0
+Q4_0,526,MUL_MAT,ffn_gate-27,f32,blk.27.ffn_gate.weight,blk.27,ffn_gate,확인불가(patch),759,CPU,HTP0-REPACK
+Q4_0,527,MUL_MAT,ffn_up-27,f32,blk.27.ffn_up.weight,blk.27,ffn_up,확인불가(patch),221,CPU,HTP0-REPACK
+Q4_0,528,GLU,ffn_swiglu-27,f32,ffn_gate-27,blk.27,ffn_gate,확인불가(patch),11,CPU,HTP0
+Q4_0,529,MUL_MAT,ffn_out-27,f32,blk.27.ffn_down.weight,blk.27,ffn_down,확인불가(patch),109,CPU,HTP0-REPACK
+Q4_0,530,RMS_NORM,norm,f32,ffn_out-27,blk.27,ffn_down,확인불가(patch),,CPU,HTP0
+Q4_0,531,ADD,l_out-27,f32,ffn_post_norm,ffn_post_norm,norm,확인불가(patch),2,CPU,HTP0
+Q4_0,532,MUL_MAT,Qcur-28,f32,blk.28.attn_q.weight,blk.28,attn_q,확인불가(patch),95,CPU,HTP0-REPACK
+Q4_0,533,MUL_MAT,Vcur-28,f32,blk.28.attn_v.weight,blk.28,attn_v,확인불가(patch),228,CPU,HTP0-REPACK
+Q4_0,534,MUL_MAT,Kcur-28,f32,blk.28.attn_k.weight,blk.28,attn_k,확인불가(patch),7,CPU,HTP0-REPACK
+Q4_0,535,RMS_NORM,norm-28,f32,Qcur-28,blk.28,attn_q,확인불가(patch),,CPU,HTP0
+Q4_0,536,ROPE,Qcur-28,f32,Qcur_normed-28,blk.28,attn_q,확인불가(patch),95,CPU,HTP0
+Q4_0,537,RMS_NORM,norm-28,f32,Kcur-28,blk.28,attn_k,확인불가(patch),,CPU,HTP0
+Q4_0,538,ROPE,Kcur-28,f32,Kcur_normed-28,blk.28,attn_k,확인불가(patch),7,CPU,HTP0
+Q4_0,539,SET_ROWS,cache_k_l28 (view),f16,Kcur-28 (view),blk.28,attn_k,확인불가(patch),,CPU,HTP0
+Q4_0,540,SET_ROWS,cache_v_l28 (view),f16,Vcur-28 (view),blk.28,attn_v,확인불가(patch),,CPU,HTP0
+Q4_0,541,FLASH_ATTN_EXT,__fattn__-28,f32,Qcur-28 (view) (permuted),blk.28,attn_q,확인불가(patch),267,CPU,HTP0
+Q4_0,542,MUL_MAT,attn_out-28,f32,blk.28.attn_output.weight,blk.28,attn_output,확인불가(patch),61,CPU,HTP0-REPACK
+Q4_0,543,RMS_NORM,norm-28,f32,attn_out-28,blk.28,attn_output,확인불가(patch),,CPU,HTP0
+Q4_0,544,ADD,ffn_inp-28,f32,attn_post_norm-28,blk.28,norm,확인불가(patch),6,CPU,HTP0
+Q4_0,545,MUL_MAT,ffn_gate-28,f32,blk.28.ffn_gate.weight,blk.28,ffn_gate,확인불가(patch),756,CPU,HTP0-REPACK
+Q4_0,546,MUL_MAT,ffn_up-28,f32,blk.28.ffn_up.weight,blk.28,ffn_up,확인불가(patch),221,CPU,HTP0-REPACK
+Q4_0,547,GLU,ffn_swiglu-28,f32,ffn_gate-28,blk.28,ffn_gate,확인불가(patch),11,CPU,HTP0
+Q4_0,548,MUL_MAT,ffn_out-28,f32,blk.28.ffn_down.weight,blk.28,ffn_down,확인불가(patch),118,CPU,HTP0-REPACK
+Q4_0,549,RMS_NORM,norm,f32,ffn_out-28,blk.28,ffn_down,확인불가(patch),,CPU,HTP0
+Q4_0,550,ADD,l_out-28,f32,ffn_post_norm,ffn_post_norm,norm,확인불가(patch),2,CPU,HTP0
+Q4_0,551,MUL_MAT,Qcur-29,f32,blk.29.attn_q.weight,blk.29,attn_q,확인불가(patch),90,CPU,HTP0-REPACK
+Q4_0,552,MUL_MAT,Vcur-29,f32,blk.29.attn_v.weight,blk.29,attn_v,확인불가(patch),231,CPU,HTP0-REPACK
+Q4_0,553,MUL_MAT,Kcur-29,f32,blk.29.attn_k.weight,blk.29,attn_k,확인불가(patch),7,CPU,HTP0-REPACK
+Q4_0,554,RMS_NORM,norm-29,f32,Qcur-29,blk.29,attn_q,확인불가(patch),,CPU,HTP0
+Q4_0,555,ROPE,Qcur-29,f32,Qcur_normed-29,blk.29,attn_q,확인불가(patch),90,CPU,HTP0
+Q4_0,556,RMS_NORM,norm-29,f32,Kcur-29,blk.29,attn_k,확인불가(patch),,CPU,HTP0
+Q4_0,557,ROPE,Kcur-29,f32,Kcur_normed-29,blk.29,attn_k,확인불가(patch),7,CPU,HTP0
+Q4_0,558,SET_ROWS,cache_k_l29 (view),f16,Kcur-29 (view),blk.29,attn_k,확인불가(patch),,CPU,HTP0
+Q4_0,559,SET_ROWS,cache_v_l29 (view),f16,Vcur-29 (view),blk.29,attn_v,확인불가(patch),,CPU,HTP0
+Q4_0,560,FLASH_ATTN_EXT,__fattn__-29,f32,Qcur-29 (view) (permuted),blk.29,attn_q,확인불가(patch),264,CPU,HTP0
+Q4_0,561,MUL_MAT,attn_out-29,f32,blk.29.attn_output.weight,blk.29,attn_output,확인불가(patch),60,CPU,HTP0-REPACK
+Q4_0,562,GET_ROWS,node_1041,f32,attn_out-29,blk.29,attn_output,확인불가(patch),3,CPU,HTP0
+Q4_0,563,RMS_NORM,norm-29,f32,node_1041,blk.29,norm,확인불가(patch),,CPU,HTP0
+Q4_0,564,GET_ROWS,node_1044,f32,l_out-28,node_1044,other,확인불가(patch),1,CPU,HTP0
+Q4_0,565,ADD,ffn_inp-29,f32,attn_post_norm-29,blk.29,norm,확인불가(patch),5,CPU,HTP0
+Q4_0,566,MUL_MAT,ffn_gate-29,f32,blk.29.ffn_gate.weight,blk.29,ffn_gate,확인불가(patch),,CPU,HTP0-REPACK
+Q4_0,567,GLU,ffn_swiglu-29,f32,ffn_gate-29,blk.29,ffn_gate,확인불가(patch),11,CPU,HTP0
+Q4_0,568,MUL_MAT,ffn_out-29,f32,blk.29.ffn_down.weight,blk.29,ffn_down,확인불가(patch),114,CPU,HTP0-REPACK
+Q4_0,569,RMS_NORM,norm,f32,ffn_out-29,blk.29,ffn_down,확인불가(patch),,CPU,HTP0
+Q4_0,570,ADD,l_out-29,f32,ffn_post_norm,ffn_post_norm,norm,확인불가(patch),2,CPU,HTP0
+Q4_0,571,RMS_NORM,norm,f32,l_out-29,norm,norm,확인불가(patch),,CPU,HTP0
+Q8_0,,GET_ROWS,embd,,token_embd.weight,embedding,token_embd,확인불가(patch),"확인불가(CPU fallback, patch)",CPU,CPU
+Q8_0,,MUL_MAT,result_output,,token_embd.weight,embedding,token_embd,확인불가(patch),"확인불가(CPU fallback, patch)",CPU,CPU
+Q8_0,0,MUL_MAT,Qcur-0,f32,blk.0.attn_q.weight,blk.0,attn_q,확인불가(patch),153,CPU,HTP0-REPACK
+Q8_0,1,MUL_MAT,Vcur-0,f32,blk.0.attn_v.weight,blk.0,attn_v,확인불가(patch),247,CPU,HTP0-REPACK
+Q8_0,2,MUL_MAT,Kcur-0,f32,blk.0.attn_k.weight,blk.0,attn_k,확인불가(patch),7,CPU,HTP0-REPACK
+Q8_0,3,RMS_NORM,norm-0,f32,Qcur-0,blk.0,attn_q,확인불가(patch),,CPU,HTP0
+Q8_0,4,ROPE,Qcur-0,f32,Qcur_normed-0,blk.0,attn_q,확인불가(patch),153,CPU,HTP0
+Q8_0,5,RMS_NORM,norm-0,f32,Kcur-0,blk.0,attn_k,확인불가(patch),,CPU,HTP0
+Q8_0,6,ROPE,Kcur-0,f32,Kcur_normed-0,blk.0,attn_k,확인불가(patch),7,CPU,HTP0
+Q8_0,7,SET_ROWS,cache_k_l0 (view),f16,Kcur-0 (view),blk.0,attn_k,확인불가(patch),,CPU,HTP0
+Q8_0,8,SET_ROWS,cache_v_l0 (view),f16,Vcur-0 (view),blk.0,attn_v,확인불가(patch),,CPU,HTP0
+Q8_0,9,FLASH_ATTN_EXT,__fattn__-0,f32,Qcur-0 (view) (permuted),blk.0,attn_q,확인불가(patch),274,CPU,HTP0
+Q8_0,10,MUL_MAT,attn_out-0,f32,blk.0.attn_output.weight,blk.0,attn_output,확인불가(patch),107,CPU,HTP0-REPACK
+Q8_0,11,RMS_NORM,norm-0,f32,attn_out-0,blk.0,attn_output,확인불가(patch),,CPU,HTP0
+Q8_0,12,ADD,ffn_inp-0,f32,attn_post_norm-0,blk.0,norm,확인불가(patch),8,CPU,HTP0
+Q8_0,13,MUL_MAT,ffn_gate-0,f32,blk.0.ffn_gate.weight,blk.0,ffn_gate,확인불가(patch),830,CPU,HTP0-REPACK
+Q8_0,14,MUL_MAT,ffn_up-0,f32,blk.0.ffn_up.weight,blk.0,ffn_up,확인불가(patch),416,CPU,HTP0-REPACK
+Q8_0,15,GLU,ffn_swiglu-0,f32,ffn_gate-0,blk.0,ffn_gate,확인불가(patch),12,CPU,HTP0
+Q8_0,16,MUL_MAT,ffn_out-0,f32,blk.0.ffn_down.weight,blk.0,ffn_down,확인불가(patch),209,CPU,HTP0-REPACK
+Q8_0,17,RMS_NORM,norm,f32,ffn_out-0,blk.0,ffn_down,확인불가(patch),,CPU,HTP0
+Q8_0,18,ADD,l_out-0,f32,ffn_post_norm,ffn_post_norm,norm,확인불가(patch),2,CPU,HTP0
+Q8_0,19,MUL_MAT,Qcur-1,f32,blk.1.attn_q.weight,blk.1,attn_q,확인불가(patch),145,CPU,HTP0-REPACK
+Q8_0,20,MUL_MAT,Vcur-1,f32,blk.1.attn_v.weight,blk.1,attn_v,확인불가(patch),237,CPU,HTP0-REPACK
+Q8_0,21,MUL_MAT,Kcur-1,f32,blk.1.attn_k.weight,blk.1,attn_k,확인불가(patch),7,CPU,HTP0-REPACK
+Q8_0,22,RMS_NORM,norm-1,f32,Qcur-1,blk.1,attn_q,확인불가(patch),,CPU,HTP0
+Q8_0,23,ROPE,Qcur-1,f32,Qcur_normed-1,blk.1,attn_q,확인불가(patch),145,CPU,HTP0
+Q8_0,24,RMS_NORM,norm-1,f32,Kcur-1,blk.1,attn_k,확인불가(patch),,CPU,HTP0
+Q8_0,25,ROPE,Kcur-1,f32,Kcur_normed-1,blk.1,attn_k,확인불가(patch),7,CPU,HTP0
+Q8_0,26,SET_ROWS,cache_k_l1 (view),f16,Kcur-1 (view),blk.1,attn_k,확인불가(patch),,CPU,HTP0
+Q8_0,27,SET_ROWS,cache_v_l1 (view),f16,Vcur-1 (view),blk.1,attn_v,확인불가(patch),,CPU,HTP0
+Q8_0,28,FLASH_ATTN_EXT,__fattn__-1,f32,Qcur-1 (view) (permuted),blk.1,attn_q,확인불가(patch),265,CPU,HTP0
+Q8_0,29,MUL_MAT,attn_out-1,f32,blk.1.attn_output.weight,blk.1,attn_output,확인불가(patch),92,CPU,HTP0-REPACK
+Q8_0,30,RMS_NORM,norm-1,f32,attn_out-1,blk.1,attn_output,확인불가(patch),,CPU,HTP0
+Q8_0,31,ADD,ffn_inp-1,f32,attn_post_norm-1,blk.1,norm,확인불가(patch),5,CPU,HTP0
+Q8_0,32,MUL_MAT,ffn_gate-1,f32,blk.1.ffn_gate.weight,blk.1,ffn_gate,확인불가(patch),832,CPU,HTP0-REPACK
+Q8_0,33,MUL_MAT,ffn_up-1,f32,blk.1.ffn_up.weight,blk.1,ffn_up,확인불가(patch),385,CPU,HTP0-REPACK
+Q8_0,34,GLU,ffn_swiglu-1,f32,ffn_gate-1,blk.1,ffn_gate,확인불가(patch),10,CPU,HTP0
+Q8_0,35,MUL_MAT,ffn_out-1,f32,blk.1.ffn_down.weight,blk.1,ffn_down,확인불가(patch),177,CPU,HTP0-REPACK
+Q8_0,36,RMS_NORM,norm,f32,ffn_out-1,blk.1,ffn_down,확인불가(patch),,CPU,HTP0
+Q8_0,37,ADD,l_out-1,f32,ffn_post_norm,ffn_post_norm,norm,확인불가(patch),2,CPU,HTP0
+Q8_0,38,MUL_MAT,Qcur-2,f32,blk.2.attn_q.weight,blk.2,attn_q,확인불가(patch),151,CPU,HTP0-REPACK
+Q8_0,39,MUL_MAT,Vcur-2,f32,blk.2.attn_v.weight,blk.2,attn_v,확인불가(patch),243,CPU,HTP0-REPACK
+Q8_0,40,MUL_MAT,Kcur-2,f32,blk.2.attn_k.weight,blk.2,attn_k,확인불가(patch),7,CPU,HTP0-REPACK
+Q8_0,41,RMS_NORM,norm-2,f32,Qcur-2,blk.2,attn_q,확인불가(patch),,CPU,HTP0
+Q8_0,42,ROPE,Qcur-2,f32,Qcur_normed-2,blk.2,attn_q,확인불가(patch),151,CPU,HTP0
+Q8_0,43,RMS_NORM,norm-2,f32,Kcur-2,blk.2,attn_k,확인불가(patch),,CPU,HTP0
+Q8_0,44,ROPE,Kcur-2,f32,Kcur_normed-2,blk.2,attn_k,확인불가(patch),7,CPU,HTP0
+Q8_0,45,SET_ROWS,cache_k_l2 (view),f16,Kcur-2 (view),blk.2,attn_k,확인불가(patch),,CPU,HTP0
+Q8_0,46,SET_ROWS,cache_v_l2 (view),f16,Vcur-2 (view),blk.2,attn_v,확인불가(patch),,CPU,HTP0
+Q8_0,47,FLASH_ATTN_EXT,__fattn__-2,f32,Qcur-2 (view) (permuted),blk.2,attn_q,확인불가(patch),265,CPU,HTP0
+Q8_0,48,MUL_MAT,attn_out-2,f32,blk.2.attn_output.weight,blk.2,attn_output,확인불가(patch),91,CPU,HTP0-REPACK
+Q8_0,49,RMS_NORM,norm-2,f32,attn_out-2,blk.2,attn_output,확인불가(patch),,CPU,HTP0
+Q8_0,50,ADD,ffn_inp-2,f32,attn_post_norm-2,blk.2,norm,확인불가(patch),6,CPU,HTP0
+Q8_0,51,MUL_MAT,ffn_gate-2,f32,blk.2.ffn_gate.weight,blk.2,ffn_gate,확인불가(patch),829,CPU,HTP0-REPACK
+Q8_0,52,MUL_MAT,ffn_up-2,f32,blk.2.ffn_up.weight,blk.2,ffn_up,확인불가(patch),393,CPU,HTP0-REPACK
+Q8_0,53,GLU,ffn_swiglu-2,f32,ffn_gate-2,blk.2,ffn_gate,확인불가(patch),10,CPU,HTP0
+Q8_0,54,MUL_MAT,ffn_out-2,f32,blk.2.ffn_down.weight,blk.2,ffn_down,확인불가(patch),178,CPU,HTP0-REPACK
+Q8_0,55,RMS_NORM,norm,f32,ffn_out-2,blk.2,ffn_down,확인불가(patch),,CPU,HTP0
+Q8_0,56,ADD,l_out-2,f32,ffn_post_norm,ffn_post_norm,norm,확인불가(patch),2,CPU,HTP0
+Q8_0,57,MUL_MAT,Qcur-3,f32,blk.3.attn_q.weight,blk.3,attn_q,확인불가(patch),138,CPU,HTP0-REPACK
+Q8_0,58,MUL_MAT,Vcur-3,f32,blk.3.attn_v.weight,blk.3,attn_v,확인불가(patch),236,CPU,HTP0-REPACK
+Q8_0,59,MUL_MAT,Kcur-3,f32,blk.3.attn_k.weight,blk.3,attn_k,확인불가(patch),7,CPU,HTP0-REPACK
+Q8_0,60,RMS_NORM,norm-3,f32,Qcur-3,blk.3,attn_q,확인불가(patch),,CPU,HTP0
+Q8_0,61,ROPE,Qcur-3,f32,Qcur_normed-3,blk.3,attn_q,확인불가(patch),138,CPU,HTP0
+Q8_0,62,RMS_NORM,norm-3,f32,Kcur-3,blk.3,attn_k,확인불가(patch),,CPU,HTP0
+Q8_0,63,ROPE,Kcur-3,f32,Kcur_normed-3,blk.3,attn_k,확인불가(patch),7,CPU,HTP0
+Q8_0,64,SET_ROWS,cache_k_l3 (view),f16,Kcur-3 (view),blk.3,attn_k,확인불가(patch),,CPU,HTP0
+Q8_0,65,SET_ROWS,cache_v_l3 (view),f16,Vcur-3 (view),blk.3,attn_v,확인불가(patch),,CPU,HTP0
+Q8_0,66,FLASH_ATTN_EXT,__fattn__-3,f32,Qcur-3 (view) (permuted),blk.3,attn_q,확인불가(patch),268,CPU,HTP0
+Q8_0,67,MUL_MAT,attn_out-3,f32,blk.3.attn_output.weight,blk.3,attn_output,확인불가(patch),94,CPU,HTP0-REPACK
+Q8_0,68,RMS_NORM,norm-3,f32,attn_out-3,blk.3,attn_output,확인불가(patch),,CPU,HTP0
+Q8_0,69,ADD,ffn_inp-3,f32,attn_post_norm-3,blk.3,norm,확인불가(patch),6,CPU,HTP0
+Q8_0,70,MUL_MAT,ffn_gate-3,f32,blk.3.ffn_gate.weight,blk.3,ffn_gate,확인불가(patch),838,CPU,HTP0-REPACK
+Q8_0,71,MUL_MAT,ffn_up-3,f32,blk.3.ffn_up.weight,blk.3,ffn_up,확인불가(patch),408,CPU,HTP0-REPACK
+Q8_0,72,GLU,ffn_swiglu-3,f32,ffn_gate-3,blk.3,ffn_gate,확인불가(patch),10,CPU,HTP0
+Q8_0,73,MUL_MAT,ffn_out-3,f32,blk.3.ffn_down.weight,blk.3,ffn_down,확인불가(patch),212,CPU,HTP0-REPACK
+Q8_0,74,RMS_NORM,norm,f32,ffn_out-3,blk.3,ffn_down,확인불가(patch),,CPU,HTP0
+Q8_0,75,ADD,l_out-3,f32,ffn_post_norm,ffn_post_norm,norm,확인불가(patch),2,CPU,HTP0
+Q8_0,76,MUL_MAT,Qcur-4,f32,blk.4.attn_q.weight,blk.4,attn_q,확인불가(patch),139,CPU,HTP0-REPACK
+Q8_0,77,MUL_MAT,Vcur-4,f32,blk.4.attn_v.weight,blk.4,attn_v,확인불가(patch),256,CPU,HTP0-REPACK
+Q8_0,78,MUL_MAT,Kcur-4,f32,blk.4.attn_k.weight,blk.4,attn_k,확인불가(patch),7,CPU,HTP0-REPACK
+Q8_0,79,RMS_NORM,norm-4,f32,Qcur-4,blk.4,attn_q,확인불가(patch),,CPU,HTP0
+Q8_0,80,ROPE,Qcur-4,f32,Qcur_normed-4,blk.4,attn_q,확인불가(patch),139,CPU,HTP0
+Q8_0,81,RMS_NORM,norm-4,f32,Kcur-4,blk.4,attn_k,확인불가(patch),,CPU,HTP0
+Q8_0,82,ROPE,Kcur-4,f32,Kcur_normed-4,blk.4,attn_k,확인불가(patch),7,CPU,HTP0
+Q8_0,83,SET_ROWS,cache_k_l4 (view),f16,Kcur-4 (view),blk.4,attn_k,확인불가(patch),,CPU,HTP0
+Q8_0,84,SET_ROWS,cache_v_l4 (view),f16,Vcur-4 (view),blk.4,attn_v,확인불가(patch),,CPU,HTP0
+Q8_0,85,FLASH_ATTN_EXT,__fattn__-4,f32,Qcur-4 (view) (permuted),blk.4,attn_q,확인불가(patch),269,CPU,HTP0
+Q8_0,86,MUL_MAT,attn_out-4,f32,blk.4.attn_output.weight,blk.4,attn_output,확인불가(patch),94,CPU,HTP0-REPACK
+Q8_0,87,RMS_NORM,norm-4,f32,attn_out-4,blk.4,attn_output,확인불가(patch),,CPU,HTP0
+Q8_0,88,ADD,ffn_inp-4,f32,attn_post_norm-4,blk.4,norm,확인불가(patch),5,CPU,HTP0
+Q8_0,89,MUL_MAT,ffn_gate-4,f32,blk.4.ffn_gate.weight,blk.4,ffn_gate,확인불가(patch),832,CPU,HTP0-REPACK
+Q8_0,90,MUL_MAT,ffn_up-4,f32,blk.4.ffn_up.weight,blk.4,ffn_up,확인불가(patch),379,CPU,HTP0-REPACK
+Q8_0,91,GLU,ffn_swiglu-4,f32,ffn_gate-4,blk.4,ffn_gate,확인불가(patch),10,CPU,HTP0
+Q8_0,92,MUL_MAT,ffn_out-4,f32,blk.4.ffn_down.weight,blk.4,ffn_down,확인불가(patch),207,CPU,HTP0-REPACK
+Q8_0,93,RMS_NORM,norm,f32,ffn_out-4,blk.4,ffn_down,확인불가(patch),,CPU,HTP0
+Q8_0,94,ADD,l_out-4,f32,ffn_post_norm,ffn_post_norm,norm,확인불가(patch),2,CPU,HTP0
+Q8_0,95,MUL_MAT,Qcur-5,f32,blk.5.attn_q.weight,blk.5,attn_q,확인불가(patch),153,CPU,HTP0-REPACK
+Q8_0,96,MUL_MAT,Vcur-5,f32,blk.5.attn_v.weight,blk.5,attn_v,확인불가(patch),248,CPU,HTP0-REPACK
+Q8_0,97,MUL_MAT,Kcur-5,f32,blk.5.attn_k.weight,blk.5,attn_k,확인불가(patch),7,CPU,HTP0-REPACK
+Q8_0,98,RMS_NORM,norm-5,f32,Qcur-5,blk.5,attn_q,확인불가(patch),,CPU,HTP0
+Q8_0,99,ROPE,Qcur-5,f32,Qcur_normed-5,blk.5,attn_q,확인불가(patch),153,CPU,HTP0
+Q8_0,100,RMS_NORM,norm-5,f32,Kcur-5,blk.5,attn_k,확인불가(patch),,CPU,HTP0
+Q8_0,101,ROPE,Kcur-5,f32,Kcur_normed-5,blk.5,attn_k,확인불가(patch),7,CPU,HTP0
+Q8_0,102,SET_ROWS,cache_k_l5 (view),f16,Kcur-5 (view),blk.5,attn_k,확인불가(patch),,CPU,HTP0
+Q8_0,103,SET_ROWS,cache_v_l5 (view),f16,Vcur-5 (view),blk.5,attn_v,확인불가(patch),,CPU,HTP0
+Q8_0,104,FLASH_ATTN_EXT,__fattn__-5,f32,Qcur-5 (view) (permuted),blk.5,attn_q,확인불가(patch),263,CPU,HTP0
+Q8_0,105,MUL_MAT,attn_out-5,f32,blk.5.attn_output.weight,blk.5,attn_output,확인불가(patch),97,CPU,HTP0-REPACK
+Q8_0,106,RMS_NORM,norm-5,f32,attn_out-5,blk.5,attn_output,확인불가(patch),,CPU,HTP0
+Q8_0,107,ADD,ffn_inp-5,f32,attn_post_norm-5,blk.5,norm,확인불가(patch),5,CPU,HTP0
+Q8_0,108,MUL_MAT,ffn_gate-5,f32,blk.5.ffn_gate.weight,blk.5,ffn_gate,확인불가(patch),829,CPU,HTP0-REPACK
+Q8_0,109,MUL_MAT,ffn_up-5,f32,blk.5.ffn_up.weight,blk.5,ffn_up,확인불가(patch),342,CPU,HTP0-REPACK
+Q8_0,110,GLU,ffn_swiglu-5,f32,ffn_gate-5,blk.5,ffn_gate,확인불가(patch),10,CPU,HTP0
+Q8_0,111,MUL_MAT,ffn_out-5,f32,blk.5.ffn_down.weight,blk.5,ffn_down,확인불가(patch),174,CPU,HTP0-REPACK
+Q8_0,112,RMS_NORM,norm,f32,ffn_out-5,blk.5,ffn_down,확인불가(patch),,CPU,HTP0
+Q8_0,113,ADD,l_out-5,f32,ffn_post_norm,ffn_post_norm,norm,확인불가(patch),2,CPU,HTP0
+Q8_0,114,MUL_MAT,Qcur-6,f32,blk.6.attn_q.weight,blk.6,attn_q,확인불가(patch),139,CPU,HTP0-REPACK
+Q8_0,115,MUL_MAT,Vcur-6,f32,blk.6.attn_v.weight,blk.6,attn_v,확인불가(patch),235,CPU,HTP0-REPACK
+Q8_0,116,MUL_MAT,Kcur-6,f32,blk.6.attn_k.weight,blk.6,attn_k,확인불가(patch),7,CPU,HTP0-REPACK
+Q8_0,117,RMS_NORM,norm-6,f32,Qcur-6,blk.6,attn_q,확인불가(patch),,CPU,HTP0
+Q8_0,118,ROPE,Qcur-6,f32,Qcur_normed-6,blk.6,attn_q,확인불가(patch),139,CPU,HTP0
+Q8_0,119,RMS_NORM,norm-6,f32,Kcur-6,blk.6,attn_k,확인불가(patch),,CPU,HTP0
+Q8_0,120,ROPE,Kcur-6,f32,Kcur_normed-6,blk.6,attn_k,확인불가(patch),7,CPU,HTP0
+Q8_0,121,SET_ROWS,cache_k_l6 (view),f16,Kcur-6 (view),blk.6,attn_k,확인불가(patch),,CPU,HTP0
+Q8_0,122,SET_ROWS,cache_v_l6 (view),f16,Vcur-6 (view),blk.6,attn_v,확인불가(patch),,CPU,HTP0
+Q8_0,123,FLASH_ATTN_EXT,__fattn__-6,f32,Qcur-6 (view) (permuted),blk.6,attn_q,확인불가(patch),266,CPU,HTP0
+Q8_0,124,MUL_MAT,attn_out-6,f32,blk.6.attn_output.weight,blk.6,attn_output,확인불가(patch),108,CPU,HTP0-REPACK
+Q8_0,125,RMS_NORM,norm-6,f32,attn_out-6,blk.6,attn_output,확인불가(patch),,CPU,HTP0
+Q8_0,126,ADD,ffn_inp-6,f32,attn_post_norm-6,blk.6,norm,확인불가(patch),6,CPU,HTP0
+Q8_0,127,MUL_MAT,ffn_gate-6,f32,blk.6.ffn_gate.weight,blk.6,ffn_gate,확인불가(patch),834,CPU,HTP0-REPACK
+Q8_0,128,MUL_MAT,ffn_up-6,f32,blk.6.ffn_up.weight,blk.6,ffn_up,확인불가(patch),377,CPU,HTP0-REPACK
+Q8_0,129,GLU,ffn_swiglu-6,f32,ffn_gate-6,blk.6,ffn_gate,확인불가(patch),11,CPU,HTP0
+Q8_0,130,MUL_MAT,ffn_out-6,f32,blk.6.ffn_down.weight,blk.6,ffn_down,확인불가(patch),219,CPU,HTP0-REPACK
+Q8_0,131,RMS_NORM,norm,f32,ffn_out-6,blk.6,ffn_down,확인불가(patch),,CPU,HTP0
+Q8_0,132,ADD,l_out-6,f32,ffn_post_norm,ffn_post_norm,norm,확인불가(patch),2,CPU,HTP0
+Q8_0,133,MUL_MAT,Qcur-7,f32,blk.7.attn_q.weight,blk.7,attn_q,확인불가(patch),137,CPU,HTP0-REPACK
+Q8_0,134,MUL_MAT,Vcur-7,f32,blk.7.attn_v.weight,blk.7,attn_v,확인불가(patch),240,CPU,HTP0-REPACK
+Q8_0,135,MUL_MAT,Kcur-7,f32,blk.7.attn_k.weight,blk.7,attn_k,확인불가(patch),7,CPU,HTP0-REPACK
+Q8_0,136,RMS_NORM,norm-7,f32,Qcur-7,blk.7,attn_q,확인불가(patch),,CPU,HTP0
+Q8_0,137,ROPE,Qcur-7,f32,Qcur_normed-7,blk.7,attn_q,확인불가(patch),137,CPU,HTP0
+Q8_0,138,RMS_NORM,norm-7,f32,Kcur-7,blk.7,attn_k,확인불가(patch),,CPU,HTP0
+Q8_0,139,ROPE,Kcur-7,f32,Kcur_normed-7,blk.7,attn_k,확인불가(patch),7,CPU,HTP0
+Q8_0,140,SET_ROWS,cache_k_l7 (view),f16,Kcur-7 (view),blk.7,attn_k,확인불가(patch),,CPU,HTP0
+Q8_0,141,SET_ROWS,cache_v_l7 (view),f16,Vcur-7 (view),blk.7,attn_v,확인불가(patch),,CPU,HTP0
+Q8_0,142,FLASH_ATTN_EXT,__fattn__-7,f32,Qcur-7 (view) (permuted),blk.7,attn_q,확인불가(patch),270,CPU,HTP0
+Q8_0,143,MUL_MAT,attn_out-7,f32,blk.7.attn_output.weight,blk.7,attn_output,확인불가(patch),100,CPU,HTP0-REPACK
+Q8_0,144,RMS_NORM,norm-7,f32,attn_out-7,blk.7,attn_output,확인불가(patch),,CPU,HTP0
+Q8_0,145,ADD,ffn_inp-7,f32,attn_post_norm-7,blk.7,norm,확인불가(patch),6,CPU,HTP0
+Q8_0,146,MUL_MAT,ffn_gate-7,f32,blk.7.ffn_gate.weight,blk.7,ffn_gate,확인불가(patch),827,CPU,HTP0-REPACK
+Q8_0,147,MUL_MAT,ffn_up-7,f32,blk.7.ffn_up.weight,blk.7,ffn_up,확인불가(patch),380,CPU,HTP0-REPACK
+Q8_0,148,GLU,ffn_swiglu-7,f32,ffn_gate-7,blk.7,ffn_gate,확인불가(patch),10,CPU,HTP0
+Q8_0,149,MUL_MAT,ffn_out-7,f32,blk.7.ffn_down.weight,blk.7,ffn_down,확인불가(patch),175,CPU,HTP0-REPACK
+Q8_0,150,RMS_NORM,norm,f32,ffn_out-7,blk.7,ffn_down,확인불가(patch),,CPU,HTP0
+Q8_0,151,ADD,l_out-7,f32,ffn_post_norm,ffn_post_norm,norm,확인불가(patch),2,CPU,HTP0
+Q8_0,152,MUL_MAT,Qcur-8,f32,blk.8.attn_q.weight,blk.8,attn_q,확인불가(patch),161,CPU,HTP0-REPACK
+Q8_0,153,MUL_MAT,Vcur-8,f32,blk.8.attn_v.weight,blk.8,attn_v,확인불가(patch),244,CPU,HTP0-REPACK
+Q8_0,154,MUL_MAT,Kcur-8,f32,blk.8.attn_k.weight,blk.8,attn_k,확인불가(patch),7,CPU,HTP0-REPACK
+Q8_0,155,RMS_NORM,norm-8,f32,Qcur-8,blk.8,attn_q,확인불가(patch),,CPU,HTP0
+Q8_0,156,ROPE,Qcur-8,f32,Qcur_normed-8,blk.8,attn_q,확인불가(patch),161,CPU,HTP0
+Q8_0,157,RMS_NORM,norm-8,f32,Kcur-8,blk.8,attn_k,확인불가(patch),,CPU,HTP0
+Q8_0,158,ROPE,Kcur-8,f32,Kcur_normed-8,blk.8,attn_k,확인불가(patch),7,CPU,HTP0
+Q8_0,159,SET_ROWS,cache_k_l8 (view),f16,Kcur-8 (view),blk.8,attn_k,확인불가(patch),,CPU,HTP0
+Q8_0,160,SET_ROWS,cache_v_l8 (view),f16,Vcur-8 (view),blk.8,attn_v,확인불가(patch),,CPU,HTP0
+Q8_0,161,FLASH_ATTN_EXT,__fattn__-8,f32,Qcur-8 (view) (permuted),blk.8,attn_q,확인불가(patch),276,CPU,HTP0
+Q8_0,162,MUL_MAT,attn_out-8,f32,blk.8.attn_output.weight,blk.8,attn_output,확인불가(patch),105,CPU,HTP0-REPACK
+Q8_0,163,RMS_NORM,norm-8,f32,attn_out-8,blk.8,attn_output,확인불가(patch),,CPU,HTP0
+Q8_0,164,ADD,ffn_inp-8,f32,attn_post_norm-8,blk.8,norm,확인불가(patch),6,CPU,HTP0
+Q8_0,165,MUL_MAT,ffn_gate-8,f32,blk.8.ffn_gate.weight,blk.8,ffn_gate,확인불가(patch),834,CPU,HTP0-REPACK
+Q8_0,166,MUL_MAT,ffn_up-8,f32,blk.8.ffn_up.weight,blk.8,ffn_up,확인불가(patch),409,CPU,HTP0-REPACK
+Q8_0,167,GLU,ffn_swiglu-8,f32,ffn_gate-8,blk.8,ffn_gate,확인불가(patch),10,CPU,HTP0
+Q8_0,168,MUL_MAT,ffn_out-8,f32,blk.8.ffn_down.weight,blk.8,ffn_down,확인불가(patch),205,CPU,HTP0-REPACK
+Q8_0,169,RMS_NORM,norm,f32,ffn_out-8,blk.8,ffn_down,확인불가(patch),,CPU,HTP0
+Q8_0,170,ADD,l_out-8,f32,ffn_post_norm,ffn_post_norm,norm,확인불가(patch),2,CPU,HTP0
+Q8_0,171,MUL_MAT,Qcur-9,f32,blk.9.attn_q.weight,blk.9,attn_q,확인불가(patch),145,CPU,HTP0-REPACK
+Q8_0,172,MUL_MAT,Vcur-9,f32,blk.9.attn_v.weight,blk.9,attn_v,확인불가(patch),239,CPU,HTP0-REPACK
+Q8_0,173,MUL_MAT,Kcur-9,f32,blk.9.attn_k.weight,blk.9,attn_k,확인불가(patch),7,CPU,HTP0-REPACK
+Q8_0,174,RMS_NORM,norm-9,f32,Qcur-9,blk.9,attn_q,확인불가(patch),,CPU,HTP0
+Q8_0,175,ROPE,Qcur-9,f32,Qcur_normed-9,blk.9,attn_q,확인불가(patch),145,CPU,HTP0
+Q8_0,176,RMS_NORM,norm-9,f32,Kcur-9,blk.9,attn_k,확인불가(patch),,CPU,HTP0
+Q8_0,177,ROPE,Kcur-9,f32,Kcur_normed-9,blk.9,attn_k,확인불가(patch),7,CPU,HTP0
+Q8_0,178,SET_ROWS,cache_k_l9 (view),f16,Kcur-9 (view),blk.9,attn_k,확인불가(patch),,CPU,HTP0
+Q8_0,179,SET_ROWS,cache_v_l9 (view),f16,Vcur-9 (view),blk.9,attn_v,확인불가(patch),,CPU,HTP0
+Q8_0,180,FLASH_ATTN_EXT,__fattn__-9,f32,Qcur-9 (view) (permuted),blk.9,attn_q,확인불가(patch),269,CPU,HTP0
+Q8_0,181,MUL_MAT,attn_out-9,f32,blk.9.attn_output.weight,blk.9,attn_output,확인불가(patch),93,CPU,HTP0-REPACK
+Q8_0,182,RMS_NORM,norm-9,f32,attn_out-9,blk.9,attn_output,확인불가(patch),,CPU,HTP0
+Q8_0,183,ADD,ffn_inp-9,f32,attn_post_norm-9,blk.9,norm,확인불가(patch),6,CPU,HTP0
+Q8_0,184,MUL_MAT,ffn_gate-9,f32,blk.9.ffn_gate.weight,blk.9,ffn_gate,확인불가(patch),836,CPU,HTP0-REPACK
+Q8_0,185,MUL_MAT,ffn_up-9,f32,blk.9.ffn_up.weight,blk.9,ffn_up,확인불가(patch),382,CPU,HTP0-REPACK
+Q8_0,186,GLU,ffn_swiglu-9,f32,ffn_gate-9,blk.9,ffn_gate,확인불가(patch),10,CPU,HTP0
+Q8_0,187,MUL_MAT,ffn_out-9,f32,blk.9.ffn_down.weight,blk.9,ffn_down,확인불가(patch),206,CPU,HTP0-REPACK
+Q8_0,188,RMS_NORM,norm,f32,ffn_out-9,blk.9,ffn_down,확인불가(patch),,CPU,HTP0
+Q8_0,189,ADD,l_out-9,f32,ffn_post_norm,ffn_post_norm,norm,확인불가(patch),2,CPU,HTP0
+Q8_0,190,MUL_MAT,Qcur-10,f32,blk.10.attn_q.weight,blk.10,attn_q,확인불가(patch),142,CPU,HTP0-REPACK
+Q8_0,191,MUL_MAT,Vcur-10,f32,blk.10.attn_v.weight,blk.10,attn_v,확인불가(patch),241,CPU,HTP0-REPACK
+Q8_0,192,MUL_MAT,Kcur-10,f32,blk.10.attn_k.weight,blk.10,attn_k,확인불가(patch),7,CPU,HTP0-REPACK
+Q8_0,193,RMS_NORM,norm-10,f32,Qcur-10,blk.10,attn_q,확인불가(patch),,CPU,HTP0
+Q8_0,194,ROPE,Qcur-10,f32,Qcur_normed-10,blk.10,attn_q,확인불가(patch),142,CPU,HTP0
+Q8_0,195,RMS_NORM,norm-10,f32,Kcur-10,blk.10,attn_k,확인불가(patch),,CPU,HTP0
+Q8_0,196,ROPE,Kcur-10,f32,Kcur_normed-10,blk.10,attn_k,확인불가(patch),7,CPU,HTP0
+Q8_0,197,SET_ROWS,cache_k_l10 (view),f16,Kcur-10 (view),blk.10,attn_k,확인불가(patch),,CPU,HTP0
+Q8_0,198,SET_ROWS,cache_v_l10 (view),f16,Vcur-10 (view),blk.10,attn_v,확인불가(patch),,CPU,HTP0
+Q8_0,199,FLASH_ATTN_EXT,__fattn__-10,f32,Qcur-10 (view) (permuted),blk.10,attn_q,확인불가(patch),273,CPU,HTP0
+Q8_0,200,MUL_MAT,attn_out-10,f32,blk.10.attn_output.weight,blk.10,attn_output,확인불가(patch),101,CPU,HTP0-REPACK
+Q8_0,201,RMS_NORM,norm-10,f32,attn_out-10,blk.10,attn_output,확인불가(patch),,CPU,HTP0
+Q8_0,202,ADD,ffn_inp-10,f32,attn_post_norm-10,blk.10,norm,확인불가(patch),6,CPU,HTP0
+Q8_0,203,MUL_MAT,ffn_gate-10,f32,blk.10.ffn_gate.weight,blk.10,ffn_gate,확인불가(patch),839,CPU,HTP0-REPACK
+Q8_0,204,MUL_MAT,ffn_up-10,f32,blk.10.ffn_up.weight,blk.10,ffn_up,확인불가(patch),415,CPU,HTP0-REPACK
+Q8_0,205,GLU,ffn_swiglu-10,f32,ffn_gate-10,blk.10,ffn_gate,확인불가(patch),11,CPU,HTP0
+Q8_0,206,MUL_MAT,ffn_out-10,f32,blk.10.ffn_down.weight,blk.10,ffn_down,확인불가(patch),193,CPU,HTP0-REPACK
+Q8_0,207,RMS_NORM,norm,f32,ffn_out-10,blk.10,ffn_down,확인불가(patch),,CPU,HTP0
+Q8_0,208,ADD,l_out-10,f32,ffn_post_norm,ffn_post_norm,norm,확인불가(patch),2,CPU,HTP0
+Q8_0,209,MUL_MAT,Qcur-11,f32,blk.11.attn_q.weight,blk.11,attn_q,확인불가(patch),160,CPU,HTP0-REPACK
+Q8_0,210,MUL_MAT,Vcur-11,f32,blk.11.attn_v.weight,blk.11,attn_v,확인불가(patch),241,CPU,HTP0-REPACK
+Q8_0,211,MUL_MAT,Kcur-11,f32,blk.11.attn_k.weight,blk.11,attn_k,확인불가(patch),7,CPU,HTP0-REPACK
+Q8_0,212,RMS_NORM,norm-11,f32,Qcur-11,blk.11,attn_q,확인불가(patch),,CPU,HTP0
+Q8_0,213,ROPE,Qcur-11,f32,Qcur_normed-11,blk.11,attn_q,확인불가(patch),160,CPU,HTP0
+Q8_0,214,RMS_NORM,norm-11,f32,Kcur-11,blk.11,attn_k,확인불가(patch),,CPU,HTP0
+Q8_0,215,ROPE,Kcur-11,f32,Kcur_normed-11,blk.11,attn_k,확인불가(patch),7,CPU,HTP0
+Q8_0,216,SET_ROWS,cache_k_l11 (view),f16,Kcur-11 (view),blk.11,attn_k,확인불가(patch),,CPU,HTP0
+Q8_0,217,SET_ROWS,cache_v_l11 (view),f16,Vcur-11 (view),blk.11,attn_v,확인불가(patch),,CPU,HTP0
+Q8_0,218,FLASH_ATTN_EXT,__fattn__-11,f32,Qcur-11 (view) (permuted),blk.11,attn_q,확인불가(patch),284,CPU,HTP0
+Q8_0,219,MUL_MAT,attn_out-11,f32,blk.11.attn_output.weight,blk.11,attn_output,확인불가(patch),107,CPU,HTP0-REPACK
+Q8_0,220,RMS_NORM,norm-11,f32,attn_out-11,blk.11,attn_output,확인불가(patch),,CPU,HTP0
+Q8_0,221,ADD,ffn_inp-11,f32,attn_post_norm-11,blk.11,norm,확인불가(patch),6,CPU,HTP0
+Q8_0,222,MUL_MAT,ffn_gate-11,f32,blk.11.ffn_gate.weight,blk.11,ffn_gate,확인불가(patch),833,CPU,HTP0-REPACK
+Q8_0,223,MUL_MAT,ffn_up-11,f32,blk.11.ffn_up.weight,blk.11,ffn_up,확인불가(patch),392,CPU,HTP0-REPACK
+Q8_0,224,GLU,ffn_swiglu-11,f32,ffn_gate-11,blk.11,ffn_gate,확인불가(patch),11,CPU,HTP0
+Q8_0,225,MUL_MAT,ffn_out-11,f32,blk.11.ffn_down.weight,blk.11,ffn_down,확인불가(patch),203,CPU,HTP0-REPACK
+Q8_0,226,RMS_NORM,norm,f32,ffn_out-11,blk.11,ffn_down,확인불가(patch),,CPU,HTP0
+Q8_0,227,ADD,l_out-11,f32,ffn_post_norm,ffn_post_norm,norm,확인불가(patch),2,CPU,HTP0
+Q8_0,228,MUL_MAT,Qcur-12,f32,blk.12.attn_q.weight,blk.12,attn_q,확인불가(patch),165,CPU,HTP0-REPACK
+Q8_0,229,MUL_MAT,Vcur-12,f32,blk.12.attn_v.weight,blk.12,attn_v,확인불가(patch),242,CPU,HTP0-REPACK
+Q8_0,230,MUL_MAT,Kcur-12,f32,blk.12.attn_k.weight,blk.12,attn_k,확인불가(patch),7,CPU,HTP0-REPACK
+Q8_0,231,RMS_NORM,norm-12,f32,Qcur-12,blk.12,attn_q,확인불가(patch),,CPU,HTP0
+Q8_0,232,ROPE,Qcur-12,f32,Qcur_normed-12,blk.12,attn_q,확인불가(patch),165,CPU,HTP0
+Q8_0,233,RMS_NORM,norm-12,f32,Kcur-12,blk.12,attn_k,확인불가(patch),,CPU,HTP0
+Q8_0,234,ROPE,Kcur-12,f32,Kcur_normed-12,blk.12,attn_k,확인불가(patch),7,CPU,HTP0
+Q8_0,235,SET_ROWS,cache_k_l12 (view),f16,Kcur-12 (view),blk.12,attn_k,확인불가(patch),,CPU,HTP0
+Q8_0,236,SET_ROWS,cache_v_l12 (view),f16,Vcur-12 (view),blk.12,attn_v,확인불가(patch),,CPU,HTP0
+Q8_0,237,FLASH_ATTN_EXT,__fattn__-12,f32,Qcur-12 (view) (permuted),blk.12,attn_q,확인불가(patch),270,CPU,HTP0
+Q8_0,238,MUL_MAT,attn_out-12,f32,blk.12.attn_output.weight,blk.12,attn_output,확인불가(patch),114,CPU,HTP0-REPACK
+Q8_0,239,RMS_NORM,norm-12,f32,attn_out-12,blk.12,attn_output,확인불가(patch),,CPU,HTP0
+Q8_0,240,ADD,ffn_inp-12,f32,attn_post_norm-12,blk.12,norm,확인불가(patch),6,CPU,HTP0
+Q8_0,241,MUL_MAT,ffn_gate-12,f32,blk.12.ffn_gate.weight,blk.12,ffn_gate,확인불가(patch),834,CPU,HTP0-REPACK
+Q8_0,242,MUL_MAT,ffn_up-12,f32,blk.12.ffn_up.weight,blk.12,ffn_up,확인불가(patch),390,CPU,HTP0-REPACK
+Q8_0,243,GLU,ffn_swiglu-12,f32,ffn_gate-12,blk.12,ffn_gate,확인불가(patch),11,CPU,HTP0
+Q8_0,244,MUL_MAT,ffn_out-12,f32,blk.12.ffn_down.weight,blk.12,ffn_down,확인불가(patch),201,CPU,HTP0-REPACK
+Q8_0,245,RMS_NORM,norm,f32,ffn_out-12,blk.12,ffn_down,확인불가(patch),,CPU,HTP0
+Q8_0,246,ADD,l_out-12,f32,ffn_post_norm,ffn_post_norm,norm,확인불가(patch),2,CPU,HTP0
+Q8_0,247,MUL_MAT,Qcur-13,f32,blk.13.attn_q.weight,blk.13,attn_q,확인불가(patch),167,CPU,HTP0-REPACK
+Q8_0,248,MUL_MAT,Vcur-13,f32,blk.13.attn_v.weight,blk.13,attn_v,확인불가(patch),242,CPU,HTP0-REPACK
+Q8_0,249,MUL_MAT,Kcur-13,f32,blk.13.attn_k.weight,blk.13,attn_k,확인불가(patch),7,CPU,HTP0-REPACK
+Q8_0,250,RMS_NORM,norm-13,f32,Qcur-13,blk.13,attn_q,확인불가(patch),,CPU,HTP0
+Q8_0,251,ROPE,Qcur-13,f32,Qcur_normed-13,blk.13,attn_q,확인불가(patch),167,CPU,HTP0
+Q8_0,252,RMS_NORM,norm-13,f32,Kcur-13,blk.13,attn_k,확인불가(patch),,CPU,HTP0
+Q8_0,253,ROPE,Kcur-13,f32,Kcur_normed-13,blk.13,attn_k,확인불가(patch),7,CPU,HTP0
+Q8_0,254,SET_ROWS,cache_k_l13 (view),f16,Kcur-13 (view),blk.13,attn_k,확인불가(patch),,CPU,HTP0
+Q8_0,255,SET_ROWS,cache_v_l13 (view),f16,Vcur-13 (view),blk.13,attn_v,확인불가(patch),,CPU,HTP0
+Q8_0,256,FLASH_ATTN_EXT,__fattn__-13,f32,Qcur-13 (view) (permuted),blk.13,attn_q,확인불가(patch),287,CPU,HTP0
+Q8_0,257,MUL_MAT,attn_out-13,f32,blk.13.attn_output.weight,blk.13,attn_output,확인불가(patch),111,CPU,HTP0-REPACK
+Q8_0,258,RMS_NORM,norm-13,f32,attn_out-13,blk.13,attn_output,확인불가(patch),,CPU,HTP0
+Q8_0,259,ADD,ffn_inp-13,f32,attn_post_norm-13,blk.13,norm,확인불가(patch),6,CPU,HTP0
+Q8_0,260,MUL_MAT,ffn_gate-13,f32,blk.13.ffn_gate.weight,blk.13,ffn_gate,확인불가(patch),832,CPU,HTP0-REPACK
+Q8_0,261,MUL_MAT,ffn_up-13,f32,blk.13.ffn_up.weight,blk.13,ffn_up,확인불가(patch),410,CPU,HTP0-REPACK
+Q8_0,262,GLU,ffn_swiglu-13,f32,ffn_gate-13,blk.13,ffn_gate,확인불가(patch),11,CPU,HTP0
+Q8_0,263,MUL_MAT,ffn_out-13,f32,blk.13.ffn_down.weight,blk.13,ffn_down,확인불가(patch),202,CPU,HTP0-REPACK
+Q8_0,264,RMS_NORM,norm,f32,ffn_out-13,blk.13,ffn_down,확인불가(patch),,CPU,HTP0
+Q8_0,265,ADD,l_out-13,f32,ffn_post_norm,ffn_post_norm,norm,확인불가(patch),2,CPU,HTP0
+Q8_0,266,MUL_MAT,Qcur-14,f32,blk.14.attn_q.weight,blk.14,attn_q,확인불가(patch),168,CPU,HTP0-REPACK
+Q8_0,267,MUL_MAT,Vcur-14,f32,blk.14.attn_v.weight,blk.14,attn_v,확인불가(patch),250,CPU,HTP0-REPACK
+Q8_0,268,MUL_MAT,Kcur-14,f32,blk.14.attn_k.weight,blk.14,attn_k,확인불가(patch),7,CPU,HTP0-REPACK
+Q8_0,269,RMS_NORM,norm-14,f32,Qcur-14,blk.14,attn_q,확인불가(patch),,CPU,HTP0
+Q8_0,270,ROPE,Qcur-14,f32,Qcur_normed-14,blk.14,attn_q,확인불가(patch),168,CPU,HTP0
+Q8_0,271,RMS_NORM,norm-14,f32,Kcur-14,blk.14,attn_k,확인불가(patch),,CPU,HTP0
+Q8_0,272,ROPE,Kcur-14,f32,Kcur_normed-14,blk.14,attn_k,확인불가(patch),7,CPU,HTP0
+Q8_0,273,SET_ROWS,cache_k_l14 (view),f16,Kcur-14 (view),blk.14,attn_k,확인불가(patch),,CPU,HTP0
+Q8_0,274,SET_ROWS,cache_v_l14 (view),f16,Vcur-14 (view),blk.14,attn_v,확인불가(patch),,CPU,HTP0
+Q8_0,275,FLASH_ATTN_EXT,__fattn__-14,f32,Qcur-14 (view) (permuted),blk.14,attn_q,확인불가(patch),269,CPU,HTP0
+Q8_0,276,MUL_MAT,attn_out-14,f32,blk.14.attn_output.weight,blk.14,attn_output,확인불가(patch),113,CPU,HTP0-REPACK
+Q8_0,277,RMS_NORM,norm-14,f32,attn_out-14,blk.14,attn_output,확인불가(patch),,CPU,HTP0
+Q8_0,278,ADD,ffn_inp-14,f32,attn_post_norm-14,blk.14,norm,확인불가(patch),6,CPU,HTP0
+Q8_0,279,MUL_MAT,ffn_gate-14,f32,blk.14.ffn_gate.weight,blk.14,ffn_gate,확인불가(patch),837,CPU,HTP0-REPACK
+Q8_0,280,MUL_MAT,ffn_up-14,f32,blk.14.ffn_up.weight,blk.14,ffn_up,확인불가(patch),412,CPU,HTP0-REPACK
+Q8_0,281,GLU,ffn_swiglu-14,f32,ffn_gate-14,blk.14,ffn_gate,확인불가(patch),11,CPU,HTP0
+Q8_0,282,MUL_MAT,ffn_out-14,f32,blk.14.ffn_down.weight,blk.14,ffn_down,확인불가(patch),205,CPU,HTP0-REPACK
+Q8_0,283,RMS_NORM,norm,f32,ffn_out-14,blk.14,ffn_down,확인불가(patch),,CPU,HTP0
+Q8_0,284,ADD,l_out-14,f32,ffn_post_norm,ffn_post_norm,norm,확인불가(patch),2,CPU,HTP0
+Q8_0,285,MUL_MAT,Qcur-15,f32,blk.15.attn_q.weight,blk.15,attn_q,확인불가(patch),164,CPU,HTP0-REPACK
+Q8_0,286,MUL_MAT,Vcur-15,f32,blk.15.attn_v.weight,blk.15,attn_v,확인불가(patch),246,CPU,HTP0-REPACK
+Q8_0,287,MUL_MAT,Kcur-15,f32,blk.15.attn_k.weight,blk.15,attn_k,확인불가(patch),7,CPU,HTP0-REPACK
+Q8_0,288,RMS_NORM,norm-15,f32,Qcur-15,blk.15,attn_q,확인불가(patch),,CPU,HTP0
+Q8_0,289,ROPE,Qcur-15,f32,Qcur_normed-15,blk.15,attn_q,확인불가(patch),164,CPU,HTP0
+Q8_0,290,RMS_NORM,norm-15,f32,Kcur-15,blk.15,attn_k,확인불가(patch),,CPU,HTP0
+Q8_0,291,ROPE,Kcur-15,f32,Kcur_normed-15,blk.15,attn_k,확인불가(patch),7,CPU,HTP0
+Q8_0,292,SET_ROWS,cache_k_l15 (view),f16,Kcur-15 (view),blk.15,attn_k,확인불가(patch),,CPU,HTP0
+Q8_0,293,SET_ROWS,cache_v_l15 (view),f16,Vcur-15 (view),blk.15,attn_v,확인불가(patch),,CPU,HTP0
+Q8_0,294,FLASH_ATTN_EXT,__fattn__-15,f32,Qcur-15 (view) (permuted),blk.15,attn_q,확인불가(patch),282,CPU,HTP0
+Q8_0,295,MUL_MAT,attn_out-15,f32,blk.15.attn_output.weight,blk.15,attn_output,확인불가(patch),107,CPU,HTP0-REPACK
+Q8_0,296,RMS_NORM,norm-15,f32,attn_out-15,blk.15,attn_output,확인불가(patch),,CPU,HTP0
+Q8_0,297,ADD,ffn_inp-15,f32,attn_post_norm-15,blk.15,norm,확인불가(patch),6,CPU,HTP0
+Q8_0,298,MUL_MAT,ffn_gate-15,f32,blk.15.ffn_gate.weight,blk.15,ffn_gate,확인불가(patch),846,CPU,HTP0-REPACK
+Q8_0,299,MUL_MAT,ffn_up-15,f32,blk.15.ffn_up.weight,blk.15,ffn_up,확인불가(patch),415,CPU,HTP0-REPACK
+Q8_0,300,GLU,ffn_swiglu-15,f32,ffn_gate-15,blk.15,ffn_gate,확인불가(patch),11,CPU,HTP0
+Q8_0,301,MUL_MAT,ffn_out-15,f32,blk.15.ffn_down.weight,blk.15,ffn_down,확인불가(patch),212,CPU,HTP0-REPACK
+Q8_0,302,RMS_NORM,norm,f32,ffn_out-15,blk.15,ffn_down,확인불가(patch),,CPU,HTP0
+Q8_0,303,ADD,l_out-15,f32,ffn_post_norm,ffn_post_norm,norm,확인불가(patch),2,CPU,HTP0
+Q8_0,304,MUL_MAT,Qcur-16,f32,blk.16.attn_q.weight,blk.16,attn_q,확인불가(patch),169,CPU,HTP0-REPACK
+Q8_0,305,MUL_MAT,Vcur-16,f32,blk.16.attn_v.weight,blk.16,attn_v,확인불가(patch),255,CPU,HTP0-REPACK
+Q8_0,306,MUL_MAT,Kcur-16,f32,blk.16.attn_k.weight,blk.16,attn_k,확인불가(patch),7,CPU,HTP0-REPACK
+Q8_0,307,RMS_NORM,norm-16,f32,Qcur-16,blk.16,attn_q,확인불가(patch),,CPU,HTP0
+Q8_0,308,ROPE,Qcur-16,f32,Qcur_normed-16,blk.16,attn_q,확인불가(patch),169,CPU,HTP0
+Q8_0,309,RMS_NORM,norm-16,f32,Kcur-16,blk.16,attn_k,확인불가(patch),,CPU,HTP0
+Q8_0,310,ROPE,Kcur-16,f32,Kcur_normed-16,blk.16,attn_k,확인불가(patch),7,CPU,HTP0
+Q8_0,311,SET_ROWS,cache_k_l16 (view),f16,Kcur-16 (view),blk.16,attn_k,확인불가(patch),,CPU,HTP0
+Q8_0,312,SET_ROWS,cache_v_l16 (view),f16,Vcur-16 (view),blk.16,attn_v,확인불가(patch),,CPU,HTP0
+Q8_0,313,FLASH_ATTN_EXT,__fattn__-16,f32,Qcur-16 (view) (permuted),blk.16,attn_q,확인불가(patch),292,CPU,HTP0
+Q8_0,314,MUL_MAT,attn_out-16,f32,blk.16.attn_output.weight,blk.16,attn_output,확인불가(patch),110,CPU,HTP0-REPACK
+Q8_0,315,RMS_NORM,norm-16,f32,attn_out-16,blk.16,attn_output,확인불가(patch),,CPU,HTP0
+Q8_0,316,ADD,ffn_inp-16,f32,attn_post_norm-16,blk.16,norm,확인불가(patch),6,CPU,HTP0
+Q8_0,317,MUL_MAT,ffn_gate-16,f32,blk.16.ffn_gate.weight,blk.16,ffn_gate,확인불가(patch),842,CPU,HTP0-REPACK
+Q8_0,318,MUL_MAT,ffn_up-16,f32,blk.16.ffn_up.weight,blk.16,ffn_up,확인불가(patch),417,CPU,HTP0-REPACK
+Q8_0,319,GLU,ffn_swiglu-16,f32,ffn_gate-16,blk.16,ffn_gate,확인불가(patch),11,CPU,HTP0
+Q8_0,320,MUL_MAT,ffn_out-16,f32,blk.16.ffn_down.weight,blk.16,ffn_down,확인불가(patch),211,CPU,HTP0-REPACK
+Q8_0,321,RMS_NORM,norm,f32,ffn_out-16,blk.16,ffn_down,확인불가(patch),,CPU,HTP0
+Q8_0,322,ADD,l_out-16,f32,ffn_post_norm,ffn_post_norm,norm,확인불가(patch),2,CPU,HTP0
+Q8_0,323,MUL_MAT,Qcur-17,f32,blk.17.attn_q.weight,blk.17,attn_q,확인불가(patch),154,CPU,HTP0-REPACK
+Q8_0,324,MUL_MAT,Vcur-17,f32,blk.17.attn_v.weight,blk.17,attn_v,확인불가(patch),239,CPU,HTP0-REPACK
+Q8_0,325,MUL_MAT,Kcur-17,f32,blk.17.attn_k.weight,blk.17,attn_k,확인불가(patch),7,CPU,HTP0-REPACK
+Q8_0,326,RMS_NORM,norm-17,f32,Qcur-17,blk.17,attn_q,확인불가(patch),,CPU,HTP0
+Q8_0,327,ROPE,Qcur-17,f32,Qcur_normed-17,blk.17,attn_q,확인불가(patch),154,CPU,HTP0
+Q8_0,328,RMS_NORM,norm-17,f32,Kcur-17,blk.17,attn_k,확인불가(patch),,CPU,HTP0
+Q8_0,329,ROPE,Kcur-17,f32,Kcur_normed-17,blk.17,attn_k,확인불가(patch),7,CPU,HTP0
+Q8_0,330,SET_ROWS,cache_k_l17 (view),f16,Kcur-17 (view),blk.17,attn_k,확인불가(patch),,CPU,HTP0
+Q8_0,331,SET_ROWS,cache_v_l17 (view),f16,Vcur-17 (view),blk.17,attn_v,확인불가(patch),,CPU,HTP0
+Q8_0,332,FLASH_ATTN_EXT,__fattn__-17,f32,Qcur-17 (view) (permuted),blk.17,attn_q,확인불가(patch),286,CPU,HTP0
+Q8_0,333,MUL_MAT,attn_out-17,f32,blk.17.attn_output.weight,blk.17,attn_output,확인불가(patch),113,CPU,HTP0-REPACK
+Q8_0,334,RMS_NORM,norm-17,f32,attn_out-17,blk.17,attn_output,확인불가(patch),,CPU,HTP0
+Q8_0,335,ADD,ffn_inp-17,f32,attn_post_norm-17,blk.17,norm,확인불가(patch),6,CPU,HTP0
+Q8_0,336,MUL_MAT,ffn_gate-17,f32,blk.17.ffn_gate.weight,blk.17,ffn_gate,확인불가(patch),837,CPU,HTP0-REPACK
+Q8_0,337,MUL_MAT,ffn_up-17,f32,blk.17.ffn_up.weight,blk.17,ffn_up,확인불가(patch),394,CPU,HTP0-REPACK
+Q8_0,338,GLU,ffn_swiglu-17,f32,ffn_gate-17,blk.17,ffn_gate,확인불가(patch),11,CPU,HTP0
+Q8_0,339,MUL_MAT,ffn_out-17,f32,blk.17.ffn_down.weight,blk.17,ffn_down,확인불가(patch),199,CPU,HTP0-REPACK
+Q8_0,340,RMS_NORM,norm,f32,ffn_out-17,blk.17,ffn_down,확인불가(patch),,CPU,HTP0
+Q8_0,341,ADD,l_out-17,f32,ffn_post_norm,ffn_post_norm,norm,확인불가(patch),2,CPU,HTP0
+Q8_0,342,MUL_MAT,Qcur-18,f32,blk.18.attn_q.weight,blk.18,attn_q,확인불가(patch),167,CPU,HTP0-REPACK
+Q8_0,343,MUL_MAT,Vcur-18,f32,blk.18.attn_v.weight,blk.18,attn_v,확인불가(patch),249,CPU,HTP0-REPACK
+Q8_0,344,MUL_MAT,Kcur-18,f32,blk.18.attn_k.weight,blk.18,attn_k,확인불가(patch),7,CPU,HTP0-REPACK
+Q8_0,345,RMS_NORM,norm-18,f32,Qcur-18,blk.18,attn_q,확인불가(patch),,CPU,HTP0
+Q8_0,346,ROPE,Qcur-18,f32,Qcur_normed-18,blk.18,attn_q,확인불가(patch),167,CPU,HTP0
+Q8_0,347,RMS_NORM,norm-18,f32,Kcur-18,blk.18,attn_k,확인불가(patch),,CPU,HTP0
+Q8_0,348,ROPE,Kcur-18,f32,Kcur_normed-18,blk.18,attn_k,확인불가(patch),7,CPU,HTP0
+Q8_0,349,SET_ROWS,cache_k_l18 (view),f16,Kcur-18 (view),blk.18,attn_k,확인불가(patch),,CPU,HTP0
+Q8_0,350,SET_ROWS,cache_v_l18 (view),f16,Vcur-18 (view),blk.18,attn_v,확인불가(patch),,CPU,HTP0
+Q8_0,351,FLASH_ATTN_EXT,__fattn__-18,f32,Qcur-18 (view) (permuted),blk.18,attn_q,확인불가(patch),273,CPU,HTP0
+Q8_0,352,MUL_MAT,attn_out-18,f32,blk.18.attn_output.weight,blk.18,attn_output,확인불가(patch),113,CPU,HTP0-REPACK
+Q8_0,353,RMS_NORM,norm-18,f32,attn_out-18,blk.18,attn_output,확인불가(patch),,CPU,HTP0
+Q8_0,354,ADD,ffn_inp-18,f32,attn_post_norm-18,blk.18,norm,확인불가(patch),6,CPU,HTP0
+Q8_0,355,MUL_MAT,ffn_gate-18,f32,blk.18.ffn_gate.weight,blk.18,ffn_gate,확인불가(patch),845,CPU,HTP0-REPACK
+Q8_0,356,MUL_MAT,ffn_up-18,f32,blk.18.ffn_up.weight,blk.18,ffn_up,확인불가(patch),420,CPU,HTP0-REPACK
+Q8_0,357,GLU,ffn_swiglu-18,f32,ffn_gate-18,blk.18,ffn_gate,확인불가(patch),11,CPU,HTP0
+Q8_0,358,MUL_MAT,ffn_out-18,f32,blk.18.ffn_down.weight,blk.18,ffn_down,확인불가(patch),214,CPU,HTP0-REPACK
+Q8_0,359,RMS_NORM,norm,f32,ffn_out-18,blk.18,ffn_down,확인불가(patch),,CPU,HTP0
+Q8_0,360,ADD,l_out-18,f32,ffn_post_norm,ffn_post_norm,norm,확인불가(patch),2,CPU,HTP0
+Q8_0,361,MUL_MAT,Qcur-19,f32,blk.19.attn_q.weight,blk.19,attn_q,확인불가(patch),166,CPU,HTP0-REPACK
+Q8_0,362,MUL_MAT,Vcur-19,f32,blk.19.attn_v.weight,blk.19,attn_v,확인불가(patch),244,CPU,HTP0-REPACK
+Q8_0,363,MUL_MAT,Kcur-19,f32,blk.19.attn_k.weight,blk.19,attn_k,확인불가(patch),7,CPU,HTP0-REPACK
+Q8_0,364,RMS_NORM,norm-19,f32,Qcur-19,blk.19,attn_q,확인불가(patch),,CPU,HTP0
+Q8_0,365,ROPE,Qcur-19,f32,Qcur_normed-19,blk.19,attn_q,확인불가(patch),166,CPU,HTP0
+Q8_0,366,RMS_NORM,norm-19,f32,Kcur-19,blk.19,attn_k,확인불가(patch),,CPU,HTP0
+Q8_0,367,ROPE,Kcur-19,f32,Kcur_normed-19,blk.19,attn_k,확인불가(patch),7,CPU,HTP0
+Q8_0,368,SET_ROWS,cache_k_l19 (view),f16,Kcur-19 (view),blk.19,attn_k,확인불가(patch),,CPU,HTP0
+Q8_0,369,SET_ROWS,cache_v_l19 (view),f16,Vcur-19 (view),blk.19,attn_v,확인불가(patch),,CPU,HTP0
+Q8_0,370,FLASH_ATTN_EXT,__fattn__-19,f32,Qcur-19 (view) (permuted),blk.19,attn_q,확인불가(patch),280,CPU,HTP0
+Q8_0,371,MUL_MAT,attn_out-19,f32,blk.19.attn_output.weight,blk.19,attn_output,확인불가(patch),112,CPU,HTP0-REPACK
+Q8_0,372,RMS_NORM,norm-19,f32,attn_out-19,blk.19,attn_output,확인불가(patch),,CPU,HTP0
+Q8_0,373,ADD,ffn_inp-19,f32,attn_post_norm-19,blk.19,norm,확인불가(patch),6,CPU,HTP0
+Q8_0,374,MUL_MAT,ffn_gate-19,f32,blk.19.ffn_gate.weight,blk.19,ffn_gate,확인불가(patch),836,CPU,HTP0-REPACK
+Q8_0,375,MUL_MAT,ffn_up-19,f32,blk.19.ffn_up.weight,blk.19,ffn_up,확인불가(patch),414,CPU,HTP0-REPACK
+Q8_0,376,GLU,ffn_swiglu-19,f32,ffn_gate-19,blk.19,ffn_gate,확인불가(patch),11,CPU,HTP0
+Q8_0,377,MUL_MAT,ffn_out-19,f32,blk.19.ffn_down.weight,blk.19,ffn_down,확인불가(patch),213,CPU,HTP0-REPACK
+Q8_0,378,RMS_NORM,norm,f32,ffn_out-19,blk.19,ffn_down,확인불가(patch),,CPU,HTP0
+Q8_0,379,ADD,l_out-19,f32,ffn_post_norm,ffn_post_norm,norm,확인불가(patch),2,CPU,HTP0
+Q8_0,380,MUL_MAT,Qcur-20,f32,blk.20.attn_q.weight,blk.20,attn_q,확인불가(patch),167,CPU,HTP0-REPACK
+Q8_0,381,MUL_MAT,Vcur-20,f32,blk.20.attn_v.weight,blk.20,attn_v,확인불가(patch),251,CPU,HTP0-REPACK
+Q8_0,382,MUL_MAT,Kcur-20,f32,blk.20.attn_k.weight,blk.20,attn_k,확인불가(patch),7,CPU,HTP0-REPACK
+Q8_0,383,RMS_NORM,norm-20,f32,Qcur-20,blk.20,attn_q,확인불가(patch),,CPU,HTP0
+Q8_0,384,ROPE,Qcur-20,f32,Qcur_normed-20,blk.20,attn_q,확인불가(patch),167,CPU,HTP0
+Q8_0,385,RMS_NORM,norm-20,f32,Kcur-20,blk.20,attn_k,확인불가(patch),,CPU,HTP0
+Q8_0,386,ROPE,Kcur-20,f32,Kcur_normed-20,blk.20,attn_k,확인불가(patch),7,CPU,HTP0
+Q8_0,387,SET_ROWS,cache_k_l20 (view),f16,Kcur-20 (view),blk.20,attn_k,확인불가(patch),,CPU,HTP0
+Q8_0,388,SET_ROWS,cache_v_l20 (view),f16,Vcur-20 (view),blk.20,attn_v,확인불가(patch),,CPU,HTP0
+Q8_0,389,FLASH_ATTN_EXT,__fattn__-20,f32,Qcur-20 (view) (permuted),blk.20,attn_q,확인불가(patch),291,CPU,HTP0
+Q8_0,390,MUL_MAT,attn_out-20,f32,blk.20.attn_output.weight,blk.20,attn_output,확인불가(patch),109,CPU,HTP0-REPACK
+Q8_0,391,RMS_NORM,norm-20,f32,attn_out-20,blk.20,attn_output,확인불가(patch),,CPU,HTP0
+Q8_0,392,ADD,ffn_inp-20,f32,attn_post_norm-20,blk.20,norm,확인불가(patch),6,CPU,HTP0
+Q8_0,393,MUL_MAT,ffn_gate-20,f32,blk.20.ffn_gate.weight,blk.20,ffn_gate,확인불가(patch),840,CPU,HTP0-REPACK
+Q8_0,394,MUL_MAT,ffn_up-20,f32,blk.20.ffn_up.weight,blk.20,ffn_up,확인불가(patch),412,CPU,HTP0-REPACK
+Q8_0,395,GLU,ffn_swiglu-20,f32,ffn_gate-20,blk.20,ffn_gate,확인불가(patch),11,CPU,HTP0
+Q8_0,396,MUL_MAT,ffn_out-20,f32,blk.20.ffn_down.weight,blk.20,ffn_down,확인불가(patch),212,CPU,HTP0-REPACK
+Q8_0,397,RMS_NORM,norm,f32,ffn_out-20,blk.20,ffn_down,확인불가(patch),,CPU,HTP0
+Q8_0,398,ADD,l_out-20,f32,ffn_post_norm,ffn_post_norm,norm,확인불가(patch),2,CPU,HTP0
+Q8_0,399,MUL_MAT,Qcur-21,f32,blk.21.attn_q.weight,blk.21,attn_q,확인불가(patch),165,CPU,HTP0-REPACK
+Q8_0,400,MUL_MAT,Vcur-21,f32,blk.21.attn_v.weight,blk.21,attn_v,확인불가(patch),237,CPU,HTP0-REPACK
+Q8_0,401,MUL_MAT,Kcur-21,f32,blk.21.attn_k.weight,blk.21,attn_k,확인불가(patch),7,CPU,HTP0-REPACK
+Q8_0,402,RMS_NORM,norm-21,f32,Qcur-21,blk.21,attn_q,확인불가(patch),,CPU,HTP0
+Q8_0,403,ROPE,Qcur-21,f32,Qcur_normed-21,blk.21,attn_q,확인불가(patch),165,CPU,HTP0
+Q8_0,404,RMS_NORM,norm-21,f32,Kcur-21,blk.21,attn_k,확인불가(patch),,CPU,HTP0
+Q8_0,405,ROPE,Kcur-21,f32,Kcur_normed-21,blk.21,attn_k,확인불가(patch),7,CPU,HTP0
+Q8_0,406,SET_ROWS,cache_k_l21 (view),f16,Kcur-21 (view),blk.21,attn_k,확인불가(patch),,CPU,HTP0
+Q8_0,407,SET_ROWS,cache_v_l21 (view),f16,Vcur-21 (view),blk.21,attn_v,확인불가(patch),,CPU,HTP0
+Q8_0,408,FLASH_ATTN_EXT,__fattn__-21,f32,Qcur-21 (view) (permuted),blk.21,attn_q,확인불가(patch),276,CPU,HTP0
+Q8_0,409,MUL_MAT,attn_out-21,f32,blk.21.attn_output.weight,blk.21,attn_output,확인불가(patch),105,CPU,HTP0-REPACK
+Q8_0,410,RMS_NORM,norm-21,f32,attn_out-21,blk.21,attn_output,확인불가(patch),,CPU,HTP0
+Q8_0,411,ADD,ffn_inp-21,f32,attn_post_norm-21,blk.21,norm,확인불가(patch),6,CPU,HTP0
+Q8_0,412,MUL_MAT,ffn_gate-21,f32,blk.21.ffn_gate.weight,blk.21,ffn_gate,확인불가(patch),833,CPU,HTP0-REPACK
+Q8_0,413,MUL_MAT,ffn_up-21,f32,blk.21.ffn_up.weight,blk.21,ffn_up,확인불가(patch),399,CPU,HTP0-REPACK
+Q8_0,414,GLU,ffn_swiglu-21,f32,ffn_gate-21,blk.21,ffn_gate,확인불가(patch),11,CPU,HTP0
+Q8_0,415,MUL_MAT,ffn_out-21,f32,blk.21.ffn_down.weight,blk.21,ffn_down,확인불가(patch),205,CPU,HTP0-REPACK
+Q8_0,416,RMS_NORM,norm,f32,ffn_out-21,blk.21,ffn_down,확인불가(patch),,CPU,HTP0
+Q8_0,417,ADD,l_out-21,f32,ffn_post_norm,ffn_post_norm,norm,확인불가(patch),2,CPU,HTP0
+Q8_0,418,MUL_MAT,Qcur-22,f32,blk.22.attn_q.weight,blk.22,attn_q,확인불가(patch),165,CPU,HTP0-REPACK
+Q8_0,419,MUL_MAT,Vcur-22,f32,blk.22.attn_v.weight,blk.22,attn_v,확인불가(patch),238,CPU,HTP0-REPACK
+Q8_0,420,MUL_MAT,Kcur-22,f32,blk.22.attn_k.weight,blk.22,attn_k,확인불가(patch),7,CPU,HTP0-REPACK
+Q8_0,421,RMS_NORM,norm-22,f32,Qcur-22,blk.22,attn_q,확인불가(patch),,CPU,HTP0
+Q8_0,422,ROPE,Qcur-22,f32,Qcur_normed-22,blk.22,attn_q,확인불가(patch),165,CPU,HTP0
+Q8_0,423,RMS_NORM,norm-22,f32,Kcur-22,blk.22,attn_k,확인불가(patch),,CPU,HTP0
+Q8_0,424,ROPE,Kcur-22,f32,Kcur_normed-22,blk.22,attn_k,확인불가(patch),7,CPU,HTP0
+Q8_0,425,SET_ROWS,cache_k_l22 (view),f16,Kcur-22 (view),blk.22,attn_k,확인불가(patch),,CPU,HTP0
+Q8_0,426,SET_ROWS,cache_v_l22 (view),f16,Vcur-22 (view),blk.22,attn_v,확인불가(patch),,CPU,HTP0
+Q8_0,427,FLASH_ATTN_EXT,__fattn__-22,f32,Qcur-22 (view) (permuted),blk.22,attn_q,확인불가(patch),289,CPU,HTP0
+Q8_0,428,MUL_MAT,attn_out-22,f32,blk.22.attn_output.weight,blk.22,attn_output,확인불가(patch),111,CPU,HTP0-REPACK
+Q8_0,429,RMS_NORM,norm-22,f32,attn_out-22,blk.22,attn_output,확인불가(patch),,CPU,HTP0
+Q8_0,430,ADD,ffn_inp-22,f32,attn_post_norm-22,blk.22,norm,확인불가(patch),6,CPU,HTP0
+Q8_0,431,MUL_MAT,ffn_gate-22,f32,blk.22.ffn_gate.weight,blk.22,ffn_gate,확인불가(patch),836,CPU,HTP0-REPACK
+Q8_0,432,MUL_MAT,ffn_up-22,f32,blk.22.ffn_up.weight,blk.22,ffn_up,확인불가(patch),386,CPU,HTP0-REPACK
+Q8_0,433,GLU,ffn_swiglu-22,f32,ffn_gate-22,blk.22,ffn_gate,확인불가(patch),11,CPU,HTP0
+Q8_0,434,MUL_MAT,ffn_out-22,f32,blk.22.ffn_down.weight,blk.22,ffn_down,확인불가(patch),192,CPU,HTP0-REPACK
+Q8_0,435,RMS_NORM,norm,f32,ffn_out-22,blk.22,ffn_down,확인불가(patch),,CPU,HTP0
+Q8_0,436,ADD,l_out-22,f32,ffn_post_norm,ffn_post_norm,norm,확인불가(patch),2,CPU,HTP0
+Q8_0,437,MUL_MAT,Qcur-23,f32,blk.23.attn_q.weight,blk.23,attn_q,확인불가(patch),160,CPU,HTP0-REPACK
+Q8_0,438,MUL_MAT,Vcur-23,f32,blk.23.attn_v.weight,blk.23,attn_v,확인불가(patch),244,CPU,HTP0-REPACK
+Q8_0,439,MUL_MAT,Kcur-23,f32,blk.23.attn_k.weight,blk.23,attn_k,확인불가(patch),7,CPU,HTP0-REPACK
+Q8_0,440,RMS_NORM,norm-23,f32,Qcur-23,blk.23,attn_q,확인불가(patch),,CPU,HTP0
+Q8_0,441,ROPE,Qcur-23,f32,Qcur_normed-23,blk.23,attn_q,확인불가(patch),160,CPU,HTP0
+Q8_0,442,RMS_NORM,norm-23,f32,Kcur-23,blk.23,attn_k,확인불가(patch),,CPU,HTP0
+Q8_0,443,ROPE,Kcur-23,f32,Kcur_normed-23,blk.23,attn_k,확인불가(patch),7,CPU,HTP0
+Q8_0,444,SET_ROWS,cache_k_l23 (view),f16,Kcur-23 (view),blk.23,attn_k,확인불가(patch),,CPU,HTP0
+Q8_0,445,SET_ROWS,cache_v_l23 (view),f16,Vcur-23 (view),blk.23,attn_v,확인불가(patch),,CPU,HTP0
+Q8_0,446,FLASH_ATTN_EXT,__fattn__-23,f32,Qcur-23 (view) (permuted),blk.23,attn_q,확인불가(patch),275,CPU,HTP0
+Q8_0,447,MUL_MAT,attn_out-23,f32,blk.23.attn_output.weight,blk.23,attn_output,확인불가(patch),107,CPU,HTP0-REPACK
+Q8_0,448,RMS_NORM,norm-23,f32,attn_out-23,blk.23,attn_output,확인불가(patch),,CPU,HTP0
+Q8_0,449,ADD,ffn_inp-23,f32,attn_post_norm-23,blk.23,norm,확인불가(patch),6,CPU,HTP0
+Q8_0,450,MUL_MAT,ffn_gate-23,f32,blk.23.ffn_gate.weight,blk.23,ffn_gate,확인불가(patch),838,CPU,HTP0-REPACK
+Q8_0,451,MUL_MAT,ffn_up-23,f32,blk.23.ffn_up.weight,blk.23,ffn_up,확인불가(patch),405,CPU,HTP0-REPACK
+Q8_0,452,GLU,ffn_swiglu-23,f32,ffn_gate-23,blk.23,ffn_gate,확인불가(patch),11,CPU,HTP0
+Q8_0,453,MUL_MAT,ffn_out-23,f32,blk.23.ffn_down.weight,blk.23,ffn_down,확인불가(patch),200,CPU,HTP0-REPACK
+Q8_0,454,RMS_NORM,norm,f32,ffn_out-23,blk.23,ffn_down,확인불가(patch),,CPU,HTP0
+Q8_0,455,ADD,l_out-23,f32,ffn_post_norm,ffn_post_norm,norm,확인불가(patch),2,CPU,HTP0
+Q8_0,456,MUL_MAT,Qcur-24,f32,blk.24.attn_q.weight,blk.24,attn_q,확인불가(patch),162,CPU,HTP0-REPACK
+Q8_0,457,MUL_MAT,Vcur-24,f32,blk.24.attn_v.weight,blk.24,attn_v,확인불가(patch),240,CPU,HTP0-REPACK
+Q8_0,458,MUL_MAT,Kcur-24,f32,blk.24.attn_k.weight,blk.24,attn_k,확인불가(patch),7,CPU,HTP0-REPACK
+Q8_0,459,RMS_NORM,norm-24,f32,Qcur-24,blk.24,attn_q,확인불가(patch),,CPU,HTP0
+Q8_0,460,ROPE,Qcur-24,f32,Qcur_normed-24,blk.24,attn_q,확인불가(patch),162,CPU,HTP0
+Q8_0,461,RMS_NORM,norm-24,f32,Kcur-24,blk.24,attn_k,확인불가(patch),,CPU,HTP0
+Q8_0,462,ROPE,Kcur-24,f32,Kcur_normed-24,blk.24,attn_k,확인불가(patch),7,CPU,HTP0
+Q8_0,463,SET_ROWS,cache_k_l24 (view),f16,Kcur-24 (view),blk.24,attn_k,확인불가(patch),,CPU,HTP0
+Q8_0,464,SET_ROWS,cache_v_l24 (view),f16,Vcur-24 (view),blk.24,attn_v,확인불가(patch),,CPU,HTP0
+Q8_0,465,FLASH_ATTN_EXT,__fattn__-24,f32,Qcur-24 (view) (permuted),blk.24,attn_q,확인불가(patch),268,CPU,HTP0
+Q8_0,466,MUL_MAT,attn_out-24,f32,blk.24.attn_output.weight,blk.24,attn_output,확인불가(patch),112,CPU,HTP0-REPACK
+Q8_0,467,RMS_NORM,norm-24,f32,attn_out-24,blk.24,attn_output,확인불가(patch),,CPU,HTP0
+Q8_0,468,ADD,ffn_inp-24,f32,attn_post_norm-24,blk.24,norm,확인불가(patch),6,CPU,HTP0
+Q8_0,469,MUL_MAT,ffn_gate-24,f32,blk.24.ffn_gate.weight,blk.24,ffn_gate,확인불가(patch),840,CPU,HTP0-REPACK
+Q8_0,470,MUL_MAT,ffn_up-24,f32,blk.24.ffn_up.weight,blk.24,ffn_up,확인불가(patch),401,CPU,HTP0-REPACK
+Q8_0,471,GLU,ffn_swiglu-24,f32,ffn_gate-24,blk.24,ffn_gate,확인불가(patch),11,CPU,HTP0
+Q8_0,472,MUL_MAT,ffn_out-24,f32,blk.24.ffn_down.weight,blk.24,ffn_down,확인불가(patch),203,CPU,HTP0-REPACK
+Q8_0,473,RMS_NORM,norm,f32,ffn_out-24,blk.24,ffn_down,확인불가(patch),,CPU,HTP0
+Q8_0,474,ADD,l_out-24,f32,ffn_post_norm,ffn_post_norm,norm,확인불가(patch),2,CPU,HTP0
+Q8_0,475,MUL_MAT,Qcur-25,f32,blk.25.attn_q.weight,blk.25,attn_q,확인불가(patch),165,CPU,HTP0-REPACK
+Q8_0,476,MUL_MAT,Vcur-25,f32,blk.25.attn_v.weight,blk.25,attn_v,확인불가(patch),240,CPU,HTP0-REPACK
+Q8_0,477,MUL_MAT,Kcur-25,f32,blk.25.attn_k.weight,blk.25,attn_k,확인불가(patch),7,CPU,HTP0-REPACK
+Q8_0,478,RMS_NORM,norm-25,f32,Qcur-25,blk.25,attn_q,확인불가(patch),,CPU,HTP0
+Q8_0,479,ROPE,Qcur-25,f32,Qcur_normed-25,blk.25,attn_q,확인불가(patch),165,CPU,HTP0
+Q8_0,480,RMS_NORM,norm-25,f32,Kcur-25,blk.25,attn_k,확인불가(patch),,CPU,HTP0
+Q8_0,481,ROPE,Kcur-25,f32,Kcur_normed-25,blk.25,attn_k,확인불가(patch),7,CPU,HTP0
+Q8_0,482,SET_ROWS,cache_k_l25 (view),f16,Kcur-25 (view),blk.25,attn_k,확인불가(patch),,CPU,HTP0
+Q8_0,483,SET_ROWS,cache_v_l25 (view),f16,Vcur-25 (view),blk.25,attn_v,확인불가(patch),,CPU,HTP0
+Q8_0,484,FLASH_ATTN_EXT,__fattn__-25,f32,Qcur-25 (view) (permuted),blk.25,attn_q,확인불가(patch),288,CPU,HTP0
+Q8_0,485,MUL_MAT,attn_out-25,f32,blk.25.attn_output.weight,blk.25,attn_output,확인불가(patch),101,CPU,HTP0-REPACK
+Q8_0,486,RMS_NORM,norm-25,f32,attn_out-25,blk.25,attn_output,확인불가(patch),,CPU,HTP0
+Q8_0,487,ADD,ffn_inp-25,f32,attn_post_norm-25,blk.25,norm,확인불가(patch),6,CPU,HTP0
+Q8_0,488,MUL_MAT,ffn_gate-25,f32,blk.25.ffn_gate.weight,blk.25,ffn_gate,확인불가(patch),831,CPU,HTP0-REPACK
+Q8_0,489,MUL_MAT,ffn_up-25,f32,blk.25.ffn_up.weight,blk.25,ffn_up,확인불가(patch),406,CPU,HTP0-REPACK
+Q8_0,490,GLU,ffn_swiglu-25,f32,ffn_gate-25,blk.25,ffn_gate,확인불가(patch),11,CPU,HTP0
+Q8_0,491,MUL_MAT,ffn_out-25,f32,blk.25.ffn_down.weight,blk.25,ffn_down,확인불가(patch),202,CPU,HTP0-REPACK
+Q8_0,492,RMS_NORM,norm,f32,ffn_out-25,blk.25,ffn_down,확인불가(patch),,CPU,HTP0
+Q8_0,493,ADD,l_out-25,f32,ffn_post_norm,ffn_post_norm,norm,확인불가(patch),2,CPU,HTP0
+Q8_0,494,MUL_MAT,Qcur-26,f32,blk.26.attn_q.weight,blk.26,attn_q,확인불가(patch),167,CPU,HTP0-REPACK
+Q8_0,495,MUL_MAT,Vcur-26,f32,blk.26.attn_v.weight,blk.26,attn_v,확인불가(patch),256,CPU,HTP0-REPACK
+Q8_0,496,MUL_MAT,Kcur-26,f32,blk.26.attn_k.weight,blk.26,attn_k,확인불가(patch),7,CPU,HTP0-REPACK
+Q8_0,497,RMS_NORM,norm-26,f32,Qcur-26,blk.26,attn_q,확인불가(patch),,CPU,HTP0
+Q8_0,498,ROPE,Qcur-26,f32,Qcur_normed-26,blk.26,attn_q,확인불가(patch),167,CPU,HTP0
+Q8_0,499,RMS_NORM,norm-26,f32,Kcur-26,blk.26,attn_k,확인불가(patch),,CPU,HTP0
+Q8_0,500,ROPE,Kcur-26,f32,Kcur_normed-26,blk.26,attn_k,확인불가(patch),7,CPU,HTP0
+Q8_0,501,SET_ROWS,cache_k_l26 (view),f16,Kcur-26 (view),blk.26,attn_k,확인불가(patch),,CPU,HTP0
+Q8_0,502,SET_ROWS,cache_v_l26 (view),f16,Vcur-26 (view),blk.26,attn_v,확인불가(patch),,CPU,HTP0
+Q8_0,503,FLASH_ATTN_EXT,__fattn__-26,f32,Qcur-26 (view) (permuted),blk.26,attn_q,확인불가(patch),275,CPU,HTP0
+Q8_0,504,MUL_MAT,attn_out-26,f32,blk.26.attn_output.weight,blk.26,attn_output,확인불가(patch),112,CPU,HTP0-REPACK
+Q8_0,505,RMS_NORM,norm-26,f32,attn_out-26,blk.26,attn_output,확인불가(patch),,CPU,HTP0
+Q8_0,506,ADD,ffn_inp-26,f32,attn_post_norm-26,blk.26,norm,확인불가(patch),6,CPU,HTP0
+Q8_0,507,MUL_MAT,ffn_gate-26,f32,blk.26.ffn_gate.weight,blk.26,ffn_gate,확인불가(patch),830,CPU,HTP0-REPACK
+Q8_0,508,MUL_MAT,ffn_up-26,f32,blk.26.ffn_up.weight,blk.26,ffn_up,확인불가(patch),407,CPU,HTP0-REPACK
+Q8_0,509,GLU,ffn_swiglu-26,f32,ffn_gate-26,blk.26,ffn_gate,확인불가(patch),11,CPU,HTP0
+Q8_0,510,MUL_MAT,ffn_out-26,f32,blk.26.ffn_down.weight,blk.26,ffn_down,확인불가(patch),206,CPU,HTP0-REPACK
+Q8_0,511,RMS_NORM,norm,f32,ffn_out-26,blk.26,ffn_down,확인불가(patch),,CPU,HTP0
+Q8_0,512,ADD,l_out-26,f32,ffn_post_norm,ffn_post_norm,norm,확인불가(patch),2,CPU,HTP0
+Q8_0,513,MUL_MAT,Qcur-27,f32,blk.27.attn_q.weight,blk.27,attn_q,확인불가(patch),156,CPU,HTP0-REPACK
+Q8_0,514,MUL_MAT,Vcur-27,f32,blk.27.attn_v.weight,blk.27,attn_v,확인불가(patch),242,CPU,HTP0-REPACK
+Q8_0,515,MUL_MAT,Kcur-27,f32,blk.27.attn_k.weight,blk.27,attn_k,확인불가(patch),7,CPU,HTP0-REPACK
+Q8_0,516,RMS_NORM,norm-27,f32,Qcur-27,blk.27,attn_q,확인불가(patch),,CPU,HTP0
+Q8_0,517,ROPE,Qcur-27,f32,Qcur_normed-27,blk.27,attn_q,확인불가(patch),156,CPU,HTP0
+Q8_0,518,RMS_NORM,norm-27,f32,Kcur-27,blk.27,attn_k,확인불가(patch),,CPU,HTP0
+Q8_0,519,ROPE,Kcur-27,f32,Kcur_normed-27,blk.27,attn_k,확인불가(patch),7,CPU,HTP0
+Q8_0,520,SET_ROWS,cache_k_l27 (view),f16,Kcur-27 (view),blk.27,attn_k,확인불가(patch),,CPU,HTP0
+Q8_0,521,SET_ROWS,cache_v_l27 (view),f16,Vcur-27 (view),blk.27,attn_v,확인불가(patch),,CPU,HTP0
+Q8_0,522,FLASH_ATTN_EXT,__fattn__-27,f32,Qcur-27 (view) (permuted),blk.27,attn_q,확인불가(patch),283,CPU,HTP0
+Q8_0,523,MUL_MAT,attn_out-27,f32,blk.27.attn_output.weight,blk.27,attn_output,확인불가(patch),113,CPU,HTP0-REPACK
+Q8_0,524,RMS_NORM,norm-27,f32,attn_out-27,blk.27,attn_output,확인불가(patch),,CPU,HTP0
+Q8_0,525,ADD,ffn_inp-27,f32,attn_post_norm-27,blk.27,norm,확인불가(patch),6,CPU,HTP0
+Q8_0,526,MUL_MAT,ffn_gate-27,f32,blk.27.ffn_gate.weight,blk.27,ffn_gate,확인불가(patch),837,CPU,HTP0-REPACK
+Q8_0,527,MUL_MAT,ffn_up-27,f32,blk.27.ffn_up.weight,blk.27,ffn_up,확인불가(patch),400,CPU,HTP0-REPACK
+Q8_0,528,GLU,ffn_swiglu-27,f32,ffn_gate-27,blk.27,ffn_gate,확인불가(patch),11,CPU,HTP0
+Q8_0,529,MUL_MAT,ffn_out-27,f32,blk.27.ffn_down.weight,blk.27,ffn_down,확인불가(patch),188,CPU,HTP0-REPACK
+Q8_0,530,RMS_NORM,norm,f32,ffn_out-27,blk.27,ffn_down,확인불가(patch),,CPU,HTP0
+Q8_0,531,ADD,l_out-27,f32,ffn_post_norm,ffn_post_norm,norm,확인불가(patch),2,CPU,HTP0
+Q8_0,532,MUL_MAT,Qcur-28,f32,blk.28.attn_q.weight,blk.28,attn_q,확인불가(patch),157,CPU,HTP0-REPACK
+Q8_0,533,MUL_MAT,Vcur-28,f32,blk.28.attn_v.weight,blk.28,attn_v,확인불가(patch),245,CPU,HTP0-REPACK
+Q8_0,534,MUL_MAT,Kcur-28,f32,blk.28.attn_k.weight,blk.28,attn_k,확인불가(patch),7,CPU,HTP0-REPACK
+Q8_0,535,RMS_NORM,norm-28,f32,Qcur-28,blk.28,attn_q,확인불가(patch),,CPU,HTP0
+Q8_0,536,ROPE,Qcur-28,f32,Qcur_normed-28,blk.28,attn_q,확인불가(patch),157,CPU,HTP0
+Q8_0,537,RMS_NORM,norm-28,f32,Kcur-28,blk.28,attn_k,확인불가(patch),,CPU,HTP0
+Q8_0,538,ROPE,Kcur-28,f32,Kcur_normed-28,blk.28,attn_k,확인불가(patch),7,CPU,HTP0
+Q8_0,539,SET_ROWS,cache_k_l28 (view),f16,Kcur-28 (view),blk.28,attn_k,확인불가(patch),,CPU,HTP0
+Q8_0,540,SET_ROWS,cache_v_l28 (view),f16,Vcur-28 (view),blk.28,attn_v,확인불가(patch),,CPU,HTP0
+Q8_0,541,FLASH_ATTN_EXT,__fattn__-28,f32,Qcur-28 (view) (permuted),blk.28,attn_q,확인불가(patch),297,CPU,HTP0
+Q8_0,542,MUL_MAT,attn_out-28,f32,blk.28.attn_output.weight,blk.28,attn_output,확인불가(patch),112,CPU,HTP0-REPACK
+Q8_0,543,RMS_NORM,norm-28,f32,attn_out-28,blk.28,attn_output,확인불가(patch),,CPU,HTP0
+Q8_0,544,ADD,ffn_inp-28,f32,attn_post_norm-28,blk.28,norm,확인불가(patch),6,CPU,HTP0
+Q8_0,545,MUL_MAT,ffn_gate-28,f32,blk.28.ffn_gate.weight,blk.28,ffn_gate,확인불가(patch),838,CPU,HTP0-REPACK
+Q8_0,546,MUL_MAT,ffn_up-28,f32,blk.28.ffn_up.weight,blk.28,ffn_up,확인불가(patch),387,CPU,HTP0-REPACK
+Q8_0,547,GLU,ffn_swiglu-28,f32,ffn_gate-28,blk.28,ffn_gate,확인불가(patch),11,CPU,HTP0
+Q8_0,548,MUL_MAT,ffn_out-28,f32,blk.28.ffn_down.weight,blk.28,ffn_down,확인불가(patch),199,CPU,HTP0-REPACK
+Q8_0,549,RMS_NORM,norm,f32,ffn_out-28,blk.28,ffn_down,확인불가(patch),,CPU,HTP0
+Q8_0,550,ADD,l_out-28,f32,ffn_post_norm,ffn_post_norm,norm,확인불가(patch),2,CPU,HTP0
+Q8_0,551,MUL_MAT,Qcur-29,f32,blk.29.attn_q.weight,blk.29,attn_q,확인불가(patch),150,CPU,HTP0-REPACK
+Q8_0,552,MUL_MAT,Vcur-29,f32,blk.29.attn_v.weight,blk.29,attn_v,확인불가(patch),237,CPU,HTP0-REPACK
+Q8_0,553,MUL_MAT,Kcur-29,f32,blk.29.attn_k.weight,blk.29,attn_k,확인불가(patch),7,CPU,HTP0-REPACK
+Q8_0,554,RMS_NORM,norm-29,f32,Qcur-29,blk.29,attn_q,확인불가(patch),,CPU,HTP0
+Q8_0,555,ROPE,Qcur-29,f32,Qcur_normed-29,blk.29,attn_q,확인불가(patch),150,CPU,HTP0
+Q8_0,556,RMS_NORM,norm-29,f32,Kcur-29,blk.29,attn_k,확인불가(patch),,CPU,HTP0
+Q8_0,557,ROPE,Kcur-29,f32,Kcur_normed-29,blk.29,attn_k,확인불가(patch),7,CPU,HTP0
+Q8_0,558,SET_ROWS,cache_k_l29 (view),f16,Kcur-29 (view),blk.29,attn_k,확인불가(patch),,CPU,HTP0
+Q8_0,559,SET_ROWS,cache_v_l29 (view),f16,Vcur-29 (view),blk.29,attn_v,확인불가(patch),,CPU,HTP0
+Q8_0,560,FLASH_ATTN_EXT,__fattn__-29,f32,Qcur-29 (view) (permuted),blk.29,attn_q,확인불가(patch),292,CPU,HTP0
+Q8_0,561,MUL_MAT,attn_out-29,f32,blk.29.attn_output.weight,blk.29,attn_output,확인불가(patch),103,CPU,HTP0-REPACK
+Q8_0,562,GET_ROWS,node_1041,f32,attn_out-29,blk.29,attn_output,확인불가(patch),4,CPU,HTP0
+Q8_0,563,RMS_NORM,norm-29,f32,node_1041,blk.29,norm,확인불가(patch),,CPU,HTP0
+Q8_0,564,GET_ROWS,node_1044,f32,l_out-28,node_1044,other,확인불가(patch),2,CPU,HTP0
+Q8_0,565,ADD,ffn_inp-29,f32,attn_post_norm-29,blk.29,norm,확인불가(patch),5,CPU,HTP0
+Q8_0,566,MUL_MAT,ffn_gate-29,f32,blk.29.ffn_gate.weight,blk.29,ffn_gate,확인불가(patch),,CPU,HTP0-REPACK
+Q8_0,567,GLU,ffn_swiglu-29,f32,ffn_gate-29,blk.29,ffn_gate,확인불가(patch),10,CPU,HTP0
+Q8_0,568,MUL_MAT,ffn_out-29,f32,blk.29.ffn_down.weight,blk.29,ffn_down,확인불가(patch),178,CPU,HTP0-REPACK
+Q8_0,569,RMS_NORM,norm,f32,ffn_out-29,blk.29,ffn_down,확인불가(patch),,CPU,HTP0
+Q8_0,570,ADD,l_out-29,f32,ffn_post_norm,ffn_post_norm,norm,확인불가(patch),2,CPU,HTP0
+Q8_0,571,RMS_NORM,norm,f32,l_out-29,norm,norm,확인불가(patch),,CPU,HTP0

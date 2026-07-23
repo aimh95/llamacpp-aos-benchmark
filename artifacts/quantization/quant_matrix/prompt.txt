@@ -1,0 +1,1 @@
+On-device AI runs machine learning models directly on the phone hardware instead of a remote server, which improves latency and privacy. Explain in a few sentences how a neural processing unit accelerates transformer inference.
